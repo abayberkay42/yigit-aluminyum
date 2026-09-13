@@ -27,6 +27,11 @@
     },
     "groups": {
       "featured": "Bu gruptan"
+    },
+    "film": {
+      "loading": "Film yükleniyor",
+      "skip": "Siteye geç",
+      "percent": "%#"
     }
   },
   "pages": {

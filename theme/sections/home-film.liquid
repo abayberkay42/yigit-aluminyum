@@ -50,6 +50,23 @@
       >
     </picture>
     <canvas class="film__canvas"></canvas>
+    {%- comment -%} Film sonu: son karede durup sayfa zeminine erir, alttaki 3B sahneye kenarsız geçilir {%- endcomment -%}
+    <div class="film__gecis"></div>
+  </div>
+
+  {%- comment -%}
+    Yükleme sayacı: kareler inene kadar sayfa kilitli kalır (hızlı kaydıran ziyaretçi eksik karelerde takılmasın).
+    film.js bunu sayfanın sonuna taşır ve kareler inince kapatır. Kareler önbellekten hızlı gelirse hiç görünmez;
+    10 saniye sonra "Siteye geç" düğmesi çıkar. JS yoksa ya da hareket azaltma açıksa hiç görünmez.
+  {%- endcomment -%}
+  <div class="film-yukleme" data-film-yukleme hidden>
+    <div class="film-yukleme__ic">
+      {%- render 'logo', class: 'film-yukleme__logo' -%}
+      <p class="film-yukleme__sayi" aria-hidden="true" data-film-sayac data-bicim="{{ 'home.film.percent' | t | escape }}">{{ 'home.film.percent' | t | replace: '#', '0' }}</p>
+      <div class="film-yukleme__cubuk" aria-hidden="true"><span data-film-cubuk></span></div>
+      <p class="visually-hidden" role="status">{{ 'home.film.loading' | t }}</p>
+      <button type="button" class="button button--ghost film-yukleme__gec" data-film-gec hidden>{{ 'home.film.skip' | t }}</button>
+    </div>
   </div>
 </div>
 

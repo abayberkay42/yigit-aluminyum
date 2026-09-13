@@ -1,0 +1,91 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film yöntem ölçümü</title>
+<style>body{font:13px system-ui;margin:12px;background:#111;color:#eee}canvas{width:44vw;display:inline-block;margin:4px;background:#000}pre{white-space:pre-wrap}</style>
+<h1 style="font-size:16px">Film yöntem ölçümü: kendi kendine çalışır, pencereyi önde tutun</h1>
+<canvas id="c" width="1920" height="1080"></canvas><canvas id="c2" width="1920" height="1080"></canvas>
+<pre id="o">başlıyor…</pre>
+<script type="module">
+// Yerel ölçüm sayfası (dev/server.mjs → /__film-olcum). Filmin gerçekte yaptığı işi taklit eder:
+// her ekran karesinde sıradaki kareyi iste, hazır olunca çiz; önceki istek bitmediyse yeni isteği atla.
+// Ölçüt yuvarlanmış saatten etkilenmez: saniyedeki ekran karesi (sayfa akıcılığı), saniyede ekrana gelen
+// film karesi, 25/50 ms'yi aşan ekran karesi sayısı. Firefox zaman damgalarını yuvarladığı için tek tek aralık
+// yerine süre boyunca sayım kullanılır.
+const o = document.getElementById('o');
+const yaz = (s) => { o.textContent = s; };
+const N = 60, ADIM = 300, W = 1920, H = 1080;
+const no = (i) => String(i).padStart(4, '0');
+const sonuc = { tur: 'yontem', ua: navigator.userAgent, dpr: devicePixelRatio, tarih: new Date().toISOString() };
+
+const bloblar = await Promise.all(Array.from({ length: N }, (_, i) => fetch(`/files/yigit-film-${no(i + 100)}.webp`).then((r) => r.blob())));
+const blobAdres = bloblar.map((b) => URL.createObjectURL(b));
+const ctx = document.getElementById('c').getContext('2d', { alpha: false });
+
+const isciYap = (kod) => new Worker(URL.createObjectURL(new Blob([kod], { type: 'text/javascript' })));
+
+async function kos(ad, yontem) {
+  yaz(`${ad} hazırlanıyor…`);
+  await yontem.hazirla?.();
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  yaz(`${ad} ölçülüyor…`);
+  let ekranKare = 0, uzun25 = 0, uzun50 = 0, filmKare = 0, son = performance.now();
+  const t0 = performance.now();
+  await new Promise((bitti) => {
+    let adim = 0;
+    const dongu = (t) => {
+      const ara = t - son; son = t; ekranKare++;
+      if (ekranKare > 2) { if (ara > 25) uzun25++; if (ara > 50) uzun50++; }
+      if (adim < ADIM) { yontem.iste(adim % N, () => { filmKare++; }); adim++; requestAnimationFrame(dongu); } else bitti();
+    };
+    requestAnimationFrame(dongu);
+  });
+  const sn = (performance.now() - t0) / 1000;
+  await yontem.bitir?.();
+  sonuc[ad] = { sayfa_fps: +(ekranKare / sn).toFixed(1), film_fps: +(filmKare / sn).toFixed(1), kare_25ms_ustu: uzun25, kare_50ms_ustu: uzun50, ekran_kare: ekranKare, sure_sn: +sn.toFixed(2) };
+}
+
+// M1: ana iş parçacığında createImageBitmap, ölçekli çizim
+{
+  let mesgul = false;
+  await kos('M1_ana_createImageBitmap', {
+    iste(i, cizildi) { if (mesgul) return; mesgul = true; createImageBitmap(bloblar[i]).then((bm) => { ctx.drawImage(bm, 0, 0, W, H); bm.close(); cizildi(); mesgul = false; }); },
+  });
+}
+// M2: ana iş parçacığında <img> + decode(), ölçekli çizim (Firefox <img> çözmesini ayrı iş parçacığında yapar)
+{
+  let mesgul = false;
+  await kos('M2_ana_img_decode', {
+    iste(i, cizildi) { if (mesgul) return; mesgul = true; const im = new Image(); im.src = blobAdres[i]; im.decode().then(() => { ctx.drawImage(im, 0, 0, W, H); cizildi(); mesgul = false; }).catch(() => { mesgul = false; }); },
+  });
+}
+// M3/M4: worker'da çöz (+ M4'te küçült), aktar, ana iş parçacığında çiz
+for (const [ad, kucult] of [['M3_worker_coz_ana_ciz', false], ['M4_worker_kucult_ana_ciz', true]]) {
+  const w = isciYap(`onmessage = async (e) => { const bm = await createImageBitmap(e.data.b${kucult ? `, { resizeWidth: ${W}, resizeHeight: ${H}, resizeQuality: 'high' }` : ''}); postMessage(bm, [bm]); };`);
+  let mesgul = false, bekleyen = null;
+  w.onmessage = (e) => { const bm = e.data; kucult ? ctx.drawImage(bm, 0, 0) : ctx.drawImage(bm, 0, 0, W, H); bm.close(); bekleyen?.(); mesgul = false; };
+  await kos(ad, {
+    iste(i, cizildi) { if (mesgul) return; mesgul = true; bekleyen = cizildi; w.postMessage({ b: bloblar[i] }); },
+    bitir() { w.terminate(); },
+  });
+}
+// M5: OffscreenCanvas; worker hem çözer hem çizer
+if ('transferControlToOffscreen' in HTMLCanvasElement.prototype) {
+  const w = isciYap(`let ctx, bl; onmessage = async (e) => {
+    if (e.data.tuval) { ctx = e.data.tuval.getContext('2d', { alpha: false }); bl = e.data.bloblar; postMessage('hazir'); return; }
+    const bm = await createImageBitmap(bl[e.data.i]); ctx.drawImage(bm, 0, 0, ${W}, ${H}); bm.close(); postMessage('cizildi');
+  };`);
+  let mesgul = false, bekleyen = null;
+  await kos('M5_offscreen_worker', {
+    async hazirla() {
+      const off = document.getElementById('c2').transferControlToOffscreen();
+      await new Promise((r) => { w.onmessage = () => r(); w.postMessage({ tuval: off, bloblar }, [off]); });
+      w.onmessage = () => { bekleyen?.(); mesgul = false; };
+    },
+    iste(i, cizildi) { if (mesgul) return; mesgul = true; bekleyen = cizildi; w.postMessage({ i }); },
+    bitir() { w.terminate(); },
+  });
+} else sonuc.M5_offscreen_worker = { destek: false };
+
+await fetch('/__film-olcum', { method: 'POST', body: JSON.stringify(sonuc) });
+yaz('BİTTİ. Bu pencereyi kapatabilirsiniz.\n\n' + JSON.stringify(sonuc, null, 1));
+</script>

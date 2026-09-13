@@ -31,6 +31,30 @@ fs.watch(MOCK, { recursive: true }, notify);
 
 http
   .createServer((req, res) => {
+    // Tarayıcılar arası film ölçümü (yalnız yerel, Vercel'de yok): sayfa tools/film-olcum-tarayici.html,
+    // sonucu .impeccable/review/film-olcum-<tarayici>.json dosyasına yazılır
+    if (req.url === '/__film-olcum') {
+      if (req.method === 'POST') {
+        let govde = '';
+        req.on('data', (c) => { govde += c; });
+        req.on('end', () => {
+          const d = JSON.parse(govde);
+          const ad = /Firefox/.test(d.ua) ? 'firefox' : /Chrome/.test(d.ua) ? 'chrome' : 'diger';
+          const klasor = path.join(ROOT, '.impeccable', 'review');
+          fs.mkdirSync(klasor, { recursive: true });
+          fs.writeFileSync(path.join(klasor, `film-olcum-${ad}${d.tur ? `-${d.tur}` : ''}.json`), JSON.stringify(d, null, 2));
+          res.writeHead(204);
+          res.end();
+        });
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      return fs.createReadStream(path.join(ROOT, 'tools', 'film-olcum-tarayici.html')).pipe(res);
+    }
+    if (req.url === '/__film-kaydirma') {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      return fs.createReadStream(path.join(ROOT, 'tools', 'film-kaydirma.html')).pipe(res);
+    }
     if (req.url === '/__reload') {
       res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
       res.write(':ok\n\n');

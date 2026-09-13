@@ -1,0 +1,85 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film kaydırma ölçümü</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #111; color: #eee; font: 13px system-ui; overflow: hidden; }
+  iframe { position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; }
+  #o { position: fixed; right: 8px; bottom: 8px; z-index: 2; background: #000c; padding: 8px 10px; border-radius: 6px; max-width: 46vw; white-space: pre-wrap; }
+</style>
+<iframe id="f"></iframe>
+<pre id="o">başlıyor…</pre>
+<script type="module">
+// Gerçek tarayıcıda (Firefox/Chrome) film kaydırma akıcılığı: ana sayfa aynı kökenli çerçevede iki yöntemle açılır
+// (Worker + OffscreenCanvas, ?film=ana ile ana iş parçacığı), kareler inince film baştan sona tekerlek olaylarıyla
+// kaydırılır. Ölçüt kullanıcının hissettiği şey: ekran kare aralıkları ve çizilen karenin hedefe göre gecikmesi.
+// Sonuç /__film-olcum'a gönderilir (.impeccable/review/film-olcum-<tarayıcı>-kaydirma.json).
+const f = document.getElementById('f');
+const o = document.getElementById('o');
+const yaz = (s) => { o.textContent = s; };
+const bekle = (ms) => new Promise((r) => setTimeout(r, ms));
+const yuzde = (a, q) => { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y); return +s[Math.floor(q * (s.length - 1))].toFixed(1); };
+const sonuc = { tur: 'kaydirma', ua: navigator.userAgent, pencere: `${innerWidth}x${innerHeight}`, dpr: devicePixelRatio, tarih: new Date().toISOString() };
+
+const kosu = async (ad, sorgu) => {
+  yaz(`${ad}: sayfa açılıyor…`);
+  await new Promise((r) => { f.onload = r; f.src = '/' + sorgu; });
+  const w = f.contentWindow;
+  const d = w.document;
+  const bitis = performance.now() + 150000;
+  let film;
+  while (performance.now() < bitis) {
+    film = d.querySelector('[data-film]');
+    const du = film?._film?.durum();
+    if (du && du.inen >= du.sayi && !d.querySelector('.film-yukleme')) break;
+    yaz(`${ad}: kareler iniyor ${du ? du.inen + '/' + du.sayi : ''}`);
+    await bekle(300);
+  }
+  if (!film?._film) return { hata: 'film oynatıcı başlamadı (ekran genişliği 64em altında olabilir)', genislik: w.innerWidth };
+  await bekle(1000);
+
+  const aralik = []; const gecikme = [];
+  let son = w.performance.now(); let dur = false;
+  const dongu = (t) => {
+    aralik.push(t - son); son = t;
+    const du = film._film.durum();
+    gecikme.push(Math.abs(du.hedef - du.cizilen));
+    if (!dur) w.requestAnimationFrame(dongu);
+  };
+  w.requestAnimationFrame(dongu);
+
+  const yol = film.offsetHeight - w.innerHeight;
+  const ADIM = 80;
+  yaz(`${ad}: kaydırılıyor…`);
+  for (let i = 0; i < ADIM; i++) {
+    w.dispatchEvent(new w.WheelEvent('wheel', { deltaY: (yol / ADIM) * 1.15, deltaMode: 0, bubbles: true, cancelable: true }));
+    await bekle(50);
+  }
+  await bekle(1500);
+  dur = true;
+  const a = aralik.slice(3);
+  const du = film._film.durum();
+  return {
+    yol: du.yol,
+    kare_araligi_medyan_ms: yuzde(a, 0.5),
+    kare_araligi_p95_ms: yuzde(a, 0.95),
+    en_uzun_kare_ms: +Math.max(...a).toFixed(1),
+    kare_25ms_ustu: a.filter((x) => x > 25).length,
+    kare_50ms_ustu: a.filter((x) => x > 50).length,
+    olculen_kare: a.length,
+    gecikme_medyan_kare: yuzde(gecikme, 0.5),
+    gecikme_p95_kare: yuzde(gecikme, 0.95),
+    kaydirma_sonu: `scrollY=${Math.round(w.scrollY)} hedef=${du.hedef} cizilen=${du.cizilen}`,
+  };
+};
+
+try {
+  sonuc.otomatik = await kosu('Otomatik seçim', '');
+  sonuc.img = await kosu('<img> + decode', '?film=img');
+  sonuc.isci = await kosu('OffscreenCanvas', '?film=isci');
+  sonuc.ana = await kosu('Ana createImageBitmap (eski)', '?film=ana');
+} catch (err) {
+  sonuc.hata = String(err && err.stack || err);
+}
+await fetch('/__film-olcum', { method: 'POST', body: JSON.stringify(sonuc) });
+yaz('BİTTİ. Bu pencereyi kapatabilirsiniz.\n\n' + JSON.stringify(sonuc, null, 1));
+</script>

@@ -1,23 +1,22 @@
-// Ana sayfa filmi: videonun kareleri kaydırdıkça oynar. Yalnız masaüstü; telefonda hiçbir kare indirilmez.
-// Kareler Shopify Dosyalar'da "önek + sıra numarası" adıyla durur (yigit-film-0001.webp …).
+// Ana sayfa filmi, ana iş parçacığı tarafı. Videonun kareleri kaydırdıkça oynar. Yalnız masaüstü; telefonda hiçbir
+// kare indirilmez. Kareler Shopify Dosyalar'da "önek + sıra numarası" adıyla durur (yigit-film-0001.webp …).
 //
-// Akıcılık kuralları (donma = ana iş parçacığının kilitlenmesi):
-// 1. Sıkıştırılmış kareler kabadan inceye iner (her 32., 16., 8. … kare): kaydırılan her noktanın yakınında
-//    gösterilecek bir kare hep hazırdır. Kullanıcının durduğu bölgenin eksik kareleri öne alınır.
-// 2. Çözme createImageBitmap ile, kaynağın DOĞAL boyutunda yapılır; ölçekleme drawImage'e bırakılır.
-//    Ölçüm (tools/film-olcum.mjs): 2560 kareyi 1920'ye küçülterek çözmek 48 ms, doğal boyutta 28 ms.
-// 3. Hızlı kaydırmada ileriye dönük çözme durur; kapasite yalnız hedef kareye gider (her kareyi çözmek
-//    mümkün değildir: 4 sn'de 944 kare = saniyede 236 kare).
-// 4. Çözülmüş kareler yalnız son kullanılan birkaç tanesi tutulur; 944 kare birden çözülse gigabaytlar eder.
-// 5. Tuval yalnız gösterilen kare değişince çizilir.
+// İş bölümü:
+//   - Kare indirme, çözme ve çizim film-motor.js'te. Mümkünse Worker + OffscreenCanvas içinde çalışır (film-isci.js):
+//     ana iş parçacığına bitmap hiç gelmez, sayfa kaydırması filmden bağımsız akar. Firefox'ta bir kareyi çözmek
+//     ~30 ms (gerçek Firefox ölçümü); bu iş ana iş parçacığında kalınca kaydırma takılıyordu.
+//     OffscreenCanvas yoksa motor burada çalışır (yedek yol). ?film=ana yedek yolu zorlar (karşılaştırma ölçümü).
+//   - Burada: kaydırma → kare numarası, film sonu geçişi, yükleme sayacı, tuval boyutu.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import FilmIscisi from './film-isci.js?worker&inline';
+import { filmMotoru, adresUretici } from './film-motor.js';
 
 const MASAUSTU = '(min-width: 64em) and (hover: hover) and (pointer: fine)';
-const INDIRME_ESZAMANLI = 8;
-const COZME_ESZAMANLI = 3;
-const BELLEKTE_KARE = 16;
-const ONDEN_COZ = 4;
 const HIZLI_KAYDIRMA = 3; // bir güncellemede bu kadar kareden fazla atlanıyorsa ileriye çözme yapılmaz
+// Kaydırmanın son %12'si: film son karede durur ve sayfa zeminine erir; alttaki 3B sahneye kenarsız geçilir
+const FILM_SONU = 0.88;
+const YUKLEME_GOSTER_MS = 250; // kareler önbellekten hızlı gelirse sayaç hiç görünmez
+const GEC_DUGMESI_MS = 10000; // yavaş bağlantıda ziyaretçi sayaçta sıkışıp kalmasın
 
 export function initFilm(root = document) {
   root.querySelectorAll('[data-film]').forEach((el) => {
@@ -55,162 +54,158 @@ function oynatici(el) {
   const hane = Number(el.dataset.digits) || 4;
   const kaynakG = Number(el.dataset.width) || 2560;
   const kaynakY = Number(el.dataset.height) || 1440;
-  // file_url ilk karenin adresini verir; taban adres ondan türetilir (sorgu dizesi atılır)
-  const ilk = el.dataset.first.split('?')[0];
+  // file_url ilk karenin adresini verir; taban adres ondan türetilir (sorgu dizesi atılır).
+  // Adres TAM adrese çevrilir: Worker blob:/data: adresinden başladığı için göreli ("/files/…") ya da Shopify'ın
+  // protokolsüz ("//cdn.shopify.com/…") adresini kendi başına çözemez; çevrilmezse hiçbir kare inmez.
+  const ilk = new URL(el.dataset.first, location.href).href.split('?')[0];
   const ilkAd = `${el.dataset.prefix}${String(1).padStart(hane, '0')}.${el.dataset.ext}`;
-  const taban = ilk.slice(0, ilk.length - ilkAd.length);
-  const adres = (i) => `${taban}${el.dataset.prefix}${String(i + 1).padStart(hane, '0')}.${el.dataset.ext}`;
+  const adresBilgisi = { taban: ilk.slice(0, ilk.length - ilkAd.length), onek: el.dataset.prefix, hane, uzanti: el.dataset.ext };
 
+  const sticky = el.querySelector('.film__sticky');
   const tuval = el.querySelector('.film__canvas');
-  const ctx = tuval.getContext('2d', { alpha: false });
-  const bloblar = new Array(sayi).fill(null);
-  const bitmapler = new Map(); // kare -> ImageBitmap (son kullanılan sırayla)
-  const cozuluyor = new Set();
-  const iniyor = new Set();
-  let hedef = 0;
-  let cizilen = -1;
-  let yon = 1;
-  let hizli = false;
-  let olcek = null; // { g, y, x, yy } tuvaldeki çizim kutusu
-  let kare = 0;
-  let bitti = false;
+  const durum = { hedef: 0, cizilen: -1, inen: 0, cozulmus: 0, sayi, yol: 'isci' };
+  const yukleme = yuklemeEkrani(el);
 
-  // ---------- Boyut: tuval ekran pikselinde, kaynaktan büyük değil ----------
-  const boyutla = () => {
+  const olay = (o) => {
+    if (o.tip === 'canli') el.classList.add('is-live');
+    else if (o.tip === 'ilerleme') { durum.inen = o.inen; yukleme?.ilerle(o.inen, o.sayi); }
+    else if (o.tip === 'durum') Object.assign(durum, o);
+  };
+
+  const ekranBoyutu = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const g = el.querySelector('.film__sticky').clientWidth;
-    const y = el.querySelector('.film__sticky').clientHeight;
-    tuval.width = Math.round(g * dpr);
-    tuval.height = Math.round(y * dpr);
-    // object-fit: cover
-    const s = Math.max(tuval.width / kaynakG, tuval.height / kaynakY);
-    const cg = Math.round(kaynakG * s);
-    const cy = Math.round(kaynakY * s);
-    olcek = { g: cg, y: cy, x: Math.round((tuval.width - cg) / 2), yy: Math.round((tuval.height - cy) / 2) };
-    // Kareler doğal boyutta çözüldüğü için boyut değişince yeniden çözmek gerekmez; yalnız yeniden çizilir
-    cizilen = -1;
-    iste();
+    return [Math.round(sticky.clientWidth * dpr), Math.round(sticky.clientHeight * dpr)];
   };
+  const [g, h] = ekranBoyutu();
 
-  // ---------- İndirme sırası: kabadan inceye ----------
-  const sira = [];
-  {
-    const goruldu = new Uint8Array(sayi);
-    for (let adim = 32; adim >= 1; adim = adim / 2) {
-      for (let i = 0; i < sayi; i += adim) if (!goruldu[i]) { goruldu[i] = 1; sira.push(i); }
+  // Yöntem tarayıcı motoruna göre seçilir: bu bir özellik desteği değil, ölçülmüş performans farkıdır
+  // (gerçek tarayıcı ölçümü, tools/film-olcum-tarayici.html; ekran ~200 Hz):
+  //   Firefox: <img>+decode 192,8 sayfa fps / OffscreenCanvas 80,9 / ana createImageBitmap 28,8
+  //   Chrome : OffscreenCanvas 200 sayfa fps, 35,9 film fps / <img>+decode 143,3 ve 23,3
+  // ?film=img | isci | ana yöntemi elle seçer (karşılaştırma ölçümü için).
+  const gecko = typeof CSS !== 'undefined' && CSS.supports('-moz-appearance', 'none');
+  const elle = new URLSearchParams(location.search).get('film');
+  const yontem = ['img', 'isci', 'ana'].includes(elle) ? elle : gecko ? 'img' : 'isci';
+
+  let gonder;
+  let bitir;
+  const isciIste = yontem === 'isci' && typeof Worker !== 'undefined' && 'transferControlToOffscreen' in HTMLCanvasElement.prototype;
+  if (isciIste) {
+    try {
+      // Önce Worker, sonra tuval aktarımı: Worker başlatılamazsa tuval ana iş parçacığında kullanılabilir kalır
+      const isci = new FilmIscisi();
+      const off = tuval.transferControlToOffscreen();
+      isci.onmessage = (e) => olay(e.data);
+      isci.postMessage({ tip: 'baslat', tuval: off, sayi, adres: adresBilgisi, kaynakG, kaynakY, g, h }, [off]);
+      gonder = (m) => isci.postMessage(m);
+      bitir = () => { isci.postMessage({ tip: 'dur' }); setTimeout(() => isci.terminate(), 200); };
+    } catch {
+      gonder = null;
     }
-    if (!goruldu[sayi - 1]) sira.push(sayi - 1);
   }
-  let siraKonum = 0;
-
-  const sonrakiIndirilecek = () => {
-    // Önce hedefin çevresindeki eksik kareler
-    for (let d = 0; d <= 12; d++) {
-      for (const i of [hedef + d * yon, hedef - d * yon]) {
-        if (i >= 0 && i < sayi && !bloblar[i] && !iniyor.has(i)) return i;
-      }
-    }
-    while (siraKonum < sira.length) {
-      const i = sira[siraKonum++];
-      if (!bloblar[i] && !iniyor.has(i)) return i;
-    }
-    return -1;
-  };
-
-  const indir = () => {
-    while (!bitti && iniyor.size < INDIRME_ESZAMANLI) {
-      const i = sonrakiIndirilecek();
-      if (i < 0) return;
-      iniyor.add(i);
-      fetch(adres(i))
-        .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(r.status))))
-        .then((b) => { if (!bitti) { bloblar[i] = b; iste(); } })
-        .catch(() => {}) // eksik kare: en yakın karelerle idare edilir
-        .finally(() => { iniyor.delete(i); indir(); });
-    }
-  };
-
-  // ---------- Çözme: ana iş parçacığı dışında, tuval boyutunda ----------
-  const coz = (i) => {
-    if (bitti || !bloblar[i] || bitmapler.has(i) || cozuluyor.has(i) || cozuluyor.size >= COZME_ESZAMANLI || !olcek) return;
-    cozuluyor.add(i);
-    createImageBitmap(bloblar[i])
-      .then((bm) => {
-        if (bitti) { bm.close(); return; }
-        bitmapler.set(i, bm);
-        // En eski kullanılanları bırak
-        while (bitmapler.size > BELLEKTE_KARE) {
-          const [eski] = bitmapler.keys();
-          if (Math.abs(eski - hedef) <= ONDEN_COZ) break;
-          bitmapler.get(eski).close();
-          bitmapler.delete(eski);
-        }
-        iste();
-      })
-      .catch(() => {})
-      .finally(() => { cozuluyor.delete(i); iste(); });
-  };
-
-  // ---------- Çizim ----------
-  const enYakinCozulmus = () => {
-    if (bitmapler.has(hedef)) return hedef;
-    let en = -1;
-    for (const i of bitmapler.keys()) if (en < 0 || Math.abs(i - hedef) < Math.abs(en - hedef)) en = i;
-    return en;
-  };
-
-  const ciz = () => {
-    kare = 0;
-    if (bitti) return;
-    coz(hedef);
-    if (!hizli) for (let d = 1; d <= ONDEN_COZ; d++) coz(hedef + d * yon);
-    const i = enYakinCozulmus();
-    if (i >= 0 && i !== cizilen) {
-      const bm = bitmapler.get(i);
-      // Kullanıldı: sıranın sonuna al
-      bitmapler.delete(i);
-      bitmapler.set(i, bm);
-      ctx.drawImage(bm, olcek.x, olcek.yy, olcek.g, olcek.y);
-      cizilen = i;
-      if (!el.classList.contains('is-live')) el.classList.add('is-live');
-    }
-    if (cizilen !== hedef) iste(); // hedef kare henüz hazır değilse bir sonraki karede tekrar dene
-  };
-
-  const iste = () => { if (!kare && !bitti) kare = requestAnimationFrame(ciz); };
+  if (!gonder) {
+    durum.yol = yontem === 'img' ? 'img' : 'ana';
+    const motor = filmMotoru({
+      tuval, sayi, adres: adresUretici(adresBilgisi), kaynakG, kaynakY,
+      raf: (cb) => requestAnimationFrame(cb),
+      iptal: (id) => cancelAnimationFrame(id),
+      bildir: olay,
+      cozucu: yontem === 'img' ? 'img' : 'bitmap',
+    });
+    motor.boyutla(g, h);
+    gonder = (m) => {
+      if (m.tip === 'hedef') motor.hedefle(m.i, m.yon, m.hizli);
+      else if (m.tip === 'boyut') motor.boyutla(m.g, m.h);
+    };
+    bitir = () => motor.destroy();
+  }
 
   // ---------- Kaydırma ----------
+  let hedef = 0;
   const tetik = ScrollTrigger.create({
     trigger: el,
     start: 'top top',
     end: 'bottom bottom',
     onUpdate: (s) => {
-      const yeni = Math.min(sayi - 1, Math.max(0, Math.round(s.progress * (sayi - 1))));
+      const p = s.progress;
+      el.style.setProperty('--film-son', Math.min(1, Math.max(0, (p - FILM_SONU) / (1 - FILM_SONU))).toFixed(3));
+      const yeni = Math.min(sayi - 1, Math.max(0, Math.round(Math.min(1, p / FILM_SONU) * (sayi - 1))));
       if (yeni === hedef) return;
-      yon = yeni > hedef ? 1 : -1;
-      hizli = Math.abs(yeni - hedef) > HIZLI_KAYDIRMA;
+      const yon = yeni > hedef ? 1 : -1;
+      const hizli = Math.abs(yeni - hedef) > HIZLI_KAYDIRMA;
       hedef = yeni;
-      iste();
-      indir();
+      durum.hedef = yeni;
+      gonder({ tip: 'hedef', i: yeni, yon, hizli });
     },
   });
 
-  const gozlem = new ResizeObserver(() => boyutla());
-  gozlem.observe(el.querySelector('.film__sticky'));
-  boyutla();
-  indir();
+  const gozlem = new ResizeObserver(() => {
+    const [yg, yh] = ekranBoyutu();
+    gonder({ tip: 'boyut', g: yg, h: yh });
+  });
+  gozlem.observe(sticky);
 
   return {
     // Yalnız okuma: ölçüm araçları (tools/) çizilen karenin hedefe yetişip yetişmediğini buradan izler
-    durum: () => ({ hedef, cizilen, inen: bloblar.filter(Boolean).length, cozulmus: bitmapler.size, sayi }),
+    durum: () => ({ ...durum }),
     destroy() {
-      bitti = true;
       tetik.kill();
       gozlem.disconnect();
-      if (kare) cancelAnimationFrame(kare);
-      for (const b of bitmapler.values()) b.close();
-      bitmapler.clear();
-      bloblar.fill(null);
+      bitir();
+      yukleme?.kapat();
     },
+  };
+}
+
+// Yükleme sayacı: kareler inene kadar sayfa kilitli. Ekran sayfa içeriğinin dışına (body sonuna) taşınır ki
+// geri kalan her şey inert yapılabilsin; açıkken klavye odağı arkadaki bağlantılara kaçmaz.
+function yuklemeEkrani(el) {
+  const kap = el.querySelector('[data-film-yukleme]');
+  if (!kap) return null;
+  document.body.append(kap);
+  const sayac = kap.querySelector('[data-film-sayac]');
+  const cubuk = kap.querySelector('[data-film-cubuk]');
+  const gec = kap.querySelector('[data-film-gec]');
+  let acik = false;
+  let bitti = false;
+  let sonYuzde = -1;
+  const kardesler = () => [...document.body.children].filter((n) => n !== kap && n.tagName !== 'SCRIPT');
+
+  const ac = () => {
+    if (acik || bitti) return;
+    acik = true;
+    kap.hidden = false;
+    kardesler().forEach((n) => { n.inert = true; });
+    document.dispatchEvent(new CustomEvent('yigit:lock'));
+  };
+  const gosterZaman = setTimeout(ac, YUKLEME_GOSTER_MS);
+  const gecZaman = setTimeout(() => { if (gec) gec.hidden = false; }, GEC_DUGMESI_MS);
+
+  const kapat = () => {
+    if (bitti) return;
+    bitti = true;
+    clearTimeout(gosterZaman);
+    clearTimeout(gecZaman);
+    if (!acik) { kap.remove(); return; }
+    kardesler().forEach((n) => { n.inert = false; });
+    document.dispatchEvent(new CustomEvent('yigit:unlock'));
+    kap.classList.add('is-bitti');
+    setTimeout(() => kap.remove(), 450);
+    ScrollTrigger.refresh();
+  };
+  gec?.addEventListener('click', kapat);
+
+  return {
+    ilerle(inen, sayi) {
+      const yuzde = Math.min(100, Math.floor((inen / sayi) * 100));
+      if (yuzde !== sonYuzde) {
+        sonYuzde = yuzde;
+        // Dile göre biçim: Türkçe "%42", İngilizce "42%" (locales: home.film.percent)
+        sayac.textContent = (sayac.dataset.bicim || '#%').replace('#', String(yuzde));
+        cubuk.style.transform = `scaleX(${(inen / sayi).toFixed(3)})`;
+      }
+      if (inen >= sayi) setTimeout(kapat, 250);
+    },
+    kapat,
   };
 }

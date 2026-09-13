@@ -55,6 +55,8 @@
 }
 
 @layer base {
+  /* Sayfa kilitlenince (yükleme sayacı, sepet çekmecesi) kaydırma çubuğu kaybolup içerik yana kaymasın */
+  html { scrollbar-gutter: stable; }
   body {
     font-family: var(--f-sans);
     color: var(--c-ink);
@@ -282,10 +284,51 @@
     .film__poster, .film__canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
     .film__poster img { inline-size: 100%; block-size: 100%; object-fit: cover; }
     .film__canvas { display: block; opacity: 0; }
-    .film.is-live .film__canvas { opacity: 1; }
+    .film.is-live .film__canvas {
+      opacity: 1;
+      /* Film sonu: son kare hafifçe yaklaşır (yalnız transform; filtre Firefox'ta büyük tuvalde pahalı) */
+      transform: scale(calc(1 + var(--film-son, 0) * 0.035));
+    }
+    /* Film sonu geçişi: sayfa zeminiyle aynı renk ve doku; tamamen örtünce alttaki 3B sahneyle aynı yüzey olur */
+    .film__gecis {
+      position: absolute; inset: 0; pointer-events: none;
+      opacity: var(--film-son, 0);
+      background-color: var(--c-ground);
+      background-image: url('../img/ground.webp');
+      background-size: 22rem auto;
+    }
     /* Kareler yüklenmemiş: boş koyu alan bırakma */
     .film.is-bos { display: none; }
   }
+
+  /* Film yükleme sayacı (film.js body sonuna taşır). Sayfa zemini üzerinde logo, yüzde ve LED çizgisi. */
+  .film-yukleme {
+    position: fixed; inset: 0; z-index: 90;
+    display: grid; place-items: center;
+    background-color: var(--c-ground);
+    background-image: url('../img/ground.webp');
+    background-size: 22rem auto;
+    transition: opacity 420ms var(--ease-out);
+  }
+  .film-yukleme.is-bitti { opacity: 0; pointer-events: none; }
+  .film-yukleme__ic { display: grid; justify-items: center; gap: 1.1rem; }
+  .film-yukleme__logo { block-size: 3.5rem; inline-size: auto; margin-block-end: 0.75rem; }
+  .film-yukleme__sayi {
+    font-size: clamp(2.5rem, 4.5vw, 3.75rem); line-height: 1;
+    font-weight: 620; font-stretch: 108%; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .film-yukleme__cubuk {
+    inline-size: min(22rem, 60vw); block-size: 3px; border-radius: 3px; overflow: hidden;
+    background: oklch(0.2 0.003 85 / 0.12);
+  }
+  .film-yukleme__cubuk span {
+    display: block; block-size: 100%;
+    background: var(--light); box-shadow: 0 0 0.6rem var(--light);
+    transform-origin: 0 50%; transform: scaleX(0);
+    transition: transform 180ms linear;
+  }
+  .film-yukleme__gec { margin-block-start: 0.6rem; }
   @media (min-width: 64em) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
     .film { block-size: 100svh; }
     .film__canvas { display: none; }

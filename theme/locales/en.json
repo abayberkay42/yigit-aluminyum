@@ -27,6 +27,11 @@
     },
     "groups": {
       "featured": "From this group"
+    },
+    "film": {
+      "loading": "Loading film",
+      "skip": "Continue to site",
+      "percent": "#%"
     }
   },
   "pages": {
