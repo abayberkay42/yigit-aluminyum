@@ -2,7 +2,9 @@
   Marka logosu (yatay kilit: simge + YİĞİT + ALÜMİNYUM PROFİL). Parametre: class (isteğe bağlı ek sınıf).
 
   Müşteri Tema ayarları > Firma bilgileri > Logo alanına dosya yüklerse o kullanılır; yüklemezse
-  temayla gelen dosya basılır (assets/yigit-logo.png, müşterinin verdiği logo PDF'inden üretildi).
+  temayla gelen dosya basılır. Tema koyu zeminli olduğu için yazısı açık renkli sürüm kullanılır
+  (assets/yigit-logo-koyu.png; müşterinin logo PDF'inden üretilen yigit-logo.png'nin gri yazısı açık renge çevrildi,
+  altın amblem aynı). Açık zeminli yigit-logo.png yalnız arama motoru yapısal verisinde kullanılır.
   Ölçü öznitelikleri her iki yolda da yazılır: logo yüklenirken satır kaymaz.
   Logo metni zaten görselin içinde olduğu için alt metin firma adıdır; ayrıca yazı basılmaz.
 {%- endcomment -%}
@@ -10,7 +12,7 @@
   {{ settings.logo | image_url: width: 1200 | image_tag: widths: '300,600,900,1200', sizes: '14rem', loading: 'eager', class: class, alt: shop.name }}
 {%- else -%}
   <img class="{{ class }}"
-    src="{{ 'yigit-logo.png' | asset_url }}"
-    srcset="{{ 'yigit-logo.png' | asset_url }} 601w, {{ 'yigit-logo-2x.png' | asset_url }} 1202w"
+    src="{{ 'yigit-logo-koyu.png' | asset_url }}"
+    srcset="{{ 'yigit-logo-koyu.png' | asset_url }} 601w, {{ 'yigit-logo-koyu-2x.png' | asset_url }} 1202w"
     sizes="14rem" width="601" height="212" loading="eager" alt="{{ shop.name | escape }}">
 {%- endif -%}

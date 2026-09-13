@@ -32,9 +32,9 @@ Metin sesi: sade, teknik doğru, kısa. Slogan ve abartılı sıfat yok.
 
 - Mevcut site (Sitar teması) ve genel Shopify tema görünümü (Dawn türevleri): ürün ızgarası ile açılan ana sayfa.
 - "LED" kategorisinin klişesi: siyah zemin üzerinde neon/RGB parıltı, mor-mavi degrade.
-- Siyah-altın "lüks" görünümü (logonun altın rengi bütün siteye yayılmamalı).
+- ~~Siyah-altın "lüks" görünümü~~ — 2026-09-14 müşteri kararıyla kaldırıldı: açık tema "fazla basit" bulundu, tema koyu ve şık yapıldı. Sınır: koyu grafit zemin + logodaki altın yalnız vurgu (düğme, etiket, odak); neon/RGB ve mor-mavi degrade hâlâ yasak.
 - Endüstriyel sitelerin iki kalıbı: stok fabrika fotoğrafı + mavi kurumsal şablon; ya da "brutalist" kasıtlı kabalık.
-- Yapay zekâ şablonu işaretleri: her bölümün üstünde küçük büyük harfli etiket, 01/02/03 numaralı bölümler, üç eş kart, degrade başlık metni, uydurma istatistik.
+- Yapay zekâ şablonu işaretleri: 01/02/03 numaralı bölümler, üç eş kart, uydurma istatistik. (2026-09-14 koyu tema: altın çizgili bölüm etiketi ve ana başlıktaki tek altın satır bilinçli istisna — müşteri daha zengin görünüm istedi; başka başlığa yayılmaz.)
 - Ekibin önceki projeleri (bu proje ayrı bir sanat yönüyle kurulur).
 
 ## Design Principles

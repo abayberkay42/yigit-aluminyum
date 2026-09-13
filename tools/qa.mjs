@@ -106,6 +106,12 @@ for (const path of PAGES) {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const p = await ctx.newPage();
   await p.goto(B + '/', { waitUntil: 'networkidle' });
+  // Film yükleme sayacı açıkken sayfanın geri kalanı "inert": Tab hiçbir öğeye ulaşmaz. Sayaç kapanınca ölç.
+  await p.waitForFunction(() => {
+    const y = document.querySelector('.film-yukleme:not([hidden])');
+    return !y || y.classList.contains('is-bitti') || getComputedStyle(y).display === 'none';
+  }, null, { timeout: 120000 }).catch(() => {});
+  await p.waitForTimeout(600);
   const steps = [];
   for (let i = 0; i < 14; i++) {
     await p.keyboard.press('Tab');

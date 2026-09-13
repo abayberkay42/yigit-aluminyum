@@ -73,4 +73,4 @@ Gereken: **1200 × 630 piksel yatay** tek bir görsel. Logonun kendisi bu orana 
 
 ## 9. Logo (tamamlandı, tek eksiği var)
 
-Logonun vektör dosyası alındı ve siteye yerleştirildi; menü çubuğu, sayfa altı ve tarayıcı sekmesi simgesi bundan üretildi. Eksik kalan tek şey **tek renk (beyaz ve siyah) sürüm**. Mevcut logo altın degradeli; açık ve orta tonlu zeminlerde sorunsuz çalışıyor, ancak koyu zeminli bir bölüm eklenirse ya da tek renk baskı gerekirse tasarımcıdan bu sürüm istenmelidir. Sitenin bugünkü tasarımında koyu zeminde logo kullanılan bir alan yok, bu yüzden acil değil.
+Logonun vektör dosyası alındı ve siteye yerleştirildi; menü çubuğu, sayfa altı ve tarayıcı sekmesi simgesi bundan üretildi. Eksik kalan tek şey **tek renk (beyaz ve siyah) sürüm**. Site koyu temaya geçtiği için menüde ve sayfa altında logonun yazısı açık renge çevrilmiş sürümü kullanılıyor (altın amblem aynen korunuyor, yazı pikselleri açık griye çevrildi). Görünüm sorunsuz; yine de tasarımcının hazırladığı resmi **koyu zemin / beyaz yazı** sürümü ve tek renk baskı sürümü gelirse onunla değiştirilmesi daha doğru olur.

@@ -81,10 +81,11 @@ Logo ve site simgesi temanın içinde gelir, Shopify > Dosyalar'a ayrıca yükle
 
 | Dosya | Nerede görünür |
 |---|---|
-| `assets/yigit-logo.png`, `yigit-logo-2x.png` | Menü çubuğu ve sayfa altı |
+| `assets/yigit-logo-koyu.png`, `yigit-logo-koyu-2x.png` | Menü çubuğu, sayfa altı, film yükleme ekranı (koyu tema: yazısı açık renkli sürüm) |
+| `assets/yigit-logo.png`, `yigit-logo-2x.png` | Yalnız arama motoru yapısal verisi (açık zeminli sürüm) |
 | `assets/yigit-ikon-64/180/512.png` | Tarayıcı sekmesi simgesi, telefon ana ekran simgesi |
 
-Müşteri kendi dosyasını yüklemek isterse: logo için Tema ayarları > Firma bilgileri > Logo, simge için Shopify'ın kendi simge ayarı. Her ikisinde de panelden yüklenen dosya temadakinin yerine geçer.
+Müşteri kendi dosyasını yüklemek isterse: logo için Tema ayarları > Firma bilgileri > Logo (tema koyu zeminli olduğu için yazısı açık renkli sürüm yüklenmeli), simge için Shopify'ın kendi simge ayarı. Her ikisinde de panelden yüklenen dosya temadakinin yerine geçer.
 
 ## Tema ayarları
 
