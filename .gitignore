@@ -12,3 +12,6 @@ dist/
 /assets/
 /.impeccable/
 *.mp4
+
+# Vercel CLI'nin yazdığı ortam dosyası: erişim anahtarı (VERCEL_OIDC_TOKEN) içerir, asla depoya girmez
+.env*
