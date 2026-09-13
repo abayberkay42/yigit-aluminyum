@@ -22,7 +22,10 @@ export function initFilm(root = document) {
   root.querySelectorAll('[data-film]').forEach((el) => {
     if (el.dataset.ready) return;
     el.dataset.ready = '1';
-    if (!matchMedia(MASAUSTU).matches) return;
+    // Her örnek kendi medya sorgusunda çalışır (masaüstü yatay / mobil dikey); öteki cihazda hiç başlamaz
+    if (!matchMedia(el.dataset.media || MASAUSTU).matches) return;
+    // Yalnız mobil örnek: "Veri tasarrufu" açıksa kareler indirilmez, ilk kare durağan gösterilir
+    if (el.dataset.veri === 'koru' && navigator.connection?.saveData) { el.classList.add('is-durgun'); return; }
     // Kareler Dosyalar'a henüz yüklenmediyse ekranlarca boş koyu alan bırakılmaz: bölüm gizlenir, sayfa
     // 3B sahneyle açılır. Ek istek yok; masaüstünde zaten yüklenen ilk kare görselinin sonucuna bakılır.
     const afis = el.querySelector('.film__poster img');
@@ -54,6 +57,7 @@ function oynatici(el) {
   const hane = Number(el.dataset.digits) || 4;
   const kaynakG = Number(el.dataset.width) || 2560;
   const kaynakY = Number(el.dataset.height) || 1440;
+  const bellekteKare = Number(el.dataset.bellek) || 16; // telefonda düşük: iOS Safari bellek sınırı
   // file_url ilk karenin adresini verir; taban adres ondan türetilir (sorgu dizesi atılır).
   // Adres TAM adrese çevrilir: Worker blob:/data: adresinden başladığı için göreli ("/files/…") ya da Shopify'ın
   // protokolsüz ("//cdn.shopify.com/…") adresini kendi başına çözemez; çevrilmezse hiçbir kare inmez.
@@ -96,7 +100,7 @@ function oynatici(el) {
       const isci = new FilmIscisi();
       const off = tuval.transferControlToOffscreen();
       isci.onmessage = (e) => olay(e.data);
-      isci.postMessage({ tip: 'baslat', tuval: off, sayi, adres: adresBilgisi, kaynakG, kaynakY, g, h }, [off]);
+      isci.postMessage({ tip: 'baslat', tuval: off, sayi, adres: adresBilgisi, kaynakG, kaynakY, bellekteKare, g, h }, [off]);
       gonder = (m) => isci.postMessage(m);
       bitir = () => { isci.postMessage({ tip: 'dur' }); setTimeout(() => isci.terminate(), 200); };
     } catch {
@@ -110,6 +114,7 @@ function oynatici(el) {
       raf: (cb) => requestAnimationFrame(cb),
       iptal: (id) => cancelAnimationFrame(id),
       bildir: olay,
+      bellekteKare,
       cozucu: yontem === 'img' ? 'img' : 'bitmap',
     });
     motor.boyutla(g, h);

@@ -1,83 +1,55 @@
 {%- comment -%}
   Ana sayfa filmi: tanıtım videosunun kareleri kaydırdıkça oynar (src/js/sections/film.js).
-  Yalnız masaüstü: telefon ve tablette bölüm hiç görünmez, tek bir kare bile indirilmez (telefon için ayrı video gelecek).
-  Hareket azaltma açıksa filmin son karesi durağan gösterilir.
+  İki örnek, iki ayrı video:
+    - Masaüstü (yatay): yalnız 64em ve üstü, fare/dokunmatik yüzey kullanan ekranlar
+    - Mobil (dikey): masaüstü kırılımının altındaki ekranlar (sitenin mobil düzeniyle aynı sınır)
+  Her cihaz yalnız kendi karelerini indirir. Hareket azaltma açıksa son kare durağan gösterilir.
 
   Kareler Shopify > İçerik > Dosyalar'a "önek + sıra numarası" adıyla yüklenir:
-  yigit-film-0001.webp, yigit-film-0002.webp … yigit-film-0944.webp
-  Adresler file_url ile ilk kareden türetilir; 944 adres ayrıca girilmez.
-  Kareler tema içine konmaz (tema toplamı en fazla 50 MB); Shopify video olarak yüklenirse yeniden kodlar
-  ve kaydırmada akıcılık bozulur, bu yüzden görsel olarak yüklenir.
+    masaüstü: yigit-film-0001.webp … yigit-film-0944.webp
+    mobil   : yigit-film-mobil-0001.webp … yigit-film-mobil-0361.webp
+  Adresler file_url ile ilk kareden türetilir. Kareler tema içine konmaz (tema toplamı en fazla 50 MB);
+  Shopify video olarak yüklenirse yeniden kodlar ve kaydırmada akıcılık bozulur, bu yüzden görsel olarak yüklenir.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign digits = s.frame_digits | default: 4
-  assign neg = 0 | minus: digits
-  assign n_first = '0000000001' | slice: neg, digits
-  assign n_last = '0000000000' | append: s.frame_count | slice: neg, digits
-  assign first_url = s.frame_prefix | append: n_first | append: '.' | append: s.frame_ext | file_url
-  assign last_url = s.frame_prefix | append: n_last | append: '.' | append: s.frame_ext | file_url
 -%}
-<div
-  class="film"
-  data-film
-  data-first="{{ first_url }}"
-  data-prefix="{{ s.frame_prefix | escape }}"
-  data-count="{{ s.frame_count }}"
-  data-digits="{{ digits }}"
-  data-ext="{{ s.frame_ext | escape }}"
-  data-width="{{ s.frame_width }}"
-  data-height="{{ s.frame_height }}"
-  style="--film-len: {{ s.scroll_length }}svh;"
-  aria-hidden="true"
-  {{ section.shopify_attributes }}
->
-  <div class="film__sticky">
-    {%- comment -%}
-      İlk kare hemen görünür (tuval hazır olana kadar). Kaynaklar yalnız masaüstü medya sorgusunda seçilir;
-      telefonda tarayıcı 1 piksellik boş görseli alır, karelere hiç istek gitmez.
-    {%- endcomment -%}
-    <picture class="film__poster">
-      <source media="(min-width: 64em) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce)" srcset="{{ last_url }}">
-      <source media="(min-width: 64em) and (hover: hover) and (pointer: fine)" srcset="{{ first_url }}">
-      <img
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        width="{{ s.frame_width }}"
-        height="{{ s.frame_height }}"
-        alt=""
-        fetchpriority="high"
-        decoding="async"
-      >
-    </picture>
-    <canvas class="film__canvas"></canvas>
-    {%- comment -%} Film sonu: son karede durup sayfa zeminine erir, alttaki 3B sahneye kenarsız geçilir {%- endcomment -%}
-    <div class="film__gecis"></div>
-  </div>
-
-  {%- comment -%}
-    Yükleme sayacı: kareler inene kadar sayfa kilitli kalır (hızlı kaydıran ziyaretçi eksik karelerde takılmasın).
-    film.js bunu sayfanın sonuna taşır ve kareler inince kapatır. Kareler önbellekten hızlı gelirse hiç görünmez;
-    10 saniye sonra "Siteye geç" düğmesi çıkar. JS yoksa ya da hareket azaltma açıksa hiç görünmez.
-  {%- endcomment -%}
-  <div class="film-yukleme" data-film-yukleme hidden>
-    <div class="film-yukleme__ic">
-      {%- render 'logo', class: 'film-yukleme__logo' -%}
-      <p class="film-yukleme__sayi" aria-hidden="true" data-film-sayac data-bicim="{{ 'home.film.percent' | t | escape }}">{{ 'home.film.percent' | t | replace: '#', '0' }}</p>
-      <div class="film-yukleme__cubuk" aria-hidden="true"><span data-film-cubuk></span></div>
-      <p class="visually-hidden" role="status">{{ 'home.film.loading' | t }}</p>
-      <button type="button" class="button button--ghost film-yukleme__gec" data-film-gec hidden>{{ 'home.film.skip' | t }}</button>
-    </div>
-  </div>
-</div>
+{%- render 'film-oynatici',
+  sinif: 'film--masaustu',
+  media: '(min-width: 64em) and (hover: hover) and (pointer: fine)',
+  prefix: s.frame_prefix,
+  count: s.frame_count,
+  digits: digits,
+  ext: s.frame_ext,
+  width: s.frame_width,
+  height: s.frame_height,
+  scroll_length: s.scroll_length,
+  bellek: 16,
+  veri_koru: false
+-%}
+{%- if s.mobile_frame_count > 0 -%}
+  {%- render 'film-oynatici',
+    sinif: 'film--mobil',
+    media: '(max-width: 63.99em)',
+    prefix: s.mobile_frame_prefix,
+    count: s.mobile_frame_count,
+    digits: digits,
+    ext: s.frame_ext,
+    width: s.mobile_frame_width,
+    height: s.mobile_frame_height,
+    scroll_length: s.mobile_scroll_length,
+    bellek: 8,
+    veri_koru: true
+  -%}
+{%- endif -%}
 
 {% schema %}
 {
   "name": "Tanıtım filmi",
   "class": "section-home-film",
   "settings": [
-    { "type": "paragraph", "content": "Yalnız masaüstünde görünür. Kareler Shopify > İçerik > Dosyalar'a önek + sıra numarası adıyla yüklenir (örnek: yigit-film-0001.webp)." },
-    { "type": "text", "id": "frame_prefix", "label": "Kare adı öneki", "default": "yigit-film-" },
-    { "type": "number", "id": "frame_count", "label": "Kare sayısı", "default": 944 },
+    { "type": "paragraph", "content": "Masaüstü ve mobil için ayrı videolar. Kareler Shopify > İçerik > Dosyalar'a önek + sıra numarası adıyla yüklenir (örnek: yigit-film-0001.webp, yigit-film-mobil-0001.webp)." },
     { "type": "range", "id": "frame_digits", "label": "Sıra numarası hane sayısı", "min": 3, "max": 6, "step": 1, "default": 4 },
     {
       "type": "select", "id": "frame_ext", "label": "Dosya türü", "default": "webp",
@@ -87,9 +59,18 @@
         { "value": "png", "label": "PNG" }
       ]
     },
+    { "type": "header", "content": "Masaüstü (yatay video)" },
+    { "type": "text", "id": "frame_prefix", "label": "Kare adı öneki", "default": "yigit-film-" },
+    { "type": "number", "id": "frame_count", "label": "Kare sayısı", "default": 944 },
     { "type": "number", "id": "frame_width", "label": "Kare genişliği (piksel)", "default": 2560 },
     { "type": "number", "id": "frame_height", "label": "Kare yüksekliği (piksel)", "default": 1440 },
-    { "type": "range", "id": "scroll_length", "label": "Kaydırma uzunluğu", "info": "Ekran yüksekliğinin yüzdesi. Uzadıkça film daha yavaş ilerler.", "min": 200, "max": 800, "step": 50, "unit": "%", "default": 450 }
+    { "type": "range", "id": "scroll_length", "label": "Kaydırma uzunluğu", "info": "Ekran yüksekliğinin yüzdesi. Uzadıkça film daha yavaş ilerler.", "min": 200, "max": 800, "step": 50, "unit": "%", "default": 450 },
+    { "type": "header", "content": "Mobil (dikey video)" },
+    { "type": "text", "id": "mobile_frame_prefix", "label": "Kare adı öneki", "default": "yigit-film-mobil-" },
+    { "type": "number", "id": "mobile_frame_count", "label": "Kare sayısı", "info": "0 yazılırsa telefonda film gösterilmez.", "default": 361 },
+    { "type": "number", "id": "mobile_frame_width", "label": "Kare genişliği (piksel)", "default": 1080 },
+    { "type": "number", "id": "mobile_frame_height", "label": "Kare yüksekliği (piksel)", "default": 1920 },
+    { "type": "range", "id": "mobile_scroll_length", "label": "Kaydırma uzunluğu", "info": "Ekran yüksekliğinin yüzdesi.", "min": 200, "max": 800, "step": 50, "unit": "%", "default": 400 }
   ],
   "presets": [{ "name": "Tanıtım filmi" }]
 }

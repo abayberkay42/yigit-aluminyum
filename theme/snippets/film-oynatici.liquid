@@ -1,0 +1,70 @@
+{%- comment -%}
+  Kaydırmalı film örneği (sections/home-film.liquid iki kez çağırır: masaüstü ve mobil). Oynatıcı: src/js/sections/film.js
+  Parametreler:
+    sinif          film--masaustu | film--mobil (CSS görünürlüğü bu sınıfla ayrılır)
+    media          örneğin çalıştığı medya sorgusu; oynatıcı yalnız bu sorgu eşleşirse başlar,
+                   ilk kare görseli de yalnız bu sorguda indirilir (öteki cihaz hiç kare indirmez)
+    prefix, count, digits, ext, width, height, scroll_length
+    bellek         bellekte tutulacak çözülmüş kare sayısı (telefonda düşük: iOS Safari bellek sınırı)
+    veri_koru      true ise "Veri tasarrufu" açık cihazda kareler indirilmez, ilk kare durağan gösterilir
+{%- endcomment -%}
+{%- liquid
+  assign neg = 0 | minus: digits
+  assign n_first = '0000000001' | slice: neg, digits
+  assign n_last = '0000000000' | append: count | slice: neg, digits
+  assign first_url = prefix | append: n_first | append: '.' | append: ext | file_url
+  assign last_url = prefix | append: n_last | append: '.' | append: ext | file_url
+-%}
+<div
+  class="film {{ sinif }}"
+  data-film
+  data-media="{{ media | escape }}"
+  data-first="{{ first_url }}"
+  data-prefix="{{ prefix | escape }}"
+  data-count="{{ count }}"
+  data-digits="{{ digits }}"
+  data-ext="{{ ext | escape }}"
+  data-width="{{ width }}"
+  data-height="{{ height }}"
+  data-bellek="{{ bellek }}"
+  {%- if veri_koru %} data-veri="koru"{% endif %}
+  style="--film-len: {{ scroll_length }}svh;"
+  aria-hidden="true"
+>
+  <div class="film__sticky">
+    {%- comment -%}
+      İlk kare hemen görünür (tuval hazır olana kadar). Kaynaklar yalnız bu örneğin medya sorgusunda seçilir;
+      öteki cihazda tarayıcı 1 piksellik boş görseli alır, karelere hiç istek gitmez.
+    {%- endcomment -%}
+    <picture class="film__poster">
+      <source media="{{ media | escape }} and (prefers-reduced-motion: reduce)" srcset="{{ last_url }}">
+      <source media="{{ media | escape }}" srcset="{{ first_url }}">
+      <img
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        width="{{ width }}"
+        height="{{ height }}"
+        alt=""
+        fetchpriority="high"
+        decoding="async"
+      >
+    </picture>
+    <canvas class="film__canvas"></canvas>
+    {%- comment -%} Film sonu: son karede durup sayfa zeminine erir, alttaki 3B sahneye kenarsız geçilir {%- endcomment -%}
+    <div class="film__gecis"></div>
+  </div>
+
+  {%- comment -%}
+    Yükleme sayacı: kareler inene kadar sayfa kilitli kalır (hızlı kaydıran ziyaretçi eksik karelerde takılmasın).
+    film.js bunu sayfanın sonuna taşır ve kareler inince kapatır. Kareler önbellekten hızlı gelirse hiç görünmez;
+    10 saniye sonra "Siteye geç" düğmesi çıkar. JS yoksa ya da hareket azaltma açıksa hiç görünmez.
+  {%- endcomment -%}
+  <div class="film-yukleme" data-film-yukleme hidden>
+    <div class="film-yukleme__ic">
+      {%- render 'logo', class: 'film-yukleme__logo' -%}
+      <p class="film-yukleme__sayi" aria-hidden="true" data-film-sayac data-bicim="{{ 'home.film.percent' | t | escape }}">{{ 'home.film.percent' | t | replace: '#', '0' }}</p>
+      <div class="film-yukleme__cubuk" aria-hidden="true"><span data-film-cubuk></span></div>
+      <p class="visually-hidden" role="status">{{ 'home.film.loading' | t }}</p>
+      <button type="button" class="button button--ghost film-yukleme__gec" data-film-gec hidden>{{ 'home.film.skip' | t }}</button>
+    </div>
+  </div>
+</div>

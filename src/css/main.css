@@ -270,36 +270,44 @@
   }
   @media (max-width: 30em) { .rail__kelvin { display: none; } }
 
-  /* ================= Ana sayfa filmi: kaydırmayla oynayan kare dizisi (yalnız masaüstü) ================= */
-  /* Telefon ve tablette hiç görünmez, kare de indirilmez (film.js masaüstü sorgusunu ayrıca denetler).
+  /* ================= Ana sayfa filmi: kaydırmayla oynayan kare dizisi ================= */
+  /* İki örnek (snippets/film-oynatici.liquid): masaüstü yatay video, mobil dikey video. Her örnek yalnız kendi
+     medya sorgusunda görünür; öteki cihazda gizli kalır ve kare indirmez (film.js data-media'yı ayrıca denetler).
      Tuval saydamsız açıldığı için ilk kare çizilene kadar gizli; o sırada ilk kare görseli görünür. */
   .film { display: none; }
   @media (min-width: 64em) and (hover: hover) and (pointer: fine) {
-    .film {
-      display: block; position: relative;
-      block-size: var(--film-len, 450svh);
-      background: oklch(0.16 0.003 85);
-    }
-    .film__sticky { position: sticky; inset-block-start: 0; block-size: 100svh; overflow: clip; }
-    .film__poster, .film__canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
-    .film__poster img { inline-size: 100%; block-size: 100%; object-fit: cover; }
-    .film__canvas { display: block; opacity: 0; }
-    .film.is-live .film__canvas {
-      opacity: 1;
-      /* Film sonu: son kare hafifçe yaklaşır (yalnız transform; filtre Firefox'ta büyük tuvalde pahalı) */
-      transform: scale(calc(1 + var(--film-son, 0) * 0.035));
-    }
-    /* Film sonu geçişi: sayfa zeminiyle aynı renk ve doku; tamamen örtünce alttaki 3B sahneyle aynı yüzey olur */
-    .film__gecis {
-      position: absolute; inset: 0; pointer-events: none;
-      opacity: var(--film-son, 0);
-      background-color: var(--c-ground);
-      background-image: url('../img/ground.webp');
-      background-size: 22rem auto;
-    }
-    /* Kareler yüklenmemiş: boş koyu alan bırakma */
-    .film.is-bos { display: none; }
+    .film--masaustu { display: block; }
   }
+  @media (max-width: 63.99em) {
+    .film--mobil { display: block; }
+  }
+  .film {
+    position: relative;
+    block-size: var(--film-len, 450svh);
+    background: oklch(0.16 0.003 85);
+  }
+  .film__sticky { position: sticky; inset-block-start: 0; block-size: 100svh; overflow: clip; }
+  .film__poster, .film__canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+  .film__poster img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .film__canvas { display: block; opacity: 0; }
+  .film.is-live .film__canvas {
+    opacity: 1;
+    /* Film sonu: son kare hafifçe yaklaşır (yalnız transform; filtre Firefox'ta büyük tuvalde pahalı) */
+    transform: scale(calc(1 + var(--film-son, 0) * 0.035));
+  }
+  /* Film sonu geçişi: sayfa zeminiyle aynı renk ve doku; tamamen örtünce alttaki 3B sahneyle aynı yüzey olur */
+  .film__gecis {
+    position: absolute; inset: 0; pointer-events: none;
+    opacity: var(--film-son, 0);
+    background-color: var(--c-ground);
+    background-image: url('../img/ground.webp');
+    background-size: 22rem auto;
+  }
+  /* Kareler yüklenmemiş: boş koyu alan bırakma (.film.is-bos örnek sınıfından daha özgül) */
+  .film.is-bos { display: none; }
+  /* Veri tasarrufu açık telefon (yalnız mobil örnek): kare indirilmez, ilk kare durağan gösterilir */
+  .film.is-durgun { block-size: 100svh; }
+  .film.is-durgun .film__canvas { display: none; }
 
   /* Film yükleme sayacı (film.js body sonuna taşır). Sayfa zemini üzerinde logo, yüzde ve LED çizgisi. */
   .film-yukleme {
@@ -329,7 +337,7 @@
     transition: transform 180ms linear;
   }
   .film-yukleme__gec { margin-block-start: 0.6rem; }
-  @media (min-width: 64em) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
     .film { block-size: 100svh; }
     .film__canvas { display: none; }
   }

@@ -12,7 +12,6 @@
 // 5. Tuval yalnız gösterilen kare değişince çizilir.
 const INDIRME_ESZAMANLI = 8;
 const COZME_ESZAMANLI = 3;
-const BELLEKTE_KARE = 16;
 const ONDEN_COZ = 4;
 
 export const adresUretici = ({ taban, onek, hane, uzanti }) => (i) => `${taban}${onek}${String(i + 1).padStart(hane, '0')}.${uzanti}`;
@@ -24,7 +23,9 @@ export const adresUretici = ({ taban, onek, hane, uzanti }) => (i) => `${taban}$
 //                    (tools/film-olcum-tarayici.html): createImageBitmap 28,8 sayfa fps ve 301 ekran karesinin
 //                    240'ı 25 ms üstü; <img>+decode 192,8 fps ve 0. Chrome'da ise <img> yolu daha zayıf.
 // bildir(olay): { tip: 'canli' } ilk kare çizilince, { tip: 'ilerleme', inen, sayi }, { tip: 'durum', … }
-export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, bildir, cozucu = 'bitmap' }) {
+// bellekteKare: bellekte tutulacak çözülmüş kare sayısı (masaüstü 16; telefonda 8, iOS Safari bellek sınırı)
+export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, bildir, cozucu = 'bitmap', bellekteKare = 16 }) {
+  const BELLEKTE_KARE = Math.max(4, bellekteKare);
   const ctx = tuval.getContext('2d', { alpha: false });
   const bloblar = new Array(sayi).fill(null);
   // Başarısız istekler: her kare en fazla bir kez yeniden denenir; ikinci başarısızlıkta vazgeçilir ve

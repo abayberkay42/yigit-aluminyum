@@ -16,6 +16,7 @@ self.onmessage = (e) => {
       adres: adresUretici(m.adres),
       kaynakG: m.kaynakG,
       kaynakY: m.kaynakY,
+      bellekteKare: m.bellekteKare,
       raf,
       iptal,
       bildir: (olay) => self.postMessage(olay),

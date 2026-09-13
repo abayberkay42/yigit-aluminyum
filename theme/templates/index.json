@@ -9,7 +9,12 @@
         "frame_ext": "webp",
         "frame_width": 2560,
         "frame_height": 1440,
-        "scroll_length": 450
+        "scroll_length": 450,
+        "mobile_frame_prefix": "yigit-film-mobil-",
+        "mobile_frame_count": 361,
+        "mobile_frame_width": 1080,
+        "mobile_frame_height": 1920,
+        "mobile_scroll_length": 400
       }
     },
     "hero": {

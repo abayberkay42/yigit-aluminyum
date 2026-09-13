@@ -13,7 +13,7 @@ Sitenin tamamı Shopify panelinden yönetilir; koda dokunmanız gerekmez. Bu kı
 
 | Bölüm | Ne yapar | Ayarları |
 |---|---|---|
-| Tanıtım filmi | Sayfanın en başı: kaydırdıkça oynayan film. Yalnız masaüstünde görünür | Kare adı öneki, kare sayısı, kare ölçüsü, kaydırma uzunluğu (uzadıkça film yavaşlar). Kareler Dosyalar'da durur |
+| Tanıtım filmi | Sayfanın en başı: kaydırdıkça oynayan film. Masaüstünde yatay, telefonda dikey video | Masaüstü ve mobil için ayrı ayrı: kare adı öneki, kare sayısı, kare ölçüsü, kaydırma uzunluğu (uzadıkça film yavaşlar). Kareler Dosyalar'da durur |
 | Ekstrüzyon ve üretim | Açılıştaki hareketli sahne ve kaydırma anlatısı | Başlık satırları, alt metin, düğme; "Kalıp" blokları ürün gruplarını, "Durak" blokları anlatı metinlerini tutar |
 | Üretim | Gerçek tesis fotoğrafları | Başlık, metin, bağlantı; üç fotoğraf bloğu (ilki büyük gösterilir) |
 | Ürün grupları | Grup listesi ve grup tanıtımı | Her blokta koleksiyon seçilir; görsel seçilmezse grubun ilk ürününün fotoğrafı kullanılır |

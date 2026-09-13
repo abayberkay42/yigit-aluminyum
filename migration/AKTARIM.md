@@ -42,16 +42,20 @@ Shopify > Sayfalar > sayfa > Tema şablonu:
 Şablonlar görselleri `shopify://shop_images/<ad>` ile anar. Aktarımda Shopify > İçerik > Dosyalar'a aynı adla yüklenir:
 `room-salon.webp, room-koridor.webp, room-mutfak.webp, room-yatak.webp, room-banyo.webp, room-ofis.webp, room-galeri.webp, room-dis.webp` (bizim ürettiğimiz oda görselleri). Katalog kapakları ve üretim görselleri mağazanın Dosyalar'ında zaten var.
 
-## Ana sayfa tanıtım filmi (944 kare)
+## Ana sayfa tanıtım filmi (masaüstü 944 kare, mobil 361 kare)
 
-Ana sayfanın en başındaki kaydırmalı film, videonun kareleri olarak Dosyalar'da durur. Kaynak: `0913(1).mp4` (4K, 60 kare/sn); kareler 2560 genişlikte WebP (%90), toplam 138 MB.
+Ana sayfanın en başındaki kaydırmalı film, videonun kareleri olarak Dosyalar'da durur. İki ayrı video vardır, her cihaz yalnız kendi karelerini indirir:
 
-- Klasör: `dist/shopify-dosyalar/film/` → `yigit-film-0001.webp` … `yigit-film-0944.webp`
+| | Kaynak video | Kareler | Klasör |
+|---|---|---|---|
+| Masaüstü | `0913(1).mp4` (4K, 60 kare/sn) | 944 × 2560 genişlik WebP %90, 138 MB | `dist/shopify-dosyalar/film/` → `yigit-film-0001.webp` … `0944` |
+| Mobil (64em altı) | `hf_20260913_185616_….mp4` (1080×1920, 24 kare/sn) | 361 × 1080×1920 WebP %90, küçültülmeden, 39 MB | `dist/shopify-dosyalar/film-mobil/` → `yigit-film-mobil-0001.webp` … `0361` |
+
+- Telefonda "Veri tasarrufu" açıksa kareler indirilmez, ilk kare durağan gösterilir.
 - Shopify > İçerik > Dosyalar > Dosya yükle; **adlar değiştirilmeden** yüklenir. Tema adresleri ilk kareden türetir, 944 adres ayrıca girilmez.
 - **Video olarak yüklenmez.** Shopify videoyu yeniden kodlar ve kaydırmada akıcılık bozulur. Kareler görsel olarak yüklenir.
 - Tema içine konmaz: tema toplamı en fazla 50 MB.
-- Yalnız masaüstünde görünür; telefon ve tablette hiç kare indirilmez. Telefon için ayrı video gelecek.
-- Tema düzenleyici > Ana sayfa > Tanıtım filmi: önek (`yigit-film-`), kare sayısı (944), ölçü (2560 × 1440) ve kaydırma uzunluğu. Kareler başka adla ya da sayıyla yüklenirse yalnız bu ayarlar değişir.
+- Tema düzenleyici > Ana sayfa > Tanıtım filmi: masaüstü ve mobil için ayrı önek, kare sayısı, ölçü ve kaydırma uzunluğu. Kareler başka adla ya da sayıyla yüklenirse yalnız bu ayarlar değişir. Mobil kare sayısı 0 yazılırsa telefonda film gösterilmez.
 - Kontrol: yükleme sonrası ana sayfa önizlemesinde ilk kare görünmeli; kaydırınca film oynamalı. Görünmüyorsa önek ve kare sayısı Dosyalar'daki adlarla aynı mı bakılır.
 
 ## Menü

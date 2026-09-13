@@ -7,7 +7,8 @@ Tema, mağazaya **yayımlanmamış tema** olarak yüklenir. Canlı site bu süre
 - Mağaza yöneticisi hesabı (ya da "Temalar" yetkisi olan personel hesabı).
 - `dist/yigit-aluminyum-tema.zip` (tema)
 - `dist/shopify-dosyalar/` içindeki 8 oda görseli
-- `dist/shopify-dosyalar/film/` içindeki 944 film karesi (ana sayfanın başındaki kaydırmalı film)
+- `dist/shopify-dosyalar/film/` içindeki 944 film karesi (ana sayfanın başındaki kaydırmalı film, masaüstü)
+- `dist/shopify-dosyalar/film-mobil/` içindeki 361 film karesi (aynı film, telefon için dikey)
 
 ## 1. Oda görsellerini yükleyin
 
@@ -17,7 +18,7 @@ Shopify > İçerik > Dosyalar > Dosya yükle. `dist/shopify-dosyalar/` içindeki
 
 Tema bu görselleri adlarıyla bulur. Katalog kapakları ve üretim fotoğrafları mağazanın Dosyalar bölümünde zaten var.
 
-**Film kareleri:** Aynı yerden `dist/shopify-dosyalar/film/` içindeki 944 dosya (`yigit-film-0001.webp` … `yigit-film-0944.webp`) adları değiştirilmeden yüklenir. Toplam 138 MB; birkaç parti hâlinde seçip yüklemek daha güvenlidir. Video olarak yüklemeyin: Shopify videoyu yeniden kodlar ve kaydırmada takılma olur. Kareler yüklenmeden önizleme açılırsa film bölümü kendini gizler ve ana sayfa doğrudan 3B sahneyle açılır; bu bir arıza değil. Kareler yüklendiği anda film görünür, temada başka bir şey değiştirmek gerekmez.
+**Film kareleri:** Aynı yerden `dist/shopify-dosyalar/film/` içindeki 944 dosya (`yigit-film-0001.webp` … `yigit-film-0944.webp`, masaüstü) ve `dist/shopify-dosyalar/film-mobil/` içindeki 361 dosya (`yigit-film-mobil-0001.webp` … `yigit-film-mobil-0361.webp`, telefon) adları değiştirilmeden yüklenir. Toplam 138 MB + 39 MB; birkaç parti hâlinde seçip yüklemek daha güvenlidir. Video olarak yüklemeyin: Shopify videoyu yeniden kodlar ve kaydırmada takılma olur. Kareler yüklenmeden önizleme açılırsa film bölümü kendini gizler ve ana sayfa doğrudan 3B sahneyle açılır; bu bir arıza değil. Kareler yüklendiği anda film görünür, temada başka bir şey değiştirmek gerekmez.
 
 ## 2. Temayı yükleyin
 
