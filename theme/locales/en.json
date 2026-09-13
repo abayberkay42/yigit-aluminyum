@@ -1,0 +1,139 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "language": "Language",
+    "light_temperature": "Light temperature",
+    "home": "Home",
+    "breadcrumb": "Breadcrumb",
+    "pagination": "Pages",
+    "previous": "Previous",
+    "next": "Next",
+    "new_tab": "opens in a new tab"
+  },
+  "home": {
+    "hero": {
+      "choose_die": "Choose a die",
+      "selected_die": "Coming out of the die",
+      "view_group": "View the group"
+    },
+    "story": {
+      "label": "From die to application",
+      "finish_gumus": "Silver",
+      "finish_siyah": "Black",
+      "finish_antrasit": "Anthracite",
+      "finish_altin": "Gold",
+      "finish_beyaz": "White"
+    },
+    "groups": {
+      "featured": "From this group"
+    }
+  },
+  "pages": {
+    "rooms_nav": "Rooms",
+    "room_groups": "Product groups used in this room",
+    "watch_film": "Watch the company film",
+    "open_pdf": "Open PDF"
+  },
+  "contact": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "subject": "Subject",
+    "message": "Your message",
+    "required": "required",
+    "send": "Send",
+    "success": "Your message has reached us. We will get back to you shortly.",
+    "legal": "By sending this form you agree that your details are used to reply to you.",
+    "privacy": "Privacy policy"
+  },
+  "footer": {
+    "contact": "Contact",
+    "whatsapp": "Message us on WhatsApp",
+    "social": "Social media"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "This option is unavailable",
+    "adding": "Adding…",
+    "added": "Added to cart.",
+    "error": "Could not add to cart, please try again.",
+    "from_price": "From {{ price }}",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "colors": "Colour options",
+    "features": "Features",
+    "show_image": "Show image {{ index }}",
+    "show_video": "Show video {{ index }}",
+    "whatsapp": "Ask on WhatsApp",
+    "whatsapp_message": "Hello, I would like information about {{ title }}.",
+    "inst_bank": "Bank / card",
+    "inst_count": "Instalments",
+    "inst_note": "Interest",
+    "calc_mode": "Calculation method",
+    "calc_mode_total": "Total length",
+    "calc_mode_room": "Room size",
+    "calc_total": "Total length (m)",
+    "calc_width": "Room width (m)",
+    "calc_depth": "Room depth (m)",
+    "calc_needed": "Length needed",
+    "calc_with_waste": "Including {{ waste }}% waste",
+    "calc_qty": "Pieces needed",
+    "calc_tier": "To the {{ metre }} m tier",
+    "calc_tier_done": "tier reached",
+    "calc_apply": "Set quantity",
+    "calc_applied": "Quantity set:",
+    "calc_unit_boy": "pcs"
+  },
+  "collections": {
+    "sort": "Sort",
+    "apply": "Apply",
+    "about": "About this group",
+    "group_nav": "Switch product group",
+    "all_groups": "Product groups",
+    "count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": "No products in this group yet."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "continue": "Browse products",
+    "count": {
+      "one": "({{ count }} item)",
+      "other": "({{ count }} items)"
+    },
+    "close": "Close cart",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "shipping_note": "Shipping is calculated at checkout.",
+    "checkout": "Check out",
+    "view": "View cart"
+  },
+  "errors": {
+    "not_found_title": "Page not found",
+    "not_found": "The address may have changed or the page may have been removed. Browse the product groups or search.",
+    "back_home": "Back to home page"
+  },
+  "search": {
+    "label": "Search",
+    "placeholder": "Product name or size, e.g. trimless",
+    "submit": "Search",
+    "title": "Search",
+    "results_for": "Results for “{{ terms }}”",
+    "count": {
+      "one": "{{ count }} result",
+      "other": "{{ count }} results"
+    },
+    "empty": "No results. Try another word or browse the product groups:",
+    "pages": "Pages and articles"
+  },
+  "blog": {
+    "all_posts": "All articles"
+  }
+}

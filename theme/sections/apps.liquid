@@ -1,0 +1,18 @@
+{%- comment -%} Uygulama blokları (örnek: Judge.me yorumları). Blok yoksa hiçbir şey basmaz. {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  <div class="psec apps">
+    {%- for block in section.blocks -%}
+      {% render block %}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Uygulamalar",
+  "class": "section-apps",
+  "settings": [],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Uygulamalar" }]
+}
+{% endschema %}

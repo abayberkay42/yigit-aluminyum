@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "lede": "LED aydınlatma, alçıpan, süpürgelik ve duvar paneli için alüminyum profiller. Bir grubu seçin, ürünlerini renk ve ölçüye göre inceleyin.",
+        "collections": [
+          "siva-ustu-led-profilleri",
+          "tri̇mless-alcipan-led-profi̇lleri̇",
+          "gomme-led-profilleri",
+          "tavan-kose-led-profilleri",
+          "led-profilleri",
+          "supurgelik-profilleri-1",
+          "duvar-panel-profilleri-1",
+          "fuga-profilleri",
+          "numuneler"
+        ]
+      }
+    }
+  },
+  "order": ["main"]
+}

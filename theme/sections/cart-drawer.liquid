@@ -1,0 +1,43 @@
+{%- comment -%}
+  Sepet çekmecesi (her sayfada, layout'tan). Yerel <dialog>: odak içeride kalır, Escape kapatır.
+  İçerik sepet değişince Shopify'ın bölüm işleme API'siyle ("sections": "cart-drawer") yeniden gelir.
+  Sol kenardaki ışık çizgisi menüdeki LED çizgisinin aynısıdır.
+{%- endcomment -%}
+<dialog class="drawer" id="CartDrawer" aria-labelledby="CartDrawerTitle" data-cart-drawer data-change-url="{{ routes.cart_change_url }}">
+  <div class="drawer__inner" data-count="{{ cart.item_count }}">
+    <header class="drawer__head">
+      <h2 class="drawer__title" id="CartDrawerTitle">
+        {{- 'cart.title' | t -}}
+        {%- if cart.item_count > 0 %} <span class="drawer__count">{{ 'cart.count' | t: count: cart.item_count }}</span>{% endif -%}
+      </h2>
+      <button type="button" class="drawer__close" data-cart-close aria-label="{{ 'cart.close' | t }}">
+        <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="drawer__empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a class="button button--primary" href="{{ routes.collections_url }}">{{ 'cart.continue' | t }}</a>
+      </div>
+    {%- else -%}
+      <div class="drawer__body" data-lenis-prevent>{% render 'cart-lines', cart: cart %}</div>
+      <footer class="drawer__foot">
+        <p class="drawer__sub"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></p>
+        <p class="drawer__note">{{ 'cart.shipping_note' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="button button--primary drawer__checkout">{{ 'cart.checkout' | t }}</button>
+        </form>
+        <a class="drawer__view" href="{{ routes.cart_url }}">{{ 'cart.view' | t }}</a>
+      </footer>
+    {%- endif -%}
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Sepet çekmecesi",
+  "class": "section-cart-drawer",
+  "settings": []
+}
+{% endschema %}

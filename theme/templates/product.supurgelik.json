@@ -1,0 +1,125 @@
+/* Süpürgelik ürün şablonu. SSS metinleri TASLAKTIR. Uygulama adımları firmanın içeriğiyle eklenecek (boşken görünmez). */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "tier": {
+          "type": "tier_price",
+          "settings": {}
+        },
+        "actions": {
+          "type": "actions",
+          "settings": {}
+        },
+        "project": {
+          "type": "project",
+          "settings": {}
+        },
+        "calculator": {
+          "type": "calculator",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tier",
+        "actions",
+        "calculator",
+        "project"
+      ],
+      "settings": {}
+    },
+    "guide": {
+      "type": "product-guide",
+      "settings": {
+        "heading": "Nasıl uygulanır?"
+      }
+    },
+    "applications": {
+      "type": "product-applications",
+      "blocks": {
+        "koridor": {
+          "type": "room",
+          "settings": {
+            "title": "Koridor",
+            "image": "shopify://shop_images/room-koridor.webp",
+            "link": "/pages/kullanim-alanlari#room-koridor"
+          }
+        },
+        "salon": {
+          "type": "room",
+          "settings": {
+            "title": "Salon",
+            "image": "shopify://shop_images/room-salon.webp",
+            "link": "/pages/kullanim-alanlari#room-salon"
+          }
+        }
+      },
+      "block_order": [
+        "koridor",
+        "salon"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "product-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Hangi renk seçenekleri var?",
+            "answer": "<p>Renk seçenekleri ürüne göre değişir. Bu ürünün renklerini sayfanın üstündeki renk seçiminde görebilirsiniz.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Proje ve toptan siparişlerde fiyat alabilir miyim?",
+            "answer": "<p>Evet. Proje miktarını ve kullanılacak alanı iletişim formundan yazarsanız size fiyat teklifi hazırlarız.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Satın almadan önce numune görebilir miyim?",
+            "answer": "<p>Numuneler grubundan numune paketi sipariş edebilirsiniz.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {}
+    },
+    "installments": {
+      "type": "product-installments",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "apps",
+      "settings": {}
+    },
+    "production": {
+      "type": "product-production",
+      "settings": {
+        "image": "shopify://shop_images/9.jpg"
+      }
+    },
+    "related": {
+      "type": "product-related",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "guide",
+    "applications",
+    "faq",
+    "installments",
+    "reviews",
+    "production",
+    "related"
+  ]
+}

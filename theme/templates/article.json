@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {}
+    },
+    "production": {
+      "type": "product-production",
+      "settings": {
+        "image": "shopify://shop_images/9.jpg"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "production"
+  ]
+}

@@ -1,0 +1,307 @@
+/*
+  LED profil ürün şablonu (varsayılan). Uygulama ve kapak takma adımları, karşılaştırma satırları ve SSS metinleri
+  TASLAKTIR: firmanın kendi içerikleriyle doğrulanıp değiştirilecek. Taksit tablosu satırlar girilince görünür.
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "tier": {
+          "type": "tier_price",
+          "settings": {}
+        },
+        "actions": {
+          "type": "actions",
+          "settings": {}
+        },
+        "project": {
+          "type": "project",
+          "settings": {}
+        },
+        "calculator": {
+          "type": "calculator",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tier",
+        "actions",
+        "calculator",
+        "project"
+      ],
+      "settings": {}
+    },
+    "guide": {
+      "type": "product-guide",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Ölçün ve kesin",
+            "text": "Profili uygulanacağı uzunlukta işaretleyin ve metal kesme testeresiyle düz kesin."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "LED şeridi yerleştirin",
+            "text": "Şeridin arkasındaki bandı çıkarın ve kanalın tabanına boydan boya bastırarak yapıştırın."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Kabloyu çıkarın",
+            "text": "Besleme kablosunu profilin ucundan ya da açtığınız delikten dışarı alın."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Profili sabitleyin",
+            "text": "Profili montaj yüzeyine klips, vida ya da yapıştırıcıyla sabitleyin."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "title": "Kapağı takın",
+            "text": "Kapağı kanala bastırarak oturtun, uç kapaklarını takın."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "heading": "Nasıl uygulanır?"
+      }
+    },
+    "cover": {
+      "type": "product-guide",
+      "blocks": {
+        "c1": {
+          "type": "step",
+          "settings": {
+            "title": "Bir uçtan başlayın",
+            "text": "Kapağın bir ucunu profilin ucundan kanala yerleştirin."
+          }
+        },
+        "c2": {
+          "type": "step",
+          "settings": {
+            "title": "Boydan boya bastırın",
+            "text": "Kapağı başparmakla bastırarak profil boyunca kanala oturtun."
+          }
+        },
+        "c3": {
+          "type": "step",
+          "settings": {
+            "title": "Uç kapaklarını takın",
+            "text": "Profilin iki ucunu uç kapaklarıyla kapatın."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "heading": "Kapak nasıl takılır?"
+      }
+    },
+    "compare_spot": {
+      "type": "product-compare",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "label": "Işığın görünümü",
+            "a": "Tavanda ayrı ayrı ışık noktaları",
+            "b": "Kesintisiz, tek bir ışık çizgisi"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Işık dağılımı",
+            "a": "Spotun altı aydınlık, aralar gölgeli",
+            "b": "Profil boyunca eşit"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Kamaşma",
+            "a": "Işık kaynağı doğrudan görünür",
+            "b": "Kapak ışığı dağıtır, kaynak görünmez"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "label": "Tavandaki iz",
+            "a": "Her spot için ayrı delik",
+            "b": "Tek bir ince hat"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "heading": "LED profil mi, spot mu?",
+        "col_a": "Spot aydınlatma",
+        "col_b": "LED profil",
+        "highlight": "b"
+      }
+    },
+    "compare_strip": {
+      "type": "product-compare",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "label": "Metredeki çip sayısı",
+            "a": "Daha az (şeride göre değişir)",
+            "b": "240"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Kapak altında görünüm",
+            "a": "Kapak şeride yakınsa noktalar seçilebilir",
+            "b": "Noktalar birleşir, çizgi kesintisiz görünür"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Uygun olduğu yer",
+            "a": "Derin profiller, dolaylı ışık",
+            "b": "Sığ profiller, doğrudan görünen çizgiler"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "heading": "Normal LED şerit ve 240 çipli LED şerit",
+        "col_a": "Normal LED şerit",
+        "col_b": "240 çipli LED şerit",
+        "highlight": "b"
+      }
+    },
+    "applications": {
+      "type": "product-applications",
+      "blocks": {
+        "salon": {
+          "type": "room",
+          "settings": {
+            "title": "Salon",
+            "image": "shopify://shop_images/room-salon.webp",
+            "link": "/pages/kullanim-alanlari#room-salon"
+          }
+        },
+        "mutfak": {
+          "type": "room",
+          "settings": {
+            "title": "Mutfak",
+            "image": "shopify://shop_images/room-mutfak.webp",
+            "link": "/pages/kullanim-alanlari#room-mutfak"
+          }
+        },
+        "koridor": {
+          "type": "room",
+          "settings": {
+            "title": "Koridor",
+            "image": "shopify://shop_images/room-koridor.webp",
+            "link": "/pages/kullanim-alanlari#room-koridor"
+          }
+        }
+      },
+      "block_order": [
+        "salon",
+        "mutfak",
+        "koridor"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "product-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Hangi renk seçenekleri var?",
+            "answer": "<p>Renk seçenekleri ürüne göre değişir. Bu ürünün renklerini sayfanın üstündeki renk seçiminde görebilirsiniz.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Proje ve toptan siparişlerde fiyat alabilir miyim?",
+            "answer": "<p>Evet. Proje miktarını ve kullanılacak alanı iletişim formundan yazarsanız size fiyat teklifi hazırlarız.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Satın almadan önce numune görebilir miyim?",
+            "answer": "<p>Numuneler grubundan numune paketi sipariş edebilirsiniz.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {}
+    },
+    "installments": {
+      "type": "product-installments",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "apps",
+      "settings": {}
+    },
+    "production": {
+      "type": "product-production",
+      "settings": {
+        "image": "shopify://shop_images/9.jpg"
+      }
+    },
+    "related": {
+      "type": "product-related",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "guide",
+    "cover",
+    "compare_spot",
+    "compare_strip",
+    "applications",
+    "faq",
+    "installments",
+    "reviews",
+    "production",
+    "related"
+  ]
+}

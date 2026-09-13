@@ -1,0 +1,98 @@
+{
+  "main-menu": {
+    "title": {
+      "tr": "Ana menü",
+      "en": "Main menu"
+    },
+    "links": [
+      {
+        "title": {
+          "tr": "Ürünler",
+          "en": "Products"
+        },
+        "url": "/collections",
+        "links": [
+          { "title": { "tr": "Tüm ürünler", "en": "All products" }, "url": "/collections/all" },
+          { "title": { "tr": "Kanal LED Profilleri", "en": "Surface LED Profiles" }, "url": "/collections/siva-ustu-led-profilleri" },
+          { "title": { "tr": "Trimless LED Profilleri", "en": "Trimless LED Profiles" }, "url": "/collections/tri̇mless-alcipan-led-profi̇lleri̇" },
+          { "title": { "tr": "Kanatlı LED Profilleri", "en": "Recessed LED Profiles" }, "url": "/collections/gomme-led-profilleri" },
+          { "title": { "tr": "Tavan Köşe LED Profilleri", "en": "Ceiling Corner LED Profiles" }, "url": "/collections/tavan-kose-led-profilleri" },
+          { "title": { "tr": "Süpürgelik Profilleri", "en": "Skirting Profiles" }, "url": "/collections/supurgelik-profilleri-1" },
+          { "title": { "tr": "Duvar Panel Profilleri", "en": "Wall Panel Profiles" }, "url": "/collections/duvar-panel-profilleri-1" },
+          { "title": { "tr": "Alçıpan Profilleri", "en": "Drywall Profiles" }, "url": "/collections/fuga-profilleri" }
+        ]
+      },
+      {
+        "title": {
+          "tr": "Üretim",
+          "en": "Manufacturing"
+        },
+        "url": "/pages/uretim"
+      },
+      {
+        "title": {
+          "tr": "Kullanım alanları",
+          "en": "Applications"
+        },
+        "url": "/pages/kullanim-alanlari"
+      },
+      {
+        "title": {
+          "tr": "Kurumsal",
+          "en": "Company"
+        },
+        "url": "/pages/kurumsal"
+      },
+      {
+        "title": {
+          "tr": "İletişim",
+          "en": "Contact"
+        },
+        "url": "/pages/iletisim"
+      }
+    ]
+  },
+  "footer": {
+    "title": {
+      "tr": "Alt menü",
+      "en": "Footer menu"
+    },
+    "links": [
+      {
+        "title": {
+          "tr": "Tüm ürünler",
+          "en": "All products"
+        },
+        "url": "/collections/all"
+      },
+      {
+        "title": {
+          "tr": "Numune talebi",
+          "en": "Sample request"
+        },
+        "url": "/collections/numuneler"
+      },
+      {
+        "title": {
+          "tr": "Kataloglar",
+          "en": "Catalogues"
+        },
+        "url": "/pages/kataloglar"
+      },
+      {
+        "title": {
+          "tr": "Sıkça sorulan sorular",
+          "en": "FAQ"
+        },
+        "url": "/pages/s-s-s"
+      },
+      {
+        "title": {
+          "tr": "İletişim",
+          "en": "Contact"
+        },
+        "url": "/pages/iletisim"
+      }
+    ]
+  }
+}

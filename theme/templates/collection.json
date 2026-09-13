@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "groups": [
+          "all",
+          "siva-ustu-led-profilleri",
+          "tri̇mless-alcipan-led-profi̇lleri̇",
+          "gomme-led-profilleri",
+          "tavan-kose-led-profilleri",
+          "supurgelik-profilleri-1",
+          "duvar-panel-profilleri-1",
+          "fuga-profilleri",
+          "numuneler"
+        ],
+        "per_page": 24
+      }
+    }
+  },
+  "order": ["main"]
+}

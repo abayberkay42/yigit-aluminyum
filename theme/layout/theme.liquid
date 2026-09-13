@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" dir="{% if request.locale.iso_code == 'ar' %}rtl{% else %}ltr{% endif %}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}</title>
+    {%- if page_description != blank %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- comment -%}
+      Site simgesi: logonun amblem kısmından üretildi (assets/yigit-ikon-*.png).
+      Mağaza panelinden simge yüklenirse content_for_header onu sonradan basar ve bu tanımı geçersiz kılar.
+    {%- endcomment -%}
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ 'yigit-ikon-64.png' | asset_url }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ 'yigit-ikon-512.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'yigit-ikon-180.png' | asset_url }}">
+    {% render 'meta-tags' %}
+    {% render 'structured-data' %}
+    <script>document.documentElement.classList.replace('no-js', 'js');</script>
+    {{ 'archivo-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+    {{ 'archivo-latin-ext.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+    {{ 'yigit.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'yigit.js' | asset_url }}" type="module"></script>
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ template.name }}">
+    <a class="skip-link" href="#main">{{ 'general.skip_to_content' | t }}</a>
+    {% sections 'header-group' %}
+    <main id="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+    {% sections 'footer-group' %}
+    {% section 'cart-drawer' %}
+  </body>
+</html>

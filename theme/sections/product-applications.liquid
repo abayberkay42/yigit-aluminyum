@@ -1,0 +1,41 @@
+{%- comment -%} Ürün sayfası: bu ürün grubunun kullanıldığı odalar; kart kullanım alanları sayfasındaki odaya götürür. {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  <section class="psec papps" aria-labelledby="Apps-{{ section.id }}">
+    <div class="psec__head psec__head--row">
+      <h2 class="psec__title" id="Apps-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {%- if section.settings.link != blank -%}<a class="psec__more" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>{%- endif -%}
+    </div>
+    <ul class="papps__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="papp" href="{{ block.settings.link | default: section.settings.link }}">
+            {%- if block.settings.image -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: widths: '600,900,1200', sizes: '(min-width: 64em) 30vw, 90vw', loading: 'lazy', alt: '' }}
+            {%- endif -%}
+            <span class="papp__t">{{ block.settings.title }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Kullanım alanları",
+  "class": "section-product-applications",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Nerede kullanılır?" },
+    { "type": "url", "id": "link", "label": "Tümü bağlantısı", "default": "/pages/kullanim-alanlari" },
+    { "type": "text", "id": "link_label", "label": "Tümü bağlantı metni", "default": "Tüm kullanım alanları" }
+  ],
+  "blocks": [
+    { "type": "room", "name": "Oda", "limit": 4, "settings": [
+      { "type": "text", "id": "title", "label": "Oda adı" },
+      { "type": "image_picker", "id": "image", "label": "Görsel" },
+      { "type": "url", "id": "link", "label": "Bağlantı", "info": "Örnek: /pages/kullanim-alanlari#room-mutfak" }
+    ] }
+  ],
+  "presets": [{ "name": "Kullanım alanları" }]
+}
+{% endschema %}

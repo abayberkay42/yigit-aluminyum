@@ -1,0 +1,7 @@
+{%- comment -%} Fiyat. Parametre: product {%- endcomment -%}
+{%- if product.price_varies -%}
+  {%- assign min_price = product.price_min | money -%}
+  {{ 'products.from_price' | t: price: min_price }}
+{%- else -%}
+  {{ product.price | money }}
+{%- endif -%}

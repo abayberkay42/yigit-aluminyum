@@ -1,0 +1,31 @@
+/* SSS sayfası (/pages/s-s-s): mevcut sayfa içeriği Shopify'da kalır ve sayfa metni bölümünde gösterilir. */
+{
+  "sections": {
+    "hero": { "type": "page-hero", "settings": { "eyebrow": "Sıkça sorulan sorular" } },
+    "content": { "type": "page-content", "settings": {} },
+    "doors": {
+      "type": "home-doors",
+      "blocks": {
+        "door-proje": { "type": "door", "settings": {
+          "style": "dark",
+          "eyebrow": "Sorunuz mu var?",
+          "title": "Bize doğrudan sorun",
+          "text": "Ürün seçimi, proje miktarı ve numune için formu doldurun.",
+          "link_1_label": "İletişim",
+          "link_1": "/pages/iletisim"
+        } },
+        "door-magaza": { "type": "door", "settings": {
+          "style": "light",
+          "eyebrow": "Mağaza",
+          "title": "Ürün grupları",
+          "text": "Ürünleri renk ve ölçüye göre inceleyin.",
+          "link_1_label": "Ürün grupları",
+          "link_1": "/collections"
+        } }
+      },
+      "block_order": ["door-proje", "door-magaza"],
+      "settings": { "heading": "Devam etmek için" }
+    }
+  },
+  "order": ["hero", "content", "doors"]
+}

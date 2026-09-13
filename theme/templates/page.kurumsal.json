@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "Kurumsal", "title": "2008'den beri alüminyum profil", "align": "center" }
+    },
+    "content": { "type": "page-content", "settings": {} },
+    "doors": {
+      "type": "home-doors",
+      "blocks": {
+        "door-uretim": { "type": "door", "settings": {
+          "style": "dark",
+          "eyebrow": "Üretim",
+          "title": "Profillerimiz nasıl üretiliyor?",
+          "text": "Kalıptan sevkiyata kadar üretim adımlarını inceleyin.",
+          "link_1_label": "Üretim sayfası",
+          "link_1": "/pages/uretim"
+        } },
+        "door-iletisim": { "type": "door", "settings": {
+          "style": "light",
+          "eyebrow": "İletişim",
+          "title": "Bize ulaşın",
+          "text": "Teklif, numune ve bayilik talepleriniz için formu doldurun.",
+          "link_1_label": "İletişim",
+          "link_1": "/pages/iletisim"
+        } }
+      },
+      "block_order": ["door-uretim", "door-iletisim"],
+      "settings": { "heading": "Üretim ve iletişim" }
+    }
+  },
+  "order": ["hero", "content", "doors"]
+}

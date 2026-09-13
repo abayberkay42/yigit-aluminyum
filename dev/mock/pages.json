@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "handle": "kurumsal",
+    "title": {
+      "tr": "Kurumsal",
+      "en": "Company"
+    },
+    "content": {
+      "tr": "<p>2008 yılında İstanbul’da kurulan Yiğit Alüminyum, alüminyum, plastik ve paslanmaz çelik gibi birçok farklı alanda faaliyet göstererek başarıyla büyümeye devam etmektedir. Müşteri memnuniyetini ve kaliteyi her zaman ön planda tutan firmamız, kaliteden ödün vermeyen anlayışıyla dünya pazarında söz sahibi olmayı hedeflemektedir.</p><p>Alüminyum detay profilleri, paslanmaz çelik detay profilleri, seviye derz ürünleri, LED profilleri ve diğer yapı ürünlerinde üretim yapmakta; bayi ağı sayesinde tüm Türkiye’ye dağıtım sağlamaktadır.</p><h2>Kalite ve Dayanıklılık</h2><p>Ürünlerimizin kalitesine ve dayanıklılığına büyük önem vermekteyiz. Fayans, parke, merdiven, LED, duvar panel ve sıva profillerimiz uzun yıllar dayanıklılığını korurken estetik açıdan da tatmin edici bir görünüm sunmaktadır.</p><h2>Müşteri Odaklı Yaklaşım</h2><p>Müşteri memnuniyeti, Yiğit Alüminyum’un temel değerlerinden biridir. Her projenin benzersiz olduğunu anlayarak müşterilerimize özel çözümler sunuyoruz.</p><h2>İnovasyon ve Gelişim</h2><p>Teknolojik gelişmeleri yakından takip eden Yiğit Alüminyum, üretim süreçlerini sürekli olarak iyileştirmeye odaklanmaktadır.</p><h2>Sürdürülebilirlik</h2><p>Üretim süreçlerimizde çevresel etkileri en aza indirmek için atık yönetiminde titizlikle çalışıyoruz.</p>",
+      "en": "<p>Founded in Istanbul in 2008, Yiğit Alüminyum works with aluminium, plastic and stainless steel and continues to grow.</p><p>We manufacture aluminium and stainless steel detail profiles, level joint products, LED profiles and other building products, distributed across Türkiye through our dealer network.</p>"
+    },
+    "template_suffix": "kurumsal"
+  },
+  {
+    "id": 2,
+    "handle": "uretim",
+    "title": {
+      "tr": "Üretim",
+      "en": "Manufacturing"
+    },
+    "content": {
+      "tr": "",
+      "en": ""
+    },
+    "template_suffix": "uretim"
+  },
+  {
+    "id": 3,
+    "handle": "kullanim-alanlari",
+    "title": {
+      "tr": "Kullanım alanları",
+      "en": "Applications"
+    },
+    "content": {
+      "tr": "",
+      "en": ""
+    },
+    "template_suffix": "kullanim-alanlari"
+  },
+  {
+    "id": 4,
+    "handle": "iletisim",
+    "title": {
+      "tr": "İletişim",
+      "en": "Contact"
+    },
+    "content": {
+      "tr": "",
+      "en": ""
+    },
+    "template_suffix": "iletisim"
+  },
+  {
+    "id": 99027615001,
+    "handle": "s-s-s",
+    "title": {
+      "tr": "Sıkça Sorulan Sorular",
+      "en": "FAQ"
+    },
+    "template_suffix": "sss",
+    "content": {
+      "tr": "<video controls playsinline preload=\"metadata\" src=\"https://cdn.shopify.com/videos/c/o/v/f1088c09aa0e4902b14785ac63d2845f.mp4\"></video><h1>TRİMLESS LED PROFİLİ NEDİR? - NE İŞE YARAR? - NERELERDE KULLANILIR?</h1><p>Trimless LED profilleri, çağdaş iç mekân tasarımlarında sıkça tercih edilen, estetik ve fonksiyonel aydınlatma çözümlerinin temel parçalarından biridir. Bu profiller, çerçevesiz tasarımları sayesinde modern bir görünüm sunarken, aynı zamanda ışığın homojen bir şekilde yayılmasını sağlar.</p><h2>Trimless LED Profili Nedir?</h2><p>Trimless LED profilleri, LED şeritlerin çerçevesiz bir şekilde montajını mümkün kılan alüminyum tabanlı ürünlerdir. Bu profiller, özellikle tavan ve duvar yüzeyine entegre edilerek monte edilir ve tamamen düz bir yüzey elde edilmesini sağlar.</p><h2>Trimless LED Profilleri Ne İşe Yarar?</h2><ul><li><strong>Görsel Tasarım:</strong> Modern ve minimal bir iç mekân tasarımı oluşturur.</li><li><strong>Homojen Aydınlatma:</strong> Işığın homojen ve gölgelenmeden dağılmasını sağlar.</li><li><strong>Koruma:</strong> LED şeritlerin dış etkenlerden korunmasını sağlayarak kullanım ömrünü uzatır.</li><li><strong>Pratiklik:</strong> Montaj ve bakım kolaylığı sunar.</li></ul>",
+      "en": ""
+    }
+  },
+  {
+    "id": 99027615002,
+    "handle": "kataloglar",
+    "title": {
+      "tr": "Kataloglar",
+      "en": "Catalogues"
+    },
+    "template_suffix": "kataloglar",
+    "content": {
+      "tr": "",
+      "en": ""
+    }
+  }
+]

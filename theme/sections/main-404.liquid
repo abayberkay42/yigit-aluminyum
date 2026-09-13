@@ -1,0 +1,24 @@
+{%- comment -%} Sayfa bulunamadı: kesik bir ışık çizgisi, ürün gruplarına ve aramaya yönlendirme. {%- endcomment -%}
+<section class="nf" aria-labelledby="NfTitle">
+  <div class="nf__line" aria-hidden="true"><span></span><span></span><span></span></div>
+  <p class="phero__eyebrow">404</p>
+  <h1 class="phero__title" id="NfTitle">{{ 'errors.not_found_title' | t }}</h1>
+  <p class="phero__lede">{{ 'errors.not_found' | t }}</p>
+  <form class="nf__search" action="{{ routes.search_url }}" method="get" role="search">
+    <label class="visually-hidden" for="NfSearch">{{ 'search.label' | t }}</label>
+    <input id="NfSearch" type="search" name="q" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off">
+    <button type="submit" class="button button--primary">{{ 'search.submit' | t }}</button>
+  </form>
+  <div class="nf__actions">
+    <a class="button button--ghost" href="{{ routes.collections_url }}">{{ 'collections.all_groups' | t }}</a>
+    <a class="button button--ghost" href="{{ routes.root_url }}">{{ 'errors.back_home' | t }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bulunamadı",
+  "class": "section-main-404",
+  "settings": []
+}
+{% endschema %}

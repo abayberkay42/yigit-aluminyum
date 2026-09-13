@@ -1,0 +1,57 @@
+{%- comment -%} Arama sayfası: ürünler kart ızgarasında, sayfa ve yazılar altta liste halinde. {%- endcomment -%}
+<section class="srch" aria-labelledby="SearchTitle">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li aria-current="page">{{ 'search.title' | t }}</li>
+    </ol>
+  </nav>
+  <div class="phero__text">
+    <h1 class="phero__title" id="SearchTitle">
+      {%- if search.performed -%}{{ 'search.results_for' | t: terms: search.terms }}{%- else -%}{{ 'search.title' | t }}{%- endif -%}
+    </h1>
+  </div>
+  <form class="nf__search srch__form" action="{{ routes.search_url }}" method="get" role="search">
+    <label class="visually-hidden" for="SearchQ">{{ 'search.label' | t }}</label>
+    <input id="SearchQ" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off">
+    <input type="hidden" name="type" value="product,page,article">
+    <button type="submit" class="button button--primary">{{ 'search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    <p class="coll__count srch__count">{{ 'search.count' | t: count: search.results_count }}</p>
+    {%- if search.results_count == 0 -%}
+      <p class="srch__empty">{{ 'search.empty' | t }} <a href="{{ routes.collections_url }}">{{ 'collections.all_groups' | t }}</a></p>
+    {%- else -%}
+      {%- paginate search.results by 36 -%}
+        <ul class="grid" role="list">
+          {%- for item in search.results -%}
+            {%- comment -%} İlk iki satır ilk ekranda görünür: tembel yükleme verilmez {%- endcomment -%}
+            {%- assign card_loading = 'lazy' -%}
+            {%- if forloop.index <= 8 -%}{%- assign card_loading = 'eager' -%}{%- endif -%}
+            {%- if item.object_type == 'product' -%}<li>{% render 'product-card', product: item, loading: card_loading %}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+        {%- capture others -%}
+          {%- for item in search.results -%}
+            {%- unless item.object_type == 'product' -%}
+              <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- if others != blank -%}
+          <h2 class="psec__title srch__h2">{{ 'search.pages' | t }}</h2>
+          <ul class="srch__list" role="list">{{ others }}</ul>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Arama",
+  "class": "section-main-search",
+  "settings": []
+}
+{% endschema %}

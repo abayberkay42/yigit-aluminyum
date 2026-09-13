@@ -1,0 +1,8 @@
+{
+  "type": "footer",
+  "name": "Alt alan",
+  "sections": {
+    "footer": { "type": "footer", "settings": { "menu": "footer", "menu_heading": "Mağaza", "menu_2": "main-menu", "menu_2_heading": "Sayfalar", "phone": "+90 532 642 72 80", "email": "info@yigitaluminyumprofil.com", "address": "Beylikdüzü, İstanbul" } }
+  },
+  "order": ["footer"]
+}

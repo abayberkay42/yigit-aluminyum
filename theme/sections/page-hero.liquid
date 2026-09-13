@@ -1,0 +1,31 @@
+{%- comment -%} Kurumsal sayfaların başlığı: sayfa yolu, üst etiket, başlık (boşsa sayfa adı), giriş metni. {%- endcomment -%}
+<section class="phero{% if section.settings.align == 'center' %} phero--center{% endif %}" aria-labelledby="PageTitle-{{ section.id }}">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li aria-current="page">{{ page.title }}</li>
+    </ol>
+  </nav>
+  <div class="phero__text">
+    {%- if section.settings.eyebrow != blank -%}<p class="phero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1 class="phero__title" id="PageTitle-{{ section.id }}">{{ section.settings.title | default: page.title }}</h1>
+    {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sayfa başlığı",
+  "class": "section-page-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket" },
+    { "type": "text", "id": "title", "label": "Başlık", "info": "Boş bırakılırsa sayfanın adı kullanılır." },
+    { "type": "textarea", "id": "lede", "label": "Giriş metni" },
+    { "type": "select", "id": "align", "label": "Hizalama", "default": "start", "options": [
+      { "value": "start", "label": "Sola yaslı" },
+      { "value": "center", "label": "Ortalı" }
+    ] }
+  ],
+  "presets": [{ "name": "Sayfa başlığı" }]
+}
+{% endschema %}

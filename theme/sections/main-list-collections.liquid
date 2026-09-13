@@ -1,0 +1,58 @@
+{%- comment -%}
+  Ürün grupları sayfası (/collections). Gruplar ayardaki sırayla; ayar boşsa mağazadaki bütün koleksiyonlar.
+  Kart ürün kartıyla aynı dili konuşur: beyaz görsel alanı, üzerine gelince grubun ikinci ürün görseli.
+{%- endcomment -%}
+{%- if section.settings.collections != blank -%}
+  {%- assign list = section.settings.collections -%}
+{%- else -%}
+  {%- assign list = collections -%}
+{%- endif -%}
+<section class="lcoll" aria-labelledby="LcollTitle-{{ section.id }}">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li aria-current="page">{{ 'collections.all_groups' | t }}</li>
+    </ol>
+  </nav>
+  <div class="phero__text lcoll__head">
+    <h1 class="phero__title" id="LcollTitle-{{ section.id }}">{{ section.settings.title | default: 'collections.all_groups' | t }}</h1>
+    {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
+  </div>
+
+  <ul class="grid grid--groups" role="list">
+    {%- for c in list -%}
+      {%- if c.handle == 'all' or c.products_count == 0 -%}{%- continue -%}{%- endif -%}
+      {%- assign img = c.products.first.featured_image | default: c.image -%}
+      {%- assign img2 = c.products[1].featured_image -%}
+      <li>
+        <article class="card card--group">
+          <div class="card__media">
+            {%- if img -%}
+              {%- comment -%} İlk iki satır ilk ekranda görünür (masaüstünde 3 sütun): tembel yükleme verilmez {%- endcomment -%}
+              {%- assign card_loading = 'lazy' -%}
+              {%- if forloop.index <= 6 -%}{%- assign card_loading = 'eager' -%}{%- endif -%}
+              <span class="card__img">{{ img | image_url: width: 900 | image_tag: widths: '450,700,900', sizes: '(min-width: 64em) 30vw, 46vw', loading: card_loading, alt: '' }}</span>
+              {%- if img2 -%}<span class="card__img card__img--alt">{{ img2 | image_url: width: 900 | image_tag: widths: '450,700,900', sizes: '(min-width: 64em) 30vw, 46vw', loading: 'lazy', alt: '' }}</span>{%- endif -%}
+            {%- endif -%}
+          </div>
+          <div class="card__body">
+            <h2 class="card__title"><a href="{{ c.url }}">{{ c.title }}</a></h2>
+            <p class="card__more">{{ 'collections.count' | t: count: c.products_count }}</p>
+          </div>
+        </article>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Ürün grupları",
+  "class": "section-main-list-collections",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Başlık", "info": "Boş bırakılırsa \"Ürün grupları\"." },
+    { "type": "textarea", "id": "lede", "label": "Giriş metni" },
+    { "type": "collection_list", "id": "collections", "label": "Gruplar ve sırası", "info": "Boş bırakılırsa bütün koleksiyonlar gösterilir.", "limit": 24 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{%- comment -%}
+  Blog yazısı + BlogPosting yapılandırılmış verisi.
+  Not: yazının kendi içeriğinde h1 varsa sayfada iki h1 olur; içerikteki başlık Shopify'da h2 yapılmalıdır.
+{%- endcomment -%}
+<article class="art" aria-labelledby="ArticleTitle">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+      <li aria-current="page">{{ article.title }}</li>
+    </ol>
+  </nav>
+  <header class="phero__text">
+    <p class="phero__eyebrow">
+      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time>
+      {%- if article.author != blank %} · {{ article.author }}{% endif -%}
+    </p>
+    <h1 class="phero__title art__title" id="ArticleTitle">{{ article.title }}</h1>
+  </header>
+  {%- if article.image -%}
+    <figure class="art__media">{{ article.image | image_url: width: 1600 | image_tag: widths: '800,1200,1600', sizes: '(min-width: 64em) 48rem, 100vw', loading: 'eager', alt: article.image.alt }}</figure>
+  {%- endif -%}
+  <div class="rte art__body">{{ article.content }}</div>
+  <p class="art__back"><a class="psec__more" href="{{ blog.url }}">{{ 'blog.all_posts' | t }}</a></p>
+</article>
+
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":{{ article.title | json }},"url":{{ shop.url | append: article.url | json }},"datePublished":{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }}{% if article.author != blank %},"author":{"@type":"Person","name":{{ article.author | json }}}{% endif %}{% if article.image %},"image":{{ article.image | image_url: width: 1600 | prepend: 'https:' | replace: 'https:https:', 'https:' | json }}{% endif %},"publisher":{"@id":{{ shop.url | append: '/#organization' | json }}},"mainEntityOfPage":{{ shop.url | append: article.url | json }}}
+</script>
+
+{% schema %}
+{
+  "name": "Blog yazısı",
+  "class": "section-main-article",
+  "settings": []
+}
+{% endschema %}

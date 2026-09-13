@@ -1,0 +1,54 @@
+{%- comment -%}
+  Ürün kartı. Parametreler: product, sizes (isteğe bağlı, görsel sizes değeri),
+  loading (isteğe bağlı: ilk ekranda görünen kartlarda 'eager', diğerlerinde varsayılan 'lazy').
+  İlk ekrandaki görsele tembel yükleme verilmez; tarayıcı onu sonraya bırakır ve görsel geç gelir.
+  Tüm kart tek bağlantıdır (başlıktaki bağlantı kartı kaplar). İkinci görsel varsa üzerine gelince görünür
+  (mağazada ikinci görsel çoğunlukla uygulama fotoğrafı). Renk seçeneği varsa renk noktaları, diğer seçenek için sayı.
+{%- endcomment -%}
+{%- liquid
+  assign img = product.featured_image
+  assign img2 = product.images[1]
+  assign sizes = sizes | default: '(min-width: 64em) 23vw, 46vw'
+  assign loading = loading | default: 'lazy'
+  assign color_values = blank
+  assign other_count = 0
+  assign other_name = ''
+  for option in product.options_with_values
+    assign oname = option.name | downcase
+    if oname == 'renk' or oname == 'color' or oname == 'colour'
+      assign color_values = option.values
+    elsif option.values.size > 1
+      assign other_count = option.values.size
+      assign other_name = option.name | downcase
+    endif
+  endfor
+-%}
+<article class="card">
+  <div class="card__media">
+    {%- if img -%}
+      <span class="card__img">{{ img | image_url: width: 720 | image_tag: widths: '360,540,720', sizes: sizes, loading: loading, alt: '' }}</span>
+      {%- if img2 -%}
+        <span class="card__img card__img--alt">{{ img2 | image_url: width: 720 | image_tag: widths: '360,540,720', sizes: sizes, loading: 'lazy', alt: '' }}</span>
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'card__placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="card__body">
+    {%- if product.type != blank -%}<p class="card__type">{{ product.type }}</p>{%- endif -%}
+    <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <p class="card__price">{% render 'price', product: product %}</p>
+    {%- if color_values != blank or other_count > 0 -%}
+      <div class="card__opts">
+        {%- if color_values != blank -%}
+          <ul class="card__swatches" role="list" aria-label="{{ 'products.colors' | t }}">
+            {%- for v in color_values limit: 7 -%}
+              <li class="swatch" data-swatch="{{ v | escape }}" title="{{ v | escape }}"><span class="visually-hidden">{{ v }}</span></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if other_count > 0 -%}<span class="card__more">{{ other_count }} {{ other_name }}</span>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>

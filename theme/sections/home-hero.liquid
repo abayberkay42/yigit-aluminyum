@@ -1,0 +1,159 @@
+{%- comment -%}
+  Ana sayfa sahnesi: canlı ekstrüzyon + kaydırmayla ilerleyen üretim anlatısı (tek WebGL sahnesi, src/js/hero/extrusion.js).
+  "Kalıp" blokları ürün gruplarıdır: seçildiğinde profil kalıba çekilir, kalıbın ağzı o kesite döner, yeni profil çıkar.
+  "Durak" blokları anlatının metinleridir: kesim, yüzey, LED ve kapak, uygulama. Metinler gerçek HTML'dir.
+  Kesit çizimleri src/js/hero/profiles.js içindedir; firmanın gerçek çizimleri gelince orada değişir.
+  Görsel kaynağı: assets/plates/room-led.png (tema dosyası room-led-*.webp).
+{%- endcomment -%}
+{%- liquid
+  assign groups = section.blocks | where: 'type', 'group'
+  assign stages = section.blocks | where: 'type', 'stage'
+  assign first = groups.first
+  assign finishes = 'gumus,beyaz,altin,antrasit,siyah' | split: ','
+-%}
+<section class="xhero" data-extrusion data-shape="{{ first.settings.shape }}" aria-labelledby="XHeroTitle-{{ section.id }}">
+  <div class="xhero__sticky">
+    <div class="xhero__dusk" aria-hidden="true"></div>
+    <div class="xhero__room" aria-hidden="true">
+      <img
+        src="{{ 'room-led-1600.webp' | asset_url }}"
+        srcset="{{ 'room-led-1600.webp' | asset_url }} 1600w, {{ 'room-led-2400.webp' | asset_url }} 2400w"
+        sizes="100vw"
+        width="2752"
+        height="1536"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+    <canvas class="xhero__canvas" aria-hidden="true"></canvas>
+
+    <div class="xhero__intro">
+      <div class="xhero__inner">
+        <h1 class="xhero__title" id="XHeroTitle-{{ section.id }}">
+          <span class="xhero__line">{{ section.settings.line_1 }}</span>
+          <span class="xhero__line xhero__line--wide">{{ section.settings.line_2 }}</span>
+          <span class="xhero__line">{{ section.settings.line_3 }}</span>
+        </h1>
+        {%- if section.settings.lede != blank -%}
+          <p class="xhero__lede">{{ section.settings.lede }}</p>
+        {%- endif -%}
+        <a class="button button--primary xhero__cta" href="{{ section.settings.cta_link | default: routes.collections_url }}">
+          {{- section.settings.cta_label -}}
+        </a>
+      </div>
+
+      {%- if groups.size > 0 -%}
+        <div class="xhero__dock">
+          <div class="xhero__readout" aria-live="polite">
+            <span class="xhero__readout-k">{{ 'home.hero.selected_die' | t }}</span>
+            {%- if first.settings.product != blank -%}
+              <a class="xhero__readout-product" href="{{ first.settings.product.url }}" data-readout-product>{{ first.settings.product.title }}</a>
+            {%- endif -%}
+            <a class="xhero__readout-group" href="{{ first.settings.collection.url | default: routes.collections_url }}" data-readout-group>
+              {{- 'home.hero.view_group' | t -}}: <span data-readout-title>{{ first.settings.title }}</span>
+            </a>
+          </div>
+          <div class="xhero__dies" role="group" aria-label="{{ 'home.hero.choose_die' | t }}">
+            {%- for block in groups -%}
+              <button
+                type="button"
+                class="die"
+                aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-shape="{{ block.settings.shape }}"
+                data-title="{{ block.settings.title | escape }}"
+                data-collection-url="{{ block.settings.collection.url | default: routes.collections_url }}"
+                data-product-title="{{ block.settings.product.title | escape }}"
+                data-product-url="{{ block.settings.product.url }}"
+                {{ block.shopify_attributes }}
+              >
+                {%- render 'kesit-icon', shape: block.settings.shape -%}
+                <span>{{ block.settings.title }}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if stages.size > 0 -%}
+      <ol class="xhero__stages" role="list" aria-label="{{ 'home.story.label' | t }}">
+        {%- for block in stages -%}
+          <li class="stage" data-stage="{{ forloop.index0 }}" data-kind="{{ block.settings.kind }}" {{ block.shopify_attributes }}>
+            <span class="stage__no">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} / {% if stages.size < 10 %}0{% endif %}{{ stages.size }}</span>
+            <h2 class="stage__title">{{ block.settings.title }}</h2>
+            <p class="stage__text">{{ block.settings.text }}</p>
+            {%- if block.settings.kind == 'finish' -%}
+              <ul class="finishes" role="list">
+                {%- for f in finishes -%}
+                  {%- assign finish_key = 'home.story.finish_' | append: f -%}
+                  <li class="finish" data-finish="{{ f }}"{% if forloop.first %} data-active{% endif %}>
+                    <span class="finish__dot" aria-hidden="true"></span>{{ finish_key | t }}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+              <a class="stage__link" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ekstrüzyon ve üretim",
+  "tag": "div",
+  "class": "section-home-hero",
+  "settings": [
+    { "type": "header", "content": "Açılış" },
+    { "type": "text", "id": "line_1", "label": "Başlık 1. satır", "default": "2008'den beri" },
+    { "type": "text", "id": "line_2", "label": "Başlık 2. satır (geniş)", "default": "alüminyum profil" },
+    { "type": "text", "id": "line_3", "label": "Başlık 3. satır", "default": "üretiyoruz." },
+    { "type": "text", "id": "lede", "label": "Alt metin", "default": "Bir kalıp seçin, profil o kesitle çıksın." },
+    { "type": "text", "id": "cta_label", "label": "Düğme metni", "default": "Ürün gruplarını incele" },
+    { "type": "url", "id": "cta_link", "label": "Düğme bağlantısı", "default": "/collections" }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Kalıp (ürün grubu)",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Grup adı", "default": "LED kanal" },
+        { "type": "select", "id": "shape", "label": "Kalıp kesiti", "default": "led", "options": [
+          { "value": "led", "label": "LED kanal" },
+          { "value": "trimless", "label": "Trimless" },
+          { "value": "kose", "label": "Köşe" },
+          { "value": "supurgelik", "label": "Süpürgelik" },
+          { "value": "z", "label": "Z profili" },
+          { "value": "panel", "label": "Duvar paneli H" }
+        ] },
+        { "type": "collection", "id": "collection", "label": "Koleksiyon" },
+        { "type": "product", "id": "product", "label": "Örnek ürün", "info": "Seçili kalıbın yanında adıyla gösterilir." }
+      ]
+    },
+    {
+      "type": "stage",
+      "name": "Anlatı durağı",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "kind", "label": "Durak", "default": "cut", "options": [
+          { "value": "cut", "label": "Kesim" },
+          { "value": "finish", "label": "Yüzey ve renk" },
+          { "value": "led", "label": "LED ve kapak" },
+          { "value": "apply", "label": "Uygulama" }
+        ] },
+        { "type": "text", "id": "title", "label": "Başlık", "default": "Kesim" },
+        { "type": "textarea", "id": "text", "label": "Metin" },
+        { "type": "text", "id": "link_label", "label": "Bağlantı metni" },
+        { "type": "url", "id": "link", "label": "Bağlantı" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ekstrüzyon ve üretim" }]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Yiğit Alüminyum",
+    "theme_version": "0.1.0",
+    "theme_author": "Yiğit Alüminyum",
+    "theme_documentation_url": "https://www.yigitaluminium.com",
+    "theme_support_url": "https://www.yigitaluminium.com"
+  },
+  {
+    "name": "Firma bilgileri",
+    "settings": [
+      { "type": "paragraph", "content": "Arama motorlarına verilen firma bilgisi (yapılandırılmış veri) ve paylaşım görseli." },
+      { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Kare ya da yatay, şeffaf zeminli PNG/SVG." },
+      { "type": "image_picker", "id": "share_image", "label": "Paylaşım görseli", "info": "Kendi görseli olmayan sayfalar paylaşılınca görünür. 1200×630 önerilir." },
+      { "type": "text", "id": "org_founding", "label": "Kuruluş yılı", "default": "2008" },
+      { "type": "text", "id": "org_email", "label": "E-posta" },
+      { "type": "text", "id": "org_phone", "label": "Telefon", "info": "Ülke koduyla, örnek: +90 532 000 00 00" },
+      { "type": "text", "id": "org_locality", "label": "İlçe", "default": "Beylikdüzü" },
+      { "type": "text", "id": "org_region", "label": "İl", "default": "İstanbul" },
+      { "type": "textarea", "id": "org_same_as", "label": "Sosyal medya adresleri", "info": "Her satıra bir tam adres (Instagram, Facebook, YouTube, LinkedIn)." }
+    ]
+  },
+  {
+    "name": "Satış",
+    "settings": [
+      {
+        "type": "number",
+        "id": "tier_threshold_m",
+        "label": "Kademeli fiyat eşiği (metre)",
+        "info": "Bu metrajın üzerindeki siparişlerde kademeli fiyat uygulanır.",
+        "default": 300
+      }
+    ]
+  }
+]

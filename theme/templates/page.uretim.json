@@ -1,0 +1,135 @@
+/*
+  Üretim sayfası. Süreç adımları firmanın mevcut üretim sayfasındaki metinden kısaltıldı (www.yigitaluminium.com/pages/uretim, 2026-09-11).
+  Film, sayılar, belgeler ve VR bağlantısı firma içeriği gelince tema düzenleyiciden eklenir; boşken görünmez.
+*/
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Üretim",
+        "title": "Kalıptan rafa",
+        "lede": "Alüminyum profillerimizi 2008'den beri Beylikdüzü'nde üretiyoruz. Bir profilin kalıptan çıkıp size ulaşana kadar geçtiği adımlar aşağıda.",
+        "align": "center"
+      }
+    },
+    "production": {
+      "type": "page-production",
+      "blocks": {
+        "hammadde": {
+          "type": "step",
+          "settings": {
+            "title": "Hammadde",
+            "text": "Profillerin ana malzemesi alüminyum alaşımlarıdır. Üretimde genellikle 6000 serisi alaşımlar kullanılır.",
+            "image": "shopify://shop_images/9.jpg"
+          }
+        },
+        "billet": {
+          "type": "step",
+          "settings": {
+            "title": "Billet hazırlığı",
+            "text": "Alaşım, billet adı verilen silindirik kütükler halinde dökülür. Bu kütükler ekstrüzyonun hammaddesidir.",
+            "image": "shopify://shop_images/1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg"
+          }
+        },
+        "homojen": {
+          "type": "step",
+          "settings": {
+            "title": "Isıl işlem ve homojenizasyon",
+            "text": "Billetler yaklaşık 450–500 °C'ye ısıtılır; iç yapı homojen hale gelir ve malzemenin mekanik özellikleri iyileşir."
+          }
+        },
+        "ekstruzyon": {
+          "type": "step",
+          "settings": {
+            "title": "Ekstrüzyon",
+            "text": "Isıtılmış billet, pres ile yüksek basınç altında kalıptan geçirilir ve profilin şeklini alır. Çıkan profil su ya da hava ile soğutulur.",
+            "image": "shopify://shop_images/10.jpg"
+          }
+        },
+        "kesim": {
+          "type": "step",
+          "settings": {
+            "title": "Kesme ve soğutma",
+            "text": "Profiller istenen boyda kesilir ve soğutma bantlarında tamamen soğutulur. Düzgünlük ve yüzey kalitesi bu aşamada kontrol edilir.",
+            "image": "shopify://shop_images/8.jpg"
+          }
+        },
+        "sertlestirme": {
+          "type": "step",
+          "settings": {
+            "title": "Sertleştirme",
+            "text": "Kesilen profillere T5 ya da T6 ısıl işlemi uygulanır; profilin mukavemeti ve sertliği artar."
+          }
+        },
+        "yuzey": {
+          "type": "step",
+          "settings": {
+            "title": "Yüzey işlemleri",
+            "text": "Eloksal ile yüzeyde dayanıklı bir oksit tabakası oluşturulur ya da elektrostatik toz boya ile renk verilir."
+          }
+        },
+        "kalite": {
+          "type": "step",
+          "settings": {
+            "title": "Kalite kontrol ve ambalajlama",
+            "text": "Boyut, yüzey kalitesi ve mukavemet kontrol edilir. Onaylanan profiller paketlenerek sevkiyata hazırlanır.",
+            "image": "shopify://shop_images/14.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "hammadde",
+        "billet",
+        "homojen",
+        "ekstruzyon",
+        "kesim",
+        "sertlestirme",
+        "yuzey",
+        "kalite"
+      ],
+      "settings": {}
+    },
+    "doors": {
+      "type": "home-doors",
+      "blocks": {
+        "door-proje": {
+          "type": "door",
+          "settings": {
+            "style": "dark",
+            "eyebrow": "Proje ve toptan",
+            "title": "Üreticiden doğrudan alın",
+            "text": "Proje miktarlarında fiyat, numune ve teknik bilgi için bizimle doğrudan görüşün.",
+            "items": "Numune talebi\nProje ve toptan fiyat teklifi\nBayilik başvurusu",
+            "link_1_label": "Teklif isteyin",
+            "link_1": "/pages/iletisim",
+            "link_2_label": "Numune isteyin",
+            "link_2": "/collections/numuneler"
+          }
+        },
+        "door-magaza": {
+          "type": "door",
+          "settings": {
+            "style": "light",
+            "eyebrow": "Mağaza",
+            "title": "Çevrim içi satın alın",
+            "text": "Ürünü ve rengini seçin, siparişinizi sitemizden verin.",
+            "items": "LED, alçıpan, süpürgelik ve panel profilleri",
+            "link_1_label": "Mağazaya git",
+            "link_1": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "door-proje",
+        "door-magaza"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "production",
+    "doors"
+  ]
+}

@@ -1,0 +1,27 @@
+{%- comment -%}
+  Sepet satırları: sepet çekmecesi ve sepet sayfası ortak kullanır. Parametre: cart.
+  Adet düğmeleri Shopify'ın /cart/change.js adresine satır numarasıyla gider (src/js/store/cart.js).
+{%- endcomment -%}
+<ul class="lines" role="list">
+  {%- for item in cart.items -%}
+    <li class="line">
+      <a class="line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+        {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: '' }}{%- endif -%}
+      </a>
+      <div class="line__info">
+        <a class="line__title" href="{{ item.url }}">{{ item.product_title }}</a>
+        {%- for o in item.options_with_values -%}
+          <p class="line__opt">{{ o.name }}: {{ o.value }}</p>
+        {%- endfor -%}
+        <p class="line__unit">{{ item.final_price | money }}</p>
+        <div class="qty qty--sm" role="group" aria-label="{{ 'products.quantity' | t }}: {{ item.product_title | escape }}">
+          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'products.decrease' | t }}">−</button>
+          <span class="qty__val">{{ item.quantity }}</span>
+          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'products.increase' | t }}">+</button>
+        </div>
+        <button type="button" class="line__remove" data-line-change="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</button>
+      </div>
+      <p class="line__total">{{ item.final_line_price | money }}</p>
+    </li>
+  {%- endfor -%}
+</ul>

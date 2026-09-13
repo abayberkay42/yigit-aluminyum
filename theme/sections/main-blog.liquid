@@ -1,0 +1,39 @@
+{%- comment -%} Blog: yazı listesi. {%- endcomment -%}
+<section class="blog" aria-labelledby="BlogTitle">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li aria-current="page">{{ blog.title }}</li>
+    </ol>
+  </nav>
+  <div class="phero__text lcoll__head">
+    <h1 class="phero__title" id="BlogTitle">{{ blog.title }}</h1>
+  </div>
+  {%- paginate blog.articles by 12 -%}
+    <ul class="posts" role="list">
+      {%- for article in blog.articles -%}
+        <li>
+          <article class="post-card">
+            {%- if article.image -%}
+              {%- comment -%} İlk satır ilk ekranda görünür: tembel yükleme verilmez {%- endcomment -%}
+              {%- assign post_loading = 'lazy' -%}
+              {%- if forloop.index <= 3 -%}{%- assign post_loading = 'eager' -%}{%- endif -%}
+              <div class="post-card__media">{{ article.image | image_url: width: 900 | image_tag: widths: '450,700,900', sizes: '(min-width: 64em) 30vw, 90vw', loading: post_loading, alt: '' }}</div>
+            {%- endif -%}
+            <p class="post-card__date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time></p>
+            <h2 class="post-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+            <p class="post-card__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 32 }}</p>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "class": "section-main-blog",
+  "settings": []
+}
+{% endschema %}

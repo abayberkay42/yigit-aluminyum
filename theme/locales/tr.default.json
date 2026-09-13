@@ -1,0 +1,139 @@
+{
+  "general": {
+    "skip_to_content": "İçeriğe geç",
+    "menu": "Menü",
+    "language": "Dil",
+    "light_temperature": "Işık sıcaklığı",
+    "home": "Ana sayfa",
+    "breadcrumb": "Sayfa yolu",
+    "pagination": "Sayfalar",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "new_tab": "yeni sekmede açılır"
+  },
+  "home": {
+    "hero": {
+      "choose_die": "Kalıp seçin",
+      "selected_die": "Kalıptan çıkan",
+      "view_group": "Grubu incele"
+    },
+    "story": {
+      "label": "Kalıptan uygulamaya",
+      "finish_gumus": "Gümüş",
+      "finish_siyah": "Siyah",
+      "finish_antrasit": "Antrasit",
+      "finish_altin": "Altın",
+      "finish_beyaz": "Beyaz"
+    },
+    "groups": {
+      "featured": "Bu gruptan"
+    }
+  },
+  "pages": {
+    "rooms_nav": "Odalar",
+    "room_groups": "Bu odada kullanılan ürün grupları",
+    "watch_film": "Tanıtım filmini izleyin",
+    "open_pdf": "PDF'i aç"
+  },
+  "contact": {
+    "name": "Ad soyad",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "company": "Firma",
+    "subject": "Konu",
+    "message": "Mesajınız",
+    "required": "zorunlu",
+    "send": "Gönder",
+    "success": "Mesajınız bize ulaştı. En kısa sürede dönüş yapacağız.",
+    "legal": "Formu göndererek bilgilerinizin size yanıt vermek amacıyla kullanılmasını kabul etmiş olursunuz.",
+    "privacy": "Gizlilik politikası"
+  },
+  "footer": {
+    "contact": "İletişim",
+    "whatsapp": "WhatsApp ile yazın",
+    "social": "Sosyal medya"
+  },
+  "products": {
+    "add_to_cart": "Sepete ekle",
+    "sold_out": "Tükendi",
+    "unavailable": "Bu seçenek satışta değil",
+    "adding": "Ekleniyor…",
+    "added": "Sepete eklendi.",
+    "error": "Sepete eklenemedi, lütfen tekrar deneyin.",
+    "from_price": "{{ price }} ve üzeri",
+    "quantity": "Adet",
+    "decrease": "Adedi azalt",
+    "increase": "Adedi artır",
+    "colors": "Renk seçenekleri",
+    "features": "Özellikler",
+    "show_image": "{{ index }}. görseli göster",
+    "show_video": "{{ index }}. videoyu göster",
+    "whatsapp": "WhatsApp ile sorun",
+    "whatsapp_message": "Merhaba, {{ title }} hakkında bilgi almak istiyorum.",
+    "inst_bank": "Banka / kart",
+    "inst_count": "Taksit",
+    "inst_note": "Vade farkı",
+    "calc_mode": "Hesaplama yöntemi",
+    "calc_mode_total": "Toplam uzunluk",
+    "calc_mode_room": "Oda ölçüsü",
+    "calc_total": "Toplam uzunluk (m)",
+    "calc_width": "Oda eni (m)",
+    "calc_depth": "Oda boyu (m)",
+    "calc_needed": "Gereken uzunluk",
+    "calc_with_waste": "Fire payı dahil (%{{ waste }})",
+    "calc_qty": "Gereken adet",
+    "calc_tier": "{{ metre }} m kademesine",
+    "calc_tier_done": "kademeye ulaştınız",
+    "calc_apply": "Adedi uygula",
+    "calc_applied": "Adet ayarlandı:",
+    "calc_unit_boy": "boy"
+  },
+  "collections": {
+    "sort": "Sırala",
+    "apply": "Uygula",
+    "about": "Bu grup hakkında",
+    "group_nav": "Ürün grupları arasında geçiş",
+    "all_groups": "Ürün grupları",
+    "count": {
+      "one": "{{ count }} ürün",
+      "other": "{{ count }} ürün"
+    },
+    "empty": "Bu grupta henüz ürün yok."
+  },
+  "cart": {
+    "title": "Sepet",
+    "empty": "Sepetiniz boş.",
+    "continue": "Ürünlere göz atın",
+    "count": {
+      "one": "({{ count }} ürün)",
+      "other": "({{ count }} ürün)"
+    },
+    "close": "Sepeti kapat",
+    "remove": "Kaldır",
+    "subtotal": "Ara toplam",
+    "shipping_note": "Kargo ücreti ödeme adımında hesaplanır.",
+    "checkout": "Ödemeye geç",
+    "view": "Sepete git"
+  },
+  "errors": {
+    "not_found_title": "Sayfa bulunamadı",
+    "not_found": "Adres değişmiş ya da sayfa kaldırılmış olabilir. Ürün gruplarına göz atabilir ya da arama yapabilirsiniz.",
+    "back_home": "Ana sayfaya dön"
+  },
+  "search": {
+    "label": "Ara",
+    "placeholder": "Ürün adı ya da ölçü, örnek: trimless",
+    "submit": "Ara",
+    "title": "Arama",
+    "results_for": "“{{ terms }}” için sonuçlar",
+    "count": {
+      "one": "{{ count }} sonuç",
+      "other": "{{ count }} sonuç"
+    },
+    "empty": "Sonuç bulunamadı. Başka bir kelime deneyin ya da ürün gruplarına göz atın:",
+    "pages": "Sayfalar ve yazılar"
+  },
+  "blog": {
+    "all_posts": "Tüm yazılar"
+  }
+}

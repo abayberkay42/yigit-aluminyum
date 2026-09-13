@@ -1,0 +1,106 @@
+{%- comment -%}
+  Üretim: tanıtım filmi, süreç adımları, sayılar, VR gezinti bağlantısı, belgeler.
+  Boş bırakılan her alan görünmez; sayı ve belge yalnızca firma verdiğinde girilir (uydurma değer yok).
+  Adımları bağlayan çizgi kaydırdıkça ışıkla dolar (CSS kaydırma zaman çizelgesi; desteklemeyen tarayıcıda düz çizgi).
+{%- endcomment -%}
+{%- liquid
+  assign steps = section.blocks | where: 'type', 'step'
+  assign facts = section.blocks | where: 'type', 'fact'
+  assign certs = section.blocks | where: 'type', 'cert'
+-%}
+<section class="prod" aria-label="{{ page.title | escape }}">
+  {%- if section.settings.video != blank -%}
+    <div class="prod__film">
+      {{ section.settings.video | video_tag: controls: true, preload: 'none', image_size: '1920x' }}
+    </div>
+  {%- elsif section.settings.video_url != blank -%}
+    <p class="prod__film-link"><a class="button button--primary" href="{{ section.settings.video_url }}" rel="noopener">{{ 'pages.watch_film' | t }}</a></p>
+  {%- endif -%}
+
+  {%- if steps.size > 0 -%}
+    <div class="prod__block">
+      {%- if section.settings.steps_title != blank -%}<h2 class="prod__h2">{{ section.settings.steps_title }}</h2>{%- endif -%}
+      <ol class="steps" role="list">
+        {%- for block in steps -%}
+          <li class="step" {{ block.shopify_attributes }}>
+            <div class="step__body reveal" data-reveal>
+              <h3 class="step__title">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<p class="step__text">{{ block.settings.text }}</p>{%- endif -%}
+            </div>
+            {%- if block.settings.image -%}
+              {%- comment -%} İlk adım sayfanın en üstünde: tembel yükleme verilmez {%- endcomment -%}
+              {%- assign step_loading = 'lazy' -%}
+              {%- if forloop.index <= 2 -%}{%- assign step_loading = 'eager' -%}{%- endif -%}
+              <div class="step__media reveal reveal--clip" data-reveal>{{ block.settings.image | image_url: width: 1600 | image_tag: widths: '600,900,1200,1600', sizes: '(min-width: 64em) 45vw, 100vw', loading: step_loading, alt: block.settings.title }}</div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  {%- endif -%}
+
+  {%- if facts.size > 0 -%}
+    <dl class="facts">
+      {%- for block in facts -%}
+        <div class="fact reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <dt class="fact__label">{{ block.settings.label }}</dt>
+          <dd class="fact__value">{{ block.settings.value }}</dd>
+        </div>
+      {%- endfor -%}
+    </dl>
+  {%- endif -%}
+
+  {%- if section.settings.vr_url != blank -%}
+    <div class="prod__vr">
+      <p class="prod__vr-text">{{ section.settings.vr_text }}</p>
+      <a class="button button--primary" href="{{ section.settings.vr_url }}" rel="noopener">{{ section.settings.vr_label }}</a>
+    </div>
+  {%- endif -%}
+
+  {%- if certs.size > 0 -%}
+    <div class="prod__block">
+      <h2 class="prod__h2">{{ section.settings.certs_title }}</h2>
+      <ul class="certs" role="list">
+        {%- for block in certs -%}
+          <li class="cert reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image -%}<div class="cert__media">{{ block.settings.image | image_url: width: 600 | image_tag: widths: '300,600', sizes: '12rem', loading: 'lazy', alt: block.settings.title }}</div>{%- endif -%}
+            <p class="cert__title">{{ block.settings.title }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Üretim",
+  "class": "section-page-production",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Tanıtım filmi", "info": "MP4, 1080p. Shopify'ın kendi video barındırması kullanılır." },
+    { "type": "url", "id": "video_url", "label": "Film bağlantısı (video yüklenmediyse)" },
+    { "type": "text", "id": "steps_title", "label": "Süreç başlığı", "default": "Üretim süreci" },
+    { "type": "header", "content": "VR fabrika gezintisi" },
+    { "type": "url", "id": "vr_url", "label": "Gezinti bağlantısı", "info": "Boş bırakılırsa bu alan görünmez." },
+    { "type": "text", "id": "vr_label", "label": "Düğme metni", "default": "VR ile fabrikayı gezin" },
+    { "type": "text", "id": "vr_text", "label": "Açıklama", "default": "Tesisimizi 360 derece gezerek üretim alanlarını görebilirsiniz." },
+    { "type": "text", "id": "certs_title", "label": "Belgeler başlığı", "default": "Belgeler" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Süreç adımı", "limit": 10, "settings": [
+      { "type": "text", "id": "title", "label": "Başlık", "default": "Adım" },
+      { "type": "textarea", "id": "text", "label": "Metin" },
+      { "type": "image_picker", "id": "image", "label": "Görsel", "info": "Gerçek tesis görseli kullanılmalıdır." }
+    ] },
+    { "type": "fact", "name": "Sayı", "limit": 6, "settings": [
+      { "type": "text", "id": "value", "label": "Değer", "info": "Örnek: pres tonajı, kalıp sayısı, alan. Yalnızca doğrulanmış değer girin." },
+      { "type": "text", "id": "label", "label": "Açıklama" }
+    ] },
+    { "type": "cert", "name": "Belge", "limit": 12, "settings": [
+      { "type": "image_picker", "id": "image", "label": "Görsel" },
+      { "type": "text", "id": "title", "label": "Belge adı" }
+    ] }
+  ],
+  "presets": [{ "name": "Üretim" }]
+}
+{% endschema %}

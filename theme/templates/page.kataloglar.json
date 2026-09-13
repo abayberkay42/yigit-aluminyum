@@ -1,0 +1,22 @@
+/* Kataloglar sayfası. PDF'ler ve kapakları mağazanın Dosyalar'ında zaten var (eski katalog sayfasından). */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "Kataloglar", "title": "Ürün katalogları", "lede": "Ürün gruplarımızın kataloglarını PDF olarak açabilir ve indirebilirsiniz." }
+    },
+    "catalogs": {
+      "type": "page-catalogs",
+      "blocks": {
+        "genel": { "type": "catalog", "settings": { "title": "Genel ürün kataloğu", "file_url": "https://cdn.shopify.com/s/files/1/0623/0212/6168/files/GENEL_KATALOG.pdf", "image": "shopify://shop_images/genel.png" } },
+        "led": { "type": "catalog", "settings": { "title": "LED profil kataloğu", "file_url": "https://cdn.shopify.com/s/files/1/0623/0212/6168/files/LED_PROFIL_KATALOGU.pdf", "image": "shopify://shop_images/led.png" } },
+        "panel": { "type": "catalog", "settings": { "title": "Duvar panel profil kataloğu", "file_url": "https://cdn.shopify.com/s/files/1/0623/0212/6168/files/DUVAR_PANEL_PROFIL_KATALOGU.pdf", "image": "shopify://shop_images/duvar_panel.png" } },
+        "supurgelik": { "type": "catalog", "settings": { "title": "Süpürgelik profil kataloğu", "file_url": "https://cdn.shopify.com/s/files/1/0623/0212/6168/files/SUPURGELIK_PROFILLERI_KATALOG_YIGIT_ALUMINYUM.pdf", "image": "shopify://shop_images/supurgelikbanner.png" } },
+        "paslanmaz": { "type": "catalog", "settings": { "title": "Paslanmaz çelik profil kataloğu", "file_url": "https://cdn.shopify.com/s/files/1/0623/0212/6168/files/PASLANMAZ_CELIK_KATALOG_YIGIT_ALUMINYUM.pdf", "image": "shopify://shop_images/paslanmazbanner.png" } }
+      },
+      "block_order": ["genel", "led", "panel", "supurgelik", "paslanmaz"],
+      "settings": {}
+    }
+  },
+  "order": ["hero", "catalogs"]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "header",
+  "name": "Üst alan",
+  "sections": {
+    "header": { "type": "header", "settings": { "menu": "main-menu" } }
+  },
+  "order": ["header"]
+}

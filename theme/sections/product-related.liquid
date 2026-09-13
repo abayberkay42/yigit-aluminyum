@@ -1,0 +1,41 @@
+{%- comment -%}
+  Ürün sayfası: ürünün bulunduğu en dar koleksiyondan diğer ürünler (en çok 4).
+{%- endcomment -%}
+{%- liquid
+  assign rc = nil
+  assign best = 9999
+  for c in product.collections
+    if c.products_count > 1 and c.products_count < best
+      assign rc = c
+      assign best = c.products_count
+    endif
+  endfor
+-%}
+{%- if rc -%}
+  <section class="psec prel" aria-labelledby="Rel-{{ section.id }}">
+    <div class="psec__head psec__head--row">
+      <h2 class="psec__title" id="Rel-{{ section.id }}">{{ section.settings.heading }}</h2>
+      <a class="psec__more" href="{{ rc.url }}">{{ rc.title }}</a>
+    </div>
+    <ul class="grid" role="list">
+      {%- assign shown = 0 -%}
+      {%- for p in rc.products -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+        <li>{% render 'product-card', product: p %}</li>
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+    </ul>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Diğer ürünler",
+  "class": "section-product-related",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Bu gruptan diğer ürünler" },
+    { "type": "range", "id": "limit", "label": "Ürün sayısı", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ]
+}
+{% endschema %}

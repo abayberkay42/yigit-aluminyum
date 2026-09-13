@@ -1,0 +1,88 @@
+{%- comment -%}
+  Koleksiyon (ürün grubu) sayfası: sayfa yolu, başlık ve açıklama, gruplar arası geçiş, sıralama, ürün ızgarası.
+  Sıralama Shopify'ın kendi sort_by parametresiyle çalışır (JS yoksa "Uygula" düğmesi görünür).
+{%- endcomment -%}
+<section class="coll" aria-labelledby="CollTitle-{{ section.id }}">
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li><a href="{{ routes.collections_url }}">{{ 'collections.all_groups' | t }}</a></li>
+      <li aria-current="page">{{ collection.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="coll__head">
+    <h1 class="coll__title" id="CollTitle-{{ section.id }}">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      {%- comment -%} Başta kısa giriş; açıklamanın tamamı ızgaranın altında (arama motorları için sayfada kalır) {%- endcomment -%}
+      <p class="coll__lead">{{ collection.description | strip_html | truncatewords: 28 }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- if section.settings.groups != blank -%}
+    <nav class="coll__groups" aria-label="{{ 'collections.group_nav' | t }}">
+      <ul role="list">
+        {%- for c in section.settings.groups -%}
+          <li><a href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+
+  <div class="coll__bar">
+    <p class="coll__count">{{ 'collections.count' | t: count: collection.products_count }}</p>
+    {%- if collection.sort_options != blank -%}
+      <form class="sort" method="get">
+        <label for="SortBy-{{ section.id }}">{{ 'collections.sort' | t }}</label>
+        <select id="SortBy-{{ section.id }}" name="sort_by" data-autosubmit>
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+        <noscript><button class="button button--ghost" type="submit">{{ 'collections.apply' | t }}</button></noscript>
+      </form>
+    {%- endif -%}
+  </div>
+
+  {%- paginate collection.products by section.settings.per_page -%}
+    <ul class="grid" role="list">
+      {%- for product in collection.products -%}
+        {%- comment -%}
+          İlk iki satır ilk ekranda görünür (masaüstünde 4 sütun): bunlara tembel yükleme verilmez.
+          Kartın ikinci (üzerine gelince görünen) görseli her zaman tembel kalır.
+        {%- endcomment -%}
+        {%- assign card_loading = 'lazy' -%}
+        {%- if forloop.index <= 8 -%}{%- assign card_loading = 'eager' -%}{%- endif -%}
+        <li>{% render 'product-card', product: product, loading: card_loading %}</li>
+      {%- else -%}
+        <li class="grid__empty">{{ 'collections.empty' | t }}</li>
+      {%- endfor -%}
+    </ul>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pager" aria-label="{{ 'general.pagination' | t }}">
+        {%- if paginate.previous -%}<a class="button button--ghost" href="{{ paginate.previous.url }}">{{ 'general.previous' | t }}</a>{%- endif -%}
+        <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+        {%- if paginate.next -%}<a class="button button--ghost" href="{{ paginate.next.url }}">{{ 'general.next' | t }}</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+
+  {%- if collection.description != blank -%}
+    <section class="coll__about" aria-labelledby="CollAbout-{{ section.id }}">
+      <h2 class="coll__about-title" id="CollAbout-{{ section.id }}">{{ 'collections.about' | t }}</h2>
+      <div class="rte">{{ collection.description }}</div>
+    </section>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Koleksiyon",
+  "class": "section-main-collection",
+  "settings": [
+    { "type": "collection_list", "id": "groups", "label": "Gruplar arası geçiş", "info": "Başlığın altında sırayla gösterilir. Boş bırakılırsa gösterilmez.", "limit": 12 },
+    { "type": "range", "id": "per_page", "label": "Sayfa başına ürün", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

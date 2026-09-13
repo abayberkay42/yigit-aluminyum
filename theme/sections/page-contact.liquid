@@ -1,0 +1,88 @@
+{%- comment -%}
+  İletişim: Shopify'ın iletişim formu (mesajlar mağaza e-postasına gelir) ve iletişim bilgileri.
+  Konu seçenekleri ayardan virgülle girilir. Bilgi blokları yalnızca değer girilince görünür.
+{%- endcomment -%}
+{%- assign subjects = section.settings.subjects | split: ',' -%}
+<section class="contact" aria-labelledby="ContactTitle-{{ section.id }}">
+  <div class="contact__grid">
+    <div>
+      <h2 class="contact__h2" id="ContactTitle-{{ section.id }}">{{ section.settings.form_title }}</h2>
+      {%- form 'contact', id: 'contact_form', class: 'contact__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="contact__ok" role="status" tabindex="-1" data-contact-ok>{{ 'contact.success' | t }}</p>
+        {%- endif -%}
+        <div class="field">
+          <label for="ContactName">{{ 'contact.name' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
+          <input id="ContactName" type="text" name="contact[name]" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="ContactEmail">{{ 'contact.email' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
+          <input id="ContactEmail" type="email" name="contact[email]" autocomplete="email" spellcheck="false" required>
+        </div>
+        <div class="field">
+          <label for="ContactPhone">{{ 'contact.phone' | t }}</label>
+          <input id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="ContactCompany">{{ 'contact.company' | t }}</label>
+          <input id="ContactCompany" type="text" name="contact[{{ 'contact.company' | t }}]" autocomplete="organization">
+        </div>
+        {%- if section.settings.subjects != blank -%}
+          <div class="field field--full">
+            <label for="ContactSubject">{{ 'contact.subject' | t }}</label>
+            <select id="ContactSubject" name="contact[{{ 'contact.subject' | t }}]">
+              {%- for s in subjects -%}<option>{{ s | strip }}</option>{%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+        <div class="field field--full">
+          <label for="ContactBody">{{ 'contact.message' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
+          <textarea id="ContactBody" name="contact[body]" rows="6" required></textarea>
+        </div>
+        <p class="contact__legal">
+          {{- 'contact.legal' | t -}}
+          {%- if section.settings.privacy_link != blank %} <a href="{{ section.settings.privacy_link }}">{{ 'contact.privacy' | t }}</a>{% endif -%}
+        </p>
+        <button type="submit" class="button button--primary contact__submit">{{ 'contact.send' | t }}</button>
+      {%- endform -%}
+    </div>
+
+    <aside class="contact__info" aria-label="{{ 'footer.contact' | t }}">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.value != blank -%}
+          <div class="info" {{ block.shopify_attributes }}>
+            <p class="info__k">{{ block.settings.label }}</p>
+            <p class="info__v">
+              {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.value | newline_to_br }}</a>{%- else -%}{{ block.settings.value | newline_to_br }}{%- endif -%}
+            </p>
+            {%- if block.settings.extra_link != blank -%}
+              <a class="info__more" href="{{ block.settings.extra_link }}" rel="noopener">{{ block.settings.extra_label }}</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "İletişim",
+  "class": "section-page-contact",
+  "settings": [
+    { "type": "text", "id": "form_title", "label": "Form başlığı", "default": "Bize yazın" },
+    { "type": "text", "id": "subjects", "label": "Konu seçenekleri", "info": "Virgülle ayırın. Boş bırakılırsa konu alanı görünmez.", "default": "Fiyat teklifi, Numune, Bayilik, Diğer" },
+    { "type": "url", "id": "privacy_link", "label": "Gizlilik politikası bağlantısı" }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Bilgi", "limit": 8, "settings": [
+      { "type": "text", "id": "label", "label": "Başlık", "default": "Adres" },
+      { "type": "textarea", "id": "value", "label": "Değer", "info": "Boş bırakılırsa görünmez." },
+      { "type": "url", "id": "link", "label": "Değerin bağlantısı", "info": "Telefon için tel:+90..., e-posta için mailto:..., WhatsApp için https://wa.me/90..." },
+      { "type": "url", "id": "extra_link", "label": "Ek bağlantı", "info": "Örnek: yol tarifi (Google Haritalar bağlantısı)." },
+      { "type": "text", "id": "extra_label", "label": "Ek bağlantı metni", "default": "Yol tarifi al" }
+    ] }
+  ],
+  "presets": [{ "name": "İletişim" }]
+}
+{% endschema %}

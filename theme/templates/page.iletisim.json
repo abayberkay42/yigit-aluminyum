@@ -1,0 +1,32 @@
+/*
+  İletişim sayfası. Telefon, e-posta, WhatsApp ve çalışma saatleri firmadan gelince "Bilgi" bloklarına girilir;
+  değeri boş olan blok görünmez.
+*/
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "İletişim",
+        "title": "Teklif, numune, bayilik",
+        "lede": "Talebinizi formla iletin ya da bize doğrudan ulaşın. Proje miktarı ve kullanılacak alanı yazarsanız doğru ürünü birlikte belirleriz."
+      }
+    },
+    "contact": {
+      "type": "page-contact",
+      "blocks": {
+        "adres": { "type": "item", "settings": { "label": "Adres", "value": "Beylikdüzü, İstanbul" } },
+        "telefon": { "type": "item", "settings": { "label": "Telefon", "value": "+90 532 642 72 80", "link": "tel:+905326427280" } },
+        "eposta": { "type": "item", "settings": { "label": "E-posta", "value": "info@yigitaluminyumprofil.com", "link": "mailto:info@yigitaluminyumprofil.com" } },
+        "whatsapp": { "type": "item", "settings": { "label": "WhatsApp", "value": "" } },
+        "saat": { "type": "item", "settings": { "label": "Çalışma saatleri", "value": "" } },
+        "instagram": { "type": "item", "settings": { "label": "Instagram", "value": "@yigitaluminyumprofil", "link": "https://www.instagram.com/yigitaluminyumprofil/" } },
+        "facebook": { "type": "item", "settings": { "label": "Facebook", "value": "Yiğit Alüminyum", "link": "https://www.facebook.com/yigitprofiI/" } },
+        "numune": { "type": "item", "settings": { "label": "Numune", "value": "Profilleri görmek için numune paketi isteyebilirsiniz.", "extra_link": "/collections/numuneler", "extra_label": "Numuneleri incele" } }
+      },
+      "block_order": ["adres", "telefon", "eposta", "whatsapp", "saat", "instagram", "facebook", "numune"],
+      "settings": {}
+    }
+  },
+  "order": ["hero", "contact"]
+}

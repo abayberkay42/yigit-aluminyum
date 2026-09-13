@@ -1,0 +1,96 @@
+{%- comment -%}
+  Menü çubuğu bir LED profil gibi kurulur: alüminyum gövde, altında opal şerit.
+  Şerit imlecin olduğu yerde yanar (src/js/nav/led-bar.js); sayfa kaydıkça soldan dolar.
+  Işık sıcaklığı seçimi (3000K / 4000K / 6500K) bütün sitenin ışık rengini belirler.
+{%- endcomment -%}
+{%- assign kelvins = '3000,4000,6500' | split: ',' -%}
+<header class="rail" data-rail>
+  <div class="rail__bar">
+    <a class="rail__logo" href="{{ routes.root_url }}">
+      {%- render 'logo', class: 'rail__logo-img' -%}
+    </a>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="rail__nav" id="RailNav" aria-label="{{ 'general.menu' | t }}">
+        <ul role="list">
+          {%- comment -%}
+            Menüde alt bağlantısı olan başlık açılır menü olur (Shopify > Gezinme'de alt bağlantı eklenince kendiliğinden).
+            Hedefi kaybetmemek için listenin ilk sırasında üst bağlantının kendisi durur.
+          {%- endcomment -%}
+          {%- for link in section.settings.menu.links -%}
+            {%- if link.links.size > 0 -%}
+              <li class="rail__item">
+                <button type="button" class="rail__link rail__disc" data-rail-disc aria-expanded="false" aria-controls="RailSub{{ forloop.index }}">
+                  {{- link.title -}}
+                  <svg class="rail__chev" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true" focusable="false"><path d="M1 1.75 6 6.25l5-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="rail__sub" id="RailSub{{ forloop.index }}" hidden>
+                  <ul role="list">
+                    {%- for child in link.links -%}
+                      <li><a class="rail__sublink" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </li>
+            {%- else -%}
+              <li><a class="rail__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- comment -%} Telefonda üst çubukta yer yok: arama menünün içinde {%- endcomment -%}
+          <li class="rail__navsearch"><a class="rail__link" href="{{ routes.search_url }}">{{ 'search.title' | t }}</a></li>
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="rail__tools">
+      <div class="rail__kelvin" role="radiogroup" aria-label="{{ 'general.light_temperature' | t }}">
+        {%- for k in kelvins -%}
+          <button type="button" role="radio" data-kelvin="{{ k }}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>
+            <span class="rail__swatch" aria-hidden="true"></span>{{ k }}K
+          </button>
+        {%- endfor -%}
+      </div>
+      <a class="rail__search" href="{{ routes.search_url }}" aria-label="{{ 'search.label' | t }}">
+        <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </a>
+      <ul class="rail__lang" role="list" aria-label="{{ 'general.language' | t }}">
+        {%- for language in localization.available_languages -%}
+          <li>
+            <a href="{{ language.root_url }}" lang="{{ language.iso_code }}" hreflang="{{ language.iso_code }}"
+              {%- if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %}>
+              {{- language.iso_code | upcase -}}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <a class="rail__cart" href="{{ routes.cart_url }}" data-cart-open>
+        <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+          <path d="M3 4h2.2l2.1 10.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20.5 8H6.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9.5" cy="19.5" r="1.3" fill="currentColor"/>
+          <circle cx="17" cy="19.5" r="1.3" fill="currentColor"/>
+        </svg>
+        <span class="rail__cart-label">{{ 'cart.title' | t }}</span>
+        <span class="rail__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button class="rail__toggle" type="button" data-rail-toggle aria-expanded="false" aria-controls="RailNav">
+        {{- 'general.menu' | t -}}
+      </button>
+    </div>
+
+    <span class="rail__diffuser" aria-hidden="true">
+      <span class="rail__progress"></span>
+      <span class="rail__light"></span>
+    </span>
+    <span class="rail__spill" aria-hidden="true"></span>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Menü çubuğu",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" }
+  ]
+}
+{% endschema %}

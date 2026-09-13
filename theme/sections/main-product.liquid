@@ -1,0 +1,300 @@
+{%- comment -%}
+  Ürün sayfası: galeri (görsel ve video), seçenekler, adet, sepete ekleme (src/js/store/product.js), özellikler.
+  Bilgi sütunundaki ek bloklar tema düzenleyiciden sıralanır:
+  - Metraj fiyatı: ürün meta alanı custom.tier_price (ondalık sayı, TL). Boşsa görünmez; indirimi Shopify'ın otomatik indirimi uygular.
+  - Ek düğmeler: numune, ürün standı, WhatsApp (ürün adıyla hazır mesaj). Boş bırakılan düğme görünmez.
+  - Proje yönlendirmesi, serbest metin, uygulama blokları.
+  Ürün açıklaması Shopify'daki haliyle basılır; eski temadan kalan tablo yapısı CSS'te (.rte--features) özellik listesine çevrilir.
+{%- endcomment -%}
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign start_media = current.featured_media.id | default: product.featured_media.id
+-%}
+<section
+  class="pdp"
+  data-product
+  data-t-add="{{ 'products.add_to_cart' | t | escape }}"
+  data-t-sold-out="{{ 'products.sold_out' | t | escape }}"
+  data-t-unavailable="{{ 'products.unavailable' | t | escape }}"
+  data-t-adding="{{ 'products.adding' | t | escape }}"
+  data-t-added="{{ 'products.added' | t | escape }}"
+  data-t-error="{{ 'products.error' | t | escape }}"
+>
+  <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+    <ol role="list">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      {%- if collection -%}
+        <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+      {%- else -%}
+        <li><a href="{{ routes.collections_url }}">{{ 'collections.all_groups' | t }}</a></li>
+      {%- endif -%}
+      <li aria-current="page">{{ product.title }}</li>
+    </ol>
+  </nav>
+
+  <div class="pdp__grid">
+    <div class="pdp__gallery">
+      <div class="pdp__main">
+        {%- for media in product.media -%}
+          {%- if media.id == start_media -%}{%- assign loading = 'eager' -%}{%- else -%}{%- assign loading = 'lazy' -%}{%- endif -%}
+          <figure class="pdp__slide pdp__slide--{{ media.media_type }}" data-media="{{ media.id }}"{% unless media.id == start_media %} hidden{% endunless %}>
+            {%- case media.media_type -%}
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true, preload: 'none', image_size: '1400x' }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- else -%}
+                {{ media | image_url: width: 1400 | image_tag: widths: '600,900,1200,1400', sizes: '(min-width: 64em) 52vw, 100vw', loading: loading, alt: media.alt }}
+            {%- endcase -%}
+          </figure>
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'pdp__placeholder' }}
+        {%- endfor -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <ul class="pdp__thumbs" role="list">
+          {%- for media in product.media -%}
+            <li>
+              <button type="button" class="pdp__thumb{% if media.media_type contains 'video' %} pdp__thumb--video{% endif %}" data-thumb="{{ media.id }}" aria-pressed="{% if media.id == start_media %}true{% else %}false{% endif %}" aria-label="{% if media.media_type contains 'video' %}{{ 'products.show_video' | t: index: forloop.index }}{% else %}{{ 'products.show_image' | t: index: forloop.index }}{% endif %}">
+                {%- comment -%} Küçük görseller ana görselin altında, daima ilk ekranda ve 200 piksel: tembel bırakmanın kazancı yok {%- endcomment -%}
+                {{ media.preview_image | image_url: width: 200 | image_tag: widths: '100,200', sizes: '5rem', loading: 'eager', alt: '' }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="pdp__info">
+      <div class="pdp__head">
+        {%- if product.type != blank -%}<p class="pdp__type">{{ product.type }}</p>{%- endif -%}
+        <h1 class="pdp__title">{{ product.title }}</h1>
+        <p class="pdp__price" data-price>{{ current.price | money }}</p>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tier_price' -%}
+            {%- assign tp = product.metafields.custom.tier_price.value -%}
+            {%- if tp != blank -%}
+              <p class="tier" {{ block.shopify_attributes }}>
+                <span class="tier__k">{{ block.settings.label }}</span>
+                <span class="tier__v">{{ tp | times: 100 | money }}</span>
+                {%- if block.settings.note != blank -%}<span class="tier__note">{{ block.settings.note }}</span>{%- endif -%}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- form 'product', product, class: 'pdp__form' -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- assign oname = option.name | downcase -%}
+            {%- assign is_color = false -%}
+            {%- if oname == 'renk' or oname == 'color' or oname == 'colour' -%}{%- assign is_color = true -%}{%- endif -%}
+            <fieldset class="opt{% if is_color %} opt--color{% endif %}">
+              <legend class="opt__legend">{{ option.name }}: <span class="opt__value" data-opt-value>{{ option.selected_value }}</span></legend>
+              <div class="opt__list">
+                {%- for value in option.values -%}
+                  <label class="opt__item">
+                    <input class="visually-hidden" type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}"{% if value == option.selected_value %} checked{% endif %}>
+                    {%- if is_color -%}<span class="swatch" data-swatch="{{ value | escape }}" aria-hidden="true"></span>{%- endif -%}
+                    <span>{{ value }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <div class="pdp__buy">
+          <div class="qty">
+            <button type="button" class="qty__btn" data-qty-step="-1" aria-label="{{ 'products.decrease' | t }}">−</button>
+            <input class="qty__input" type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="{{ 'products.quantity' | t }}">
+            <button type="button" class="qty__btn" data-qty-step="1" aria-label="{{ 'products.increase' | t }}">+</button>
+          </div>
+          <button type="submit" class="button button--primary pdp__add" data-add{% unless current.available %} disabled{% endunless %}>
+            <span data-add-label>{%- if current.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}</span>
+          </button>
+        </div>
+        <p class="pdp__status" data-status role="status"></p>
+      {%- endform -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'actions' -%}
+            {%- capture wa_text -%}{{ 'products.whatsapp_message' | t: title: product.title }}{%- endcapture -%}
+            {%- if block.settings.sample_link != blank or block.settings.stand_product != blank or block.settings.whatsapp != blank -%}
+              <div class="pdp__actions" {{ block.shopify_attributes }}>
+                {%- if block.settings.sample_link != blank -%}
+                  <a class="button button--ghost" href="{{ block.settings.sample_link }}">{{ block.settings.sample_label }}</a>
+                {%- endif -%}
+                {%- if block.settings.stand_product != blank -%}
+                  <a class="button button--ghost" href="{{ block.settings.stand_product.url }}">{{ block.settings.stand_label }}</a>
+                {%- endif -%}
+                {%- if block.settings.whatsapp != blank -%}
+                  <a class="button button--ghost pdp__wa" href="https://wa.me/{{ block.settings.whatsapp | remove: '+' | remove: ' ' }}?text={{ wa_text | url_encode }}" rel="noopener" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.3 20.7l4.4-1.1A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8.6c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.6 1.5c.1.2 0 .4-.1.6l-.4.5c-.1.1-.2.3 0 .5.5.9 1.3 1.6 2.2 2.1.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.6-.1l1.5.7c.2.1.3.3.3.5 0 .7-.5 1.4-1.2 1.6-.7.2-1.6.1-3-.6a8 8 0 0 1-3.2-3.1c-.7-1.2-.8-2.2-.3-3Z" fill="currentColor"/></svg>
+                    {{ 'products.whatsapp' | t }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- when 'calculator' -%}
+            {%- liquid
+              assign boy_cm = product.metafields.custom.boy_cm.value | default: block.settings.length_cm
+              for option in product.options_with_values
+                assign oname = option.name | downcase
+                if oname == 'uzunluk' or oname == 'length'
+                  assign first_val = option.values.first | remove: 'CM' | remove: 'cm' | remove: 'MM' | strip
+                  assign boy_cm = first_val | plus: 0
+                endif
+              endfor
+              assign tier_m = settings.tier_threshold_m | default: 0
+            -%}
+            <div
+              class="calc"
+              data-calc
+              data-unit="{{ block.settings.unit }}"
+              data-length="{{ boy_cm }}"
+              data-waste="{{ block.settings.waste }}"
+              data-tier="{{ tier_m }}"
+              {{ block.shopify_attributes }}
+            >
+              <p class="calc__t">{{ block.settings.title }}</p>
+
+              <div class="calc__modes" role="radiogroup" aria-label="{{ 'products.calc_mode' | t }}">
+                <label class="opt__item">
+                  <input class="visually-hidden" type="radio" name="calc-mode-{{ block.id }}" value="total" checked>
+                  <span>{{ 'products.calc_mode_total' | t }}</span>
+                </label>
+                <label class="opt__item">
+                  <input class="visually-hidden" type="radio" name="calc-mode-{{ block.id }}" value="room">
+                  <span>{{ 'products.calc_mode_room' | t }}</span>
+                </label>
+              </div>
+
+              <div class="calc__fields">
+                <div class="field" data-calc-field="total">
+                  <label for="CalcTotal-{{ block.id }}">{{ 'products.calc_total' | t }}</label>
+                  <input id="CalcTotal-{{ block.id }}" type="number" min="0" step="0.1" inputmode="decimal" data-calc-total>
+                </div>
+                <div class="field" data-calc-field="room" hidden>
+                  <label for="CalcW-{{ block.id }}">{{ 'products.calc_width' | t }}</label>
+                  <input id="CalcW-{{ block.id }}" type="number" min="0" step="0.1" inputmode="decimal" data-calc-w>
+                </div>
+                <div class="field" data-calc-field="room" hidden>
+                  <label for="CalcD-{{ block.id }}">{{ 'products.calc_depth' | t }}</label>
+                  <input id="CalcD-{{ block.id }}" type="number" min="0" step="0.1" inputmode="decimal" data-calc-d>
+                </div>
+              </div>
+
+              <dl class="calc__out" data-calc-out>
+                <div><dt>{{ 'products.calc_needed' | t }}</dt><dd data-calc-need>—</dd></div>
+                <div><dt>{{ 'products.calc_with_waste' | t: waste: block.settings.waste }}</dt><dd data-calc-waste>—</dd></div>
+                <div class="calc__out--strong"><dt>{{ 'products.calc_qty' | t }}</dt><dd data-calc-qty>—</dd></div>
+                {%- if tier_m > 0 -%}
+                  <div data-calc-tier-row hidden><dt>{{ 'products.calc_tier' | t: metre: tier_m }}</dt><dd data-calc-tier>—</dd></div>
+                {%- endif -%}
+              </dl>
+
+              <button
+                type="button"
+                class="button button--ghost calc__apply"
+                data-calc-apply
+                data-unit-boy="{{ 'products.calc_unit_boy' | t | escape }}"
+                data-tier-done="{{ 'products.calc_tier_done' | t | escape }}"
+                data-applied="{{ 'products.calc_applied' | t | escape }}"
+                disabled
+              >{{ 'products.calc_apply' | t }}</button>
+              <p class="calc__note" data-calc-note role="status">{{ block.settings.note }}</p>
+            </div>
+          {%- when 'project' -%}
+            <aside class="pdp__project" {{ block.shopify_attributes }}>
+              <p class="pdp__project-t">{{ block.settings.title }}</p>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+              {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>{%- endif -%}
+            </aside>
+          {%- when 'text' -%}
+            <div class="pdp__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+          {%- when '@app' -%}
+            {% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- if product.description != blank -%}
+    <div class="pdp__features">
+      <h2 class="pdp__h2">{{ 'products.features' | t }}</h2>
+      <div class="rte rte--features">{{ product.description }}</div>
+    </div>
+  {%- endif -%}
+
+  <script type="application/json" data-variants>
+    [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"price":{{ v.price }},"available":{{ v.available }},"media":{% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Ürün",
+  "class": "section-main-product",
+  "settings": [],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "tier_price",
+      "name": "Metraj fiyatı",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Fiyat, ürünün custom.tier_price meta alanından (ondalık sayı, TL) okunur. Meta alan boşsa blok görünmez." },
+        { "type": "text", "id": "label", "label": "Etiket", "default": "300 metre ve üzeri" },
+        { "type": "text", "id": "note", "label": "Not", "default": "İndirim sepette kendiliğinden uygulanır." }
+      ]
+    },
+    {
+      "type": "actions",
+      "name": "Ek düğmeler",
+      "limit": 1,
+      "settings": [
+        { "type": "url", "id": "sample_link", "label": "Numune bağlantısı", "default": "/collections/numuneler" },
+        { "type": "text", "id": "sample_label", "label": "Numune düğmesi", "default": "Numune isteyin" },
+        { "type": "product", "id": "stand_product", "label": "Ürün standı (ürün)" },
+        { "type": "text", "id": "stand_label", "label": "Stand düğmesi", "default": "Ürün standı" },
+        { "type": "text", "id": "whatsapp", "label": "WhatsApp numarası", "info": "Ülke koduyla, örnek: 905XXXXXXXXX. Boş bırakılırsa düğme görünmez." }
+      ]
+    },
+    {
+      "type": "calculator",
+      "name": "Metraj hesaplayıcı",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Başlık", "default": "Ne kadar gerekli?" },
+        { "type": "select", "id": "unit", "label": "Satış birimi", "default": "boy", "options": [
+          { "value": "boy", "label": "Boy (çubuk)" },
+          { "value": "metre", "label": "Metre" }
+        ] },
+        { "type": "number", "id": "length_cm", "label": "Bir boyun uzunluğu (cm)", "info": "Ürünün \"Uzunluk\" seçeneği ya da custom.boy_cm meta alanı varsa o kullanılır.", "default": 300 },
+        { "type": "range", "id": "waste", "label": "Fire payı (%)", "min": 0, "max": 20, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "note", "label": "Not", "default": "Hesap yaklaşıktır. Köşe ve birleşim kayıpları için fire payı eklenir." }
+      ]
+    },
+    {
+      "type": "project",
+      "name": "Proje yönlendirmesi",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Başlık", "default": "Proje miktarında mı alacaksınız?" },
+        { "type": "textarea", "id": "text", "label": "Metin", "default": "Toptan ve proje siparişleri için fiyat teklifi ve numune isteyebilirsiniz." },
+        { "type": "text", "id": "link_label", "label": "Bağlantı metni", "default": "Teklif isteyin" },
+        { "type": "url", "id": "link", "label": "Bağlantı", "default": "/pages/iletisim" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Metin",
+      "settings": [{ "type": "richtext", "id": "text", "label": "Metin" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.shopify/
+*.log
+
+# Vercel derleme çıktısı (tools/vercel-hazirla.mjs üretir) ve yerel bağlantı bilgisi
+/public/
+.vercel/
+
+# Büyük kaynak ve çalışma dosyaları depoya girmez.
+# Köke sabitli: düz "assets/" yazılırsa theme/assets de dışarıda kalır ve site çalışmaz.
+/assets/
+/.impeccable/
+*.mp4
