@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node --watch-path=dev/lib --watch-path=dev/app.mjs --watch-path=dev/server.mjs dev/server.mjs",
     "build": "vite build",
-    "vercel-build": "vite build && node tools/vercel-hazirla.mjs",
+    "onizleme-build": "vite build && node tools/vercel-hazirla.mjs",
     "mock": "node dev/fetch-mock.mjs"
   },
   "dependencies": {

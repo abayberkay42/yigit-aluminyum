@@ -5,6 +5,7 @@ dist/
 
 # Vercel derleme çıktısı (tools/vercel-hazirla.mjs üretir) ve yerel bağlantı bilgisi
 /public/
+/.public-*/
 .vercel/
 
 # Büyük kaynak ve çalışma dosyaları depoya girmez.
