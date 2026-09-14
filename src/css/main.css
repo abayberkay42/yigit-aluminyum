@@ -153,7 +153,9 @@
     max-inline-size: var(--page); margin-inline: auto;
     pointer-events: auto;
     position: relative;
-    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+    /* "1fr auto 1fr" değil: içerik sığmayınca Firefox iki kenar sütunu en genişinin boyuna eşitler ve araçlar
+       çubuktan taşar (Chrome eşitlemez). Kenarlar içerik kadar, menü aradaki alanın ortasında. */
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem;
     block-size: var(--rail-bar);
     padding-inline: 0.9rem 0.6rem;
     border-radius: var(--radius);
@@ -179,6 +181,7 @@
   .rail__logo-img { block-size: 2.25rem; inline-size: auto; }
   @media (max-width: 63.99em) { .rail__logo-img { block-size: 2rem; } }
   @media (max-width: 30em) { .rail__logo-img { block-size: 1.75rem; } }
+  .rail__nav { justify-self: center; min-inline-size: 0; }
   .rail__nav ul { display: flex; gap: 0.25rem; }
   .rail__link {
     display: inline-flex; align-items: center; min-block-size: 2.75rem; padding-inline: 0.8rem;
@@ -295,6 +298,16 @@
     pointer-events: none;
     background: radial-gradient(10rem 8rem at var(--lx, -999px) 0, color-mix(in oklch, var(--light) 55%, transparent), transparent 72%);
     opacity: var(--lo, 0);
+  }
+
+  /* Dar masaüstü (1024–1200 px): menü, logo ve araçlar tek satıra sığsın diye aralıklar sıkılaşır */
+  @media (min-width: 64em) and (max-width: 75em) {
+    .rail__bar { gap: 0.6rem; padding-inline: 0.7rem 0.5rem; }
+    .rail__nav ul { gap: 0; }
+    .rail__link { padding-inline: 0.5rem; font-size: 0.875rem; }
+    .rail__tools { gap: 0.45rem; }
+    .rail__kelvin button { padding-inline: 0.45rem; }
+    .rail__lang a { padding-inline: 0.35rem; }
   }
 
   @media (max-width: 63.99em) {
