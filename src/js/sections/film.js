@@ -72,7 +72,7 @@ function oynatici(el) {
 
   const olay = (o) => {
     if (o.tip === 'canli') el.classList.add('is-live');
-    else if (o.tip === 'ilerleme') { durum.inen = o.inen; yukleme?.ilerle(o.inen, o.sayi); }
+    else if (o.tip === 'ilerleme') { durum.inen = o.inen; yukleme?.ilerle(o.hazirInen, o.hazirSayi); }
     else if (o.tip === 'durum') Object.assign(durum, o);
   };
 
@@ -162,7 +162,7 @@ function oynatici(el) {
   };
 }
 
-// Yükleme sayacı: kareler inene kadar sayfa kilitli. Ekran sayfa içeriğinin dışına (body sonuna) taşınır ki
+// Yükleme sayacı: kaba geçişin kareleri (her 4. kare, film-motor.js KABA_ADIM) inene kadar sayfa kilitli. Ekran sayfa içeriğinin dışına (body sonuna) taşınır ki
 // geri kalan her şey inert yapılabilsin; açıkken klavye odağı arkadaki bağlantılara kaçmaz.
 function yuklemeEkrani(el) {
   const kap = el.querySelector('[data-film-yukleme]');

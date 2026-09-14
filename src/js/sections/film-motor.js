@@ -10,7 +10,12 @@
 // 3. Hızlı kaydırmada ileriye dönük çözme durur; kapasite hedef kareye gider.
 // 4. Bellekte yalnız son kullanılan birkaç çözülmüş kare tutulur.
 // 5. Tuval yalnız gösterilen kare değişince çizilir.
-const INDIRME_ESZAMANLI = 8;
+// HTTP/2'de (Shopify CDN, Vercel) istekler tek bağlantıda çoğullanır: 16 eşzamanlı indirme ilk ziyareti kısaltır.
+// HTTP/1.1'de tarayıcı zaten alan adı başına 6 bağlantıyla sınırlar, fazlası sırada bekler.
+const INDIRME_ESZAMANLI = 16;
+// Yükleme sayacı her KABA_ADIM. kare inince tamamlanır; kalan kareler arka planda iner, eksik kare yerine en yakını çizilir.
+// Tüm kareleri beklemek ilk ziyarette 16-23 sn sürüyordu (canlı, Chrome, 944 kare).
+const KABA_ADIM = 4;
 const COZME_ESZAMANLI = 3;
 const ONDEN_COZ = 4;
 
@@ -22,7 +27,8 @@ export const adresUretici = ({ taban, onek, hane, uzanti }) => (i) => `${taban}$
 //                    parçacıklarında çözer, createImageBitmap'i ana iş parçacığında. Gerçek Firefox ölçümü
 //                    (tools/film-olcum-tarayici.html): createImageBitmap 28,8 sayfa fps ve 301 ekran karesinin
 //                    240'ı 25 ms üstü; <img>+decode 192,8 fps ve 0. Chrome'da ise <img> yolu daha zayıf.
-// bildir(olay): { tip: 'canli' } ilk kare çizilince, { tip: 'ilerleme', inen, sayi }, { tip: 'durum', … }
+// bildir(olay): { tip: 'canli' } ilk kare çizilince, { tip: 'ilerleme', inen, sayi, hazirInen, hazirSayi }, { tip: 'durum', … }
+//   hazirInen/hazirSayi: kaba geçişin (her KABA_ADIM. kare) ilerlemesi; yükleme sayacı bunu gösterir
 // bellekteKare: bellekte tutulacak çözülmüş kare sayısı (masaüstü 16; telefonda 8, iOS Safari bellek sınırı)
 export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, bildir, cozucu = 'bitmap', bellekteKare = 16 }) {
   const BELLEKTE_KARE = Math.max(4, bellekteKare);
@@ -47,24 +53,29 @@ export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, b
   let bitti = false;
   let canli = false;
   let sonIlerleme = -1;
+  let hazirInen = 0;
 
   // ---------- İndirme sırası: kabadan inceye ----------
   const sira = [];
+  const kaba = new Uint8Array(sayi); // kaba geçişe giren kareler (sayacın beklediği)
   {
     const goruldu = new Uint8Array(sayi);
     for (let adim = 32; adim >= 1; adim = adim / 2) {
-      for (let i = 0; i < sayi; i += adim) if (!goruldu[i]) { goruldu[i] = 1; sira.push(i); }
+      for (let i = 0; i < sayi; i += adim) if (!goruldu[i]) { goruldu[i] = 1; sira.push(i); if (adim >= KABA_ADIM) kaba[i] = 1; }
     }
     if (sayi && !goruldu[sayi - 1]) sira.push(sayi - 1);
+    if (sayi) kaba[sayi - 1] = 1;
   }
+  const hazirSayi = kaba.reduce((t, k) => t + k, 0);
   let siraKonum = 0;
 
   const ilerlemeBildir = () => {
     // Her karede değil: yüzde değiştikçe ya da bitince
-    const yuzde = Math.floor((inenSayisi / sayi) * 100);
-    if (yuzde === sonIlerleme && inenSayisi < sayi) return;
+    const yuzde = Math.floor((hazirInen / hazirSayi) * 100);
+    // Yüzde değişmediyse bildirme: %100'e ulaştıktan sonra arka planda inen yüzlerce kare mesaj üretmesin
+    if (yuzde === sonIlerleme) return;
     sonIlerleme = yuzde;
-    bildir({ tip: 'ilerleme', inen: inenSayisi, sayi });
+    bildir({ tip: 'ilerleme', inen: inenSayisi, sayi, hazirInen, hazirSayi });
   };
 
   const sonrakiIndirilecek = () => {
@@ -90,7 +101,7 @@ export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, b
         .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
         .then((b) => {
           if (bitti) return;
-          if (!bloblar[i]) inenSayisi++;
+          if (!bloblar[i]) { inenSayisi++; if (kaba[i]) hazirInen++; }
           bloblar[i] = b;
           ilerlemeBildir();
           iste();
@@ -102,6 +113,7 @@ export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, b
             // İki kez inmedi: vazgeç; film bu kareyi en yakın karelerle idare eder, sayaç bir kez ilerler
             vazgecildi[i] = 1;
             inenSayisi++;
+            if (kaba[i]) hazirInen++;
             ilerlemeBildir();
           }
         })
