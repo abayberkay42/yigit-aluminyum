@@ -60,11 +60,12 @@ export function filmMotoru({ tuval, sayi, adres, kaynakG, kaynakY, raf, iptal, b
   const kaba = new Uint8Array(sayi); // kaba geçişe giren kareler (sayacın beklediği)
   {
     const goruldu = new Uint8Array(sayi);
+    // Son kare (filmin bittiği logo karesi) en başta: kaba geçişe sayılır; sona bırakılırsa ince geçişte iner ve
+    // sayaç %99'da tüm kareleri bekler (canlı ölçüm 2026-09-14)
+    if (sayi) { goruldu[sayi - 1] = 1; kaba[sayi - 1] = 1; sira.push(sayi - 1); }
     for (let adim = 32; adim >= 1; adim = adim / 2) {
       for (let i = 0; i < sayi; i += adim) if (!goruldu[i]) { goruldu[i] = 1; sira.push(i); if (adim >= KABA_ADIM) kaba[i] = 1; }
     }
-    if (sayi && !goruldu[sayi - 1]) sira.push(sayi - 1);
-    if (sayi) kaba[sayi - 1] = 1;
   }
   const hazirSayi = kaba.reduce((t, k) => t + k, 0);
   let siraKonum = 0;
