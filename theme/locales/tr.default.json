@@ -9,7 +9,16 @@
     "pagination": "Sayfalar",
     "previous": "Önceki",
     "next": "Sonraki",
-    "new_tab": "yeni sekmede açılır"
+    "new_tab": "yeni sekmede açılır",
+    "dock": {
+      "label": "Hızlı iletişim",
+      "teaser": "Sorunuz mu var? Hemen yazın",
+      "whatsapp": "WhatsApp",
+      "whatsapp_a11y": "WhatsApp ile yazın",
+      "call_a11y": "Bizi arayın: {{ phone }}",
+      "message": "Merhaba, bilgi almak istiyorum.",
+      "message_collection": "Merhaba, {{ title }} hakkında bilgi almak istiyorum."
+    }
   },
   "home": {
     "hero": {
@@ -64,6 +73,8 @@
     "unavailable": "Bu seçenek satışta değil",
     "adding": "Ekleniyor…",
     "added": "Sepete eklendi.",
+    "added_short": "Eklendi",
+    "choose_options": "Seçenekleri gör",
     "error": "Sepete eklenemedi, lütfen tekrar deneyin.",
     "from_price": "{{ price }} ve üzeri",
     "quantity": "Adet",

@@ -327,6 +327,114 @@
   }
   @media (max-width: 30em) { .rail__kelvin { display: none; } }
 
+  /* ================= Hızlı iletişim: sağ altta WhatsApp ve telefon (snippets/iletisim-dock.liquid, js/sections/dock.js) ================= */
+  /* backdrop-filter bilerek yok: film tuvalinin üstünde her karede yeniden bulanıklaştırma kaydırmayı yavaşlatır */
+  .dock {
+    --disc: 3.25rem;
+    position: fixed; z-index: 25;
+    inset-inline-end: max(1.1rem, env(safe-area-inset-right));
+    inset-block-end: max(1.1rem, env(safe-area-inset-bottom));
+    display: grid; justify-items: end; gap: 0.65rem;
+    pointer-events: none;
+  }
+  .dock__btn {
+    position: relative; display: grid; place-items: center;
+    pointer-events: auto; text-decoration: none; color: var(--c-ink);
+    -webkit-tap-highlight-color: transparent;
+    /* Giriş ve kenara çekilme: yalnız transform/opacity */
+    opacity: 0; translate: calc(100% + 1.5rem) 0; scale: 0.9;
+    transition: opacity 320ms var(--ease-out), translate 520ms var(--ease-expo), scale 520ms var(--ease-expo);
+    transition-delay: calc(var(--sira, 0) * 70ms);
+  }
+  .dock__btn--tel { --sira: 1; }
+  .dock.is-hazir .dock__btn { opacity: 1; translate: 0 0; scale: 1; }
+  /* Altbilgi ya da sahne düğmesinin üstüne gelince kenara çekilir; çıkış girişten hızlı */
+  .dock.is-hazir.is-kacik .dock__btn { opacity: 0; translate: calc(100% + 1.5rem) 0; scale: 0.9; pointer-events: none; transition-duration: 220ms, 300ms, 300ms; transition-delay: 0ms; }
+
+  .dock__disc {
+    position: relative; display: grid; place-items: center;
+    inline-size: var(--disc); block-size: var(--disc); border-radius: 50%;
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.28), inset 0 -1px 0 oklch(0 0 0 / 0.25), 0 0.9rem 1.8rem -0.8rem oklch(0 0 0 / 0.8), 0 0 0 1px oklch(1 0 0 / 0.08);
+    transition: transform var(--dur-press) var(--ease-out), box-shadow var(--dur-ui) ease;
+  }
+  .dock__icon { inline-size: 1.45rem; block-size: 1.45rem; }
+  /* WhatsApp: tanınır yeşil, koyu temaya uygun olarak biraz kısılmış */
+  .dock__btn--wa .dock__disc { color: oklch(0.99 0 0); background: linear-gradient(160deg, oklch(0.7 0.16 150), oklch(0.52 0.13 152)); }
+  /* Telefon: sitenin altın vurgusu */
+  .dock__btn--tel .dock__disc { color: var(--c-on-ink); background: linear-gradient(180deg, oklch(0.86 0.09 82), var(--c-gold) 55%, oklch(0.72 0.1 74)); }
+  .dock__btn:active .dock__disc { transform: scale(0.94); }
+  .dock__btn:focus-visible { outline: none; }
+  .dock__btn:focus-visible .dock__disc { box-shadow: 0 0 0 2px var(--c-ground), 0 0 0 4px var(--c-gold); }
+
+  /* Etiket: üzerine gelince ya da klavyeyle odaklanınca düğmenin solundan açılır */
+  .dock__label {
+    position: absolute; inset-inline-end: calc(100% + 0.6rem); inset-block-start: 50%;
+    padding: 0.5rem 0.85rem; border-radius: 999px; white-space: nowrap;
+    font-size: 0.875rem; font-weight: 600; font-stretch: 106%; font-variant-numeric: tabular-nums;
+    background: var(--c-surface-2); box-shadow: inset 0 0 0 1px var(--c-rule), 0 0.8rem 1.6rem -0.8rem oklch(0 0 0 / 0.8);
+    opacity: 0; translate: 0.5rem -50%; scale: 0.96; transform-origin: 100% 50%;
+    transition: opacity 160ms var(--ease-out), translate 200ms var(--ease-out), scale 200ms var(--ease-out);
+    pointer-events: none;
+  }
+  .dock__btn:focus-visible .dock__label { opacity: 1; translate: 0 -50%; scale: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .dock__btn:hover .dock__label { opacity: 1; translate: 0 -50%; scale: 1; }
+    .dock__btn:hover .dock__disc { transform: translateY(-2px); }
+  }
+
+  /* Kendini belli etme, üç katman:
+     1) Diskin arkasında yavaşça nefes alan ışık (yalnız opacity/scale: kompozitörde çalışır)
+     2) Belli aralıklarla diskten dışa yayılan halka (WhatsApp önce, telefon hemen ardından)
+     3) Oturumda bir kez "Sorunuz mu var?" balonu (dock.js → .is-dikkat) */
+  .dock__disc::before, .dock__disc::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; z-index: -1;
+  }
+  .dock__btn--wa .dock__disc { --isik: oklch(0.72 0.17 150); }
+  .dock__btn--tel .dock__disc { --isik: var(--c-gold); }
+  .dock__disc::before { background: var(--isik); filter: blur(12px); opacity: 0.35; }
+  .dock__disc::after { box-shadow: 0 0 0 2px var(--isik); opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .dock.is-hazir .dock__disc::before { animation: dock-nefes 3.2s ease-in-out infinite; animation-delay: calc(var(--sira, 0) * 1.6s); }
+    .dock.is-hazir .dock__disc::after { animation: dock-halka 7s var(--ease-out) 2.5s infinite; animation-delay: calc(2.5s + var(--sira, 0) * 0.35s); }
+    @keyframes dock-nefes { 0%, 100% { opacity: 0.25; scale: 0.9; } 50% { opacity: 0.65; scale: 1.15; } }
+    @keyframes dock-halka { 0% { opacity: 0.9; scale: 1; } 16% { opacity: 0; scale: 1.7; } 100% { opacity: 0; scale: 1.7; } }
+    /* Kısa bir sallanma: halka ile aynı anda simge "çalar" */
+    .dock.is-hazir .dock__btn--tel .dock__icon { animation: dock-cal 7s ease-in-out infinite; animation-delay: 2.85s; }
+    .dock.is-hazir .dock__btn--wa .dock__icon { animation: dock-cal 7s ease-in-out infinite; animation-delay: 2.5s; }
+    @keyframes dock-cal { 0%, 10%, 100% { rotate: 0deg; } 2% { rotate: -14deg; } 4% { rotate: 12deg; } 6% { rotate: -8deg; } 8% { rotate: 5deg; } }
+  }
+
+  /* Balon: WhatsApp düğmesinin solunda, oturumda bir kez birkaç saniye; tıklanınca WhatsApp açılır (bağlantının içinde) */
+  .dock__balon {
+    position: absolute; inset-inline-end: calc(100% + 0.7rem); inset-block-start: 50%;
+    padding: 0.6rem 0.95rem; border-radius: 1rem 1rem 0.25rem 1rem;
+    white-space: nowrap; font-size: 0.875rem; font-weight: 620; font-stretch: 104%;
+    color: oklch(0.17 0.01 150); background: oklch(0.96 0.02 150);
+    box-shadow: 0 1rem 2rem -0.8rem oklch(0 0 0 / 0.8);
+    opacity: 0; translate: 0.6rem -50%; scale: 0.9; transform-origin: 100% 60%;
+    transition: opacity 200ms var(--ease-out), translate 420ms var(--ease-expo), scale 420ms var(--ease-expo);
+    pointer-events: none;
+  }
+  .dock.is-dikkat:not(.is-kacik) .dock__balon { opacity: 1; translate: 0 -50%; scale: 1; pointer-events: auto; }
+  .dock.is-dikkat .dock__btn--wa .dock__label { opacity: 0 !important; }
+  @media (max-width: 47.99em) {
+    .dock__balon { font-size: 0.8125rem; padding: 0.5rem 0.8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dock__btn, .dock.is-hazir.is-kacik .dock__btn { translate: 0 0; scale: 1; }
+  }
+  @media (max-width: 47.99em) {
+    .dock { --disc: 3rem; gap: 0.55rem; inset-inline-end: max(0.85rem, env(safe-area-inset-right)); inset-block-end: max(0.85rem, env(safe-area-inset-bottom)); }
+    .dock__label { display: none; }
+  }
+  /* Yazdırmada görünmez */
+  @media print { .dock { display: none; } }
+  /* Sayfa içeriği sağ kenara yaklaşan ekranlarda, sağ altta sabit duran kontroller düğmelere yer bırakır
+     (3B sahnenin kalıp düğmeleri, ürün grubu panelinin düğmesi). Geniş ekranda içerik zaten ortada, boşluk gerekmez. */
+  :root { --dock-yer: 0rem; }
+  @media (max-width: 97.5em) { :root { --dock-yer: 4.5rem; } }
+  @media (max-width: 47.99em) { :root { --dock-yer: 4rem; } }
+
   /* ================= Ana sayfa filmi: kaydırmayla oynayan kare dizisi ================= */
   /* İki örnek (snippets/film-oynatici.liquid): masaüstü yatay video, mobil dikey video. Her örnek yalnız kendi
      medya sorgusunda görünür; öteki cihazda gizli kalır ve kare indirmez (film.js data-media'yı ayrıca denetler).
@@ -506,7 +614,7 @@
   .xhero__dock {
     position: absolute;
     inset-inline: 0; inset-block-end: 3.2svh;
-    max-inline-size: var(--page); margin-inline: auto; padding-inline: var(--gutter);
+    max-inline-size: var(--page); margin-inline: auto; padding-inline: var(--gutter) calc(var(--gutter) + var(--dock-yer));
     display: flex; flex-direction: column; align-items: flex-end; gap: 1rem;
   }
   .xhero__readout { display: grid; gap: 0.2rem; justify-items: end; text-align: end; }
@@ -632,7 +740,7 @@
     .xhero__inner { max-inline-size: none; padding-block-start: calc(var(--rail-h) + 2.5rem); }
     .xhero__inner > * { max-inline-size: none; }
     .xhero__title { font-size: clamp(1.75rem, 7.5vw, 2.75rem); }
-    .xhero__dock { inset-inline: var(--gutter); inset-block-end: 1.5rem; max-inline-size: none; padding-inline: 0; align-items: flex-start; }
+    .xhero__dock { inset-inline: var(--gutter); inset-block-end: 1.5rem; max-inline-size: none; padding-inline: 0 var(--dock-yer); align-items: flex-start; }
     .xhero__readout { justify-items: start; text-align: start; }
     .xhero__dies { justify-content: flex-start; }
     .xhero__stages { inset-block-end: 5svh; }
@@ -769,7 +877,7 @@
   .group-panel__media { aspect-ratio: 1; }
   .group-panel__media img { inline-size: 100%; block-size: 100%; object-fit: contain; scale: 1.03; transition: scale 0.6s var(--ease-out); }
   .group-panel[data-active] .group-panel__media img { scale: 1; }
-  .group-panel__meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 0.35rem 1.5rem; margin-block-start: 1.25rem; }
+  .group-panel__meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 0.35rem 1.5rem; margin-block-start: 1.25rem; padding-inline-end: var(--dock-yer); }
   .group-panel__k { grid-column: 1 / -1; font-size: 0.8125rem; color: var(--c-ink-soft); }
   .group-panel__meta ul { display: grid; gap: 0.15rem; }
   .group-panel__meta ul a { font-weight: 550; }
@@ -1409,6 +1517,67 @@
   .card__swatches { display: flex; gap: 0.3rem; }
   .card__swatches .swatch { inline-size: 0.8rem; block-size: 0.8rem; }
   .card__more { font-size: 0.8125rem; color: var(--c-ink-soft); }
+
+  /* Hızlı ekleme: kartın tamamını kaplayan bağlantının (z-index 2) üstünde durur */
+  .card__quick { position: relative; z-index: 3; display: flex; align-items: center; gap: 0.4rem; min-inline-size: 0; }
+  .card__quick-renkler { display: flex; gap: 0.15rem; padding-inline: 0.2rem; }
+  .card__quick-renk {
+    display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%;
+    transition: box-shadow var(--dur-ui) ease, transform var(--dur-press) var(--ease-out);
+  }
+  .card__quick-renk .swatch { inline-size: 1.05rem; block-size: 1.05rem; }
+  .card__quick-renk[aria-pressed='true'] { box-shadow: inset 0 0 0 1.5px var(--c-gold); }
+  .card__quick-renk:active { transform: scale(0.9); }
+  .card__quick-btn {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-block-size: 2.6rem; padding-inline: 1rem; border-radius: 999px;
+    font-size: 0.875rem; font-weight: 650; font-stretch: 106%; white-space: nowrap; text-decoration: none;
+    color: var(--c-on-ink);
+    background: linear-gradient(180deg, oklch(0.86 0.09 82), var(--c-gold) 55%, oklch(0.74 0.1 74));
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.45), 0 0.5rem 1.2rem -0.6rem oklch(0.75 0.12 70 / 0.7);
+    transition: transform var(--dur-press) var(--ease-out), filter var(--dur-ui) ease, background-color var(--dur-ui) ease;
+    touch-action: manipulation;
+  }
+  .card__quick-btn:active { transform: scale(0.97); }
+  .card__quick-btn:disabled:not([aria-busy]):not(.is-eklendi) { filter: grayscale(1) brightness(0.7); cursor: not-allowed; }
+  .card__quick-icon { flex: none; inline-size: 1.1rem; block-size: 1.1rem; transition: transform 400ms var(--ease-expo); }
+  .card__quick-btn.is-ekleniyor .card__quick-icon { animation: quick-sepet 700ms var(--ease-out) infinite; }
+  @keyframes quick-sepet { 50% { transform: translateX(0.2rem); } }
+  .card__quick-btn.is-eklendi { background: linear-gradient(180deg, oklch(0.78 0.12 150), oklch(0.62 0.12 152)); color: oklch(0.99 0 0); }
+  .card__quick-btn:focus-visible, .card__quick-renk:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 2px; }
+
+  /* Fareli cihaz: görselin alt kenarında koyu bir şerit olarak, kartın üzerine gelince aşağıdan açılır */
+  @media (hover: hover) and (pointer: fine) {
+    /* Görsel ve şerit aynı hücrede; açıkça yerleştirilmezse otomatik yerleşim görseli ikinci satıra iter */
+    .card__media { grid-area: 1 / 1; }
+    .card__body { grid-area: 2 / 1; }
+    .card__quick {
+      grid-area: 1 / 1; align-self: end;
+      margin: 0 0.85rem 0.85rem; padding: 0.3rem;
+      border-radius: 999px;
+      background: oklch(0.16 0.005 70 / 0.92);
+      box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1), 0 1rem 2rem -1rem oklch(0 0 0 / 0.8);
+      opacity: 0; translate: 0 0.75rem; scale: 0.97;
+      transition: opacity 180ms var(--ease-out), translate 320ms var(--ease-expo), scale 320ms var(--ease-expo);
+    }
+    .card:hover .card__quick, .card:focus-within .card__quick { opacity: 1; translate: 0 0; scale: 1; }
+    .card:hover .card__quick-btn:hover { filter: brightness(1.06); }
+    .card:hover .card__quick-btn:hover .card__quick-icon { transform: translateX(0.15rem); }
+  }
+  /* Dokunmatik cihaz: kartın altında hep görünür; renk seçimi burada olduğu için üstteki renk noktaları gizlenir */
+  @media (hover: none), (pointer: coarse) {
+    /* Başlıklar farklı uzunlukta: düğmeler satırdaki bütün kartlarda aynı hizada, kartın dibinde */
+    .grid > li { display: grid; }
+    .card { grid-template-rows: auto 1fr auto; }
+    .card__quick { margin-block-start: 0.1rem; align-self: end; }
+    .card:has(.card__quick--renk) .card__opts { display: none; }
+    .card__quick--renk { flex-wrap: wrap; }
+    .card__quick-btn { min-block-size: 2.75rem; }
+  }
+  @media (max-width: 39.99em) {
+    .card__quick-btn { padding-inline: 0.6rem; font-size: 0.8125rem; gap: 0.35rem; }
+    .card__quick--renk .card__quick-btn { flex-basis: 100%; }
+  }
   /* Telefonda iki sütun: bir ürün bütün ekranı kaplamasın */
   @media (max-width: 39.99em) {
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 0.75rem; }

@@ -76,6 +76,20 @@ Tema düzenleyici > Tema ayarları > Firma bilgileri: logo, paylaşım görseli,
 
 **Paylaşım görseli:** Sayfa bağlantısı WhatsApp, Facebook gibi yerlerde paylaşıldığında çıkacak görseldir. Şu an boş; boş olduğunda bağlantı görselsiz paylaşılır, bozuk bir görüntü oluşmaz. Doldurmak isterseniz 1200 × 630 piksel yatay bir görsel yükleyin. Logonun kendisi bu orana uymaz, uygulama ya da üretim fotoğrafı daha iyi sonuç verir.
 
+## WhatsApp ve telefon düğmeleri
+
+Her sayfanın sağ altında WhatsApp ve telefon düğmeleri durur. Ayarları Tema düzenleyici > Tema ayarları > İletişim düğmeleri bölümündedir:
+
+- **WhatsApp numarası:** Boş bırakılırsa Firma bilgileri > Telefon numarası kullanılır. WhatsApp hattınız farklı bir numaradaysa buraya ülke koduyla yazın (örnek: +90 532 000 00 00).
+- **Hazır mesaj:** WhatsApp açıldığında yazılı gelen mesaj. Ürün sayfasında mesaja ürünün adı, ürün grubu sayfasında grubun adı kendiliğinden eklenir.
+- **Düğmeleri göster/gizle:** İki düğme ayrı ayrı kapatılabilir.
+
+Düğmeler sayfa altına ya da sağ altta duran başka bir düğmenin üstüne gelince kenara çekilir, sonra geri gelir.
+
+## Ürün kartlarında sepete ekleme
+
+Ürün listelerinde (ürün grupları, tüm ürünler, arama, benzer ürünler) her kartta "Sepete ekle" düğmesi vardır. Bilgisayarda kartın üzerine gelince görselin altında açılır, telefonda kartın altında hep görünür. Renk seçeneği olan ürünlerde renk orada seçilir. Renk dışında seçim gerektiren ürünlerde (ör. boy) düğme "Seçenekleri gör" olur ve ürün sayfasına götürür. Stokta olmayan seçenekte düğme "Tükendi" yazar ve basılmaz.
+
 ## Işık rengi
 
 Menüdeki 3000K / 4000K / 6500K seçimi ziyaretçiye aittir; sitedeki ışık renklerini ve oda fotoğraflarının tonunu değiştirir. Seçim ziyaretçinin tarayıcısında saklanır.

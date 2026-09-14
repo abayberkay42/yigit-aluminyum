@@ -9,7 +9,16 @@
     "pagination": "Pages",
     "previous": "Previous",
     "next": "Next",
-    "new_tab": "opens in a new tab"
+    "new_tab": "opens in a new tab",
+    "dock": {
+      "label": "Quick contact",
+      "teaser": "Questions? Message us",
+      "whatsapp": "WhatsApp",
+      "whatsapp_a11y": "Message us on WhatsApp",
+      "call_a11y": "Call us: {{ phone }}",
+      "message": "Hello, I would like some information.",
+      "message_collection": "Hello, I would like information about {{ title }}."
+    }
   },
   "home": {
     "hero": {
@@ -64,6 +73,8 @@
     "unavailable": "This option is unavailable",
     "adding": "Adding…",
     "added": "Added to cart.",
+    "added_short": "Added",
+    "choose_options": "Choose options",
     "error": "Could not add to cart, please try again.",
     "from_price": "From {{ price }}",
     "quantity": "Quantity",

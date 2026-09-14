@@ -22,6 +22,16 @@
     ]
   },
   {
+    "name": "İletişim düğmeleri",
+    "settings": [
+      { "type": "paragraph", "content": "Her sayfanın sağ altında duran WhatsApp ve telefon düğmeleri. Ürün sayfasında WhatsApp mesajına ürünün adı, ürün grubu sayfasında grubun adı kendiliğinden eklenir." },
+      { "type": "checkbox", "id": "dock_whatsapp_enabled", "label": "WhatsApp düğmesini göster", "default": true },
+      { "type": "text", "id": "dock_whatsapp", "label": "WhatsApp numarası", "info": "Ülke koduyla, örnek: +90 532 000 00 00. Boş bırakılırsa Firma bilgileri > Telefon kullanılır." },
+      { "type": "text", "id": "dock_message", "label": "Hazır mesaj", "info": "Ürün ve ürün grubu dışındaki sayfalarda WhatsApp açılınca yazılı gelen mesaj. Boşsa: \"Merhaba, bilgi almak istiyorum.\"" },
+      { "type": "checkbox", "id": "dock_phone_enabled", "label": "Telefon düğmesini göster", "default": true, "info": "Numara Firma bilgileri > Telefon alanından alınır." }
+    ]
+  },
+  {
     "name": "Satış",
     "settings": [
       {
