@@ -99,7 +99,7 @@ Düğmeler sayfa altına ya da sağ altta duran başka bir düğmenin üstüne g
 
 ## Taksit
 
-Tema düzenleyici > Tema ayarları > Taksit: taksit bilgisini açıp kapatma, en fazla taksit sayısı, not ve sekiz kart programı. Her kart için program adı, banka, logo ve (logo yoksa) kart görselinin rengi girilir. Resmi logoları ödeme altyapınızın (iyzico, PayTR vb.) verdiği logo paketinden yükleyin. Programın adını silerseniz o kart gösterilmez. Taksitin ödeme sağlayıcınızda gerçekten tanımlı olduğunu kontrol edin.
+Tema düzenleyici > Tema ayarları > Taksit: taksit bilgisini açıp kapatma, en fazla taksit sayısı, not ve PayTR'nin taksit desteklediği dokuz kart programı. Kartların resmi logoları temayla hazır gelir. Bir logoyu değiştirmek isterseniz o kartın "Logo" alanına yeni görseli yükleyin; beyaz logolar için "Logo zemini" rengini markanın rengine ayarlayın. Programın adını silerseniz o kart gösterilmez. Taksit sayısının PayTR panelinizdeki taksit ayarlarıyla aynı olduğunu kontrol edin.
 
 ## Dikkat edilecekler
 

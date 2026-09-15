@@ -1,8 +1,11 @@
 {%- comment -%}
-  Taksit kartları. Ayarlar: Tema ayarları > Taksit (taksit sayısı, not, 8 kart programı).
-  Her kartın resmi logosu ödeme altyapısının (iyzico, PayTR vb.) verdiği logo paketinden "Logo" alanına yüklenir;
-  logo yüklenmemişse kart, program adıyla çizilmiş kart görseli olarak gösterilir (resmi logo taklidi değildir).
-  Parametre: gorunum = 'ozet' (ürün sayfası, fiyatın altında tek satır) | 'tam' (taksit bölümü, kart ızgarası)
+  Taksit kartları. Ayarlar: Tema ayarları > Taksit (taksit sayısı, not, 9 kart programı).
+  Kartlar PayTR'nin taksit desteklediği programlardır (paytr.com, 2026-09-15). Logolar programların resmi sitelerinden
+  alınıp temaya eklendi (assets/taksit-*): Bonus, World, Axess (yıldönümü yazısı kırpıldı), CardFinans (QNB),
+  Paraf ve Sağlam Kart (beyaz logo, markanın zemin rengiyle), Bankkart; Advantage için HSBC'nin resmi kart görseli.
+  Maximum'un sitesine erişilemediği için logosu yok: yazıyla gösterilir.
+  Öncelik: "Logo" ayarına yüklenen görsel > temadaki dosya > yazı.
+  Parametre: gorunum = 'ozet' (ürün sayfası, fiyatın altında) | 'tam' (taksit bölümü)
 {%- endcomment -%}
 {%- if settings.taksit_etkin -%}
   {%- liquid
@@ -10,25 +13,37 @@
     assign gorunum = gorunum | default: 'ozet'
   -%}
   {%- capture kartlar -%}
-    {%- for i in (1..8) -%}
+    {%- for i in (1..9) -%}
       {%- liquid
-        assign ad_anahtar = 'taksit_kart_' | append: i | append: '_ad'
-        assign banka_anahtar = 'taksit_kart_' | append: i | append: '_banka'
-        assign logo_anahtar = 'taksit_kart_' | append: i | append: '_logo'
-        assign renk_anahtar = 'taksit_kart_' | append: i | append: '_renk'
-        assign ad = settings[ad_anahtar]
-        assign banka = settings[banka_anahtar]
-        assign logo = settings[logo_anahtar]
-        assign renk = settings[renk_anahtar] | default: '#6b6b6b'
+        assign on = 'taksit_kart_' | append: i
+        assign k_ad = on | append: '_ad'
+        assign k_banka = on | append: '_banka'
+        assign k_logo = on | append: '_logo'
+        assign k_dosya = on | append: '_dosya'
+        assign k_zemin = on | append: '_zemin'
+        assign ad = settings[k_ad]
+        assign banka = settings[k_banka]
+        assign logo = settings[k_logo]
+        assign dosya = settings[k_dosya]
+        assign zemin = settings[k_zemin] | default: '#ffffff'
+        assign aciklama = ad
+        if banka != blank
+          assign aciklama = ad | append: ' (' | append: banka | append: ')'
+        endif
       -%}
       {%- if ad != blank -%}
-        <li class="kart kart--{{ gorunum }}{% if logo %} kart--logo{% endif %}" style="--kart: {{ renk }}">
-          {%- if logo -%}
-            {{ logo | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: ad, class: 'kart__logo' }}
-          {%- else -%}
-            <span class="kart__yuz" aria-hidden="true"><span class="kart__cip"></span><span class="kart__ad">{{ ad }}</span></span>
-            <span class="visually-hidden">{{ ad }}{% if banka != blank %} ({{ banka }}){% endif %}</span>
-          {%- endif -%}
+        <li class="kart kart--{{ gorunum }}">
+          <span class="kart__logo-kutu{% if dosya contains 'advantage' and logo == blank %} kart__logo-kutu--gorsel{% endif %}" style="--zemin: {{ zemin }}">
+            {%- if logo -%}
+              {{ logo | image_url: width: 360 | image_tag: widths: '180,360', sizes: '8rem', loading: 'lazy', alt: aciklama, class: 'kart__logo' }}
+            {%- elsif dosya != blank -%}
+              {%- comment -%} Ölçü nitelikleri kutunun oranında (1.9): CSS logoyu oranını koruyarak sığdırır {%- endcomment -%}
+              <img class="kart__logo" src="{{ dosya | asset_url }}" width="190" height="100" alt="{{ aciklama | escape }}" loading="lazy" decoding="async">
+            {%- else -%}
+              <span class="kart__yazi">{{ ad }}</span>
+              <span class="visually-hidden">{% if banka != blank %} ({{ banka }}){% endif %}</span>
+            {%- endif -%}
+          </span>
           {%- if gorunum == 'tam' -%}
             <span class="kart__bilgi">
               <span class="kart__isim">{{ ad }}</span>

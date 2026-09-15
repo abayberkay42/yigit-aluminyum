@@ -101,7 +101,23 @@ Firma bilgileri (e-posta, telefon, sosyal medya) `config/settings_data.json` ile
 
 ## Taksit ve kart logoları
 
-Tema ayarları > Taksit: en fazla taksit sayısı (12), not ve 8 kart programı (Bonus, World, Maximum, Axess, CardFinans, Paraf, Advantage, Bankkart Combo). Her kartın **resmi logosu** ödeme altyapısının (iyzico, PayTR vb.) verdiği logo paketinden ilgili "Logo" alanına yüklenmeli; logo yüklenmeyen kart, program adıyla çizilmiş kart görseli olarak görünür. Taksitin gerçekten tanımlı olduğu ödeme sağlayıcısında doğrulanmalı; sağlayıcının desteklemediği kart programının adı boş bırakılırsa gösterilmez.
+Ödeme altyapısı **PayTR**. Tema ayarları > Taksit: en fazla taksit sayısı (12), not ve PayTR'nin taksit desteklediği 9 kart programı (paytr.com, 2026-09-15): Bonus, World, Maximum, Axess, CardFinans, Paraf, Advantage, Bankkart, Sağlam Kart.
+
+Logolar temayla gelir (`assets/taksit-*`), programların resmi sitelerinden alındı:
+
+| Program | Dosya | Kaynak | Not |
+|---|---|---|---|
+| Bonus | `taksit-bonus.png` | bonus.com.tr (sitenin 2026 logosu) | Soldaki kalp rozeti logonun parçası olduğu için kırpılmadı |
+| World | `taksit-world.png` | worldcard.com.tr | |
+| Maximum | — | maximum.com.tr ve isbank.com.tr bağlantı vermedi | Logo yok, program adı yazıyla gösterilir; logo gelince "Logo" alanına yüklenir |
+| Axess | `taksit-axess.png` | axess.com.tr | Sitedeki logonun altındaki "25 yaşında" yazısı kırpıldı |
+| CardFinans | `taksit-cardfinans.png` | qnbcard.com.tr (cardfinans.com.tr buraya yönleniyor) | Sitede program logosu yok, QNB logosu kullanıldı |
+| Paraf | `taksit-paraf.svg` | paraf.com.tr | Beyaz logo, sitedeki zemin rengi #025090 |
+| Advantage | `taksit-advantage.png` | hsbc.com.tr | Ayrı logo yok, HSBC Advantage Classic kart görseli kullanıldı |
+| Bankkart | `taksit-bankkart.png` | bankkart.com.tr | |
+| Sağlam Kart | `taksit-saglam.svg` | saglamkart.kuveytturk.com.tr | Beyaz logo, sitedeki zemin rengi #004859 |
+
+Bir logoyu değiştirmek için ilgili kartın "Logo" alanına görsel yüklemek yeterli (temadaki dosyanın yerine geçer). Taksit sayısı ve vade farkı PayTR panelindeki taksit ayarlarıyla uyumlu olmalı; PayTR'de kapalı olan programın adı boş bırakılırsa gösterilmez.
 
 ## Uyarı
 

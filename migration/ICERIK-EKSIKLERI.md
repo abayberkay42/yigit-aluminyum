@@ -85,4 +85,8 @@ Açıklaması hiç olmayan 7 ürün (3. madde) için pencerede yalnız ürün gr
 
 ## 11. Taksit kart logoları
 
-Ürün sayfasında "12 aya varan taksit" ve kart görselleri gösteriliyor. Resmi banka/kart logoları yüklenene kadar kartlar, program adıyla çizilmiş kart görseli olarak duruyor. Gereken: ödeme altyapınızın (iyzico, PayTR vb.) logo paketi ve **hangi kartlarda kaç taksit ve vade farkı olduğunun** teyidi.
+Ürün sayfasında "12 aya varan taksit" ve PayTR'nin taksit desteklediği 9 kart programının resmi logoları gösteriliyor (logolar programların kendi sitelerinden alındı). Eksik kalanlar:
+
+- **Maximum logosu:** maximum.com.tr ve isbank.com.tr bağlantı vermediği için alınamadı; şimdilik adı yazıyla gösteriliyor.
+- **CardFinans** için sitede yalnız QNB logosu var; **Advantage** için yalnız kart görseli. Bankalardan ya da PayTR'den program logoları gelirse bunlar da değiştirilebilir.
+- **Hangi kartlarda kaç taksit ve vade farkı olduğu** PayTR panelindeki ayarlarla teyit edilmeli.
