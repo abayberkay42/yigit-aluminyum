@@ -109,7 +109,7 @@ Logolar temayla gelir (`assets/taksit-*`), programların resmi sitelerinden alı
 |---|---|---|---|
 | Bonus | `taksit-bonus.png` | bonus.com.tr (sitenin 2026 logosu) | Soldaki kalp rozeti logonun parçası olduğu için kırpılmadı |
 | World | `taksit-world.png` | worldcard.com.tr | |
-| Maximum | — | maximum.com.tr ve isbank.com.tr bağlantı vermedi | Logo yok, program adı yazıyla gösterilir; logo gelince "Logo" alanına yüklenir |
+| Maximum | `taksit-maximum.png` | İş Bankası'nın App Store'daki "Maximum Mobil" uygulamasının resmi ekran görüntüsü (maximum.com.tr bağlantı vermedi) | Uygulama başlığındaki logo saydam zemine çıkarıldı (renk #f01683); kaynak çözünürlüğü düşük olduğu için İş Bankası'ndan vektör logo gelirse "Logo" alanına yüklenmesi önerilir |
 | Axess | `taksit-axess.png` | axess.com.tr | Sitedeki logonun altındaki "25 yaşında" yazısı kırpıldı |
 | CardFinans | `taksit-cardfinans.png` | qnbcard.com.tr (cardfinans.com.tr buraya yönleniyor) | Sitede program logosu yok, QNB logosu kullanıldı |
 | Paraf | `taksit-paraf.svg` | paraf.com.tr | Beyaz logo, sitedeki zemin rengi #025090 |

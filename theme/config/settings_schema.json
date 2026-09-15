@@ -232,7 +232,7 @@
         "type": "text",
         "id": "taksit_kart_3_dosya",
         "label": "Temadaki logo dosyası",
-        "default": "",
+        "default": "taksit-maximum.png",
         "info": "Tema dosyası adı (assets). Değiştirmeniz gerekmez."
       },
       {

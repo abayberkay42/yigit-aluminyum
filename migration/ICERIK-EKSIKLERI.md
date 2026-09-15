@@ -87,6 +87,6 @@ Açıklaması hiç olmayan 7 ürün (3. madde) için pencerede yalnız ürün gr
 
 Ürün sayfasında "12 aya varan taksit" ve PayTR'nin taksit desteklediği 9 kart programının resmi logoları gösteriliyor (logolar programların kendi sitelerinden alındı). Eksik kalanlar:
 
-- **Maximum logosu:** maximum.com.tr ve isbank.com.tr bağlantı vermediği için alınamadı; şimdilik adı yazıyla gösteriliyor.
+- **Maximum logosu:** maximum.com.tr bağlantı vermediği için İş Bankası'nın resmi "Maximum Mobil" uygulamasının App Store görselinden alındı. Kaynak çözünürlüğü düşük; İş Bankası'ndan vektör (SVG/AI) logo gelirse değiştirilmesi iyi olur.
 - **CardFinans** için sitede yalnız QNB logosu var; **Advantage** için yalnız kart görseli. Bankalardan ya da PayTR'den program logoları gelirse bunlar da değiştirilebilir.
 - **Hangi kartlarda kaç taksit ve vade farkı olduğu** PayTR panelindeki ayarlarla teyit edilmeli.
