@@ -11,7 +11,7 @@
     </a>
 
     {%- if section.settings.menu != blank -%}
-      <nav class="rail__nav" id="RailNav" aria-label="{{ 'general.menu' | t }}">
+      <nav class="rail__nav" id="RailNav" aria-label="{{ 'general.menu' | t }}" data-lenis-prevent>
         <ul role="list">
           {%- comment -%}
             Menüde alt bağlantısı olan başlık açılır menü olur (Shopify > Gezinme'de alt bağlantı eklenince kendiliğinden).

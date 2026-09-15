@@ -51,7 +51,8 @@
       </button>
     </header>
 
-    <div class="ozellik__govde">
+    {%- comment -%} data-lenis-prevent: sayfanın yumuşak kaydırması (Lenis) tekerleği yakalamasın, pencere kendi içinde kaysın {%- endcomment -%}
+    <div class="ozellik__govde" data-lenis-prevent>
       <dl class="ozellik__tablo">
         {%- if product.type != blank -%}
           <div><dt>{{ 'products.spec_group' | t }}</dt><dd>{{ product.type }}</dd></div>
