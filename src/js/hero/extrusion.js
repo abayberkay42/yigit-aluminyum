@@ -21,7 +21,8 @@ export const FINISHES = [
   { key: 'antrasit', color: 0x45484d, metal: 0.85, rough: 0.38 },
   { key: 'siyah', color: 0x1c1d1f, metal: 0.7, rough: 0.42 },
 ];
-const KELVIN = { 3000: 0xffb163, 4000: 0xffd6a1, 6500: 0xe4edff };
+// 3000K: turuncu kehribar yerine logodaki sıcak altına yakın ton (CSS --light ile aynı aile)
+const KELVIN = { 3000: 0xffc862, 4000: 0xffdca8, 6500: 0xe4edff };
 
 // Anlatının zaman aralıkları (kaydırma ilerlemesi 0..1)
 export const STORY = {
