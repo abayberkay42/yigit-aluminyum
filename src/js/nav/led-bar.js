@@ -10,6 +10,12 @@ export function initRail() {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const k = reduce ? 1 : 0.16;
 
+  // Sayfanın en üstünde gövde şeffaf; kaydırınca buzlu cam olur (CSS .rail.is-kaydi)
+  let kaydiBekliyor = false;
+  const kaydiDenetle = () => { kaydiBekliyor = false; rail.classList.toggle('is-kaydi', window.scrollY > 8); };
+  kaydiDenetle();
+  addEventListener('scroll', () => { if (!kaydiBekliyor) { kaydiBekliyor = true; requestAnimationFrame(kaydiDenetle); } }, { passive: true });
+
   // Işık havuzu: yay benzeri yumuşak takip
   let x = -500, tx = -500, o = 0, to = 0, raf = 0;
   const tick = () => {

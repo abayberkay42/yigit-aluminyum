@@ -157,29 +157,36 @@
     border-radius: var(--radius-lg);
     isolation: isolate;
   }
-  /* Gövde şeffaf: beyaz cam katmanı ayrı bir katmanda durur ve yalnız imleç üzerindeyken, klavye odağı içindeyken
-     ya da bir menü açıkken belirir (opacity geçişi; arka plan geçişinden ucuz). Dokunmatik cihazda imleç olmadığı için
-     cam hep görünür. */
-  .rail__bar::before {
+  /* Gövde üç halde (iki ayrı katman, yalnız opacity geçişi):
+     1. Sayfanın en üstünde, altında içerik yokken: tamamen şeffaf.
+     2. Kaydırınca (led-bar.js → .rail.is-kaydi): buzlu cam (::before). Yarı saydam, arkası bulanık, çerçevesiz;
+        altından geçen yazı okunmaz hale gelir, menü yazısı hep okunur. Tamamen şeffaf bırakmak yazıları üst üste bindiriyordu.
+     3. İmleç üzerindeyken, klavye odağı içindeyken ya da menü açıkken: belirgin gövde (::after), altın kenar ve gölge.
+     Bulanıklık ayrı katmanda: opacity ile yarılanan backdrop-filter bulanıklığı da yarılar, okunurluk bozulur. */
+  .rail__bar::before, .rail__bar::after {
     content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-    background-color: oklch(1 0 0 / 0.86);
-    background-image: linear-gradient(180deg, oklch(1 0 0 / 0.7), oklch(1 0 0 / 0) 60%);
-    -webkit-backdrop-filter: blur(18px) saturate(1.2);
-    backdrop-filter: blur(18px) saturate(1.2);
+    opacity: 0;
+    transition: opacity 280ms var(--ease-out);
+  }
+  .rail__bar::before {
+    background-color: oklch(1 0 0 / 0.7);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    backdrop-filter: blur(20px) saturate(1.3);
+  }
+  .rail__bar::after {
+    background-color: oklch(1 0 0 / 0.75);
     box-shadow:
-      inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 22%, transparent),
+      inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 24%, transparent),
       0 1px 2px oklch(0.3 0.02 70 / 0.06),
       0 1.2rem 2.8rem -1.4rem oklch(0.35 0.03 70 / 0.28);
-    opacity: 0;
-    transition: opacity 260ms var(--ease-out);
   }
-  .rail__bar:hover::before, .rail__bar:focus-within::before, .rail__bar:has([aria-expanded='true'])::before, .rail.is-open .rail__bar::before { opacity: 1; transition-duration: 180ms; }
-  @media (hover: none), (pointer: coarse) { .rail__bar::before { opacity: 1; } }
-  /* Şeffafken sayfa içeriğinin üstünde okunurluk: yazı ve logonun çevresinde çok hafif beyaz hale */
-  .rail__bar :is(.rail__link, .rail__lang a, .rail__cart) { text-shadow: 0 0 0.7rem oklch(1 0 0 / 0.9), 0 0 0.2rem oklch(1 0 0 / 0.8); }
-  .rail__logo-img { filter: drop-shadow(0 0 0.35rem oklch(1 0 0 / 0.85)); }
-  .rail__diffuser { opacity: 0.6; transition: opacity 260ms var(--ease-out); }
-  .rail__bar:is(:hover, :focus-within) .rail__diffuser { opacity: 1; }
+  .rail.is-kaydi .rail__bar::before { opacity: 1; }
+  .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::before, .rail.is-open .rail__bar::before,
+  .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::after, .rail.is-open .rail__bar::after { opacity: 1; transition-duration: 180ms; }
+  /* Dokunmatik cihazda imleç yok: kaydırınca belirgin gövde */
+  @media (hover: none), (pointer: coarse) { .rail.is-kaydi .rail__bar::after { opacity: 1; } }
+  .rail__diffuser { opacity: 0; transition: opacity 280ms var(--ease-out); }
+  .rail.is-kaydi .rail__diffuser, .rail__bar:is(:hover, :focus-within) .rail__diffuser { opacity: 1; }
   .rail__logo {
     display: inline-flex; align-items: center; gap: 0.55rem; justify-self: start;
     min-block-size: 2.75rem;
