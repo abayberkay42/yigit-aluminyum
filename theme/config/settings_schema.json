@@ -11,7 +11,7 @@
     "name": "Firma bilgileri",
     "settings": [
       { "type": "paragraph", "content": "Arama motorlarına verilen firma bilgisi (yapılandırılmış veri) ve paylaşım görseli." },
-      { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Yatay, şeffaf zeminli PNG/SVG. Tema koyu zeminli: yazısı açık renkli sürümü yükleyin." },
+      { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Yatay, şeffaf zeminli PNG/SVG. Tema beyaz zeminli: yazısı koyu renkli sürümü yükleyin." },
       { "type": "image_picker", "id": "share_image", "label": "Paylaşım görseli", "info": "Kendi görseli olmayan sayfalar paylaşılınca görünür. 1200×630 önerilir." },
       { "type": "text", "id": "org_founding", "label": "Kuruluş yılı", "default": "2008" },
       { "type": "text", "id": "org_email", "label": "E-posta" },

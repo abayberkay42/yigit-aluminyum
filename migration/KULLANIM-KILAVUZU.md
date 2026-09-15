@@ -70,7 +70,7 @@ Türkçe ana dil, İngilizce ikinci dil. Çeviriler Translate & Adapt uygulamas�
 
 Tema düzenleyici > Tema ayarları > Firma bilgileri: logo, paylaşım görseli, kuruluş yılı, e-posta, telefon, ilçe, il, sosyal medya adresleri. Buradaki bilgiler arama motorlarına firma bilgisi olarak da iletilir.
 
-**Logo:** Firmanızın logosu temanın içinde hazır gelir; menü çubuğunda ve sayfa altında görünür, ayrıca bir şey yüklemeniz gerekmez. Değiştirmek isterseniz Logo alanına yeni dosyayı yüklemeniz yeterli; yüklediğiniz dosya hazır olanın yerine geçer. Yatay bir kullanım (soldan sağa uzanan) tercih edin, zemini saydam olsun. Site koyu zeminli olduğu için logonun yazısı açık renkli (beyaz ya da açık gri) sürümünü yükleyin; koyu yazılı logo koyu zeminde okunmaz.
+**Logo:** Firmanızın logosu temanın içinde hazır gelir; menü çubuğunda ve sayfa altında görünür, ayrıca bir şey yüklemeniz gerekmez. Değiştirmek isterseniz Logo alanına yeni dosyayı yüklemeniz yeterli; yüklediğiniz dosya hazır olanın yerine geçer. Yatay bir kullanım (soldan sağa uzanan) tercih edin, zemini saydam olsun. Site beyaz zeminli olduğu için logonun beyaz zemin sürümünü (yazısı koyu) yükleyin.
 
 **Site simgesi:** Tarayıcı sekmesinde görünen küçük simge de temayla gelir (logonun amblem kısmından hazırlandı). Değiştirmek isterseniz Shopify'ın kendi simge ayarını kullanın; oradan yüklediğiniz dosya temadakinin yerine geçer.
 
