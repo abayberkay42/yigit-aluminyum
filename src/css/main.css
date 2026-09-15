@@ -63,7 +63,7 @@
     --gutter: clamp(1rem, 2.4vw, 3rem);
     --page: 86rem; /* ortalanmış içerik genişliği */
     --rail-top: 0.75rem;
-    --rail-bar: 3.5rem;
+    --rail-bar: 4rem;
     --rail-h: calc(var(--rail-top) + var(--rail-bar));
 
     --z-rail: 30;
@@ -154,10 +154,15 @@
     display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem;
     block-size: var(--rail-bar);
     padding-inline: 0.9rem 0.6rem;
-    border-radius: var(--radius);
     border-radius: var(--radius-lg);
-    /* Beyaz cam gövde: yarı saydam, arkasındaki sayfa bulanık görünür; ince altın kenar, yumuşak gölge */
-    background-color: oklch(1 0 0 / 0.78);
+    isolation: isolate;
+  }
+  /* Gövde şeffaf: beyaz cam katmanı ayrı bir katmanda durur ve yalnız imleç üzerindeyken, klavye odağı içindeyken
+     ya da bir menü açıkken belirir (opacity geçişi; arka plan geçişinden ucuz). Dokunmatik cihazda imleç olmadığı için
+     cam hep görünür. */
+  .rail__bar::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+    background-color: oklch(1 0 0 / 0.86);
     background-image: linear-gradient(180deg, oklch(1 0 0 / 0.7), oklch(1 0 0 / 0) 60%);
     -webkit-backdrop-filter: blur(18px) saturate(1.2);
     backdrop-filter: blur(18px) saturate(1.2);
@@ -165,7 +170,16 @@
       inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 22%, transparent),
       0 1px 2px oklch(0.3 0.02 70 / 0.06),
       0 1.2rem 2.8rem -1.4rem oklch(0.35 0.03 70 / 0.28);
+    opacity: 0;
+    transition: opacity 260ms var(--ease-out);
   }
+  .rail__bar:hover::before, .rail__bar:focus-within::before, .rail__bar:has([aria-expanded='true'])::before, .rail.is-open .rail__bar::before { opacity: 1; transition-duration: 180ms; }
+  @media (hover: none), (pointer: coarse) { .rail__bar::before { opacity: 1; } }
+  /* Şeffafken sayfa içeriğinin üstünde okunurluk: yazı ve logonun çevresinde çok hafif beyaz hale */
+  .rail__bar :is(.rail__link, .rail__lang a, .rail__cart) { text-shadow: 0 0 0.7rem oklch(1 0 0 / 0.9), 0 0 0.2rem oklch(1 0 0 / 0.8); }
+  .rail__logo-img { filter: drop-shadow(0 0 0.35rem oklch(1 0 0 / 0.85)); }
+  .rail__diffuser { opacity: 0.6; transition: opacity 260ms var(--ease-out); }
+  .rail__bar:is(:hover, :focus-within) .rail__diffuser { opacity: 1; }
   .rail__logo {
     display: inline-flex; align-items: center; gap: 0.55rem; justify-self: start;
     min-block-size: 2.75rem;
@@ -173,10 +187,10 @@
     font-size: 0.95rem; text-decoration: none; white-space: nowrap;
   }
   /* Logo görsel olarak basılır; yükseklik sabit, genişlik orana göre (601×212 → 2.835).
-     Çubuk 3.5rem: logo 2.25rem olunca alt/üst boşluk dengeli kalır. */
-  .rail__logo-img { block-size: 2.25rem; inline-size: auto; }
-  @media (max-width: 63.99em) { .rail__logo-img { block-size: 2rem; } }
-  @media (max-width: 30em) { .rail__logo-img { block-size: 1.75rem; } }
+     Çubuk 4rem: logo 3rem olunca alt/üst boşluk dengeli kalır. */
+  .rail__logo-img { block-size: 3rem; inline-size: auto; }
+  @media (max-width: 63.99em) { .rail__logo-img { block-size: 2.6rem; } }
+  @media (max-width: 30em) { .rail__logo-img { block-size: 2.3rem; } }
   .rail__nav { justify-self: center; min-inline-size: 0; }
   .rail__nav ul { display: flex; gap: 0.25rem; }
   .rail__link {
@@ -217,8 +231,24 @@
     border-radius: 2px; background: var(--light);
   }
   .rail__sub ul { flex-direction: column; gap: 0.05rem; }
-  /* İlk sıra üst bağlantının kendisidir; kategorilerden ince bir çizgiyle ayrılır */
-  .rail__sub li:first-child { padding-block-end: 0.35rem; margin-block-end: 0.35rem; border-block-end: 1px solid var(--c-rule); }
+
+  /* Geniş panel (üç düzeyli menü): ana kategoriler sütun, altlarında gruplar/ürünler. Panel çubuğun tamamı genişliğinde. */
+  .rail__item:has(> .rail__sub--mega) { position: static; }
+  .rail__sub--mega { inset-inline: 0; min-inline-size: 0; padding: 1.4rem 1.5rem 1.2rem; transform-origin: 50% 0; }
+  .rail__sub ul.rail__mega { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 1.5rem; }
+  .rail__col { display: grid; align-content: start; gap: 0.35rem; }
+  .rail__col + .rail__col { padding-inline-start: 1.5rem; border-inline-start: 1px solid var(--c-rule); }
+  .rail__colhead {
+    display: inline-flex; align-items: center; gap: 0.5rem; min-block-size: 2.5rem; padding-inline: 0.7rem;
+    font-size: 0.8125rem; font-weight: 650; font-stretch: 112%; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--c-gold); text-decoration: none; border-radius: calc(var(--radius-lg) - 0.45rem);
+    transition: background-color var(--dur-ui) ease;
+  }
+  .rail__colhead::after { content: '→'; font-size: 0.9em; letter-spacing: 0; opacity: 0; translate: -0.25rem 0; transition: opacity var(--dur-ui) ease, translate var(--dur-ui) var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .rail__colhead:hover { background: color-mix(in oklch, var(--c-gold-bright) 14%, transparent); }
+    .rail__colhead:hover::after { opacity: 1; translate: 0 0; }
+  }
   .rail__sublink {
     display: flex; align-items: center; min-block-size: 2.5rem; padding-inline: 0.7rem;
     font-size: 0.9rem; font-weight: 500; text-decoration: none;
@@ -232,26 +262,6 @@
   }
   .rail__tools { display: flex; align-items: center; justify-content: flex-end; gap: 0.9rem; }
 
-  .rail__kelvin {
-    display: flex; padding: 0.2rem; gap: 0.15rem;
-    border-radius: 999px;
-    background: var(--c-surface-2);
-    box-shadow: inset 0 1px 2px oklch(0.3 0.02 70 / 0.12);
-  }
-  .rail__kelvin button {
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    min-block-size: 2rem; padding-inline: 0.6rem;
-    font-size: 0.75rem; font-weight: 600; font-stretch: 100%;
-    border-radius: 999px;
-    color: var(--c-ink-soft);
-    transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease;
-  }
-  .rail__kelvin button[aria-checked='true'] { background: oklch(1 0 0); color: var(--c-ink); box-shadow: 0 1px 3px oklch(0.3 0.02 70 / 0.16), inset 0 0 0 1px var(--c-rule); }
-  .rail__swatch { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: currentColor; }
-  [data-kelvin='3000'] > .rail__swatch { background: oklch(0.8 0.14 66); }
-  [data-kelvin='4000'] > .rail__swatch { background: oklch(0.9 0.085 88); }
-  [data-kelvin='6500'] > .rail__swatch { background: oklch(0.88 0.055 245); }
-  .rail__kelvin button[aria-checked='true'] > .rail__swatch { box-shadow: 0 0 0.5rem 0.1rem currentColor; color: var(--light); background: var(--light); }
 
   .rail__lang { display: flex; align-items: center; }
   .rail__lang li + li { border-inline-start: 1px solid var(--c-rule); }
@@ -302,7 +312,6 @@
     .rail__nav ul { gap: 0; }
     .rail__link { padding-inline: 0.5rem; font-size: 0.875rem; }
     .rail__tools { gap: 0.45rem; }
-    .rail__kelvin button { padding-inline: 0.45rem; }
     .rail__lang a { padding-inline: 0.35rem; }
   }
 
@@ -312,10 +321,12 @@
       display: none;
       position: absolute; inset-inline: 0; inset-block-start: calc(100% + 0.6rem);
       padding: 0.5rem; border-radius: var(--radius-lg);
-      background: oklch(1 0 0 / 0.98);
+      background: oklch(1 0 0);
       box-shadow: inset 0 0 0 1px var(--c-rule), 0 1.6rem 3rem -1.2rem oklch(0.35 0.03 70 / 0.3);
     }
     .rail.is-open .rail__nav { display: block; }
+    /* Masaüstündeki ortalama telefonda paneli içeriğe göre daraltır: tam genişlik */
+    .rail__nav { justify-self: stretch; }
     /* Açılır menü genişleyince liste ekranı taşabilir: menü kendi içinde kayar */
     .rail__nav { max-block-size: calc(100svh - var(--rail-h) - 1.5rem); overflow-y: auto; overscroll-behavior: contain; }
     .rail__nav ul { flex-direction: column; }
@@ -327,14 +338,16 @@
     }
     .rail__sub::before { display: none; }
     .rail__sublink { font-size: 1.0625rem; min-block-size: 2.9rem; }
+    .rail__sub--mega { padding: 0 0 0 0.9rem; }
+    .rail__sub ul.rail__mega { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+    .rail__col + .rail__col { padding-inline-start: 0; border-inline-start: 0; padding-block-start: 0.6rem; border-block-start: 1px solid var(--c-rule); }
+    .rail__col > ul { padding-inline-start: 0.5rem; }
     .rail__toggle { display: inline-flex; align-items: center; }
     .rail__lang, .rail__search { display: none; }
     /* Telefonda "Sepet" yazısı yer tutmaz ama ekran okuyucu bağlantının adını okumaya devam eder */
     .rail__cart-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .rail__navsearch { display: list-item; }
-    .rail__kelvin button { padding-inline: 0.4rem; }
   }
-  @media (max-width: 30em) { .rail__kelvin { display: none; } }
 
   /* ================= Hızlı iletişim: sağ altta WhatsApp ve telefon (snippets/iletisim-dock.liquid, js/sections/dock.js) ================= */
   /* backdrop-filter bilerek yok: film tuvalinin üstünde her karede yeniden bulanıklaştırma kaydırmayı yavaşlatır */
@@ -700,6 +713,42 @@
   /* Uygulama durağı fotoğrafın üstünde: açık metin */
   .stage[data-kind='apply'] { color: oklch(0.98 0.005 85); }
   .stage[data-kind='apply'] .stage__no { color: oklch(0.88 0.01 85); }  .stage[data-kind='apply'] .stage__title, .stage[data-kind='apply'] .stage__text { text-shadow: 0 1px 1.5rem oklch(0.15 0.01 70 / 0.5); }
+
+  /* Işık sıcaklığı seçimi: "Uygulama" durağında, oda fotoğrafının üstünde (koyu perde üzerinde açık metin) */
+  .kelvin {
+    display: inline-flex; gap: 0.2rem; margin-block-start: 1.2rem; padding: 0.25rem;
+    border-radius: 999px;
+    background: oklch(0.15 0.01 60 / 0.45);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.18);
+  }
+  .kelvin button {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    min-block-size: 2.5rem; padding-inline: 0.85rem;
+    font-size: 0.875rem; font-weight: 620; font-stretch: 104%;
+    border-radius: 999px; color: oklch(0.92 0.01 85);
+    transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease, transform var(--dur-press) var(--ease-out);
+    touch-action: manipulation;
+  }
+  .kelvin button:active { transform: scale(0.96); }
+  .kelvin button[aria-checked='true'] { background: oklch(1 0 0); color: var(--c-ink); box-shadow: 0 0.4rem 1rem -0.5rem color-mix(in oklch, var(--light) 90%, transparent); }
+  .kelvin button:focus-visible { outline: 2px solid oklch(1 0 0); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .kelvin button:not([aria-checked='true']):hover { background: oklch(1 0 0 / 0.14); } }
+  .kelvin__swatch { inline-size: 0.6rem; block-size: 0.6rem; border-radius: 50%; }
+  [data-kelvin='3000'] > .kelvin__swatch { background: oklch(0.8 0.14 66); }
+  [data-kelvin='4000'] > .kelvin__swatch { background: oklch(0.9 0.085 88); }
+  [data-kelvin='6500'] > .kelvin__swatch { background: oklch(0.88 0.055 245); }
+  .kelvin button[aria-checked='true'] > .kelvin__swatch { box-shadow: 0 0 0.55rem 0.15rem var(--light); }
+  /* Hareket azaltmada duraklar düz liste: seçim açık zemin üstünde */
+  @media (prefers-reduced-motion: reduce) {
+    .kelvin { background: var(--c-surface-2); box-shadow: inset 0 0 0 1px var(--c-rule); }
+    .kelvin button { color: var(--c-ink-soft); }
+  }
+
+  /* Sahne ana sayfa dışında (üretim sayfası): sayfa içeriğinin genişlik sınırından taşıp ekranı kaplar */
+  /* 100vw kaydırma çubuğunu da sayar ve yatay kaydırma açar; gövde genişliği (cqw) kullanılır */
+  body:not(.template-index) { container-type: inline-size; container-name: govde; }
+  body:not(.template-index) .xhero { margin-inline: calc(50% - 50cqw); margin-block: clamp(3rem, 8svh, 5rem); }
 
   .finishes { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin-block-start: 1.1rem; font-size: 0.9375rem; font-weight: 550; }
   .finish { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--c-ink-soft); transition: color var(--dur-ui) ease; }
@@ -1697,6 +1746,102 @@
     .pdp__gallery { inline-size: 100%; }
     .pdp__info { position: static; }
   }
+
+  /* ================= Ürün sayfası: numune, özellikler, taksit ================= */
+  /* Sepete ekle'nin altında iki eş düğme: Numune iste (WhatsApp) + Ürün Özellikleri (pencere) */
+  .pdp__actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: 0.6rem; margin-block-start: -0.4rem; }
+  .pdp__actions .button { min-block-size: 3rem; gap: 0.55rem; font-size: 0.9375rem; }
+  .pdp__actions .icon { inline-size: 1.15rem; block-size: 1.15rem; color: var(--c-gold); }
+
+  /* Ürün Özellikleri penceresi */
+  .ozellik {
+    inline-size: min(44rem, calc(100vw - 2rem)); max-block-size: min(88dvh, 52rem);
+    margin: auto; padding: 0; border: 0; border-radius: calc(var(--radius-lg) + 0.5rem);
+    background: oklch(1 0 0); color: var(--c-ink);
+    box-shadow: inset 0 0 0 1px var(--c-rule), 0 2.5rem 5rem -2rem oklch(0.25 0.03 70 / 0.45);
+    overflow: hidden;
+  }
+  .ozellik::backdrop { background: oklch(0.2 0.02 70 / 0.4); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ozellik[open] { animation: ozellik-in 260ms var(--ease-out); }
+    .ozellik[open]::backdrop { animation: ozellik-perde 260ms ease; }
+    @keyframes ozellik-in { from { opacity: 0; transform: translateY(0.75rem) scale(0.98); } }
+    @keyframes ozellik-perde { from { opacity: 0; } }
+  }
+  .ozellik__ic { display: grid; grid-template-rows: auto minmax(0, 1fr); max-block-size: inherit; }
+  .ozellik__bas {
+    position: relative; display: flex; justify-content: space-between; align-items: start; gap: 1rem;
+    padding: 1.4rem 1.2rem 1.1rem 1.6rem; border-block-end: 1px solid var(--c-rule);
+    background: linear-gradient(180deg, color-mix(in oklch, var(--c-gold-bright) 12%, white), oklch(1 0 0));
+  }
+  .ozellik__bas::before {
+    content: ''; position: absolute; inset-inline: 1.6rem; inset-block-start: 0; block-size: 2px; border-radius: 0 0 2px 2px;
+    background: var(--light-core); box-shadow: 0 0 0.7rem 0.1rem var(--light);
+  }
+  .ozellik__k { font-size: 0.75rem; font-weight: 600; font-stretch: 115%; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-gold); }
+  .ozellik__baslik { margin-block-start: 0.35rem; font-size: clamp(1.25rem, 2vw, 1.625rem); font-weight: 680; font-stretch: 112%; line-height: 1.1; letter-spacing: -0.02em; }
+  .ozellik__kapat { display: grid; place-items: center; flex: none; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; transition: background-color var(--dur-ui) ease, transform var(--dur-press) var(--ease-out); }
+  .ozellik__kapat:active { transform: scale(0.92); }
+  @media (hover: hover) and (pointer: fine) { .ozellik__kapat:hover { background: var(--c-surface-2); } }
+  .ozellik__govde { overflow-y: auto; overscroll-behavior: contain; padding: 1.2rem 1.6rem 1.8rem; }
+  .ozellik__tablo { display: grid; margin: 0; border-radius: var(--radius-lg); overflow: clip; box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .ozellik__tablo > div { display: grid; grid-template-columns: minmax(8rem, 0.8fr) minmax(0, 1.6fr); gap: 1rem; padding: 0.75rem 1rem; }
+  .ozellik__tablo > div:nth-child(odd) { background: var(--c-surface); }
+  .ozellik__tablo dt { font-size: 0.875rem; font-weight: 600; color: var(--c-ink-soft); }
+  .ozellik__tablo dd { margin: 0; font-size: 0.9375rem; font-weight: 550; }
+  .ozellik__ara { margin-block: 1.6rem 0.2rem; font-size: 1.0625rem; font-weight: 650; font-stretch: 110%; }
+  .ozellik__aciklama { max-inline-size: none; }
+  .ozellik .rte--features { grid-template-columns: minmax(0, 1fr); }
+  .ozellik__bos { margin-block-start: 1.2rem; color: var(--c-ink-soft); }
+  @media (max-width: 39.99em) {
+    .ozellik { inline-size: 100vw; max-block-size: 92dvh; margin-block-end: 0; border-end-start-radius: 0; border-end-end-radius: 0; }
+    .ozellik__tablo > div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+  }
+
+  /* Taksit: fiyatın altında özet satırı ve kart görselleri */
+  .taksit-ozet { display: grid; gap: 0.55rem; margin-block-start: 0.3rem; }
+  .taksit-ozet__metin { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; font-size: 0.9375rem; }
+  .taksit-ozet__metin .icon { inline-size: 1.2rem; block-size: 1.2rem; color: var(--c-gold); }
+  .taksit-ozet__metin strong { font-weight: 650; }
+  .taksit-ozet__metin a { font-size: 0.875rem; font-weight: 600; color: var(--c-gold); }
+  /* Kartlar tek sırada, eş genişlikte: 8 kart satıra bölünmez; dar ekranda 4'erli iki sıra */
+  .taksit-ozet__kartlar { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.35rem; max-inline-size: 36rem; }
+  .taksit-ozet__kartlar .kart__yuz, .taksit-ozet__kartlar .kart__logo { inline-size: 100%; }
+  @media (max-width: 39.99em) { .taksit-ozet__kartlar { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  /* Kart görseli: logo yoksa program adıyla çizilmiş kredi kartı (renk: Tema ayarları > Taksit) */
+  .kart { list-style: none; }
+  .kart__yuz {
+    position: relative; display: grid; align-content: space-between;
+    inline-size: 4.4rem; aspect-ratio: 1.586; padding: 0.3rem 0.4rem; border-radius: 0.4rem; overflow: hidden;
+    color: oklch(1 0 0);
+    background: linear-gradient(135deg, color-mix(in oklch, var(--kart) 70%, white), var(--kart) 55%, color-mix(in oklch, var(--kart) 75%, black));
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 0.3rem 0.7rem -0.35rem oklch(0.2 0.02 70 / 0.5);
+  }
+  .kart__yuz::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, oklch(1 0 0 / 0.22) 50%, transparent 60%); }
+  .kart__cip { inline-size: 0.8rem; block-size: 0.55rem; border-radius: 0.15rem; background: linear-gradient(135deg, oklch(0.9 0.08 85), oklch(0.72 0.1 75)); }
+  .kart__ad { font-size: 0.5625rem; font-weight: 750; font-stretch: 110%; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 1px oklch(0 0 0 / 0.3); }
+  .kart__logo { inline-size: 4.4rem; aspect-ratio: 1.586; object-fit: contain; padding: 0.3rem; border-radius: 0.4rem; background: oklch(1 0 0); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    .kart__yuz { transition: transform var(--dur-ui) var(--ease-out); }
+    .kart:hover .kart__yuz { transform: translateY(-2px) rotate(-2deg); }
+  }
+
+  /* Taksit bölümü: kart ızgarası */
+  .taksit-izgara { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; }
+  .kart--tam { display: flex; align-items: center; gap: 0.9rem; padding: 0.8rem; border-radius: var(--radius-lg); background: var(--c-surface); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .kart--tam .kart__yuz, .kart--tam .kart__logo { inline-size: 5.6rem; flex: none; }
+  .kart--tam .kart__ad { font-size: 0.6875rem; }
+  .kart__bilgi { display: grid; gap: 0.1rem; min-inline-size: 0; }
+  .kart__isim { font-weight: 650; }
+  .kart__banka { font-size: 0.8125rem; color: var(--c-ink-soft); }
+  .kart__sayi { margin-block-start: 0.2rem; justify-self: start; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 650; color: var(--c-on-gold); background: color-mix(in oklch, var(--c-gold-bright) 45%, white); }
+  .taksit-not { margin-block-start: 1rem; font-size: 0.875rem; color: var(--c-ink-soft); }
+  .inst__tablo { margin-block-start: 1.5rem; }
+  #taksit { scroll-margin-block-start: calc(var(--rail-h) + 1.5rem); }
+
+  /* İletişim: form yerine WhatsApp kartı */
+  .contact__wa { min-block-size: 0; }
 
   /* ================= Sepet satırları, çekmece, sepet sayfası ================= */
   .lines { display: grid; }

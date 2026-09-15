@@ -74,3 +74,15 @@ Gereken: **1200 × 630 piksel yatay** tek bir görsel. Logonun kendisi bu orana 
 ## 9. Logo (tamamlandı, tek eksiği var)
 
 Logonun vektör dosyası alındı ve siteye yerleştirildi; menü çubuğu, sayfa altı ve tarayıcı sekmesi simgesi bundan üretildi. Eksik kalan tek şey **tek renk (beyaz ve siyah) sürüm**. Mevcut logo altın degradeli; sitenin beyaz zemininde sorunsuz çalışıyor. Koyu zeminli bir bölüm eklenirse ya da tek renk baskı gerekirse tasarımcıdan bu sürüm istenmelidir.
+
+## 10. Ürün teknik bilgileri
+
+Ürün sayfalarındaki "Ürün Özellikleri" penceresi şu an mağazadaki bilgilerden doluyor: ürün grubu, ürün adındaki ölçü (ör. 22 mm, 7 × 13 mm), açıklamada geçiyorsa malzeme, renk ve ölçü seçenekleri, ürün açıklamasındaki özellikler. Uydurma bilgi eklenmedi.
+
+Eksik olan, profillerin **ölçülmüş teknik değerleri**: boy uzunluğu, et kalınlığı, iç kanal genişliği (LED şerit genişliği), kapak türü, yüzey işlemi (eloksal / toz boya), ağırlık. Bu bilgiler gelince her ürünün "Teknik özellikler" alanına satır satır girilir ve pencerede tablo olarak görünür. Ürün adındaki ölçünün (ör. "7X13") hangi boyutları ifade ettiği de teyit edilmeli; pencerede milimetre olarak yazılıyor.
+
+Açıklaması hiç olmayan 7 ürün (3. madde) için pencerede yalnız ürün grubu ve seçenekler görünüyor.
+
+## 11. Taksit kart logoları
+
+Ürün sayfasında "12 aya varan taksit" ve kart görselleri gösteriliyor. Resmi banka/kart logoları yüklenene kadar kartlar, program adıyla çizilmiş kart görseli olarak duruyor. Gereken: ödeme altyapınızın (iyzico, PayTR vb.) logo paketi ve **hangi kartlarda kaç taksit ve vade farkı olduğunun** teyidi.

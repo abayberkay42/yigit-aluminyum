@@ -1,0 +1,99 @@
+{%- comment -%}
+  Ürün Özellikleri penceresi (ürün sayfası, "Ürün Özellikleri" düğmesi açar; src/js/store/ozellikler.js).
+  Yalnız mağazadaki gerçek veriden beslenir, uydurma değer basılmaz:
+  - Ürün grubu: ürün türü (product.type)
+  - Kesit ölçüsü: ürün adının ilk sözcüğü ölçü biçimindeyse ("22X13" → 22 × 13 mm, "22MM" → 22 mm, "2.2CM" → 2,2 cm)
+  - Malzeme: yalnız açıklamada "alüminyum" geçiyorsa "Alüminyum"
+  - Seçenekler: varyant seçenekleri (renk, ölçü, uzunluk…)
+  - Boy uzunluğu: custom.boy_cm meta alanı varsa
+  - Stok kodu: seçili varyantın SKU'su varsa
+  - Teknik bilgiler: custom.teknik_ozellikler meta alanı (çok satırlı metin, her satır "Başlık: Değer"). Firmanın
+    doğruladığı ölçüler (et kalınlığı, boy, yüzey işlemi…) buraya girilir.
+  - Açıklama: Shopify'daki ürün açıklaması ("Başlık: metin" satırları özellik listesine dönüşür, CSS .rte--features)
+  Parametre: product
+{%- endcomment -%}
+{%- liquid
+  assign ilk_soz = product.title | split: ' ' | first | upcase | replace: ',', '.'
+  assign kesit = ''
+  assign rakam_bas = ilk_soz | slice: 0
+  assign rakamlar = '0123456789'
+  if rakamlar contains rakam_bas
+    if ilk_soz contains 'X'
+      assign parca = ilk_soz | remove: 'MM' | split: 'X'
+      if parca.size == 2
+        assign kesit = parca[0] | append: ' × ' | append: parca[1] | append: ' mm'
+      endif
+    elsif ilk_soz contains 'MM'
+      assign kesit = ilk_soz | remove: 'MM' | append: ' mm'
+    elsif ilk_soz contains 'CM'
+      assign kesit = ilk_soz | remove: 'CM' | replace: '.', ',' | append: ' cm'
+    endif
+  endif
+
+  assign aciklama_kucuk = product.description | strip_html | downcase
+  assign aluminyum = false
+  if aciklama_kucuk contains 'lüminyum' or aciklama_kucuk contains 'luminyum'
+    assign aluminyum = true
+  endif
+  assign secili = product.selected_or_first_available_variant
+  assign teknik = product.metafields.custom.teknik_ozellikler.value | default: product.metafields.custom.teknik_ozellikler
+  assign boy_cm = product.metafields.custom.boy_cm.value
+-%}
+<dialog class="ozellik" id="Ozellik-{{ product.id }}" aria-labelledby="OzellikBaslik-{{ product.id }}" data-ozellik>
+  <div class="ozellik__ic">
+    <header class="ozellik__bas">
+      <div>
+        <p class="ozellik__k">{{ 'products.features_title' | t }}</p>
+        <h2 class="ozellik__baslik" id="OzellikBaslik-{{ product.id }}">{{ product.title }}</h2>
+      </div>
+      <button type="button" class="ozellik__kapat" data-ozellik-kapat aria-label="{{ 'general.close' | t }}">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+
+    <div class="ozellik__govde">
+      <dl class="ozellik__tablo">
+        {%- if product.type != blank -%}
+          <div><dt>{{ 'products.spec_group' | t }}</dt><dd>{{ product.type }}</dd></div>
+        {%- endif -%}
+        {%- if kesit != blank -%}
+          <div><dt>{{ 'products.spec_section' | t }}</dt><dd>{{ kesit }}</dd></div>
+        {%- endif -%}
+        {%- if aluminyum -%}
+          <div><dt>{{ 'products.spec_material' | t }}</dt><dd>{{ 'products.spec_aluminium' | t }}</dd></div>
+        {%- endif -%}
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div><dt>{{ option.name | capitalize }}</dt><dd>{{ option.values | join: ', ' }}</dd></div>
+          {%- endfor -%}
+        {%- endunless -%}
+        {%- if boy_cm != blank -%}
+          <div><dt>{{ 'products.spec_length' | t }}</dt><dd>{{ boy_cm }} cm</dd></div>
+        {%- endif -%}
+        {%- if secili.sku != blank -%}
+          <div><dt>{{ 'products.spec_sku' | t }}</dt><dd>{{ secili.sku }}</dd></div>
+        {%- endif -%}
+        {%- if teknik != blank -%}
+          {%- assign satirlar = teknik | newline_to_br | split: '<br />' -%}
+          {%- for satir in satirlar -%}
+            {%- assign s = satir | strip -%}
+            {%- if s contains ':' -%}
+              {%- assign ad = s | split: ':' | first | strip -%}
+              {%- assign deger = s | remove_first: ad | remove_first: ':' | strip -%}
+              <div><dt>{{ ad }}</dt><dd>{{ deger }}</dd></div>
+            {%- elsif s != blank -%}
+              <div><dt>&nbsp;</dt><dd>{{ s }}</dd></div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </dl>
+
+      {%- if product.description != blank -%}
+        <h3 class="ozellik__ara">{{ 'products.features' | t }}</h3>
+        <div class="rte rte--features ozellik__aciklama">{{ product.description }}</div>
+      {%- else -%}
+        <p class="ozellik__bos">{{ 'products.features_missing' | t }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</dialog>

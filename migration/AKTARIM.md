@@ -60,20 +60,16 @@ Ana sayfanın en başındaki kaydırmalı film, videonun kareleri olarak Dosyala
 
 ## Menü
 
-Üst menüdeki "Ürünler" başlığı, altına bağlantı eklenirse açılır menüye dönüşür. Shopify > Online Mağaza > Gezinme > Ana menü > "Ürünler" > alt bağlantı ekle:
+Üst menüdeki "Ürünler" başlığı dört ana kategorili geniş bir panel olarak açılır ("Tüm ürünler" yok). Shopify > Online Mağaza > Gezinme > Ana menü > "Ürünler" altına ana kategoriler, ana kategorilerin altına da alt bağlantılar eklenir (üç düzey; bağlantıyı bir üstteki bağlantının üzerine sürükleyince alt bağlantı olur):
 
-| Sıra | Bağlantı | Hedef |
-|---|---|---|
-| 1 | Tüm ürünler | Koleksiyon: Tüm ürünler (`/collections/all`) |
-| 2 | Kanal LED Profilleri | `siva-ustu-led-profilleri` |
-| 3 | Trimless LED Profilleri | `tri̇mless-alcipan-led-profi̇lleri̇` |
-| 4 | Kanatlı LED Profilleri | `gomme-led-profilleri` |
-| 5 | Tavan Köşe LED Profilleri | `tavan-kose-led-profilleri` |
-| 6 | Süpürgelik Profilleri | `supurgelik-profilleri-1` |
-| 7 | Duvar Panel Profilleri | `duvar-panel-profilleri-1` |
-| 8 | Alçıpan Profilleri | `fuga-profilleri` |
+| Ana kategori (2. düzey) | Alt bağlantılar (3. düzey) |
+|---|---|
+| LED Profilleri → koleksiyon `led-profilleri` | Trimless LED Profilleri → `tri̇mless-alcipan-led-profi̇lleri̇` · Tavan Köşe LED Profilleri → `tavan-kose-led-profilleri` · Süpürgelik LED Profilleri → `supurgelik-profilleri-1` · Kanatlı LED Profilleri → `gomme-led-profilleri` · Kanal LED Profilleri → `siva-ustu-led-profilleri` |
+| Duvar Panel Profilleri → koleksiyon `duvar-panel-profilleri-1` | Dış Köşe Profili → ürün `pvc-duvar-panel-dis-kose-profili` · İç Köşe Profili → ürün `pvc-duvar-panel-i̇c-kose-profili` · H Birleşim Profili → ürün `pvc-duvar-panel-h-birlesim-profili` · U Bitim Profili → ürün `pvc-panel-u-bitim-profili` |
+| Alçıpan Profilleri → koleksiyon `fuga-profilleri` | Z Profili → ürün `alcipan-z-profili` · Fuga Profili → ürün `fuga-profili` · Tek Kanatlı Fuga Profili → ürün `tek-kanatli-fuga-profili` |
+| Kullanım Alanları → sayfa `kullanim-alanlari` | (alt bağlantı yok) |
 
-İlk sıra listede ince bir çizgiyle ayrılır; bu yüzden üst bağlantının kendisi ("Tüm ürünler") birinci sırada olmalıdır. Alt bağlantı eklenmezse başlık eskisi gibi düz bağlantı olarak çalışır, tema bozulmaz. Yeni ürün grubu açıldığında bu listeye bir satır eklemek yeterli.
+Masaüstünde her ana kategori bir sütundur (başlık altın renkli, altında alt bağlantılar); telefonda alt alta listelenir. Alt bağlantısı olmayan ana kategori yalnız başlık olarak durur. Alt menüden (`footer`) "Numune talebi" bağlantısı kaldırılmalıdır: numune yalnız ürün sayfalarındaki "Numune iste" düğmesiyle istenir.
 
 ## Marka varlıkları (yükleme gerekmez)
 
@@ -89,6 +85,23 @@ Müşteri kendi dosyasını yüklemek isterse: logo için Tema ayarları > Firma
 ## Tema ayarları
 
 Firma bilgileri (e-posta, telefon, sosyal medya) `config/settings_data.json` ile gelir. Logo alanı boş bırakılabilir — boşken temayla gelen logo kullanılır ve arama motorlarına da o gönderilir. Paylaşım görseli (1200 × 630) müşteriden gelecek; boş olduğunda paylaşım etiketi hiç basılmaz, bozuk önizleme oluşmaz.
+
+## WhatsApp, form ve numune
+
+- Sitede form yok. İletişim sayfası ve bütün "Teklif alın" düğmeleri WhatsApp'ı hazır mesajla açar; numara Tema ayarları > İletişim düğmeleri > WhatsApp numarası (boşsa Firma bilgileri > Telefon).
+- "Numune iste" yalnız ürün sayfasında, "Sepete ekle"nin altındadır; WhatsApp'ı ürünün adıyla açar. Numuneler koleksiyonu gruplar şeridinden kaldırıldı (koleksiyon mağazada durabilir).
+
+## Ürün Özellikleri penceresi ve teknik bilgi meta alanı
+
+Ürün sayfasındaki "Ürün Özellikleri" penceresi mağazadaki gerçek veriden beslenir: ürün türü, ürün adındaki ölçü, açıklamada geçiyorsa malzeme, varyant seçenekleri, stok kodu ve ürün açıklaması. Firmanın doğruladığı teknik ölçüler için bir ürün meta alanı tanımlanmalı:
+
+- Shopify > Ayarlar > Özel veriler > Ürünler > Tanım ekle: ad "Teknik özellikler", ad alanı ve anahtar `custom.teknik_ozellikler`, tür **Çok satırlı metin**.
+- Her satır "Başlık: Değer" biçiminde girilir (örnek: `Boy: 300 cm`, `Et kalınlığı: 1,2 mm`, `Yüzey: Eloksal`). Pencerede tablo satırı olarak görünür.
+- Boy uzunluğu için var olan `custom.boy_cm` meta alanı da pencerede gösterilir.
+
+## Taksit ve kart logoları
+
+Tema ayarları > Taksit: en fazla taksit sayısı (12), not ve 8 kart programı (Bonus, World, Maximum, Axess, CardFinans, Paraf, Advantage, Bankkart Combo). Her kartın **resmi logosu** ödeme altyapısının (iyzico, PayTR vb.) verdiği logo paketinden ilgili "Logo" alanına yüklenmeli; logo yüklenmeyen kart, program adıyla çizilmiş kart görseli olarak görünür. Taksitin gerçekten tanımlı olduğu ödeme sağlayıcısında doğrulanmalı; sağlayıcının desteklemediği kart programının adı boş bırakılırsa gösterilmez.
 
 ## Uyarı
 

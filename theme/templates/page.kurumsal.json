@@ -2,32 +2,55 @@
   "sections": {
     "hero": {
       "type": "page-hero",
-      "settings": { "eyebrow": "Kurumsal", "title": "2008'den beri alüminyum profil", "align": "center" }
+      "settings": {
+        "eyebrow": "Kurumsal",
+        "title": "2008'den beri alüminyum profil",
+        "align": "center"
+      }
     },
-    "content": { "type": "page-content", "settings": {} },
+    "content": {
+      "type": "page-content",
+      "settings": {}
+    },
     "doors": {
       "type": "home-doors",
       "blocks": {
-        "door-uretim": { "type": "door", "settings": {
-          "style": "dark",
-          "eyebrow": "Üretim",
-          "title": "Profillerimiz nasıl üretiliyor?",
-          "text": "Kalıptan sevkiyata kadar üretim adımlarını inceleyin.",
-          "link_1_label": "Üretim sayfası",
-          "link_1": "/pages/uretim"
-        } },
-        "door-iletisim": { "type": "door", "settings": {
-          "style": "light",
-          "eyebrow": "İletişim",
-          "title": "Bize ulaşın",
-          "text": "Teklif, numune ve bayilik talepleriniz için formu doldurun.",
-          "link_1_label": "İletişim",
-          "link_1": "/pages/iletisim"
-        } }
+        "door-uretim": {
+          "type": "door",
+          "settings": {
+            "style": "dark",
+            "eyebrow": "Üretim",
+            "title": "Profillerimiz nasıl üretiliyor?",
+            "text": "Kalıptan sevkiyata kadar üretim adımlarını inceleyin.",
+            "link_1_label": "Üretim sayfası",
+            "link_1": "/pages/uretim"
+          }
+        },
+        "door-iletisim": {
+          "type": "door",
+          "settings": {
+            "style": "light",
+            "eyebrow": "İletişim",
+            "title": "Bize ulaşın",
+            "text": "Teklif, numune ve bayilik talepleriniz için WhatsApp’tan bize yazın.",
+            "link_1_label": "Teklif alın",
+            "link_1_whatsapp": true,
+            "link_1_message": "Merhaba, fiyat teklifi almak istiyorum."
+          }
+        }
       },
-      "block_order": ["door-uretim", "door-iletisim"],
-      "settings": { "heading": "Üretim ve iletişim" }
+      "block_order": [
+        "door-uretim",
+        "door-iletisim"
+      ],
+      "settings": {
+        "heading": "Üretim ve iletişim"
+      }
     }
   },
-  "order": ["hero", "content", "doors"]
+  "order": [
+    "hero",
+    "content",
+    "doors"
+  ]
 }

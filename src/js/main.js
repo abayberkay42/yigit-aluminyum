@@ -13,6 +13,7 @@ import { initFilm, destroyFilm } from './sections/film.js';
 import { initCart } from './store/cart.js';
 import { initDock } from './sections/dock.js';
 import { initQuickAdd } from './store/quick-add.js';
+import { initOzellikler } from './store/ozellikler.js';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,6 +37,7 @@ initRooms();
 initReveal();
 initDock();
 initQuickAdd();
+initOzellikler();
 // İletişim formu gönderildiyse onay mesajına odaklan (ekran okuyucu duyurur)
 // (tarayıcının #contact_form'a atlaması bittikten sonra; aksi halde odak geri alınır)
 requestAnimationFrame(() => document.querySelector('[data-contact-ok]')?.focus({ preventScroll: true }));

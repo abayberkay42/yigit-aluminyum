@@ -126,11 +126,11 @@ for (const path of PAGES) {
   await ctx.close();
 }
 
-// Hareket azaltma: ana sayfa açılış metni ve anlatı durakları görünür mü
+// Hareket azaltma: üretim sayfasındaki 3B sahnenin açılış metni ve anlatı durakları görünür mü (sahne 2026-09-15'ten beri orada)
 {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
   const p = await ctx.newPage();
-  await p.goto(B + '/', { waitUntil: 'networkidle' });
+  await p.goto(B + '/pages/uretim', { waitUntil: 'networkidle' });
   await p.waitForTimeout(1500);
   report.hareketAzaltma = await p.evaluate(() => {
     const vis = (s) => [...document.querySelectorAll(s)].map((el) => { const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && parseFloat(cs.opacity) > 0.5 && el.getBoundingClientRect().height > 0; });

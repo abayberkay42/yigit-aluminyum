@@ -254,14 +254,14 @@
           "type": "question",
           "settings": {
             "question": "Proje ve toptan siparişlerde fiyat alabilir miyim?",
-            "answer": "<p>Evet. Proje miktarını ve kullanılacak alanı iletişim formundan yazarsanız size fiyat teklifi hazırlarız.</p>"
+            "answer": "<p>Evet. Proje miktarını ve kullanılacak alanı WhatsApp hattımızdan yazarsanız size fiyat teklifi hazırlarız.</p>"
           }
         },
         "q3": {
           "type": "question",
           "settings": {
             "question": "Satın almadan önce numune görebilir miyim?",
-            "answer": "<p>Numuneler grubundan numune paketi sipariş edebilirsiniz.</p>"
+            "answer": "<p>Evet. Ürün sayfasındaki “Numune iste” düğmesiyle WhatsApp üzerinden numune talep edebilirsiniz.</p>"
           }
         }
       },

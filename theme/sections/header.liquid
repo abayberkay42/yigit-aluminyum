@@ -1,9 +1,9 @@
 {%- comment -%}
-  Menü çubuğu bir LED profil gibi kurulur: alüminyum gövde, altında opal şerit.
+  Menü çubuğu bir LED profil gibi kurulur: gövde, altında opal şerit.
   Şerit imlecin olduğu yerde yanar (src/js/nav/led-bar.js); sayfa kaydıkça soldan dolar.
-  Işık sıcaklığı seçimi (3000K / 4000K / 6500K) bütün sitenin ışık rengini belirler.
+  Gövde şeffaftır; imleç üzerine gelince, klavyeyle içine girilince ya da bir menü açıkken belirginleşir (CSS).
+  Işık sıcaklığı seçimi (3000K / 4000K / 6500K) menüde değil, 3B sahnenin "Uygulama" durağındadır (home-hero).
 {%- endcomment -%}
-{%- assign kelvins = '3000,4000,6500' | split: ',' -%}
 <header class="rail" data-rail>
   <div class="rail__bar">
     <a class="rail__logo" href="{{ routes.root_url }}">
@@ -15,21 +15,41 @@
         <ul role="list">
           {%- comment -%}
             Menüde alt bağlantısı olan başlık açılır menü olur (Shopify > Gezinme'de alt bağlantı eklenince kendiliğinden).
-            Hedefi kaybetmemek için listenin ilk sırasında üst bağlantının kendisi durur.
+            Üç düzey desteklenir: alt bağlantının da alt bağlantıları varsa panel sütunlara ayrılır (ana kategori başlığı
+            + altında ürünler/gruplar). Alt bağlantısı olmayan ana kategori yalnız başlık olarak durur.
           {%- endcomment -%}
           {%- for link in section.settings.menu.links -%}
             {%- if link.links.size > 0 -%}
+              {%- assign ucuncu = false -%}
+              {%- for child in link.links -%}{%- if child.links.size > 0 -%}{%- assign ucuncu = true -%}{%- endif -%}{%- endfor -%}
               <li class="rail__item">
                 <button type="button" class="rail__link rail__disc" data-rail-disc aria-expanded="false" aria-controls="RailSub{{ forloop.index }}">
                   {{- link.title -}}
                   <svg class="rail__chev" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true" focusable="false"><path d="M1 1.75 6 6.25l5-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <div class="rail__sub" id="RailSub{{ forloop.index }}" hidden>
-                  <ul role="list">
-                    {%- for child in link.links -%}
-                      <li><a class="rail__sublink" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
-                    {%- endfor -%}
-                  </ul>
+                <div class="rail__sub{% if ucuncu %} rail__sub--mega{% endif %}" id="RailSub{{ forloop.index }}" hidden>
+                  {%- if ucuncu -%}
+                    <ul class="rail__mega" role="list">
+                      {%- for child in link.links -%}
+                        <li class="rail__col">
+                          <a class="rail__colhead" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a>
+                          {%- if child.links.size > 0 -%}
+                            <ul role="list">
+                              {%- for grandchild in child.links -%}
+                                <li><a class="rail__sublink" href="{{ grandchild.url }}"{% if grandchild.current %} aria-current="page"{% endif %}>{{ grandchild.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- else -%}
+                    <ul role="list">
+                      {%- for child in link.links -%}
+                        <li><a class="rail__sublink" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
                 </div>
               </li>
             {%- else -%}
@@ -43,13 +63,6 @@
     {%- endif -%}
 
     <div class="rail__tools">
-      <div class="rail__kelvin" role="radiogroup" aria-label="{{ 'general.light_temperature' | t }}">
-        {%- for k in kelvins -%}
-          <button type="button" role="radio" data-kelvin="{{ k }}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>
-            <span class="rail__swatch" aria-hidden="true"></span>{{ k }}K
-          </button>
-        {%- endfor -%}
-      </div>
       <a class="rail__search" href="{{ routes.search_url }}" aria-label="{{ 'search.label' | t }}">
         <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </a>

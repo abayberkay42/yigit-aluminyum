@@ -1,0 +1,15 @@
+{%- comment -%}
+  WhatsApp bağlantı adresini basar (yalnız adres, etiket değil). Parametre: mesaj (hazır mesaj metni, isteğe bağlı).
+  Numara: Tema ayarları > İletişim düğmeleri > WhatsApp numarası; boşsa Firma bilgileri > Telefon.
+  "0532..." gibi başında 0 ile yazılmış numara ülke koduna (90) çevrilir.
+  Kullanım: href="{% render 'wa-href', mesaj: 'Merhaba' %}"
+{%- endcomment -%}
+{%- liquid
+  assign wa = settings.dock_whatsapp | default: settings.org_phone
+  assign wa_no = wa | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
+  assign bas = wa_no | slice: 0
+  if bas == '0'
+    assign wa_no = wa_no | remove_first: '0' | prepend: '90'
+  endif
+-%}
+https://wa.me/{{ wa_no }}{% if mesaj != blank %}?text={{ mesaj | strip | url_encode }}{% endif -%}

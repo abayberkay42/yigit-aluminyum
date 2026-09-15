@@ -1,5 +1,8 @@
 {%- comment -%}
-  Ana sayfa sahnesi: canlı ekstrüzyon + kaydırmayla ilerleyen üretim anlatısı (tek WebGL sahnesi, src/js/hero/extrusion.js).
+  Üretim sahnesi: canlı ekstrüzyon + kaydırmayla ilerleyen üretim anlatısı (tek WebGL sahnesi, src/js/hero/extrusion.js).
+  2026-09-15'ten beri üretim sayfasında, "Üretim süreci"nin altında durur (templates/page.uretim.json); başka
+  sayfaya da eklenebilir. Sayfanın kendi ana başlığı varsa "Başlık düzeyi" h2 kalır.
+  Işık sıcaklığı seçimi (3000K / 4000K / 6500K) yalnız "Uygulama" durağındadır: salon fotoğrafının ışık tonunu değiştirir.
   "Kalıp" blokları ürün gruplarıdır: seçildiğinde profil kalıba çekilir, kalıbın ağzı o kesite döner, yeni profil çıkar.
   "Durak" blokları anlatının metinleridir: kesim, yüzey, LED ve kapak, uygulama. Metinler gerçek HTML'dir.
   Kesit çizimleri src/js/hero/profiles.js içindedir; firmanın gerçek çizimleri gelince orada değişir.
@@ -10,6 +13,8 @@
   assign stages = section.blocks | where: 'type', 'stage'
   assign first = groups.first
   assign finishes = 'gumus,beyaz,altin,antrasit,siyah' | split: ','
+  assign kelvins = '3000,4000,6500' | split: ','
+  assign baslik = section.settings.heading_tag | default: 'h2'
 -%}
 <section class="xhero" data-extrusion data-shape="{{ first.settings.shape }}" aria-labelledby="XHeroTitle-{{ section.id }}">
   <div class="xhero__sticky">
@@ -30,11 +35,11 @@
 
     <div class="xhero__intro">
       <div class="xhero__inner">
-        <h1 class="xhero__title" id="XHeroTitle-{{ section.id }}">
+        <{{ baslik }} class="xhero__title" id="XHeroTitle-{{ section.id }}">
           <span class="xhero__line">{{ section.settings.line_1 }}</span>
           <span class="xhero__line xhero__line--wide">{{ section.settings.line_2 }}</span>
           <span class="xhero__line">{{ section.settings.line_3 }}</span>
-        </h1>
+        </{{ baslik }}>
         {%- if section.settings.lede != blank -%}
           <p class="xhero__lede">{{ section.settings.lede }}</p>
         {%- endif -%}
@@ -81,7 +86,7 @@
         {%- for block in stages -%}
           <li class="stage" data-stage="{{ forloop.index0 }}" data-kind="{{ block.settings.kind }}" {{ block.shopify_attributes }}>
             <span class="stage__no">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} / {% if stages.size < 10 %}0{% endif %}{{ stages.size }}</span>
-            <h2 class="stage__title">{{ block.settings.title }}</h2>
+            {%- if baslik == 'h1' -%}<h2 class="stage__title">{{ block.settings.title }}</h2>{%- else -%}<h3 class="stage__title">{{ block.settings.title }}</h3>{%- endif -%}
             <p class="stage__text">{{ block.settings.text }}</p>
             {%- if block.settings.kind == 'finish' -%}
               <ul class="finishes" role="list">
@@ -92,6 +97,15 @@
                   </li>
                 {%- endfor -%}
               </ul>
+            {%- endif -%}
+            {%- if block.settings.kind == 'apply' -%}
+              <div class="kelvin" role="radiogroup" aria-label="{{ 'general.light_temperature' | t }}" data-kelvin-sec>
+                {%- for k in kelvins -%}
+                  <button type="button" role="radio" data-kelvin="{{ k }}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>
+                    <span class="kelvin__swatch" aria-hidden="true"></span>{{ k }}K
+                  </button>
+                {%- endfor -%}
+              </div>
             {%- endif -%}
             {%- if block.settings.link_label != blank and block.settings.link != blank -%}
               <a class="stage__link" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
@@ -109,6 +123,10 @@
   "tag": "div",
   "class": "section-home-hero",
   "settings": [
+    { "type": "select", "id": "heading_tag", "label": "Başlık düzeyi", "default": "h2", "info": "Sayfanın başka ana başlığı yoksa h1 seçin.", "options": [
+      { "value": "h1", "label": "h1 (sayfanın ana başlığı)" },
+      { "value": "h2", "label": "h2" }
+    ] },
     { "type": "header", "content": "Açılış" },
     { "type": "text", "id": "line_1", "label": "Başlık 1. satır", "default": "2008'den beri" },
     { "type": "text", "id": "line_2", "label": "Başlık 2. satır (geniş)", "default": "alüminyum profil" },

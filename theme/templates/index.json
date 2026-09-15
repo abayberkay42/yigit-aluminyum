@@ -17,51 +17,100 @@
         "mobile_scroll_length": 400
       }
     },
-    "hero": {
-      "type": "home-hero",
-      "blocks": {
-        "die-led": { "type": "group", "settings": { "title": "LED kanal", "shape": "led", "collection": "siva-ustu-led-profilleri", "product": "22x13-led-profili" } },
-        "die-trimless": { "type": "group", "settings": { "title": "Trimless", "shape": "trimless", "collection": "tri̇mless-alcipan-led-profi̇lleri̇", "product": "2-2cm-trimless-alcipan-led-profili" } },
-        "die-kose": { "type": "group", "settings": { "title": "Köşe LED", "shape": "kose", "collection": "tavan-kose-led-profilleri", "product": "tavan-kose-led-profili" } },
-        "die-supurgelik": { "type": "group", "settings": { "title": "Süpürgelik", "shape": "supurgelik", "collection": "supurgelik-profilleri-1", "product": "ledli-supurgelik-profili" } },
-        "die-z": { "type": "group", "settings": { "title": "Alçıpan Z", "shape": "z", "collection": "fuga-profilleri", "product": "alcipan-z-profili" } },
-        "die-panel": { "type": "group", "settings": { "title": "Duvar paneli", "shape": "panel", "collection": "duvar-panel-profilleri-1", "product": "pvc-duvar-panel-h-birlesim-profili" } },
-        "stage-cut": { "type": "stage", "settings": { "kind": "cut", "title": "Kesim", "text": "Soğuyan profil, istenen boyda kesilir." } },
-        "stage-finish": { "type": "stage", "settings": { "kind": "finish", "title": "Yüzey ve renk", "text": "Renk seçenekleri: gümüş, beyaz, altın, antrasit ve siyah." } },
-        "stage-led": { "type": "stage", "settings": { "kind": "led", "title": "LED ve kapak", "text": "Şerit LED kanala yerleşir, opal kapak üstüne oturur. Işık rengini menüden seçebilirsiniz." } },
-        "stage-apply": { "type": "stage", "settings": { "kind": "apply", "title": "Uygulama", "text": "Tavanda, duvarda ve merdivende ışık tek bir çizgi olarak kalır.", "link_label": "Kullanım alanlarını gör", "link": "/pages/kullanim-alanlari" } }
-      },
-      "block_order": ["die-led", "die-trimless", "die-kose", "die-supurgelik", "die-z", "die-panel", "stage-cut", "stage-finish", "stage-led", "stage-apply"],
-      "settings": {}
-    },
     "production": {
       "type": "home-production",
       "blocks": {
-        "hol": { "type": "photo", "settings": { "image": "shopify://shop_images/9.jpg", "caption": "Üretim holü" } },
-        "pres": { "type": "photo", "settings": { "image": "shopify://shop_images/10.jpg", "caption": "Ekstrüzyon presi" } },
-        "sevkiyat": { "type": "photo", "settings": { "image": "shopify://shop_images/14.jpg", "caption": "Sevkiyata hazır profiller" } }
+        "hol": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/9.jpg",
+            "caption": "Üretim holü"
+          }
+        },
+        "pres": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/10.jpg",
+            "caption": "Ekstrüzyon presi"
+          }
+        },
+        "sevkiyat": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/14.jpg",
+            "caption": "Sevkiyata hazır profiller"
+          }
+        }
       },
-      "block_order": ["hol", "pres", "sevkiyat"],
+      "block_order": [
+        "hol",
+        "pres",
+        "sevkiyat"
+      ],
       "settings": {
         "eyebrow": "Üretim",
         "heading": "Kendi tesisimizde üretiyoruz",
         "text": "Alüminyum profillerimiz billetten sevkiyata kadar kendi hattımızda üretilir: kalıp, ekstrüzyon, kesim, yüzey işlemi ve kalite kontrol.",
         "link_label": "Üretim sürecini inceleyin",
-        "link": "/pages/uretim"
+        "link": "/pages/uretim",
+        "heading_tag": "h1"
       }
     },
     "groups": {
       "type": "home-groups",
       "blocks": {
-        "g-kanal": { "type": "group", "settings": { "collection": "siva-ustu-led-profilleri" } },
-        "g-trimless": { "type": "group", "settings": { "collection": "tri̇mless-alcipan-led-profi̇lleri̇" } },
-        "g-kanatli": { "type": "group", "settings": { "collection": "gomme-led-profilleri" } },
-        "g-kose": { "type": "group", "settings": { "collection": "tavan-kose-led-profilleri" } },
-        "g-supurgelik": { "type": "group", "settings": { "collection": "supurgelik-profilleri-1" } },
-        "g-panel": { "type": "group", "settings": { "collection": "duvar-panel-profilleri-1" } },
-        "g-alcipan": { "type": "group", "settings": { "collection": "fuga-profilleri" } }
+        "g-kanal": {
+          "type": "group",
+          "settings": {
+            "collection": "siva-ustu-led-profilleri"
+          }
+        },
+        "g-trimless": {
+          "type": "group",
+          "settings": {
+            "collection": "tri̇mless-alcipan-led-profi̇lleri̇"
+          }
+        },
+        "g-kanatli": {
+          "type": "group",
+          "settings": {
+            "collection": "gomme-led-profilleri"
+          }
+        },
+        "g-kose": {
+          "type": "group",
+          "settings": {
+            "collection": "tavan-kose-led-profilleri"
+          }
+        },
+        "g-supurgelik": {
+          "type": "group",
+          "settings": {
+            "collection": "supurgelik-profilleri-1"
+          }
+        },
+        "g-panel": {
+          "type": "group",
+          "settings": {
+            "collection": "duvar-panel-profilleri-1"
+          }
+        },
+        "g-alcipan": {
+          "type": "group",
+          "settings": {
+            "collection": "fuga-profilleri"
+          }
+        }
       },
-      "block_order": ["g-kanal", "g-trimless", "g-kanatli", "g-kose", "g-supurgelik", "g-panel", "g-alcipan"],
+      "block_order": [
+        "g-kanal",
+        "g-trimless",
+        "g-kanatli",
+        "g-kose",
+        "g-supurgelik",
+        "g-panel",
+        "g-alcipan"
+      ],
       "settings": {
         "eyebrow": "Ürün grupları",
         "heading": "Profil gruplarımız",
@@ -71,30 +120,43 @@
     "doors": {
       "type": "home-doors",
       "blocks": {
-        "door-proje": { "type": "door", "settings": {
-          "style": "dark",
-          "eyebrow": "Proje ve toptan",
-          "title": "Firmalar ve uygulama ekipleri için",
-          "text": "Proje miktarlarında fiyat, numune ve teknik bilgi için bizimle doğrudan görüşün.",
-          "items": "Numune talebi\nProje ve toptan fiyat teklifi\nBayilik başvurusu",
-          "link_1_label": "Teklif isteyin",
-          "link_1": "/pages/iletisim",
-          "link_2_label": "Numune isteyin",
-          "link_2": "/collections/numuneler"
-        } },
-        "door-magaza": { "type": "door", "settings": {
-          "style": "light",
-          "eyebrow": "Mağaza",
-          "title": "Çevrim içi satın alın",
-          "text": "Ürünü ve rengini seçin, siparişinizi sitemizden verin.",
-          "items": "LED, alçıpan, süpürgelik ve panel profilleri\n300 metre üzeri siparişlerde kademeli fiyat",
-          "link_1_label": "Mağazaya git",
-          "link_1": "/collections/all"
-        } }
+        "door-proje": {
+          "type": "door",
+          "settings": {
+            "style": "dark",
+            "eyebrow": "Proje ve toptan",
+            "title": "Firmalar ve uygulama ekipleri için",
+            "text": "Proje miktarlarında fiyat, numune ve teknik bilgi için bizimle doğrudan görüşün.",
+            "items": "Proje ve toptan fiyat teklifi\nBayilik başvurusu",
+            "link_1_label": "Teklif alın",
+            "link_1_whatsapp": true,
+            "link_1_message": "Merhaba, fiyat teklifi almak istiyorum."
+          }
+        },
+        "door-magaza": {
+          "type": "door",
+          "settings": {
+            "style": "light",
+            "eyebrow": "Mağaza",
+            "title": "Çevrim içi satın alın",
+            "text": "Ürünü ve rengini seçin, siparişinizi sitemizden verin.",
+            "items": "LED, alçıpan, süpürgelik ve panel profilleri\n300 metre üzeri siparişlerde kademeli fiyat",
+            "link_1_label": "Mağazaya git",
+            "link_1": "/collections/all"
+          }
+        }
       },
-      "block_order": ["door-proje", "door-magaza"],
+      "block_order": [
+        "door-proje",
+        "door-magaza"
+      ],
       "settings": {}
     }
   },
-  "order": ["film", "hero", "production", "groups", "doors"]
+  "order": [
+    "film",
+    "production",
+    "groups",
+    "doors"
+  ]
 }

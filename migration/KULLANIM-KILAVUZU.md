@@ -14,12 +14,11 @@ Sitenin tamamı Shopify panelinden yönetilir; koda dokunmanız gerekmez. Bu kı
 | Bölüm | Ne yapar | Ayarları |
 |---|---|---|
 | Tanıtım filmi | Sayfanın en başı: kaydırdıkça oynayan film. Masaüstünde yatay, telefonda dikey video | Masaüstü ve mobil için ayrı ayrı: kare adı öneki, kare sayısı, kare ölçüsü, kaydırma uzunluğu (uzadıkça film yavaşlar). Kareler Dosyalar'da durur |
-| Ekstrüzyon ve üretim | Açılıştaki hareketli sahne ve kaydırma anlatısı | Başlık satırları, alt metin, düğme; "Kalıp" blokları ürün gruplarını, "Durak" blokları anlatı metinlerini tutar |
-| Üretim | Gerçek tesis fotoğrafları | Başlık, metin, bağlantı; üç fotoğraf bloğu (ilki büyük gösterilir) |
+| Üretim | Gerçek tesis fotoğrafları; sayfanın ana başlığı (h1) bu bölümdedir | Başlık, metin, bağlantı; üç fotoğraf bloğu (ilki büyük gösterilir) |
 | Ürün grupları | Grup listesi ve grup tanıtımı | Her blokta koleksiyon seçilir; görsel seçilmezse grubun ilk ürününün fotoğrafı kullanılır |
-| İki yol | Proje/toptan ve mağaza kartları | Başlık, metin, maddeler (her satır bir madde), iki düğme |
+| İki yol | Proje/toptan ve mağaza kartları | Başlık, metin, maddeler (her satır bir madde), iki düğme. "Teklif alın" düğmesinde "WhatsApp'a yönlendirsin" işaretlidir |
 
-**Kalıp bloğu eklemek:** Yeni bir ürün grubu açtığınızda "Ekstrüzyon ve üretim" bölümüne "Kalıp" bloğu ekleyin, koleksiyonu ve örnek ürünü seçin. Kesit listesinden en yakın biçimi seçmeniz yeterli.
+**Kalıp bloğu eklemek:** 3B ekstrüzyon sahnesi Üretim sayfasındadır ("Üretim süreci"nin altında). Yeni bir ürün grubu açtığınızda tema düzenleyicide Üretim sayfasını seçin, "Ekstrüzyon ve üretim" bölümüne "Kalıp" bloğu ekleyin, koleksiyonu ve örnek ürünü seçin. Kesit listesinden en yakın biçimi seçmeniz yeterli.
 
 ## Ürün sayfaları
 
@@ -30,9 +29,11 @@ Dört şablon var: LED profilleri (varsayılan), duvar paneli, fuga-alçıpan, s
 - **Galeri:** Ürünün medyası. Görsel ve video aynı galeride görünür; sıra Shopify'daki medya sırasıdır.
 - **Renk ve ölçü seçimi:** Ürünün varyantlarından gelir. Renk noktalarının doğru renkte görünmesi için renk adı `Siyah`, `Gri`, `Beyaz`, `Mat`, `Antrasit`, `Gümüş`, `Altın` yazılmalıdır.
 - **Metraj fiyatı:** Ürünün `custom.tier_price` meta alanına yazılan sayı, "300 metre ve üzeri" satırı olarak görünür. Boşsa satır çıkmaz. İndirimin kendisi Shopify'ın otomatik indirim kuralıyla uygulanır.
-- **Numune, stand ve WhatsApp düğmeleri:** Tema düzenleyici > ürün şablonu > "Ek düğmeler". WhatsApp numarası girilince düğme, ürünün adını içeren hazır bir mesaj açar.
+- **Numune iste ve Ürün Özellikleri:** "Sepete ekle"nin altında yan yana iki düğme. "Numune iste" WhatsApp'ı ürünün adını içeren hazır mesajla açar (numune düğmesi sitede yalnız ürün sayfalarındadır). "Ürün Özellikleri" bir pencere açar: ürün grubu, ürün adındaki ölçü, malzeme (açıklamada geçiyorsa), renk/ölçü seçenekleri, stok kodu, teknik bilgiler ve ürün açıklaması. Ayar: Tema düzenleyici > ürün şablonu > "Ek düğmeler".
+- **Teknik bilgiler:** Ürünün "Teknik özellikler" meta alanına her satıra bir bilgi "Başlık: Değer" biçiminde yazılır (örnek: `Boy: 300 cm`). Pencerede tablo satırı olarak görünür. Yalnız doğrulanmış ölçüler girilmelidir.
+- **Taksit:** Fiyatın altında "12 aya varan taksit" satırı ve kart görselleri, sayfanın aşağısında kart kart taksit bölümü. Ayar: Tema ayarları > Taksit.
 - **Adım adım anlatım, karşılaştırma tabloları, sıkça sorulan sorular, taksit tablosu:** Her biri ayrı bölüm. Bunlar ürüne değil şablona bağlıdır: değişiklik o şablonu kullanan bütün ürünlerde görünür.
-- **Açıklama:** Shopify'daki ürün açıklaması, "Özellikler" başlığı altında görünür.
+- **Açıklama:** Shopify'daki ürün açıklaması, "Ürün Özellikleri" penceresinde "Özellikler" başlığı altında görünür. "Başlık: metin" biçimindeki satırlar düzenli bir listeye dönüşür.
 
 ## Koleksiyon (ürün grubu) sayfaları
 
@@ -44,11 +45,11 @@ Dört şablon var: LED profilleri (varsayılan), duvar paneli, fuga-alçıpan, s
 | Sayfa | İçerik nereden gelir |
 |---|---|
 | Kurumsal | Sayfalar > Kurumsal içeriği |
-| Üretim | Tema düzenleyici: süreç adımları, film, sayılar, belgeler, VR bağlantısı |
+| Üretim | Tema düzenleyici: süreç adımları, film, sayılar, belgeler, VR bağlantısı; adımların altında 3B ekstrüzyon sahnesi |
 | Kullanım alanları | Tema düzenleyici: her oda bir blok; görsel, metin, ürün grupları ve görselin üstündeki ürün noktaları |
 | Kataloglar | Tema düzenleyici: her katalog bir blok (ad, PDF bağlantısı, kapak) |
 | Sıkça sorulan sorular | Sayfalar > SSS içeriği |
-| İletişim | Form tema düzenleyicide; adres, telefon, e-posta, WhatsApp ve sosyal medya "Bilgi" blokları |
+| İletişim | Form yok: WhatsApp kartı (başlık, metin, maddeler, düğme ve hazır mesaj) ve telefon düğmesi; adres, telefon, e-posta ve sosyal medya "Bilgi" blokları |
 
 **Ürün noktası eklemek (kullanım alanları):** Oda bloğunda ürünü seçin, sonra yatay ve dikey konumu yüzdeyle ayarlayın. Sol üst köşe %0, sağ alt köşe %100'dür.
 
@@ -60,7 +61,9 @@ Sepet, ödeme ve siparişler Shopify'ın kendi akışıdır. Sepete eklenince ya
 
 Online Mağaza > Gezinme. Üst menü `main-menu`, alt menü `footer`. Alt alandaki ikinci menü başlığı tema düzenleyiciden değiştirilir.
 
-**Açılır menü:** Üst menüdeki bir başlığın altına bağlantı eklerseniz o başlık sitede açılır menüye dönüşür. "Ürünler" başlığı böyle çalışır: altındaki ilk sıra "Tüm ürünler", sonrasında ürün grupları listelenir. İlk sıra listede ince bir çizgiyle ayrıldığı için oraya başlığın kendi hedefini ("Tüm ürünler") koymak gerekir. Yeni bir ürün grubu açtığınızda bu listeye bir satır eklemeniz yeterli; başka bir işlem gerekmez. Alt bağlantı eklenmemiş başlıklar düz bağlantı olarak çalışmaya devam eder.
+**Açılır menü:** Üst menüdeki bir başlığın altına bağlantı eklerseniz o başlık sitede açılır menüye dönüşür. "Ürünler" üç düzeylidir: altında dört ana kategori (LED Profilleri, Duvar Panel Profilleri, Alçıpan Profilleri, Kullanım Alanları), ana kategorilerin altında ürün grupları ya da ürünler. Bilgisayarda her ana kategori bir sütun olur. Yeni bir ürün grubu ya da ürün eklemek için Gezinme'de ilgili ana kategorinin altına bağlantı ekleyip üzerine sürüklemeniz yeterli. Alt bağlantı eklenmemiş başlıklar düz bağlantı olarak çalışmaya devam eder.
+
+**Menü çubuğu:** Şeffaftır; fareyle üzerine gelince, klavyeyle içinde gezinirken ya da bir menü açıkken belirginleşir. Telefonda (fare olmadığı için) hep belirgin görünür.
 
 ## Diller
 
@@ -92,7 +95,11 @@ Düğmeler sayfa altına ya da sağ altta duran başka bir düğmenin üstüne g
 
 ## Işık rengi
 
-Menüdeki 3000K / 4000K / 6500K seçimi ziyaretçiye aittir; sitedeki ışık renklerini ve oda fotoğraflarının tonunu değiştirir. Seçim ziyaretçinin tarayıcısında saklanır.
+3000K / 4000K / 6500K seçimi Üretim sayfasındaki 3B sahnenin son durağında ("Uygulama", salon görseli) bulunur. Ziyaretçiye aittir; salon görselinin ve sitedeki ışık çizgilerinin rengini değiştirir. Seçim ziyaretçinin tarayıcısında saklanır.
+
+## Taksit
+
+Tema düzenleyici > Tema ayarları > Taksit: taksit bilgisini açıp kapatma, en fazla taksit sayısı, not ve sekiz kart programı. Her kart için program adı, banka, logo ve (logo yoksa) kart görselinin rengi girilir. Resmi logoları ödeme altyapınızın (iyzico, PayTR vb.) verdiği logo paketinden yükleyin. Programın adını silerseniz o kart gösterilmez. Taksitin ödeme sağlayıcınızda gerçekten tanımlı olduğunu kontrol edin.
 
 ## Dikkat edilecekler
 

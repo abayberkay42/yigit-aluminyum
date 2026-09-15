@@ -1,51 +1,56 @@
 {%- comment -%}
-  Taksit tablosu: anlaşmalı bankalar, taksit sayısı, vade farkı durumu. Satır yoksa bölüm görünmez.
-  Vade farkı her satırda açıkça yazılmalıdır (mevzuat).
+  Taksit bölümü (ürün sayfası). Kartlar ve taksit sayısı Tema ayarları > Taksit'ten gelir (snippets/taksit-kartlari.liquid).
+  İsteğe bağlı "Banka" satırları kart bazında ayrıntı tablosu olarak altına eklenir; vade farkı her satırda açıkça
+  yazılmalıdır (mevzuat). Taksit kapalı ve satır yoksa bölüm görünmez.
 {%- endcomment -%}
-{%- if section.blocks.size > 0 -%}
-  <section class="psec inst" aria-labelledby="Inst-{{ section.id }}">
+{%- if settings.taksit_etkin or section.blocks.size > 0 -%}
+  <section class="psec inst" id="taksit" aria-labelledby="Inst-{{ section.id }}">
     <div class="psec__head">
       <h2 class="psec__title" id="Inst-{{ section.id }}">{{ section.settings.heading }}</h2>
       {%- if section.settings.text != blank -%}<p class="psec__text">{{ section.settings.text }}</p>{%- endif -%}
     </div>
-    <div class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Inst-{{ section.id }}">
-      <table class="cmp__table">
-        <thead>
-          <tr>
-            <th scope="col">{{ 'products.inst_bank' | t }}</th>
-            <th scope="col">{{ 'products.inst_count' | t }}</th>
-            <th scope="col">{{ 'products.inst_note' | t }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {%- for block in section.blocks -%}
-            <tr {{ block.shopify_attributes }}>
-              <th scope="row">{{ block.settings.bank }}</th>
-              <td>{{ block.settings.count }}</td>
-              <td>{{ block.settings.note }}</td>
+    {%- render 'taksit-kartlari', gorunum: 'tam' -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="cmp__wrap inst__tablo" role="region" tabindex="0" aria-labelledby="Inst-{{ section.id }}">
+        <table class="cmp__table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'products.inst_bank' | t }}</th>
+              <th scope="col">{{ 'products.inst_count' | t }}</th>
+              <th scope="col">{{ 'products.inst_note' | t }}</th>
             </tr>
-          {%- endfor -%}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.bank }}</th>
+                <td>{{ block.settings.count }}</td>
+                <td>{{ block.settings.note }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
   </section>
 {%- endif -%}
 
 {% schema %}
 {
-  "name": "Taksit tablosu",
+  "name": "Taksit",
   "class": "section-product-installments",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Başlık", "default": "Taksit seçenekleri" },
-    { "type": "textarea", "id": "text", "label": "Metin" }
+    { "type": "paragraph", "content": "Kartlar ve taksit sayısı Tema ayarları > Taksit'ten gelir." },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "12 aya varan taksit" },
+    { "type": "textarea", "id": "text", "label": "Metin", "default": "Aşağıdaki kartlarla alışverişinizi taksitle ödeyebilirsiniz." }
   ],
   "blocks": [
-    { "type": "row", "name": "Banka", "limit": 12, "settings": [
+    { "type": "row", "name": "Banka ayrıntısı", "limit": 12, "settings": [
       { "type": "text", "id": "bank", "label": "Banka / kart" },
       { "type": "text", "id": "count", "label": "Taksit sayısı", "info": "Örnek: 2, 3, 6, 9, 12" },
       { "type": "text", "id": "note", "label": "Vade farkı", "info": "Örnek: 3 taksite kadar vade farksız" }
     ] }
   ],
-  "presets": [{ "name": "Taksit tablosu" }]
+  "presets": [{ "name": "Taksit" }]
 }
 {% endschema %}

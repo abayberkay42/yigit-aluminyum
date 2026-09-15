@@ -1,52 +1,28 @@
 {%- comment -%}
-  İletişim: Shopify'ın iletişim formu (mesajlar mağaza e-postasına gelir) ve iletişim bilgileri.
-  Konu seçenekleri ayardan virgülle girilir. Bilgi blokları yalnızca değer girilince görünür.
+  İletişim: form yok (2026-09-15, müşteri isteği). Talepler WhatsApp'a yönlendirilir; numara Tema ayarları >
+  İletişim düğmeleri'nden gelir (snippets/wa-href.liquid). Yanında telefon düğmesi ve iletişim bilgileri.
+  Bilgi blokları yalnızca değer girilince görünür.
 {%- endcomment -%}
-{%- assign subjects = section.settings.subjects | split: ',' -%}
+{%- assign tel_no = settings.org_phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' -%}
 <section class="contact" aria-labelledby="ContactTitle-{{ section.id }}">
   <div class="contact__grid">
-    <div>
-      <h2 class="contact__h2" id="ContactTitle-{{ section.id }}">{{ section.settings.form_title }}</h2>
-      {%- form 'contact', id: 'contact_form', class: 'contact__form' -%}
-        {%- if form.posted_successfully? -%}
-          <p class="contact__ok" role="status" tabindex="-1" data-contact-ok>{{ 'contact.success' | t }}</p>
+    <div class="door door--dark contact__wa">
+      <p class="door__k">{{ 'general.dock.whatsapp' | t }}</p>
+      <h2 class="door__title" id="ContactTitle-{{ section.id }}">{{ section.settings.cta_title }}</h2>
+      {%- if section.settings.cta_text != blank -%}<p class="door__text">{{ section.settings.cta_text }}</p>{%- endif -%}
+      {%- if section.settings.cta_items != blank -%}
+        {%- assign satirlar = section.settings.cta_items | newline_to_br | split: '<br />' -%}
+        <ul class="door__items" role="list">
+          {%- for satir in satirlar -%}{%- assign s = satir | strip -%}{%- if s != blank -%}<li>{{ s }}</li>{%- endif -%}{%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="door__actions">
+        <a class="button button--primary" href="{% render 'wa-href', mesaj: section.settings.cta_message %}" target="_blank" rel="noopener">{{ section.settings.cta_label }}<span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span></a>
+        {%- if tel_no != blank -%}
+          <a class="button button--ghost" href="tel:{{ tel_no }}">{{ 'general.dock.call' | t }}: {{ settings.org_phone }}</a>
         {%- endif -%}
-        <div class="field">
-          <label for="ContactName">{{ 'contact.name' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
-          <input id="ContactName" type="text" name="contact[name]" autocomplete="name" required>
-        </div>
-        <div class="field">
-          <label for="ContactEmail">{{ 'contact.email' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
-          <input id="ContactEmail" type="email" name="contact[email]" autocomplete="email" spellcheck="false" required>
-        </div>
-        <div class="field">
-          <label for="ContactPhone">{{ 'contact.phone' | t }}</label>
-          <input id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel">
-        </div>
-        <div class="field">
-          <label for="ContactCompany">{{ 'contact.company' | t }}</label>
-          <input id="ContactCompany" type="text" name="contact[{{ 'contact.company' | t }}]" autocomplete="organization">
-        </div>
-        {%- if section.settings.subjects != blank -%}
-          <div class="field field--full">
-            <label for="ContactSubject">{{ 'contact.subject' | t }}</label>
-            <select id="ContactSubject" name="contact[{{ 'contact.subject' | t }}]">
-              {%- for s in subjects -%}<option>{{ s | strip }}</option>{%- endfor -%}
-            </select>
-          </div>
-        {%- endif -%}
-        <div class="field field--full">
-          <label for="ContactBody">{{ 'contact.message' | t }} <span class="field__req">({{ 'contact.required' | t }})</span></label>
-          <textarea id="ContactBody" name="contact[body]" rows="6" required></textarea>
-        </div>
-        <p class="contact__legal">
-          {{- 'contact.legal' | t -}}
-          {%- if section.settings.privacy_link != blank %} <a href="{{ section.settings.privacy_link }}">{{ 'contact.privacy' | t }}</a>{% endif -%}
-        </p>
-        <button type="submit" class="button button--primary contact__submit">{{ 'contact.send' | t }}</button>
-      {%- endform -%}
+      </div>
     </div>
-
     <aside class="contact__info" aria-label="{{ 'footer.contact' | t }}">
       {%- for block in section.blocks -%}
         {%- if block.settings.value != blank -%}
@@ -70,9 +46,11 @@
   "name": "İletişim",
   "class": "section-page-contact",
   "settings": [
-    { "type": "text", "id": "form_title", "label": "Form başlığı", "default": "Bize yazın" },
-    { "type": "text", "id": "subjects", "label": "Konu seçenekleri", "info": "Virgülle ayırın. Boş bırakılırsa konu alanı görünmez.", "default": "Fiyat teklifi, Numune, Bayilik, Diğer" },
-    { "type": "url", "id": "privacy_link", "label": "Gizlilik politikası bağlantısı" }
+    { "type": "text", "id": "cta_title", "label": "Başlık", "default": "Teklif için WhatsApp'tan yazın" },
+    { "type": "textarea", "id": "cta_text", "label": "Metin", "default": "Ürünü, proje miktarını ve kullanılacak alanı yazın; doğru profili ve fiyatı birlikte belirleyelim." },
+    { "type": "textarea", "id": "cta_items", "label": "Maddeler", "info": "Her satır bir madde.", "default": "Proje ve toptan fiyat teklifi\nBayilik başvurusu\nÜrün seçimi ve teknik bilgi" },
+    { "type": "text", "id": "cta_label", "label": "Düğme metni", "default": "Teklif alın" },
+    { "type": "text", "id": "cta_message", "label": "WhatsApp hazır mesajı", "default": "Merhaba, fiyat teklifi almak istiyorum." }
   ],
   "blocks": [
     { "type": "item", "name": "Bilgi", "limit": 8, "settings": [

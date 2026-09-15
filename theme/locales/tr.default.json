@@ -17,8 +17,10 @@
       "whatsapp_a11y": "WhatsApp ile yazın",
       "call_a11y": "Bizi arayın: {{ phone }}",
       "message": "Merhaba, bilgi almak istiyorum.",
-      "message_collection": "Merhaba, {{ title }} hakkında bilgi almak istiyorum."
-    }
+      "message_collection": "Merhaba, {{ title }} hakkında bilgi almak istiyorum.",
+      "call": "Arayın"
+    },
+    "close": "Kapat"
   },
   "home": {
     "hero": {
@@ -102,7 +104,22 @@
     "calc_tier_done": "kademeye ulaştınız",
     "calc_apply": "Adedi uygula",
     "calc_applied": "Adet ayarlandı:",
-    "calc_unit_boy": "boy"
+    "calc_unit_boy": "boy",
+    "features_title": "Ürün Özellikleri",
+    "features_button": "Ürün Özellikleri",
+    "spec_group": "Ürün grubu",
+    "spec_section": "Profil ölçüsü",
+    "spec_material": "Malzeme",
+    "spec_aluminium": "Alüminyum",
+    "spec_length": "Boy uzunluğu",
+    "spec_sku": "Stok kodu",
+    "features_missing": "Bu ürünün ayrıntılı açıklaması henüz eklenmedi.",
+    "sample_button": "Numune iste",
+    "sample_message": "Merhaba, {{ title }} için numune talep etmek istiyorum.",
+    "inst_line": "{{ count }} aya varan taksit",
+    "inst_cards": "Taksit yapılabilen kartlar",
+    "inst_more": "Taksit seçenekleri",
+    "inst_count_label": "{{ count }} taksit"
   },
   "collections": {
     "sort": "Sırala",

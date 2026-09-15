@@ -100,11 +100,10 @@
             "eyebrow": "Proje ve toptan",
             "title": "Üreticiden doğrudan alın",
             "text": "Proje miktarlarında fiyat, numune ve teknik bilgi için bizimle doğrudan görüşün.",
-            "items": "Numune talebi\nProje ve toptan fiyat teklifi\nBayilik başvurusu",
-            "link_1_label": "Teklif isteyin",
-            "link_1": "/pages/iletisim",
-            "link_2_label": "Numune isteyin",
-            "link_2": "/collections/numuneler"
+            "items": "Proje ve toptan fiyat teklifi\nBayilik başvurusu",
+            "link_1_label": "Teklif alın",
+            "link_1_whatsapp": true,
+            "link_1_message": "Merhaba, fiyat teklifi almak istiyorum."
           }
         },
         "door-magaza": {
@@ -125,11 +124,120 @@
         "door-magaza"
       ],
       "settings": {}
+    },
+    "sahne": {
+      "type": "home-hero",
+      "blocks": {
+        "die-led": {
+          "type": "group",
+          "settings": {
+            "title": "LED kanal",
+            "shape": "led",
+            "collection": "siva-ustu-led-profilleri",
+            "product": "22x13-led-profili"
+          }
+        },
+        "die-trimless": {
+          "type": "group",
+          "settings": {
+            "title": "Trimless",
+            "shape": "trimless",
+            "collection": "tri̇mless-alcipan-led-profi̇lleri̇",
+            "product": "2-2cm-trimless-alcipan-led-profili"
+          }
+        },
+        "die-kose": {
+          "type": "group",
+          "settings": {
+            "title": "Köşe LED",
+            "shape": "kose",
+            "collection": "tavan-kose-led-profilleri",
+            "product": "tavan-kose-led-profili"
+          }
+        },
+        "die-supurgelik": {
+          "type": "group",
+          "settings": {
+            "title": "Süpürgelik",
+            "shape": "supurgelik",
+            "collection": "supurgelik-profilleri-1",
+            "product": "ledli-supurgelik-profili"
+          }
+        },
+        "die-z": {
+          "type": "group",
+          "settings": {
+            "title": "Alçıpan Z",
+            "shape": "z",
+            "collection": "fuga-profilleri",
+            "product": "alcipan-z-profili"
+          }
+        },
+        "die-panel": {
+          "type": "group",
+          "settings": {
+            "title": "Duvar paneli",
+            "shape": "panel",
+            "collection": "duvar-panel-profilleri-1",
+            "product": "pvc-duvar-panel-h-birlesim-profili"
+          }
+        },
+        "stage-cut": {
+          "type": "stage",
+          "settings": {
+            "kind": "cut",
+            "title": "Kesim",
+            "text": "Soğuyan profil, istenen boyda kesilir."
+          }
+        },
+        "stage-finish": {
+          "type": "stage",
+          "settings": {
+            "kind": "finish",
+            "title": "Yüzey ve renk",
+            "text": "Renk seçenekleri: gümüş, beyaz, altın, antrasit ve siyah."
+          }
+        },
+        "stage-led": {
+          "type": "stage",
+          "settings": {
+            "kind": "led",
+            "title": "LED ve kapak",
+            "text": "Şerit LED kanala yerleşir, opal kapak üstüne oturur."
+          }
+        },
+        "stage-apply": {
+          "type": "stage",
+          "settings": {
+            "kind": "apply",
+            "title": "Uygulama",
+            "text": "Tavanda, duvarda ve merdivende ışık tek bir çizgi olarak kalır. Işık sıcaklığını aşağıdan seçin.",
+            "link_label": "Kullanım alanlarını gör",
+            "link": "/pages/kullanim-alanlari"
+          }
+        }
+      },
+      "block_order": [
+        "die-led",
+        "die-trimless",
+        "die-kose",
+        "die-supurgelik",
+        "die-z",
+        "die-panel",
+        "stage-cut",
+        "stage-finish",
+        "stage-led",
+        "stage-apply"
+      ],
+      "settings": {
+        "heading_tag": "h2"
+      }
     }
   },
   "order": [
     "hero",
     "production",
+    "sahne",
     "doors"
   ]
 }

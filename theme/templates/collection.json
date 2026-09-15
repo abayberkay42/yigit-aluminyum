@@ -11,12 +11,13 @@
           "tavan-kose-led-profilleri",
           "supurgelik-profilleri-1",
           "duvar-panel-profilleri-1",
-          "fuga-profilleri",
-          "numuneler"
+          "fuga-profilleri"
         ],
         "per_page": 24
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

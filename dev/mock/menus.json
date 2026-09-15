@@ -12,14 +12,124 @@
         },
         "url": "/collections",
         "links": [
-          { "title": { "tr": "Tüm ürünler", "en": "All products" }, "url": "/collections/all" },
-          { "title": { "tr": "Kanal LED Profilleri", "en": "Surface LED Profiles" }, "url": "/collections/siva-ustu-led-profilleri" },
-          { "title": { "tr": "Trimless LED Profilleri", "en": "Trimless LED Profiles" }, "url": "/collections/tri̇mless-alcipan-led-profi̇lleri̇" },
-          { "title": { "tr": "Kanatlı LED Profilleri", "en": "Recessed LED Profiles" }, "url": "/collections/gomme-led-profilleri" },
-          { "title": { "tr": "Tavan Köşe LED Profilleri", "en": "Ceiling Corner LED Profiles" }, "url": "/collections/tavan-kose-led-profilleri" },
-          { "title": { "tr": "Süpürgelik Profilleri", "en": "Skirting Profiles" }, "url": "/collections/supurgelik-profilleri-1" },
-          { "title": { "tr": "Duvar Panel Profilleri", "en": "Wall Panel Profiles" }, "url": "/collections/duvar-panel-profilleri-1" },
-          { "title": { "tr": "Alçıpan Profilleri", "en": "Drywall Profiles" }, "url": "/collections/fuga-profilleri" }
+          {
+            "title": {
+              "tr": "LED Profilleri",
+              "en": "LED Profiles"
+            },
+            "url": "/collections/led-profilleri",
+            "links": [
+              {
+                "title": {
+                  "tr": "Trimless LED Profilleri",
+                  "en": "Trimless LED Profiles"
+                },
+                "url": "/collections/tri̇mless-alcipan-led-profi̇lleri̇"
+              },
+              {
+                "title": {
+                  "tr": "Tavan Köşe LED Profilleri",
+                  "en": "Ceiling Corner LED Profiles"
+                },
+                "url": "/collections/tavan-kose-led-profilleri"
+              },
+              {
+                "title": {
+                  "tr": "Süpürgelik LED Profilleri",
+                  "en": "Skirting LED Profiles"
+                },
+                "url": "/collections/supurgelik-profilleri-1"
+              },
+              {
+                "title": {
+                  "tr": "Kanatlı LED Profilleri",
+                  "en": "Flanged LED Profiles"
+                },
+                "url": "/collections/gomme-led-profilleri"
+              },
+              {
+                "title": {
+                  "tr": "Kanal LED Profilleri",
+                  "en": "Surface LED Profiles"
+                },
+                "url": "/collections/siva-ustu-led-profilleri"
+              }
+            ]
+          },
+          {
+            "title": {
+              "tr": "Duvar Panel Profilleri",
+              "en": "Wall Panel Profiles"
+            },
+            "url": "/collections/duvar-panel-profilleri-1",
+            "links": [
+              {
+                "title": {
+                  "tr": "Dış Köşe Profili",
+                  "en": "Outer Corner Profile"
+                },
+                "url": "/products/pvc-duvar-panel-dis-kose-profili"
+              },
+              {
+                "title": {
+                  "tr": "İç Köşe Profili",
+                  "en": "Inner Corner Profile"
+                },
+                "url": "/products/pvc-duvar-panel-i̇c-kose-profili"
+              },
+              {
+                "title": {
+                  "tr": "H Birleşim Profili",
+                  "en": "H Joint Profile"
+                },
+                "url": "/products/pvc-duvar-panel-h-birlesim-profili"
+              },
+              {
+                "title": {
+                  "tr": "U Bitim Profili",
+                  "en": "U End Profile"
+                },
+                "url": "/products/pvc-panel-u-bitim-profili"
+              }
+            ]
+          },
+          {
+            "title": {
+              "tr": "Alçıpan Profilleri",
+              "en": "Drywall Profiles"
+            },
+            "url": "/collections/fuga-profilleri",
+            "links": [
+              {
+                "title": {
+                  "tr": "Z Profili",
+                  "en": "Z Profile"
+                },
+                "url": "/products/alcipan-z-profili"
+              },
+              {
+                "title": {
+                  "tr": "Fuga Profili",
+                  "en": "Shadow Gap Profile"
+                },
+                "url": "/products/fuga-profili"
+              },
+              {
+                "title": {
+                  "tr": "Tek Kanatlı Fuga Profili",
+                  "en": "Single Flange Shadow Gap Profile"
+                },
+                "url": "/products/tek-kanatli-fuga-profili"
+              }
+            ]
+          },
+          {
+            "title": {
+              "tr": "Kullanım Alanları",
+              "en": "Applications"
+            },
+            "url": "/pages/kullanim-alanlari"
+          }
         ]
       },
       {
@@ -64,13 +174,6 @@
           "en": "All products"
         },
         "url": "/collections/all"
-      },
-      {
-        "title": {
-          "tr": "Numune talebi",
-          "en": "Sample request"
-        },
-        "url": "/collections/numuneler"
       },
       {
         "title": {

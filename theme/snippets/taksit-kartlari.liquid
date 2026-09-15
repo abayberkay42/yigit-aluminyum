@@ -1,0 +1,57 @@
+{%- comment -%}
+  Taksit kartları. Ayarlar: Tema ayarları > Taksit (taksit sayısı, not, 8 kart programı).
+  Her kartın resmi logosu ödeme altyapısının (iyzico, PayTR vb.) verdiği logo paketinden "Logo" alanına yüklenir;
+  logo yüklenmemişse kart, program adıyla çizilmiş kart görseli olarak gösterilir (resmi logo taklidi değildir).
+  Parametre: gorunum = 'ozet' (ürün sayfası, fiyatın altında tek satır) | 'tam' (taksit bölümü, kart ızgarası)
+{%- endcomment -%}
+{%- if settings.taksit_etkin -%}
+  {%- liquid
+    assign sayi = settings.taksit_sayi | default: 12
+    assign gorunum = gorunum | default: 'ozet'
+  -%}
+  {%- capture kartlar -%}
+    {%- for i in (1..8) -%}
+      {%- liquid
+        assign ad_anahtar = 'taksit_kart_' | append: i | append: '_ad'
+        assign banka_anahtar = 'taksit_kart_' | append: i | append: '_banka'
+        assign logo_anahtar = 'taksit_kart_' | append: i | append: '_logo'
+        assign renk_anahtar = 'taksit_kart_' | append: i | append: '_renk'
+        assign ad = settings[ad_anahtar]
+        assign banka = settings[banka_anahtar]
+        assign logo = settings[logo_anahtar]
+        assign renk = settings[renk_anahtar] | default: '#6b6b6b'
+      -%}
+      {%- if ad != blank -%}
+        <li class="kart kart--{{ gorunum }}{% if logo %} kart--logo{% endif %}" style="--kart: {{ renk }}">
+          {%- if logo -%}
+            {{ logo | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: ad, class: 'kart__logo' }}
+          {%- else -%}
+            <span class="kart__yuz" aria-hidden="true"><span class="kart__cip"></span><span class="kart__ad">{{ ad }}</span></span>
+            <span class="visually-hidden">{{ ad }}{% if banka != blank %} ({{ banka }}){% endif %}</span>
+          {%- endif -%}
+          {%- if gorunum == 'tam' -%}
+            <span class="kart__bilgi">
+              <span class="kart__isim">{{ ad }}</span>
+              {%- if banka != blank -%}<span class="kart__banka">{{ banka }}</span>{%- endif -%}
+              <span class="kart__sayi">{{ 'products.inst_count_label' | t: count: sayi }}</span>
+            </span>
+          {%- endif -%}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- if gorunum == 'ozet' -%}
+    <div class="taksit-ozet">
+      <p class="taksit-ozet__metin">
+        <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M6.5 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <strong>{{ 'products.inst_line' | t: count: sayi }}</strong>
+        <a href="#taksit">{{ 'products.inst_more' | t }}</a>
+      </p>
+      <ul class="taksit-ozet__kartlar" role="list" aria-label="{{ 'products.inst_cards' | t }}">{{ kartlar }}</ul>
+    </div>
+  {%- else -%}
+    <ul class="taksit-izgara" role="list" aria-label="{{ 'products.inst_cards' | t }}">{{ kartlar }}</ul>
+    {%- if settings.taksit_not != blank -%}<p class="taksit-not">{{ settings.taksit_not }}</p>{%- endif -%}
+  {%- endif -%}
+{%- endif -%}

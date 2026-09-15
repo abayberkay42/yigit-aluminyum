@@ -8,8 +8,12 @@
     <div class="site-footer__brand">
       <p class="site-footer__mark">{%- render 'logo', class: 'site-footer__logo' -%}</p>
       {%- if section.settings.text != blank -%}<p class="site-footer__claim">{{ section.settings.text }}</p>{%- endif -%}
-      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
-        <a class="button button--ghost site-footer__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+      {%- if section.settings.cta_label != blank -%}
+        {%- if section.settings.cta_whatsapp -%}
+          <a class="button button--ghost site-footer__cta" href="{% render 'wa-href', mesaj: section.settings.cta_message %}" target="_blank" rel="noopener">{{ section.settings.cta_label }}<span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span></a>
+        {%- elsif section.settings.cta_link != blank -%}
+          <a class="button button--ghost site-footer__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+        {%- endif -%}
       {%- endif -%}
     </div>
 
@@ -99,8 +103,10 @@
   "class": "section-footer",
   "settings": [
     { "type": "textarea", "id": "text", "label": "Marka altı metin", "default": "2008'den beri alüminyum profil üretiyoruz." },
-    { "type": "text", "id": "cta_label", "label": "Düğme metni", "default": "Teklif isteyin" },
-    { "type": "url", "id": "cta_link", "label": "Düğme bağlantısı", "default": "/pages/iletisim" },
+    { "type": "text", "id": "cta_label", "label": "Düğme metni", "default": "Teklif alın" },
+    { "type": "checkbox", "id": "cta_whatsapp", "label": "Düğme WhatsApp'a yönlendirsin", "default": true, "info": "Numara Tema ayarları > İletişim düğmeleri'nden gelir." },
+    { "type": "text", "id": "cta_message", "label": "WhatsApp hazır mesajı", "default": "Merhaba, fiyat teklifi almak istiyorum." },
+    { "type": "url", "id": "cta_link", "label": "Düğme bağlantısı (WhatsApp kapalıysa)" },
     { "type": "link_list", "id": "menu", "label": "Birinci menü", "default": "footer" },
     { "type": "text", "id": "menu_heading", "label": "Birinci menü başlığı", "default": "Mağaza" },
     { "type": "link_list", "id": "menu_2", "label": "İkinci menü", "default": "main-menu" },

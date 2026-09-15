@@ -12,11 +12,12 @@
           "led-profilleri",
           "supurgelik-profilleri-1",
           "duvar-panel-profilleri-1",
-          "fuga-profilleri",
-          "numuneler"
+          "fuga-profilleri"
         ]
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

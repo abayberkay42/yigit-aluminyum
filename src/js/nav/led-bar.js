@@ -1,5 +1,6 @@
 // Menü çubuğu bir LED profildir: alttaki opal şerit imlecin olduğu yerde yanar, ışık sayfaya düşer.
-// Işık sıcaklığı (3000K / 4000K / 6500K) bütün sitenin ışık rengini belirler ve hatırlanır.
+// Işık sıcaklığı (3000K / 4000K / 6500K) bütün sitenin ışık rengini belirler ve hatırlanır. Seçim düğmeleri menüde değil,
+// 3B sahnenin "Uygulama" durağında ([data-kelvin-sec]); düğme olmayan sayfada da kayıtlı seçim uygulanır.
 const KEY = 'yigit:kelvin';
 
 export function initRail() {
@@ -35,7 +36,7 @@ export function initRail() {
   bar.addEventListener('focusout', () => { to = 0; kick(); });
 
   // Işık sıcaklığı
-  const radios = [...rail.querySelectorAll('[data-kelvin]')];
+  const radios = [...document.querySelectorAll('[data-kelvin-sec] [data-kelvin]')];
   const apply = (value, focus = false) => {
     document.documentElement.dataset.kelvin = value;
     radios.forEach((b) => {
@@ -49,7 +50,7 @@ export function initRail() {
   };
   let saved = null;
   try { saved = localStorage.getItem(KEY); } catch { /* yok say */ }
-  apply(radios.some((b) => b.dataset.kelvin === saved) ? saved : radios[0]?.dataset.kelvin ?? '3000');
+  apply(['3000', '4000', '6500'].includes(saved) ? saved : '3000');
   radios.forEach((b, i) => {
     b.addEventListener('click', () => apply(b.dataset.kelvin));
     b.addEventListener('keydown', (e) => {

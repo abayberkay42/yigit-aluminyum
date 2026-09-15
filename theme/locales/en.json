@@ -17,8 +17,10 @@
       "whatsapp_a11y": "Message us on WhatsApp",
       "call_a11y": "Call us: {{ phone }}",
       "message": "Hello, I would like some information.",
-      "message_collection": "Hello, I would like information about {{ title }}."
-    }
+      "message_collection": "Hello, I would like information about {{ title }}.",
+      "call": "Call"
+    },
+    "close": "Close"
   },
   "home": {
     "hero": {
@@ -102,7 +104,22 @@
     "calc_tier_done": "tier reached",
     "calc_apply": "Set quantity",
     "calc_applied": "Quantity set:",
-    "calc_unit_boy": "pcs"
+    "calc_unit_boy": "pcs",
+    "features_title": "Product specifications",
+    "features_button": "Product specifications",
+    "spec_group": "Product group",
+    "spec_section": "Profile size",
+    "spec_material": "Material",
+    "spec_aluminium": "Aluminium",
+    "spec_length": "Bar length",
+    "spec_sku": "SKU",
+    "features_missing": "A detailed description of this product has not been added yet.",
+    "sample_button": "Request a sample",
+    "sample_message": "Hello, I would like to request a sample of {{ title }}.",
+    "inst_line": "Up to {{ count }} instalments",
+    "inst_cards": "Cards eligible for instalments",
+    "inst_more": "Instalment options",
+    "inst_count_label": "{{ count }} instalments"
   },
   "collections": {
     "sort": "Sort",

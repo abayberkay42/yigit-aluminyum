@@ -10,99 +10,194 @@
     "rooms": {
       "type": "page-rooms",
       "blocks": {
-        "salon": { "type": "room", "settings": {
-          "title": "Salon",
-          "text": "Tavana gömülen trimless profil duvarı eşit biçimde aydınlatır. Işık kaynağı görünmez, tavanda yalnızca ince bir çizgi kalır.",
-          "image": "shopify://shop_images/room-salon.webp",
-          "collections": ["tri̇mless-alcipan-led-profi̇lleri̇", "tavan-kose-led-profilleri"],
-          "spot_1_product": "2-2cm-trimless-alcipan-led-profili", "spot_1_x": 46, "spot_1_y": 19
-        } },
-        "koridor": { "type": "room", "settings": {
-          "title": "Koridor",
-          "text": "Tavanda boydan boya ışık çizgisi, zeminde LED'li süpürgelik. Gece kullanımında göz almayan, yolu gösteren bir ışık.",
-          "image": "shopify://shop_images/room-koridor.webp",
-          "collections": ["tri̇mless-alcipan-led-profi̇lleri̇", "supurgelik-profilleri-1"],
-          "spot_1_product": "2-2cm-trimless-alcipan-led-profili", "spot_1_x": 40, "spot_1_y": 22,
-          "spot_2_product": "ledli-supurgelik-profili", "spot_2_x": 66, "spot_2_y": 80
-        } },
-        "mutfak": { "type": "room", "settings": {
-          "title": "Mutfak",
-          "text": "Dolap altına sıva üstü kanal profil. Tezgâh gölgesiz aydınlanır, opal kapak LED noktalarını gizler.",
-          "image": "shopify://shop_images/room-mutfak.webp",
-          "collections": ["siva-ustu-led-profilleri", "tri̇mless-alcipan-led-profi̇lleri̇"],
-          "spot_1_product": "22x13-led-profili", "spot_1_x": 30, "spot_1_y": 59,
-          "spot_2_product": "2-2cm-trimless-alcipan-led-profili", "spot_2_x": 66, "spot_2_y": 12
-        } },
-        "yatak": { "type": "room", "settings": {
-          "title": "Yatak odası",
-          "text": "Tavan köşesinde dolaylı ışık. Tavanı yumuşak biçimde aydınlatır, göze doğrudan gelmez.",
-          "image": "shopify://shop_images/room-yatak.webp",
-          "collections": ["tavan-kose-led-profilleri"],
-          "spot_1_product": "tavan-kose-led-profili", "spot_1_x": 26, "spot_1_y": 12
-        } },
-        "banyo": { "type": "room", "settings": {
-          "title": "Banyo",
-          "text": "Niş içinde ve ayna üstünde gömme profil. Islak alanlarda nem korumalı LED şerit kullanılmalıdır.",
-          "image": "shopify://shop_images/room-banyo.webp",
-          "collections": ["gomme-led-profilleri", "tri̇mless-alcipan-led-profi̇lleri̇"],
-          "spot_1_product": "12x24-kanatli-led-profili", "spot_1_x": 14, "spot_1_y": 37,
-          "spot_2_product": "1-5cm-trimless-alcipan-led-profili", "spot_2_x": 66, "spot_2_y": 14
-        } },
-        "ofis": { "type": "room", "settings": {
-          "title": "Ofis",
-          "text": "Masaların üzerinde asma lineer profil. Çalışma yüzeyinde eşit ve kamaşmayan bir ışık verir.",
-          "image": "shopify://shop_images/room-ofis.webp",
-          "collections": ["led-profilleri"],
-          "spot_1_product": "12x38-cift-kanalli-avize-led-profili", "spot_1_x": 38, "spot_1_y": 35,
-          "spot_2_product": "2-2cm-trimless-alcipan-led-profili", "spot_2_x": 30, "spot_2_y": 16
-        } },
-        "galeri": { "type": "room", "settings": {
-          "title": "Galeri alanları",
-          "text": "Tavanda ve duvarda kesişen trimless çizgiler. Mekânın geometrisini ışıkla çizer.",
-          "image": "shopify://shop_images/room-galeri.webp",
-          "collections": ["tri̇mless-alcipan-led-profi̇lleri̇"],
-          "spot_1_product": "3-2cm-trimless-alcipan-led-profili", "spot_1_x": 22, "spot_1_y": 16,
-          "spot_2_product": "5cm-trimless-alcipan-led-profili", "spot_2_x": 60, "spot_2_y": 45
-        } },
-        "dis": { "type": "room", "settings": {
-          "title": "Dış cephe",
-          "text": "Saçak altında ve basamak kenarında ışık çizgisi. Dış mekânda dış ortama uygun LED şerit ve kapak kullanılmalıdır.",
-          "image": "shopify://shop_images/room-dis.webp",
-          "collections": ["led-profilleri"],
-          "spot_1_product": "neon-led-kanali", "spot_1_x": 55, "spot_1_y": 30,
-          "spot_2_product": "ledli-merdiven-basamak-profili", "spot_2_x": 60, "spot_2_y": 82
-        } }
+        "salon": {
+          "type": "room",
+          "settings": {
+            "title": "Salon",
+            "text": "Tavana gömülen trimless profil duvarı eşit biçimde aydınlatır. Işık kaynağı görünmez, tavanda yalnızca ince bir çizgi kalır.",
+            "image": "shopify://shop_images/room-salon.webp",
+            "collections": [
+              "tri̇mless-alcipan-led-profi̇lleri̇",
+              "tavan-kose-led-profilleri"
+            ],
+            "spot_1_product": "2-2cm-trimless-alcipan-led-profili",
+            "spot_1_x": 46,
+            "spot_1_y": 19
+          }
+        },
+        "koridor": {
+          "type": "room",
+          "settings": {
+            "title": "Koridor",
+            "text": "Tavanda boydan boya ışık çizgisi, zeminde LED'li süpürgelik. Gece kullanımında göz almayan, yolu gösteren bir ışık.",
+            "image": "shopify://shop_images/room-koridor.webp",
+            "collections": [
+              "tri̇mless-alcipan-led-profi̇lleri̇",
+              "supurgelik-profilleri-1"
+            ],
+            "spot_1_product": "2-2cm-trimless-alcipan-led-profili",
+            "spot_1_x": 40,
+            "spot_1_y": 22,
+            "spot_2_product": "ledli-supurgelik-profili",
+            "spot_2_x": 66,
+            "spot_2_y": 80
+          }
+        },
+        "mutfak": {
+          "type": "room",
+          "settings": {
+            "title": "Mutfak",
+            "text": "Dolap altına sıva üstü kanal profil. Tezgâh gölgesiz aydınlanır, opal kapak LED noktalarını gizler.",
+            "image": "shopify://shop_images/room-mutfak.webp",
+            "collections": [
+              "siva-ustu-led-profilleri",
+              "tri̇mless-alcipan-led-profi̇lleri̇"
+            ],
+            "spot_1_product": "22x13-led-profili",
+            "spot_1_x": 30,
+            "spot_1_y": 59,
+            "spot_2_product": "2-2cm-trimless-alcipan-led-profili",
+            "spot_2_x": 66,
+            "spot_2_y": 12
+          }
+        },
+        "yatak": {
+          "type": "room",
+          "settings": {
+            "title": "Yatak odası",
+            "text": "Tavan köşesinde dolaylı ışık. Tavanı yumuşak biçimde aydınlatır, göze doğrudan gelmez.",
+            "image": "shopify://shop_images/room-yatak.webp",
+            "collections": [
+              "tavan-kose-led-profilleri"
+            ],
+            "spot_1_product": "tavan-kose-led-profili",
+            "spot_1_x": 26,
+            "spot_1_y": 12
+          }
+        },
+        "banyo": {
+          "type": "room",
+          "settings": {
+            "title": "Banyo",
+            "text": "Niş içinde ve ayna üstünde gömme profil. Islak alanlarda nem korumalı LED şerit kullanılmalıdır.",
+            "image": "shopify://shop_images/room-banyo.webp",
+            "collections": [
+              "gomme-led-profilleri",
+              "tri̇mless-alcipan-led-profi̇lleri̇"
+            ],
+            "spot_1_product": "12x24-kanatli-led-profili",
+            "spot_1_x": 14,
+            "spot_1_y": 37,
+            "spot_2_product": "1-5cm-trimless-alcipan-led-profili",
+            "spot_2_x": 66,
+            "spot_2_y": 14
+          }
+        },
+        "ofis": {
+          "type": "room",
+          "settings": {
+            "title": "Ofis",
+            "text": "Masaların üzerinde asma lineer profil. Çalışma yüzeyinde eşit ve kamaşmayan bir ışık verir.",
+            "image": "shopify://shop_images/room-ofis.webp",
+            "collections": [
+              "led-profilleri"
+            ],
+            "spot_1_product": "12x38-cift-kanalli-avize-led-profili",
+            "spot_1_x": 38,
+            "spot_1_y": 35,
+            "spot_2_product": "2-2cm-trimless-alcipan-led-profili",
+            "spot_2_x": 30,
+            "spot_2_y": 16
+          }
+        },
+        "galeri": {
+          "type": "room",
+          "settings": {
+            "title": "Galeri alanları",
+            "text": "Tavanda ve duvarda kesişen trimless çizgiler. Mekânın geometrisini ışıkla çizer.",
+            "image": "shopify://shop_images/room-galeri.webp",
+            "collections": [
+              "tri̇mless-alcipan-led-profi̇lleri̇"
+            ],
+            "spot_1_product": "3-2cm-trimless-alcipan-led-profili",
+            "spot_1_x": 22,
+            "spot_1_y": 16,
+            "spot_2_product": "5cm-trimless-alcipan-led-profili",
+            "spot_2_x": 60,
+            "spot_2_y": 45
+          }
+        },
+        "dis": {
+          "type": "room",
+          "settings": {
+            "title": "Dış cephe",
+            "text": "Saçak altında ve basamak kenarında ışık çizgisi. Dış mekânda dış ortama uygun LED şerit ve kapak kullanılmalıdır.",
+            "image": "shopify://shop_images/room-dis.webp",
+            "collections": [
+              "led-profilleri"
+            ],
+            "spot_1_product": "neon-led-kanali",
+            "spot_1_x": 55,
+            "spot_1_y": 30,
+            "spot_2_product": "ledli-merdiven-basamak-profili",
+            "spot_2_x": 60,
+            "spot_2_y": 82
+          }
+        }
       },
-      "block_order": ["salon", "koridor", "mutfak", "yatak", "banyo", "ofis", "galeri", "dis"],
+      "block_order": [
+        "salon",
+        "koridor",
+        "mutfak",
+        "yatak",
+        "banyo",
+        "ofis",
+        "galeri",
+        "dis"
+      ],
       "settings": {}
     },
     "doors": {
       "type": "home-doors",
       "blocks": {
-        "door-proje": { "type": "door", "settings": {
-          "style": "dark",
-          "eyebrow": "Proje ve toptan",
-          "title": "Projeniz için teklif alın",
-          "text": "Hangi profilin hangi alana uygun olduğunu birlikte belirleyelim; proje miktarlarında fiyat ve numune gönderelim.",
-          "items": "Numune talebi\nProje ve toptan fiyat teklifi\nBayilik başvurusu",
-          "link_1_label": "Teklif isteyin",
-          "link_1": "/pages/iletisim",
-          "link_2_label": "Numune isteyin",
-          "link_2": "/collections/numuneler"
-        } },
-        "door-magaza": { "type": "door", "settings": {
-          "style": "light",
-          "eyebrow": "Mağaza",
-          "title": "Çevrim içi satın alın",
-          "text": "Ürünü ve rengini seçin, siparişinizi sitemizden verin.",
-          "items": "LED, alçıpan, süpürgelik ve panel profilleri",
-          "link_1_label": "Mağazaya git",
-          "link_1": "/collections/all"
-        } }
+        "door-proje": {
+          "type": "door",
+          "settings": {
+            "style": "dark",
+            "eyebrow": "Proje ve toptan",
+            "title": "Projeniz için teklif alın",
+            "text": "Hangi profilin hangi alana uygun olduğunu birlikte belirleyelim; proje miktarlarında fiyat ve numune gönderelim.",
+            "items": "Proje ve toptan fiyat teklifi\nBayilik başvurusu",
+            "link_1_label": "Teklif alın",
+            "link_1_whatsapp": true,
+            "link_1_message": "Merhaba, fiyat teklifi almak istiyorum."
+          }
+        },
+        "door-magaza": {
+          "type": "door",
+          "settings": {
+            "style": "light",
+            "eyebrow": "Mağaza",
+            "title": "Çevrim içi satın alın",
+            "text": "Ürünü ve rengini seçin, siparişinizi sitemizden verin.",
+            "items": "LED, alçıpan, süpürgelik ve panel profilleri",
+            "link_1_label": "Mağazaya git",
+            "link_1": "/collections/all"
+          }
+        }
       },
-      "block_order": ["door-proje", "door-magaza"],
-      "settings": { "heading": "Odanız için doğru profili seçin" }
+      "block_order": [
+        "door-proje",
+        "door-magaza"
+      ],
+      "settings": {
+        "heading": "Odanız için doğru profili seçin"
+      }
     }
   },
-  "order": ["hero", "rooms", "doors"]
+  "order": [
+    "hero",
+    "rooms",
+    "doors"
+  ]
 }

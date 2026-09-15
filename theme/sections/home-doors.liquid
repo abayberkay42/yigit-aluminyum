@@ -1,5 +1,5 @@
 {%- comment -%}
-  Ana sayfa kapanışı: iki yol. Proje ve toptan (numune, teklif, bayilik) ile doğrudan satın alma (mağaza).
+  Ana sayfa kapanışı: iki yol. Proje ve toptan (teklif WhatsApp'tan, bayilik) ile doğrudan satın alma (mağaza).
   Her kartın üst kenarında menüdeki LED çizgisinin aynısı var; kartın üzerine gelince yanar.
   "Maddeler" alanında her satır bir madde olur.
 {%- endcomment -%}
@@ -25,8 +25,12 @@
           </ul>
         {%- endif -%}
         <div class="door__actions">
-          {%- if block.settings.link_1_label != blank and block.settings.link_1 != blank -%}
-            <a class="button button--primary" href="{{ block.settings.link_1 }}">{{ block.settings.link_1_label }}</a>
+          {%- if block.settings.link_1_label != blank -%}
+            {%- if block.settings.link_1_whatsapp -%}
+              <a class="button button--primary" href="{% render 'wa-href', mesaj: block.settings.link_1_message %}" target="_blank" rel="noopener">{{ block.settings.link_1_label }}<span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span></a>
+            {%- elsif block.settings.link_1 != blank -%}
+              <a class="button button--primary" href="{{ block.settings.link_1 }}">{{ block.settings.link_1_label }}</a>
+            {%- endif -%}
           {%- endif -%}
           {%- if block.settings.link_2_label != blank and block.settings.link_2 != blank -%}
             <a class="button button--ghost" href="{{ block.settings.link_2 }}">{{ block.settings.link_2_label }}</a>
@@ -59,7 +63,9 @@
         { "type": "textarea", "id": "text", "label": "Metin" },
         { "type": "textarea", "id": "items", "label": "Maddeler", "info": "Her satır bir madde." },
         { "type": "text", "id": "link_1_label", "label": "Birinci düğme metni" },
-        { "type": "url", "id": "link_1", "label": "Birinci düğme bağlantısı" },
+        { "type": "checkbox", "id": "link_1_whatsapp", "label": "Birinci düğme WhatsApp'a yönlendirsin", "default": false, "info": "Teklif düğmeleri için. Numara Tema ayarları > İletişim düğmeleri'nden gelir." },
+        { "type": "text", "id": "link_1_message", "label": "WhatsApp hazır mesajı", "default": "Merhaba, fiyat teklifi almak istiyorum." },
+        { "type": "url", "id": "link_1", "label": "Birinci düğme bağlantısı (WhatsApp kapalıysa)" },
         { "type": "text", "id": "link_2_label", "label": "İkinci düğme metni" },
         { "type": "url", "id": "link_2", "label": "İkinci düğme bağlantısı" }
       ]
