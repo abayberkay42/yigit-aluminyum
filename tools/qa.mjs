@@ -8,7 +8,7 @@ const AXE = 'D:/Claude Projeler/Claude skil/.qa-tools/node_modules/axe-core/axe.
 const B = process.env.URL || 'http://localhost:3019';
 const ART = '/blogs/tri%CC%87mless-led-profi%CC%87lleri%CC%87/nedir-nasil-uygulanir-ne-ise-yarar-nerelerde-kullanilir';
 const PAGES = [
-  '/', '/collections', '/collections/siva-ustu-led-profilleri', '/products/22x13-led-profili', '/products/alcipan-z-profili',
+  '/', '/collections', '/collections/siva-ustu-led-profilleri', '/products/22x13-led-profili', '/products/2-2cm-trimless-alcipan-led-profili', '/products/alcipan-z-profili',
   '/cart', '/pages/kullanim-alanlari', '/pages/uretim', '/pages/kurumsal', '/pages/iletisim', '/pages/kataloglar',
   '/pages/s-s-s', '/search?q=trimless', ART, '/olmayan-sayfa', '/en',
 ];

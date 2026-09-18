@@ -37,9 +37,10 @@ function image(i, alt) {
 }
 
 // Yerelde ürün şablonu ürün türünden türetilir; Shopify'da her ürüne şablon yönetim panelinden atanır
-// (LED için varsayılan product.json; duvar paneli, fuga-alçıpan ve süpürgelik için ayrı şablon).
+// (LED için varsayılan product.json; trimless, duvar paneli, fuga-alçıpan ve süpürgelik için ayrı şablon).
 function templateFor(type = '') {
   const t = type.toLocaleLowerCase('tr');
+  if (t.includes('trimless')) return 'trimless';
   if (t.includes('panel') || t.includes('duvar kaplama')) return 'panel';
   if (t.includes('fuga') || t.includes('z profili')) return 'fuga';
   if (t.includes('süpürgelik') && !t.includes('led')) return 'supurgelik';

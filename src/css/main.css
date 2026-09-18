@@ -1175,8 +1175,59 @@
   }
   .gstep__title { font-size: 1.0625rem; font-weight: 620; line-height: 1.25; }
   .gstep__text { font-size: 0.9375rem; color: var(--c-ink-soft); }
+  /* 4 ya da 8 adım masaüstünde dörderli dizilir (5 + 3 gibi dengesiz satır olmasın) */
+  @media (min-width: 64em) {
+    .guide__steps:has(> li:nth-child(4)):not(:has(> li:nth-child(5))),
+    .guide__steps:has(> li:nth-child(8)):not(:has(> li:nth-child(9))) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  /* Bölümün tek görsellik özeti (firmanın rehber görseli): yeni sekmede tam boy */
+  .rehber-link {
+    display: inline-flex; align-items: center; gap: 0.55rem; min-block-size: 2.75rem; margin-block-start: 1.25rem;
+    padding-inline: 1rem 1.15rem; border-radius: 999px; font-size: 0.9375rem; font-weight: 600; text-decoration: none;
+    color: var(--c-ink); background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule);
+    transition: box-shadow var(--dur-ui) ease, transform var(--dur-press) var(--ease-out);
+  }
+  .rehber-link .icon { color: var(--c-gold); }
+  .rehber-link:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) { .rehber-link:hover { box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 55%, transparent); } }
+
+  /* Doğru / yanlış uygulama */
+  .dy__ikili { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 0.75rem; }
+  .dy__kart {
+    display: grid; align-content: start; margin: 0; border-radius: var(--radius-lg); overflow: clip;
+    background: var(--c-panel); box-shadow: var(--edge), inset 0 0 0 1px var(--c-rule);
+  }
+  .dy__kart--yanlis { --dy: oklch(0.55 0.19 27); }
+  .dy__kart--dogru { --dy: oklch(0.49 0.13 150); }
+  .dy__kart { box-shadow: var(--edge), inset 0 0 0 1px color-mix(in oklch, var(--dy) 35%, transparent); }
+  .dy__etiket { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; padding: 0.9rem 1.1rem; font-size: 1rem; font-weight: 620; }
+  .dy__etiket strong { color: var(--dy); font-weight: 700; }
+  .dy__simge { flex: none; color: var(--dy); }
+  .dy__gorsel img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .dy__acik { padding: 0.9rem 1.1rem 1.05rem; font-size: 0.9375rem; font-weight: 560; background: color-mix(in oklch, var(--dy) 7%, var(--c-ground)); }
+  .dy__sira { margin-block-start: 0.75rem; padding: 1.25rem; border-radius: var(--radius-lg); background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .dy__sira-t { margin-block-end: 1rem; font-size: 0.8125rem; font-weight: 650; font-stretch: 108%; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-gold); }
+  .dy__adimlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+  .dy__adim { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; line-height: 1.45; }
+  .dy__no {
+    flex: none; display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border-radius: var(--radius);
+    font-size: 0.9375rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--c-on-gold); background: var(--altin-degrade);
+    box-shadow: inset 0 1px 0 rgb(255 252 230 / 0.75);
+  }
 
   /* Karşılaştırma ve taksit tabloları */
+  .cmp__gorseller { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 0.75rem; margin-block-end: 1.5rem; }
+  .cmp__gorsel { position: relative; margin: 0; border-radius: var(--radius-lg); overflow: clip; background: var(--c-ground-deep); box-shadow: var(--edge), inset 0 0 0 1px var(--c-rule); }
+  .cmp__gorsel-kutu img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .cmp__gorsel figcaption { padding: 0.8rem 1.1rem; font-size: 0.9375rem; font-weight: 620; }
+  /* Önerilen sütunun görseli: üst kenarında tablo başlığındaki LED çizgisinin aynısı */
+  .cmp__gorsel--hl::before {
+    content: ''; position: absolute; z-index: 1; inset-inline: 1.25rem; inset-block-start: 0; block-size: 2px; border-radius: 0 0 2px 2px;
+    background: var(--light-core); box-shadow: 0 0 0.7rem 0.1rem var(--light), 0 0 2rem 0.3rem color-mix(in oklch, var(--light) 45%, transparent);
+  }
+  .cmp__gorsel--hl figcaption { color: var(--c-gold); }
+  .cmp__not { margin-block-start: 0.75rem; font-size: 0.8125rem; color: var(--c-ink-soft); }
   .cmp__wrap { overflow-x: auto; border-radius: var(--radius); }
   .cmp__wrap:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 4px; }
   .cmp__table { inline-size: 100%; min-inline-size: 34rem; border-collapse: separate; border-spacing: 0; }

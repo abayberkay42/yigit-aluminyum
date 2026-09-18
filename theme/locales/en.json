@@ -149,7 +149,9 @@
     "total": "Total",
     "total_calc": "[q] × [p]",
     "spec_code": "Product code",
-    "spec_unit": "Sales unit"
+    "spec_unit": "Sales unit",
+    "wrong": "Wrong:",
+    "right": "Right:"
   },
   "collections": {
     "sort": "Sort",

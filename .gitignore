@@ -16,3 +16,7 @@ dist/
 
 # Vercel CLI'nin yazdığı ortam dosyası: erişim anahtarı (VERCEL_OIDC_TOKEN) içerir, asla depoya girmez
 .env*
+
+# Firmanın gönderdiği kaynak görseller (WebP kopyaları dev/mock/files ve dist/shopify-dosyalar/trimless altında)
+/TRİMLESS LED PROFİLLERİ/
+/TRİMLESS LED PROFİLLERİ-*.zip

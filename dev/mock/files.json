@@ -1,4 +1,8 @@
 {
+  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
+    "width": 2048,
+    "height": 923
+  },
   "10.jpg": {
     "width": 2048,
     "height": 920
@@ -6,10 +10,6 @@
   "14.jpg": {
     "width": 2048,
     "height": 920
-  },
-  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
-    "width": 2048,
-    "height": 923
   },
   "8.jpg": {
     "width": 2048,
@@ -70,5 +70,97 @@
   "supurgelikbanner.png": {
     "width": 749,
     "height": 908
+  },
+  "trimless-hata-dogru.webp": {
+    "width": 709,
+    "height": 492
+  },
+  "trimless-hata-rehber.webp": {
+    "width": 1479,
+    "height": 1063
+  },
+  "trimless-hata-yanlis.webp": {
+    "width": 709,
+    "height": 492
+  },
+  "trimless-kapak-01.webp": {
+    "width": 446,
+    "height": 440
+  },
+  "trimless-kapak-02.webp": {
+    "width": 448,
+    "height": 440
+  },
+  "trimless-kapak-03.webp": {
+    "width": 446,
+    "height": 440
+  },
+  "trimless-kapak-04.webp": {
+    "width": 446,
+    "height": 440
+  },
+  "trimless-kapak-rehber.webp": {
+    "width": 1896,
+    "height": 830
+  },
+  "trimless-kesim-01.webp": {
+    "width": 761,
+    "height": 629
+  },
+  "trimless-kesim-02.webp": {
+    "width": 760,
+    "height": 629
+  },
+  "trimless-kesim-rehber.webp": {
+    "width": 1586,
+    "height": 992
+  },
+  "trimless-spot-rehber.webp": {
+    "width": 1512,
+    "height": 1040
+  },
+  "trimless-spot-spot.webp": {
+    "width": 729,
+    "height": 538
+  },
+  "trimless-spot-trimless.webp": {
+    "width": 722,
+    "height": 535
+  },
+  "trimless-uygulama-01.webp": {
+    "width": 367,
+    "height": 295
+  },
+  "trimless-uygulama-02.webp": {
+    "width": 367,
+    "height": 295
+  },
+  "trimless-uygulama-03.webp": {
+    "width": 367,
+    "height": 295
+  },
+  "trimless-uygulama-04.webp": {
+    "width": 367,
+    "height": 295
+  },
+  "trimless-uygulama-05.webp": {
+    "width": 367,
+    "height": 304
+  },
+  "trimless-uygulama-06.webp": {
+    "width": 367,
+    "height": 304
+  },
+  "trimless-uygulama-07.webp": {
+    "width": 367,
+    "height": 304
+  },
+  "trimless-uygulama-08.webp": {
+    "width": 367,
+    "height": 308
+  },
+  "trimless-uygulama-rehber.webp": {
+    "width": 1555,
+    "height": 1011
   }
 }

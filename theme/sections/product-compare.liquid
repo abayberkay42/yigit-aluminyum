@@ -1,6 +1,7 @@
 {%- comment -%}
   Ürün sayfası: iki sütunlu karşılaştırma tablosu (ör. spot / LED profil, normal / 240 çipli LED şerit).
   Önerilen sütunun üst kenarında LED çizgisi yanar. Satır yoksa bölüm görünmez.
+  İsteğe bağlı: iki sütunun görseli (tablonun üstünde yan yana, aynı mekânın iki hâli gibi), not satırı ve özet görsel bağlantısı.
 {%- endcomment -%}
 {%- if section.blocks.size > 0 -%}
   {%- assign hl = section.settings.highlight -%}
@@ -9,6 +10,25 @@
       <h2 class="psec__title" id="Cmp-{{ section.id }}">{{ section.settings.heading }}</h2>
       {%- if section.settings.text != blank -%}<p class="psec__text">{{ section.settings.text }}</p>{%- endif -%}
     </div>
+    {%- if section.settings.image_a or section.settings.image_b -%}
+      <div class="cmp__gorseller">
+        {%- for i in (1..2) -%}
+          {%- if i == 1 -%}
+            {%- assign g = section.settings.image_a -%}{%- assign ad = section.settings.col_a -%}{%- assign harf = 'a' -%}
+          {%- else -%}
+            {%- assign g = section.settings.image_b -%}{%- assign ad = section.settings.col_b -%}{%- assign harf = 'b' -%}
+          {%- endif -%}
+          {%- if g -%}
+            <figure class="cmp__gorsel{% if hl == harf %} cmp__gorsel--hl{% endif %}">
+              <div class="cmp__gorsel-kutu" style="aspect-ratio: {{ g.aspect_ratio }}">
+                {{ g | image_url: width: 1200 | image_tag: widths: '480,720,960,1200', sizes: '(min-width: 48em) 45vw, 92vw', loading: 'lazy', alt: ad }}
+              </div>
+              <figcaption>{{ ad }}</figcaption>
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
     {%- comment -%} Dar ekranda yatay kayan alan klavyeyle de kaydırılabilsin (odaklanabilir bölge) {%- endcomment -%}
     <div class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}">
       <table class="cmp__table">
@@ -30,6 +50,8 @@
         </tbody>
       </table>
     </div>
+    {%- if section.settings.note != blank -%}<p class="cmp__not">{{ section.settings.note }}</p>{%- endif -%}
+    {%- render 'rehber-baglanti', gorsel: section.settings.ozet, etiket: section.settings.ozet_label -%}
   </section>
 {%- endif -%}
 
@@ -44,7 +66,12 @@
     { "type": "text", "id": "col_b", "label": "2. sütun", "default": "B" },
     { "type": "select", "id": "highlight", "label": "Öne çıkan sütun", "default": "b", "options": [
       { "value": "none", "label": "Yok" }, { "value": "a", "label": "1. sütun" }, { "value": "b", "label": "2. sütun" }
-    ] }
+    ] },
+    { "type": "image_picker", "id": "image_a", "label": "1. sütun görseli" },
+    { "type": "image_picker", "id": "image_b", "label": "2. sütun görseli" },
+    { "type": "text", "id": "note", "label": "Not", "info": "Tablonun altında küçük yazı (ör. \"Temsili aydınlatma tasarımları.\")" },
+    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Karşılaştırmanın tek görsellik hâli. Altta \"tek görselde aç\" bağlantısı olarak çıkar." },
+    { "type": "text", "id": "ozet_label", "label": "Özet bağlantısı metni", "default": "Karşılaştırmayı tek görselde açın" }
   ],
   "blocks": [
     { "type": "row", "name": "Satır", "limit": 12, "settings": [

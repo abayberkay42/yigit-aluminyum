@@ -1,0 +1,95 @@
+{%- comment -%}
+  Ürün sayfası: sık yapılan montaj hatası. Yanlış ve doğru uygulama yan yana (görsel + açıklama), altında doğru
+  uygulama sırası (numaralı adımlar) ve isteğe bağlı özet görsel bağlantısı. İlk kullanım: trimless profilde
+  "Montajda kapağı çıkarmayın" (firmanın uygulama kılavuzu, 2026-09).
+  Yanlış / doğru ayrımı yalnız renkle verilmez: simge ve "Yanlış:" / "Doğru:" yazısı da vardır.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign var = false
+  if s.image_yanlis or s.image_dogru or section.blocks.size > 0
+    assign var = true
+  endif
+-%}
+{%- if var -%}
+  <section class="psec dy" aria-labelledby="Dy-{{ section.id }}">
+    <div class="psec__head">
+      <h2 class="psec__title" id="Dy-{{ section.id }}">{{ s.heading }}</h2>
+      {%- if s.text != blank -%}<p class="psec__text">{{ s.text }}</p>{%- endif -%}
+    </div>
+
+    <div class="dy__ikili">
+      {%- for i in (1..2) -%}
+        {%- if i == 1 -%}
+          {%- assign g = s.image_yanlis -%}{%- assign etiket = s.label_yanlis -%}{%- assign acik = s.caption_yanlis -%}{%- assign tur = 'yanlis' -%}
+        {%- else -%}
+          {%- assign g = s.image_dogru -%}{%- assign etiket = s.label_dogru -%}{%- assign acik = s.caption_dogru -%}{%- assign tur = 'dogru' -%}
+        {%- endif -%}
+        {%- if g or etiket != blank -%}
+          <figure class="dy__kart dy__kart--{{ tur }}">
+            <figcaption class="dy__etiket">
+              {%- if tur == 'yanlis' -%}
+                <svg class="dy__simge" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                <strong>{{ 'products.wrong' | t }}</strong>
+              {%- else -%}
+                <svg class="dy__simge" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <strong>{{ 'products.right' | t }}</strong>
+              {%- endif -%}
+              <span>{{ etiket }}</span>
+            </figcaption>
+            {%- if g -%}
+              <div class="dy__gorsel" style="aspect-ratio: {{ g.aspect_ratio }}">
+                {{ g | image_url: width: 1200 | image_tag: widths: '480,720,960,1200', sizes: '(min-width: 48em) 45vw, 92vw', loading: 'lazy', alt: etiket }}
+              </div>
+            {%- endif -%}
+            {%- if acik != blank -%}<p class="dy__acik">{{ acik }}</p>{%- endif -%}
+          </figure>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="dy__sira">
+        {%- if s.sira_baslik != blank -%}<h3 class="dy__sira-t">{{ s.sira_baslik }}</h3>{%- endif -%}
+        <ol class="dy__adimlar" role="list">
+          {%- for block in section.blocks -%}
+            <li class="dy__adim" {{ block.shopify_attributes }}>
+              <span class="dy__no" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+    {%- render 'rehber-baglanti', gorsel: s.ozet, etiket: s.ozet_label -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Doğru ve yanlış uygulama",
+  "class": "section-product-dogru-yanlis",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Montajda kapağı çıkarmayın" },
+    { "type": "textarea", "id": "text", "label": "Metin" },
+    { "type": "header", "content": "Yanlış uygulama" },
+    { "type": "image_picker", "id": "image_yanlis", "label": "Görsel" },
+    { "type": "text", "id": "label_yanlis", "label": "Başlık", "default": "Kapaksız vidalama" },
+    { "type": "text", "id": "caption_yanlis", "label": "Açıklama" },
+    { "type": "header", "content": "Doğru uygulama" },
+    { "type": "image_picker", "id": "image_dogru", "label": "Görsel" },
+    { "type": "text", "id": "label_dogru", "label": "Başlık", "default": "Kapak takılı montaj" },
+    { "type": "text", "id": "caption_dogru", "label": "Açıklama" },
+    { "type": "header", "content": "Doğru uygulama sırası" },
+    { "type": "text", "id": "sira_baslik", "label": "Başlık", "default": "Doğru uygulama sırası" },
+    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Konunun tek görsellik hâli. Altta \"tek görselde aç\" bağlantısı olarak çıkar." },
+    { "type": "text", "id": "ozet_label", "label": "Özet bağlantısı metni", "default": "Kılavuzu tek görselde açın" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Adım", "limit": 8, "settings": [
+      { "type": "text", "id": "text", "label": "Metin" }
+    ] }
+  ],
+  "presets": [{ "name": "Doğru ve yanlış uygulama" }]
+}
+{% endschema %}

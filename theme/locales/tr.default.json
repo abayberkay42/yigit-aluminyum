@@ -149,7 +149,9 @@
     "total": "Toplam",
     "total_calc": "[q] × [p]",
     "spec_code": "Ürün kodu",
-    "spec_unit": "Satış birimi"
+    "spec_unit": "Satış birimi",
+    "wrong": "Yanlış:",
+    "right": "Doğru:"
   },
   "collections": {
     "sort": "Sırala",
