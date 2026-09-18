@@ -1,0 +1,23 @@
+{%- comment -%}
+  Sepet toplamı ve ödeme düğmesi (çekmece ve sepet sayfası). Parametre: cart.
+  Metraj indirimi satırı: ödemede uygulanacak beklenen indirim (Tema ayarları > Satış > Metraj indirimi).
+  Satış koşuluna uymayan satır varsa ödeme düğmesi kapanır ve nedeni yazılır.
+{%- endcomment -%}
+{%- capture ozet -%}{%- render 'sepet-ozet', cart: cart -%}{%- endcapture -%}
+{%- liquid
+  assign ozet = ozet | strip | split: '|'
+  assign gecersiz = ozet[0] | plus: 0
+  assign indirim = ozet[1] | plus: 0
+-%}
+<p class="drawer__sub"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></p>
+{%- if indirim > 0 -%}
+  <p class="drawer__metraj"><span>{{ 'cart.metraj_total' | t }}</span><span>−{{ indirim | money }}</span></p>
+  <p class="drawer__note">{{ 'cart.metraj_note' | t }}</p>
+{%- endif -%}
+<p class="drawer__note">{{ 'cart.shipping_note' | t }}</p>
+{%- if gecersiz > 0 -%}
+  <p class="drawer__uyari" id="SepetUyari-{{ id }}">{{ 'cart.invalid_checkout' | t }}</p>
+{%- endif -%}
+<form action="{{ routes.cart_url }}" method="post">
+  <button type="submit" name="checkout" class="button button--primary drawer__checkout"{% if gecersiz > 0 %} disabled aria-describedby="SepetUyari-{{ id }}"{% endif %}>{{ 'cart.checkout' | t }}</button>
+</form>

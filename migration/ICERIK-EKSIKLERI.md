@@ -61,9 +61,15 @@ Teklifte konuşulan **Renk × Kapak (Polikarbon / Silikon TPE)** matrisi henüz 
 
 Adresler çalışıyor ve arama sonuçlarında yer alıyor. Bu yüzden **dokunmamayı öneriyorum**. Temizlenmesini isterseniz her biri için kalıcı yönlendirme tanımlarım.
 
-## 7. Kademeli fiyat
+## 7. Metraj fiyatı ve satış kuralları
 
-300 metre eşiğinin üzerindeki fiyat, ürün sayfasında ayrı bir satır olarak gösterilmeye hazır. Bunun için her üründe bir alan dolduruluyor. Doldurmadan önce netleşmesi gereken: **satış birimi metre mi, boy mu?** Bu tanım, sepetteki miktarın ne anlama geldiğini de belirliyor.
+Firmanın satış kuralları belgesi ve LED metre iskonto tablosu siteye işlendi (2026-09-18). Ayrıntı "Fiyat ve satış kuralları" belgesinde. Mağaza tarafında eksik olanlar:
+
+- 6 meta alan tanımı ve ürünlere değerlerin girilmesi (değerler teslim edilen eşleştirme dosyasında).
+- Varyant fiyatlarının Excel'deki liste fiyatına çekilmesi; KDV dahil / hariç ayarının netleşmesi.
+- Hangi LED ürünlerinin en az 30 m satılacağı (belgede "ayrıca bildirilecek").
+- 18 üründe Excel koduyla eşleşme teyidi, Y6286 / Y6287 fiyat teyidi.
+- **İndirimin ödemede nasıl uygulanacağı kararı.** Karar verilip kurulana kadar yayında "Metraj indirimini göster" ayarı kapalı olmalı.
 
 ## 8. Paylaşım görseli
 

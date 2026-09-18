@@ -13,6 +13,7 @@ const BELGELER = [
   { dosya: 'GORSEL-STANDARDI.md', pdf: 'Yigit-Aluminyum-Gorsel-ve-Video-Standardi.pdf', ust: 'Çekim yönergesi' },
   { dosya: 'ICERIK-EKSIKLERI.md', pdf: 'Yigit-Aluminyum-Urun-Icerigi-Eksikler.pdf', ust: 'Durum raporu' },
   { dosya: 'KULLANIM-KILAVUZU.md', pdf: 'Yigit-Aluminyum-Siteyi-Yonetme-Kilavuzu.pdf', ust: 'Kılavuz' },
+  { dosya: 'FIYAT-VE-SATIS-KURALLARI.md', pdf: 'Yigit-Aluminyum-Fiyat-ve-Satis-Kurallari.pdf', ust: 'Fiyat ve satış' },
 ];
 
 // Belge içindeki dosya adı atıfları PDF'te belge adına çevrilir.

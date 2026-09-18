@@ -46,8 +46,20 @@ function templateFor(type = '') {
   return null;
 }
 
+// Ürün meta alanları (custom.*): tools/fiyat-eslestir.py üretir. "_liste" önizlemede varyant fiyatının yerine geçer:
+// müşteri Excel'deki liste fiyatlarını mağazaya girdiğinde sitenin göreceği durum.
+const META = read('metafields.json', {});
+function metafields(handle) {
+  const m = META[handle];
+  if (!m) return {};
+  const custom = {};
+  for (const [k, v] of Object.entries(m)) if (!k.startsWith('_')) custom[k] = { value: v, type: typeof v === 'number' ? 'number_decimal' : 'single_line_text_field' };
+  return { custom };
+}
+
 function adaptProduct(p, prefix) {
   const url = `${prefix}/products/${p.handle}`;
+  const liste = META[p.handle]?._liste;
   const images = (p.images || []).map((i) => image(i, p.title)).filter(Boolean);
   const variants = p.variants.map((v) => ({
     id: v.id,
@@ -58,7 +70,7 @@ function adaptProduct(p, prefix) {
     options: [v.option1, v.option2, v.option3].filter((o) => o != null),
     sku: v.sku,
     available: v.available,
-    price: cents(v.price),
+    price: cents(liste ?? v.price),
     compare_at_price: cents(v.compare_at_price),
     featured_image: v.featured_image ? image(v.featured_image, p.title) : null,
     url: `${url}?variant=${v.id}`,
@@ -104,7 +116,7 @@ function adaptProduct(p, prefix) {
     created_at: p.created_at,
     published_at: p.published_at,
     template_suffix: templateFor(p.product_type),
-    metafields: {},
+    metafields: metafields(p.handle),
     collections: [],
   };
 }

@@ -119,6 +119,10 @@ Logolar temayla gelir (`assets/taksit-*`), programların resmi sitelerinden alı
 
 Bir logoyu değiştirmek için ilgili kartın "Logo" alanına görsel yüklemek yeterli (temadaki dosyanın yerine geçer). Taksit sayısı ve vade farkı PayTR panelindeki taksit ayarlarıyla uyumlu olmalı; PayTR'de kapalı olan programın adı boş bırakılırsa gösterilmez.
 
+## Satış kuralları ve metraj fiyatı
+
+Ürünlerin satış birimi, en az sipariş, artış miktarı ve metre iskonto tablosu meta alanlardan gelir: `custom.satis_kurali`, `custom.urun_kodu`, `custom.tier_price` (dip fiyat), `custom.dip_esik`, `custom.min_siparis`, `custom.adim`. Tanımlar, değerlerin girilmesi, fiyat ve KDV ayarı, indirimin ödemede uygulanma seçenekleri: `FIYAT-VE-SATIS-KURALLARI.md`. Ürün başına değerler `dist/fiyat/fiyat-eslestirme.csv` dosyasında (fiyat içerdiği için depoda değil; `python tools/fiyat-eslestir.py <excel>` ile yeniden üretilir).
+
 ## Uyarı
 
 İletişim e-postası `info@yigitaluminyumprofil.com`. Ön denetimde bu alan adının DNS sunucuları yanıt vermiyordu; e-postanın çalıştığı yayından önce doğrulanmalı.

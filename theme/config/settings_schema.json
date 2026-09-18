@@ -101,11 +101,50 @@
     "name": "Satış",
     "settings": [
       {
+        "type": "paragraph",
+        "content": "Satış birimi, en az sipariş ve artış miktarı her ürünün custom.satis_kurali meta alanından gelir (led, supurgelik, alcipan, pvc_panel, ledli_pvc_panel, parke, merdiven, siva, kapak_polikarbon, kapak_esnek). Ayrıntı: FIYAT-VE-SATIS-KURALLARI belgesi."
+      },
+      {
+        "type": "select",
+        "id": "fiyat_kdv",
+        "label": "Fiyat notu",
+        "default": "haric",
+        "options": [
+          { "value": "haric", "label": "KDV hariç" },
+          { "value": "dahil", "label": "KDV dahil" },
+          { "value": "yok", "label": "Gösterme" }
+        ],
+        "info": "Fiyatın yanında yazar. Firmanın fiyat tablosu KDV hariçtir; mağazanın vergi ayarıyla aynı olmalı."
+      },
+      {
+        "type": "header",
+        "content": "Metraj indirimi"
+      },
+      {
+        "type": "checkbox",
+        "id": "metraj_indirim",
+        "label": "Metraj indirimini göster",
+        "default": true,
+        "info": "Ürün sayfasında metreye göre fiyat, sepette beklenen indirim. İndirimin ödemede alınması için indirim uygulaması kurulu olmalı (belgeye bakın)."
+      },
+      {
+        "type": "number",
+        "id": "metraj_baslangic_m",
+        "label": "İndirimin başladığı metraj",
+        "default": 50
+      },
+      {
         "type": "number",
         "id": "tier_threshold_m",
-        "label": "Kademeli fiyat eşiği (metre)",
-        "info": "Bu metrajın üzerindeki siparişlerde kademeli fiyat uygulanır.",
+        "label": "Dip fiyat eşiği (metre)",
+        "info": "Bu metrajda ve üzerinde dip fiyat (custom.tier_price) geçer. Üründe custom.dip_esik doluysa o kullanılır.",
         "default": 300
+      },
+      {
+        "type": "text",
+        "id": "metraj_not",
+        "label": "Metraj notu",
+        "default": "Aynı üründen alınan toplam metraja göre hesaplanır; indirim ödeme adımında uygulanır."
       }
     ]
   },

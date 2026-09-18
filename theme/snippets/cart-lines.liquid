@@ -1,10 +1,66 @@
 {%- comment -%}
   Sepet satırları: sepet çekmecesi ve sepet sayfası ortak kullanır. Parametre: cart.
   Adet düğmeleri Shopify'ın /cart/change.js adresine satır numarasıyla gider (src/js/store/cart.js).
+  Satış koşulu (snippets/satis-kurali.liquid): + / − ürünün artış adımıyla ilerler, en az miktarın altına inmez.
+  Koşula uymayan miktar (ör. başka yoldan eklenmiş 10 m) uyarı ve "düzelt" düğmesiyle gösterilir; ödeme düğmesi
+  kapanır (snippets/sepet-ozet.liquid). Metraj fiyatı: aynı ürünün sepetteki bütün renklerinin toplam metrajıyla hesaplanır;
+  indirim uygulaması fiyatı zaten düşürmüşse (final_price < original_price) ayrıca yazılmaz.
 {%- endcomment -%}
 <ul class="lines" role="list">
   {%- for item in cart.items -%}
-    <li class="line">
+    {%- capture kural_ham -%}{%- render 'satis-kurali', product: item.product -%}{%- endcapture -%}
+    {%- liquid
+      assign kural = kural_ham | strip | split: '|'
+      assign k_min = 1
+      assign k_adim = 1
+      assign k_kisa = ''
+      assign k_birim = ''
+      if kural.size == 6
+        assign k_birim = kural[0]
+        assign k_min = kural[1] | plus: 0
+        assign k_adim = kural[2] | plus: 0
+        if k_birim == 'metre'
+          assign k_kisa = 'products.unit_m' | t
+        else
+          assign k_kisa = 'products.unit_adet' | t
+        endif
+      endif
+
+      assign gecerli = true
+      assign duzgun = item.quantity
+      if item.quantity < k_min
+        assign gecerli = false
+        assign duzgun = k_min
+      else
+        assign r = item.quantity | modulo: k_adim
+        if r > 0
+          assign gecerli = false
+          assign duzgun = item.quantity | minus: r | plus: k_adim
+        endif
+      endif
+      assign eksi = item.quantity | minus: k_adim
+      assign arti = item.quantity | plus: k_adim
+      if gecerli == false
+        assign arti = duzgun
+      endif
+
+      assign metraj_fiyat = 0
+      assign metraj_m = 0
+      assign dip = item.product.metafields.custom.tier_price.value | plus: 0
+      if settings.metraj_indirim and k_birim == 'metre' and dip > 0 and item.final_price == item.original_price
+        for diger in cart.items
+          if diger.product_id == item.product_id
+            assign metraj_m = metraj_m | plus: diger.quantity
+          endif
+        endfor
+        assign esik = item.product.metafields.custom.dip_esik.value | default: settings.tier_threshold_m | default: 300 | plus: 0
+      endif
+    -%}
+    {%- if metraj_m > 0 -%}
+      {%- capture metraj_fiyat -%}{%- render 'metraj-fiyat', liste: item.original_price, dip: dip, esik: esik, metre: metraj_m -%}{%- endcapture -%}
+      {%- assign metraj_fiyat = metraj_fiyat | plus: 0 -%}
+    {%- endif -%}
+    <li class="line{% unless gecerli %} line--uyari{% endunless %}">
       <a class="line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
         {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: '' }}{%- endif -%}
       </a>
@@ -13,12 +69,27 @@
         {%- for o in item.options_with_values -%}
           <p class="line__opt">{{ o.name }}: {{ o.value }}</p>
         {%- endfor -%}
-        <p class="line__unit">{{ item.final_price | money }}</p>
+        <p class="line__unit">{{ item.final_price | money }}{% if k_kisa != '' %} / {{ k_kisa }}{% endif %}</p>
+        {%- if metraj_fiyat > 0 and metraj_fiyat < item.original_price -%}
+          {%- assign metraj_tl = metraj_fiyat | money -%}
+          <p class="line__metraj">{{ 'cart.metraj_line' | t: metre: metraj_m, fiyat: metraj_tl }}</p>
+        {%- endif -%}
         <div class="qty qty--sm" role="group" aria-label="{{ 'products.quantity' | t }}: {{ item.product_title | escape }}">
-          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'products.decrease' | t }}">−</button>
-          <span class="qty__val">{{ item.quantity }}</span>
-          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'products.increase' | t }}">+</button>
+          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ eksi }}" aria-label="{{ 'products.decrease' | t }}"{% if eksi < k_min %} disabled{% endif %}>−</button>
+          <span class="qty__val">{{ item.quantity }}{% if k_kisa != '' %} {{ k_kisa }}{% endif %}</span>
+          <button type="button" class="qty__btn" data-line-change="{{ forloop.index }}" data-qty="{{ arti }}" aria-label="{{ 'products.increase' | t }}">+</button>
         </div>
+        {%- unless gecerli -%}
+          {%- liquid
+            assign t_min = k_min | append: ' ' | append: k_kisa
+            assign t_adim = k_adim | append: ' ' | append: k_kisa
+            assign t_duz = duzgun | append: ' ' | append: k_kisa
+          -%}
+          <p class="line__uyari">
+            {{ 'cart.rule_invalid' | t: en_az: t_min, adim: t_adim }}
+            <button type="button" class="line__duzelt" data-line-change="{{ forloop.index }}" data-qty="{{ duzgun }}">{{ 'cart.rule_fix' | t: miktar: t_duz }}</button>
+          </p>
+        {%- endunless -%}
         <button type="button" class="line__remove" data-line-change="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</button>
       </div>
       <p class="line__total">{{ item.final_line_price | money }}</p>

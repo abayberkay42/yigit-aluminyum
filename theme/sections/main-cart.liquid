@@ -2,7 +2,7 @@
 <section class="cartpage" aria-labelledby="CartTitle-{{ section.id }}">
   <h1 class="cartpage__title" id="CartTitle-{{ section.id }}">
     {{- 'cart.title' | t -}}
-    {%- if cart.item_count > 0 %} <span class="cartpage__count">{{ 'cart.count' | t: count: cart.item_count }}</span>{% endif -%}
+    {%- if cart.item_count > 0 %} <span class="cartpage__count">{{ 'cart.count' | t: count: cart.items.size }}</span>{% endif -%}
   </h1>
 
   {%- if cart.item_count == 0 -%}
@@ -14,11 +14,7 @@
     <div class="cartpage__grid">
       {% render 'cart-lines', cart: cart %}
       <aside class="cartpage__summary">
-        <p class="drawer__sub"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></p>
-        <p class="drawer__note">{{ 'cart.shipping_note' | t }}</p>
-        <form action="{{ routes.cart_url }}" method="post">
-          <button type="submit" name="checkout" class="button button--primary drawer__checkout">{{ 'cart.checkout' | t }}</button>
-        </form>
+        {% render 'sepet-odeme', cart: cart, id: 'sayfa' %}
         <a class="drawer__view" href="{{ routes.collections_url }}">{{ 'cart.continue' | t }}</a>
       </aside>
     </div>

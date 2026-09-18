@@ -1,0 +1,238 @@
+{
+ "1-5cm-trimless-alcipan-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6131",
+  "tier_price": 64,
+  "_liste": 89
+ },
+ "2-2cm-trimless-alcipan-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6279",
+  "tier_price": 75,
+  "_liste": 104
+ },
+ "3-2cm-trimless-alcipan-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6211",
+  "tier_price": 97,
+  "_liste": 135
+ },
+ "5cm-trimless-alcipan-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6280",
+  "tier_price": 143,
+  "_liste": 166
+ },
+ "esnek-tri̇mless-alcipan-led-profi̇li̇": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6282",
+  "tier_price": 121,
+  "_liste": 153
+ },
+ "fuga-tri̇mless-alcipan-led-profi̇li̇": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6281",
+  "tier_price": 86,
+  "_liste": 121
+ },
+ "2cm-ters-trimless-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6283",
+  "tier_price": 90,
+  "_liste": 127
+ },
+ "tek-kanatli-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6272",
+  "tier_price": 52,
+  "_liste": 73
+ },
+ "trimless-i̇c-kose-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6245",
+  "tier_price": 92,
+  "_liste": 129
+ },
+ "trimless-dis-kose-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6246",
+  "tier_price": 95,
+  "_liste": 134
+ },
+ "indirekt-trimless-siva-alti-led-profili": {
+  "satis_kurali": "led"
+ },
+ "tavan-kose-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6337",
+  "tier_price": 258,
+  "_liste": 292,
+  "dip_esik": 150
+ },
+ "kartonpiyer-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y111",
+  "tier_price": 219,
+  "_liste": 238,
+  "dip_esik": 150
+ },
+ "ledli-alcipan-z-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6273",
+  "tier_price": 88,
+  "_liste": 100
+ },
+ "alcipan-gizli-kose-led-profili": {
+  "satis_kurali": "led"
+ },
+ "alcipan-gizli-kose-led-profili-1": {
+  "satis_kurali": "led"
+ },
+ "gizli-kose-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y7055",
+  "tier_price": 124,
+  "_liste": 171
+ },
+ "ledli-supurgelik-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y96",
+  "tier_price": 206,
+  "_liste": 263
+ },
+ "alti-oval-ledli-supurgelik-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6231",
+  "tier_price": 191,
+  "_liste": 245
+ },
+ "siva-alti-ledli": {
+  "satis_kurali": "led"
+ },
+ "8x17-kanatli-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6284",
+  "tier_price": 40,
+  "_liste": 59
+ },
+ "7x15-kanatli-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6122",
+  "tier_price": 42,
+  "_liste": 63
+ },
+ "10x30-kanatli-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6263",
+  "tier_price": 66,
+  "_liste": 92
+ },
+ "12x24-kanatli-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6094",
+  "tier_price": 53,
+  "_liste": 73
+ },
+ "10x6-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6265",
+  "tier_price": 35,
+  "_liste": 46
+ },
+ "14x8-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6261",
+  "tier_price": 38,
+  "_liste": 53
+ },
+ "12x18-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6093",
+  "tier_price": 58,
+  "_liste": 78
+ },
+ "12x18-led-profili-1": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6129",
+  "tier_price": 54,
+  "_liste": 74
+ },
+ "22x13-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6268",
+  "tier_price": 68,
+  "_liste": 82
+ },
+ "32x13-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6269",
+  "tier_price": 88,
+  "_liste": 107
+ },
+ "14x50-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6229",
+  "tier_price": 142,
+  "_liste": 164
+ },
+ "neon-led-kanali": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6235",
+  "tier_price": 31,
+  "_liste": 47
+ },
+ "kose-led-profili": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y6124",
+  "tier_price": 74,
+  "_liste": 105
+ },
+ "ledli-merdiven-basamak-profili": {
+  "satis_kurali": "led"
+ },
+ "linear-kasa": {
+  "satis_kurali": "led",
+  "urun_kodu": "Y1264",
+  "tier_price": 388,
+  "_liste": 574
+ },
+ "14x13-yuvarlak-avi̇ze-led-profi̇li̇": {
+  "satis_kurali": "led"
+ },
+ "12x7-oval-avize-led-profili": {
+  "satis_kurali": "led"
+ },
+ "12x38-cift-kanalli-avize-led-profili": {
+  "satis_kurali": "led"
+ },
+ "8x17-avize-led-profili": {
+  "satis_kurali": "led"
+ },
+ "pvc-panel-u-bitim-profili": {
+  "satis_kurali": "pvc_panel"
+ },
+ "pvc-duvar-panel-h-birlesim-profili": {
+  "satis_kurali": "pvc_panel"
+ },
+ "pvc-duvar-panel-i̇c-kose-profili": {
+  "satis_kurali": "pvc_panel"
+ },
+ "pvc-duvar-panel-dis-kose-profili": {
+  "satis_kurali": "pvc_panel"
+ },
+ "alcipan-z-profili": {
+  "satis_kurali": "alcipan"
+ },
+ "fuga-profili": {
+  "satis_kurali": "alcipan"
+ },
+ "tek-kanatli-fuga-profili": {
+  "satis_kurali": "alcipan"
+ },
+ "aluminyum-supurgelik-profili": {
+  "satis_kurali": "supurgelik"
+ },
+ "aluminyum-pahli-supurgelik": {
+  "satis_kurali": "supurgelik"
+ }
+}

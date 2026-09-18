@@ -1,5 +1,6 @@
 // Ürün kartında hızlı sepete ekleme (snippets/product-card.liquid → .card__quick).
 // Renk seçilirse o rengin varyantı eklenir; sepet çekmecesi güncellenip açılır (store/cart.js).
+// Miktar, ürünün satış koşulundaki en az miktardır (data-qty: 15 m, 50 adet); koşul yoksa 1.
 // Tek dinleyici belgeye bağlı: koleksiyon, arama ve "benzer ürünler" kartlarının hepsi için çalışır.
 export function initQuickAdd() {
   document.addEventListener('click', async (e) => {
@@ -21,7 +22,7 @@ export function initQuickAdd() {
       const res = await fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ items: [{ id: Number(btn.dataset.id), quantity: 1 }], sections: 'cart-drawer' }),
+        body: JSON.stringify({ items: [{ id: Number(btn.dataset.id), quantity: Number(btn.dataset.qty) || 1 }], sections: 'cart-drawer' }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.description || data.message);

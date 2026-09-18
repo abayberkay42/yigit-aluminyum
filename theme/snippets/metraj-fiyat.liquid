@@ -1,0 +1,24 @@
+{%- comment -%}
+  Metraj fiyatı (kuruş). src/js/store/metraj.js ile aynı formül; Excel'in 16.500 satırıyla doğrulandı.
+  Parametreler: liste (varyant fiyatı, kuruş), dip (custom.tier_price, TL), esik (metre), metre.
+  Başlangıç metrajı: Tema ayarları > Satış > İndirimin başladığı metraj (50).
+{%- endcomment -%}
+{%- liquid
+  assign sonuc = liste
+  assign liste_f = liste | times: 1.0
+  assign dip_k = dip | times: 100.0 | round
+  assign esik_m = esik | times: 1
+  assign bas = settings.metraj_baslangic_m | default: 50
+  if dip_k > 0 and esik_m > 0 and liste_f > dip_k and metre >= bas
+    if metre >= esik_m
+      assign sonuc = dip_k
+    else
+      assign oran = metre | times: 1.0 | divided_by: esik_m | at_most: 1
+      assign dl = dip_k | divided_by: liste_f
+      assign iskonto = 1.0 | minus: dl | times: oran
+      assign carpan = 1.0 | minus: iskonto
+      assign sonuc = liste_f | times: carpan | round | at_least: dip_k
+    endif
+  endif
+  echo sonuc
+-%}

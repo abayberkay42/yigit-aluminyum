@@ -1,6 +1,9 @@
 // Metraj hesaplayıcı: toplam uzunluk ya da oda ölçüsünden gereken adedi bulur ve miktar kutusuna yazar.
 // Satış birimi "boy" ise adet = fire dahil uzunluk / bir boyun uzunluğu (yukarı yuvarlanır); "metre" ise metre sayısıdır.
 // Sepete ekleme kararı kullanıcıdadır; hesaplayıcı yalnızca adedi doldurur.
+// Ürünün satış koşulu varsa sonuç en az miktara ve artış adımına yukarı yuvarlanır (ör. 17 m → 18 m, 60 adet → 100 adet).
+import { oturt } from './metraj.js';
+
 const nf = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 2 });
 
 export function initCalculator(root = document) {
@@ -12,6 +15,8 @@ export function initCalculator(root = document) {
     const boyM = Math.max(0.1, (Number(el.dataset.length) || 300) / 100);
     const waste = Math.max(0, Number(el.dataset.waste) || 0);
     const tier = Number(el.dataset.tier) || 0;
+    const enAz = Number(el.dataset.min) || 1;
+    const adim = Number(el.dataset.adim) || 1;
 
     const modes = [...el.querySelectorAll('.calc__modes input')];
     const fields = [...el.querySelectorAll('[data-calc-field]')];
@@ -57,6 +62,7 @@ export function initCalculator(root = document) {
       const fireli = uzunluk * (1 + waste / 100);
       const boy = seciliBoy() || boyM;
       adet = uzunluk > 0 ? (unit === 'boy' ? Math.ceil(fireli / boy) : Math.ceil(fireli)) : 0;
+      if (adet > 0) adet = oturt(adet, enAz, adim);
 
       out.need.textContent = uzunluk > 0 ? `${nf.format(uzunluk)} m` : '—';
       out.waste.textContent = uzunluk > 0 ? `${nf.format(fireli)} m` : '—';

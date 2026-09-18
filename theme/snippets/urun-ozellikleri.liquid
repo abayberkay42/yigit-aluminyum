@@ -71,8 +71,18 @@
         {%- if boy_cm != blank -%}
           <div><dt>{{ 'products.spec_length' | t }}</dt><dd>{{ boy_cm }} cm</dd></div>
         {%- endif -%}
-        {%- if secili.sku != blank -%}
+        {%- assign urun_kodu = product.metafields.custom.urun_kodu.value -%}
+        {%- if urun_kodu != blank -%}
+          <div><dt>{{ 'products.spec_code' | t }}</dt><dd>{{ urun_kodu }}</dd></div>
+        {%- endif -%}
+        {%- if secili.sku != blank and secili.sku != urun_kodu -%}
           <div><dt>{{ 'products.spec_sku' | t }}</dt><dd>{{ secili.sku }}</dd></div>
+        {%- endif -%}
+        {%- capture oz_kural -%}{%- render 'satis-kurali', product: product -%}{%- endcapture -%}
+        {%- assign oz_kural = oz_kural | strip | split: '|' -%}
+        {%- if oz_kural.size == 6 -%}
+          {%- if oz_kural[0] == 'metre' -%}{%- assign oz_birim = 'products.unit_metre' | t -%}{%- else -%}{%- assign oz_birim = 'products.unit_adet' | t -%}{%- endif -%}
+          <div><dt>{{ 'products.spec_unit' | t }}</dt><dd>{{ oz_birim | capitalize }}</dd></div>
         {%- endif -%}
         {%- if teknik != blank -%}
           {%- assign satirlar = teknik | newline_to_br | split: '<br />' -%}

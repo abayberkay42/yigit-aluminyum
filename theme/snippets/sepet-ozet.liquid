@@ -1,0 +1,40 @@
+{%- comment -%}
+  Sepet özeti: satış koşuluna uymayan satır sayısı ve beklenen metraj indirimi (kuruş).
+  Çıktı: "gecersiz|indirim". Sepet çekmecesi ve sepet sayfası kullanır:
+    {% capture o %}{% render 'sepet-ozet', cart: cart %}{% endcapture %} → o | split: '|'
+  Metraj indirimi ürün başına hesaplanır (aynı ürünün renkleri toplanır); indirim uygulaması fiyatı zaten
+  düşürmüşse o satır sayılmaz. Hesap snippets/metraj-fiyat.liquid ile aynı.
+{%- endcomment -%}
+{%- assign gecersiz = 0 -%}
+{%- assign indirim = 0 -%}
+{%- for item in cart.items -%}
+  {%- capture kural_ham -%}{%- render 'satis-kurali', product: item.product -%}{%- endcapture -%}
+  {%- liquid
+    assign kural = kural_ham | strip | split: '|'
+    if kural.size == 6
+      assign k_min = kural[1] | plus: 0
+      assign k_adim = kural[2] | plus: 0
+      assign r = item.quantity | modulo: k_adim
+      if item.quantity < k_min or r > 0
+        assign gecersiz = gecersiz | plus: 1
+      endif
+    endif
+
+    assign metraj_m = 0
+    assign dip = item.product.metafields.custom.tier_price.value | plus: 0
+    if settings.metraj_indirim and kural[0] == 'metre' and dip > 0 and item.final_price == item.original_price
+      for diger in cart.items
+        if diger.product_id == item.product_id
+          assign metraj_m = metraj_m | plus: diger.quantity
+        endif
+      endfor
+      assign esik = item.product.metafields.custom.dip_esik.value | default: settings.tier_threshold_m | default: 300 | plus: 0
+    endif
+  -%}
+  {%- if metraj_m > 0 -%}
+    {%- capture f -%}{%- render 'metraj-fiyat', liste: item.original_price, dip: dip, esik: esik, metre: metraj_m -%}{%- endcapture -%}
+    {%- assign fark = item.original_price | minus: f | times: item.quantity -%}
+    {%- if fark > 0 -%}{%- assign indirim = indirim | plus: fark -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{- gecersiz }}|{{ indirim -}}

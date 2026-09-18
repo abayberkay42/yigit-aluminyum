@@ -2,6 +2,7 @@
   Ürün kartı. Parametreler: product, sizes (isteğe bağlı, görsel sizes değeri),
   loading (isteğe bağlı: ilk ekranda görünen kartlarda 'eager', diğerlerinde varsayılan 'lazy').
   İlk ekrandaki görsele tembel yükleme verilmez; tarayıcı onu sonraya bırakır ve görsel geç gelir.
+  Satış koşulu olan üründe fiyatın yanında birim (/ m, / adet) yazar; hızlı ekleme en az miktarı ekler (15 m, 50 adet).
   Tüm kart tek bağlantıdır (başlıktaki bağlantı kartı kaplar). İkinci görsel varsa üzerine gelince görünür
   (mağazada ikinci görsel çoğunlukla uygulama fotoğrafı). Renk seçeneği varsa renk noktaları, diğer seçenek için sayı.
 {%- endcomment -%}
@@ -23,6 +24,20 @@
     endif
   endfor
 -%}
+{%- capture kural_ham -%}{%- render 'satis-kurali', product: product -%}{%- endcapture -%}
+{%- liquid
+  assign kural = kural_ham | strip | split: '|'
+  assign k_min = 1
+  assign k_kisa = ''
+  if kural.size == 6
+    assign k_min = kural[1] | plus: 0
+    if kural[0] == 'metre'
+      assign k_kisa = 'products.unit_m' | t
+    else
+      assign k_kisa = 'products.unit_adet' | t
+    endif
+  endif
+-%}
 <article class="card">
   <div class="card__media">
     {%- if img -%}
@@ -37,7 +52,7 @@
   <div class="card__body">
     {%- if product.type != blank -%}<p class="card__type">{{ product.type }}</p>{%- endif -%}
     <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    <p class="card__price">{% render 'price', product: product %}</p>
+    <p class="card__price">{% render 'price', product: product %}{% if k_kisa != '' %}<span class="card__birim"> / {{ k_kisa }}</span>{% endif %}</p>
     {%- if color_values != blank or other_count > 0 -%}
       <div class="card__opts">
         {%- if color_values != blank -%}
@@ -82,13 +97,14 @@
         </div>
         <script type="application/json" data-quick-varyant>[{%- for vr in product.variants -%}{"id":{{ vr.id }},"r":{{ vr.options[renk_index] | json }},"a":{{ vr.available | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
       {%- endif -%}
-      <button type="button" class="card__quick-btn" data-quick-add data-id="{{ ilk.id }}"
+      <button type="button" class="card__quick-btn" data-quick-add data-id="{{ ilk.id }}" data-qty="{{ k_min }}"
         data-t-add="{{ 'products.add_to_cart' | t | escape }}" data-t-adding="{{ 'products.adding' | t | escape }}"
         data-t-added="{{ 'products.added_short' | t | escape }}" data-t-sold-out="{{ 'products.sold_out' | t | escape }}"
         data-t-error="{{ 'products.error' | t | escape }}"
         {% unless ilk.available %}disabled{% endunless %}>
         <svg class="card__quick-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.3 11h10.2l2-8H6.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor"/><circle cx="16.5" cy="19.5" r="1.3" fill="currentColor"/></svg>
         <span data-quick-label>{% if ilk.available %}{{ 'products.add_to_cart' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}</span>
+        {%- if k_kisa != '' -%}<span class="card__quick-miktar">{{ k_min }} {{ k_kisa }}</span>{%- endif -%}
         <span class="visually-hidden">: {{ product.title }}</span>
       </button>
     {%- endif -%}

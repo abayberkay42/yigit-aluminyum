@@ -1,0 +1,98 @@
+{%- comment -%}
+  Ürünün satış kuralı: firmanın "Ürün Kategorileri ve Satış Kuralları" belgesi (2026-09).
+  Ürüne custom.satis_kurali meta alanıyla atanır; boşsa kural yoktur (adet 1'den başlar, 1'er artar).
+  Çıktı tek satır, "|" ile ayrılmış: birim|en_az|adim|boy_cm|paket|kural
+    birim  : metre (miktar metre, fiyat TL/metre) | adet (miktar adet, fiyat TL/adet)
+    boy_cm : bir boyun uzunluğu; 0 = kesintisiz (esnek kapak)
+    paket  : pakette kaç adet olduğu; 0 = paketli satılmaz
+  Kullanım: {% capture k %}{% render 'satis-kurali', product: product %}{% endcapture %} → k | split: '|'
+  Ürün bazında değişiklik: custom.min_siparis (ör. LED profilinde 15 yerine 30 m) ve custom.adim.
+  En az miktar adımın katına yukarı yuvarlanır (adım 3 iken 16 yazılırsa 18 olur).
+  Kategori | 1 birim uzunluk | satış birimi | en az | artış
+  led              | 3 m      | metre | 15 m (ürüne göre 30) | 3 m
+  pvc_panel        | 2,80 m   | adet  | 50 (1 paket)         | 50
+  ledli_pvc_panel  | 2,80 m   | adet  | 15                   | 1
+  supurgelik       | 3 m      | metre | 15 m                 | 3 m
+  alcipan          | 3 m      | metre | 30 m                 | 3 m
+  parke            | 2,70 m   | adet  | 50 (1 paket)         | 50
+  merdiven         | 2,70 m   | adet  | 50 (1 paket)         | 50
+  siva             | 3 m      | adet  | 10                   | 1
+  kapak_polikarbon | 3 m      | metre | 45 m (15 adet)       | 3 m (1 adet)
+  kapak_esnek      | kesintisiz | metre | 30 m               | 1 m
+{%- endcomment -%}
+{%- liquid
+  assign kural = product.metafields.custom.satis_kurali.value | default: '' | strip | downcase
+  assign birim = ''
+  case kural
+    when 'led'
+      assign birim = 'metre'
+      assign en_az = 15
+      assign adim = 3
+      assign boy = 300
+      assign paket = 0
+    when 'supurgelik'
+      assign birim = 'metre'
+      assign en_az = 15
+      assign adim = 3
+      assign boy = 300
+      assign paket = 0
+    when 'alcipan'
+      assign birim = 'metre'
+      assign en_az = 30
+      assign adim = 3
+      assign boy = 300
+      assign paket = 0
+    when 'kapak_polikarbon'
+      assign birim = 'metre'
+      assign en_az = 45
+      assign adim = 3
+      assign boy = 300
+      assign paket = 0
+    when 'kapak_esnek'
+      assign birim = 'metre'
+      assign en_az = 30
+      assign adim = 1
+      assign boy = 0
+      assign paket = 0
+    when 'pvc_panel'
+      assign birim = 'adet'
+      assign en_az = 50
+      assign adim = 50
+      assign boy = 280
+      assign paket = 50
+    when 'ledli_pvc_panel'
+      assign birim = 'adet'
+      assign en_az = 15
+      assign adim = 1
+      assign boy = 280
+      assign paket = 0
+    when 'parke', 'merdiven'
+      assign birim = 'adet'
+      assign en_az = 50
+      assign adim = 50
+      assign boy = 270
+      assign paket = 50
+    when 'siva'
+      assign birim = 'adet'
+      assign en_az = 10
+      assign adim = 1
+      assign boy = 300
+      assign paket = 0
+  endcase
+
+  if birim != ''
+    assign ozel_adim = product.metafields.custom.adim.value | plus: 0
+    if ozel_adim > 0
+      assign adim = ozel_adim
+    endif
+    assign ozel_min = product.metafields.custom.min_siparis.value | plus: 0
+    if ozel_min > 0
+      assign en_az = ozel_min
+    endif
+    assign kalan = en_az | modulo: adim
+    if kalan > 0
+      assign en_az = en_az | minus: kalan | plus: adim
+    endif
+    echo birim | append: '|' | append: en_az | append: '|' | append: adim | append: '|' | append: boy | append: '|' | append: paket | append: '|' | append: kural
+  endif
+-%}

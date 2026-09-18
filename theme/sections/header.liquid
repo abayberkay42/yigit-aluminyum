@@ -83,7 +83,7 @@
           <circle cx="17" cy="19.5" r="1.3" fill="currentColor"/>
         </svg>
         <span class="rail__cart-label">{{ 'cart.title' | t }}</span>
-        <span class="rail__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+        <span class="rail__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.items.size }}</span>
       </a>
       <button class="rail__toggle" type="button" data-rail-toggle aria-expanded="false" aria-controls="RailNav">
         {{- 'general.menu' | t -}}

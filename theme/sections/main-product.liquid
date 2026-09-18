@@ -1,7 +1,11 @@
 {%- comment -%}
   Ürün sayfası: galeri (görsel ve video), seçenekler, adet, sepete ekleme (src/js/store/product.js), özellikler.
   Bilgi sütunundaki ek bloklar tema düzenleyiciden sıralanır:
-  - Metraj fiyatı: ürün meta alanı custom.tier_price (ondalık sayı, TL). Boşsa görünmez; indirimi Shopify'ın otomatik indirimi uygular.
+  - Satış koşulu (snippets/satis-kurali.liquid, ürünün custom.satis_kurali meta alanı): fiyat birimi (TL/metre, TL/adet),
+    en az miktar ve artış adımı. Miktar kutusu, hesaplayıcı, hızlı ekleme ve sepet aynı kuralı uygular.
+  - Metraj fiyatı (snippets/metraj-panel.liquid): firmanın metre başı iskonto tablosu. Liste fiyatı = varyant fiyatı,
+    dip fiyat = custom.tier_price (TL), eşik = custom.dip_esik ya da Tema ayarları > Satış. Metre fiyatı miktara göre
+    canlı değişir (src/js/store/metraj.js). Ödemede indirimi bir indirim uygulaması uygular (migration/FIYAT-VE-SATIS-KURALLARI.md).
   - Ek düğmeler: "Numune iste" (WhatsApp, ürün adıyla hazır mesaj) ve "Ürün Özellikleri" (açılır pencere,
     snippets/urun-ozellikleri.liquid, src/js/store/ozellikler.js). Numune düğmesi sitede yalnız burada bulunur.
   - Taksit özeti fiyatın altında (snippets/taksit-kartlari.liquid, Tema ayarları > Taksit).
@@ -11,6 +15,40 @@
 {%- liquid
   assign current = product.selected_or_first_available_variant
   assign start_media = current.featured_media.id | default: product.featured_media.id
+-%}
+{%- capture kural_ham -%}{%- render 'satis-kurali', product: product -%}{%- endcapture -%}
+{%- liquid
+  assign kural = kural_ham | strip | split: '|'
+  assign k_birim = ''
+  assign k_min = 1
+  assign k_adim = 1
+  if kural.size == 6
+    assign k_birim = kural[0]
+    assign k_min = kural[1] | plus: 0
+    assign k_adim = kural[2] | plus: 0
+    assign k_boy = kural[3] | plus: 0
+    assign k_paket = kural[4] | plus: 0
+    assign k_kod = kural[5]
+    if k_birim == 'metre'
+      assign k_kisa = 'products.unit_m' | t
+      assign k_ad = 'products.unit_metre' | t
+    else
+      assign k_kisa = 'products.unit_adet' | t
+      assign k_ad = k_kisa
+    endif
+    assign k_boy_m = k_boy | divided_by: 100.0 | append: '' | replace: '.0', '' | replace: '.', ','
+  endif
+
+  assign metraj_dip = product.metafields.custom.tier_price.value | plus: 0
+  assign metraj_esik = product.metafields.custom.dip_esik.value | default: settings.tier_threshold_m | default: 300 | plus: 0
+  assign metraj_bas = settings.metraj_baslangic_m | default: 50 | plus: 0
+  assign metraj_var = false
+  if settings.metraj_indirim and k_birim == 'metre' and metraj_dip > 0 and metraj_esik > 0
+    assign dip_k = metraj_dip | times: 100
+    if current.price > dip_k
+      assign metraj_var = true
+    endif
+  endif
 -%}
 <section
   class="pdp"
@@ -71,18 +109,24 @@
       <div class="pdp__head">
         {%- if product.type != blank -%}<p class="pdp__type">{{ product.type }}</p>{%- endif -%}
         <h1 class="pdp__title">{{ product.title }}</h1>
-        <p class="pdp__price" data-price>{{ current.price | money }}</p>
+        <p class="pdp__price">
+          <span data-price>{{ current.price | money }}</span>
+          {%- if k_birim != '' -%}<span class="pdp__birim">{{ 'products.per_unit' | t: birim: k_ad }}</span>{%- endif -%}
+          {%- if settings.fiyat_kdv == 'haric' -%}<span class="pdp__kdv">{{ 'products.vat_haric' | t }}</span>{%- elsif settings.fiyat_kdv == 'dahil' -%}<span class="pdp__kdv">{{ 'products.vat_dahil' | t }}</span>{%- endif -%}
+        </p>
         {%- render 'taksit-kartlari', gorunum: 'ozet' -%}
         {%- for block in section.blocks -%}
-          {%- if block.type == 'tier_price' -%}
-            {%- assign tp = product.metafields.custom.tier_price.value -%}
-            {%- if tp != blank -%}
-              <p class="tier" {{ block.shopify_attributes }}>
-                <span class="tier__k">{{ block.settings.label }}</span>
-                <span class="tier__v">{{ tp | times: 100 | money }}</span>
-                {%- if block.settings.note != blank -%}<span class="tier__note">{{ block.settings.note }}</span>{%- endif -%}
-              </p>
-            {%- endif -%}
+          {%- if block.type == 'tier_price' and metraj_var -%}
+            {%- render 'metraj-panel',
+              blok: block,
+              liste: current.price,
+              dip: metraj_dip,
+              esik: metraj_esik,
+              baslangic: metraj_bas,
+              en_az: k_min,
+              adim: k_adim,
+              kisa: k_kisa
+            -%}
           {%- endif -%}
         {%- endfor -%}
       </div>
@@ -109,16 +153,64 @@
           {%- endfor -%}
         {%- endunless -%}
 
+        {%- if k_birim != '' -%}
+          {%- liquid
+            capture min_metin
+              echo k_min | append: ' ' | append: k_kisa
+              if k_kod == 'kapak_polikarbon' and k_boy > 0
+                assign boy_adet = k_min | times: 100 | divided_by: k_boy
+                assign adet_ad = 'products.unit_adet' | t
+                echo ' (' | append: boy_adet | append: ' ' | append: adet_ad | append: ')'
+              endif
+            endcapture
+            assign adim_metin = k_adim | append: ' ' | append: k_kisa
+          -%}
+          <ul class="kural" role="list" aria-label="{{ 'products.rule_title' | t }}">
+            <li class="kural__oge kural__oge--vurgu">{{ 'products.rule_min' | t: miktar: min_metin }}</li>
+            <li class="kural__oge">{{ 'products.rule_step' | t: miktar: adim_metin }}</li>
+            {%- if k_paket > 0 -%}<li class="kural__oge">{{ 'products.rule_paket' | t: adet: k_paket }}</li>{%- endif -%}
+            {%- if k_boy == 0 -%}
+              <li class="kural__oge">{{ 'products.rule_kesintisiz' | t }}</li>
+            {%- elsif k_birim == 'metre' and k_kod != 'kapak_polikarbon' -%}
+              <li class="kural__oge">{{ 'products.rule_boy' | t: uzunluk: k_boy_m }}</li>
+            {%- else -%}
+              <li class="kural__oge">{{ 'products.rule_adet_boy' | t: uzunluk: k_boy_m }}</li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+
         <div class="pdp__buy">
-          <div class="qty">
+          <div
+            class="qty{% if k_birim != '' %} qty--birim{% endif %}"
+            data-qty
+            data-min="{{ k_min }}"
+            data-adim="{{ k_adim }}"
+            {%- if k_birim != '' %}
+              data-birim="{{ k_kisa }}"
+              data-t-snapped="{{ 'products.rule_snapped' | t | escape }}"
+            {%- endif %}
+          >
             <button type="button" class="qty__btn" data-qty-step="-1" aria-label="{{ 'products.decrease' | t }}">−</button>
-            <input class="qty__input" type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="{{ 'products.quantity' | t }}">
+            <input class="qty__input" type="number" name="quantity" min="{{ k_min }}" step="{{ k_adim }}" value="{{ k_min }}" inputmode="numeric" aria-label="{{ 'products.quantity' | t }}{% if k_birim != '' %} ({{ k_ad }}){% endif %}">
+            {%- if k_birim != '' -%}<span class="qty__birim" aria-hidden="true">{{ k_kisa }}</span>{%- endif -%}
             <button type="button" class="qty__btn" data-qty-step="1" aria-label="{{ 'products.increase' | t }}">+</button>
           </div>
           <button type="submit" class="button button--primary pdp__add" data-add{% unless current.available %} disabled{% endunless %}>
             <span data-add-label>{%- if current.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}</span>
           </button>
         </div>
+        {%- if k_birim != '' -%}
+          {%- assign ilk_fiyat = current.price -%}
+          {%- if metraj_var -%}
+            {%- capture ilk_fiyat -%}{%- render 'metraj-fiyat', liste: current.price, dip: metraj_dip, esik: metraj_esik, metre: k_min -%}{%- endcapture -%}
+            {%- assign ilk_fiyat = ilk_fiyat | plus: 0 -%}
+          {%- endif -%}
+          <p class="pdp__toplam" data-toplam data-t-calc="{{ 'products.total_calc' | t | escape }}">
+            <span class="pdp__toplam-k">{{ 'products.total' | t }}</span>
+            <strong class="pdp__toplam-v" data-toplam-v>{{ ilk_fiyat | times: k_min | money }}</strong>
+            <span class="pdp__toplam-h" data-toplam-h>{{ k_min }} {{ k_kisa }} × {{ ilk_fiyat | money }}</span>
+          </p>
+        {%- endif -%}
         <p class="pdp__status" data-status role="status"></p>
       {%- endform -%}
 
@@ -153,12 +245,29 @@
                 endif
               endfor
               assign tier_m = settings.tier_threshold_m | default: 0
+              assign calc_birim = block.settings.unit
+              if k_birim == 'metre'
+                assign calc_birim = 'metre'
+              elsif k_birim == 'adet'
+                assign calc_birim = 'boy'
+                if k_boy > 0
+                  assign boy_cm = k_boy
+                endif
+              endif
+              if k_birim != ''
+                assign tier_m = 0
+                if metraj_var
+                  assign tier_m = metraj_esik
+                endif
+              endif
             -%}
             <div
               class="calc"
               data-calc
-              data-unit="{{ block.settings.unit }}"
+              data-unit="{{ calc_birim }}"
               data-length="{{ boy_cm }}"
+              data-min="{{ k_min }}"
+              data-adim="{{ k_adim }}"
               data-waste="{{ block.settings.waste }}"
               data-tier="{{ tier_m }}"
               {{ block.shopify_attributes }}
@@ -204,7 +313,7 @@
                 type="button"
                 class="button button--ghost calc__apply"
                 data-calc-apply
-                data-unit-boy="{{ 'products.calc_unit_boy' | t | escape }}"
+                data-unit-boy="{% if k_birim == 'adet' %}{{ k_kisa | escape }}{% else %}{{ 'products.calc_unit_boy' | t | escape }}{% endif %}"
                 data-tier-done="{{ 'products.calc_tier_done' | t | escape }}"
                 data-applied="{{ 'products.calc_applied' | t | escape }}"
                 disabled
@@ -248,9 +357,8 @@
       "name": "Metraj fiyatı",
       "limit": 1,
       "settings": [
-        { "type": "paragraph", "content": "Fiyat, ürünün custom.tier_price meta alanından (ondalık sayı, TL) okunur. Meta alan boşsa blok görünmez." },
-        { "type": "text", "id": "label", "label": "Etiket", "default": "300 metre ve üzeri" },
-        { "type": "text", "id": "note", "label": "Not", "default": "İndirim sepette kendiliğinden uygulanır." }
+        { "type": "paragraph", "content": "Metre fiyatını sipariş metrajına göre canlı gösterir (firmanın iskonto tablosu). Görünmesi için: ürünün satış kuralı metre (custom.satis_kurali), dip fiyatı dolu (custom.tier_price, TL) ve Tema ayarları > Satış > Metraj indirimi açık olmalı. Not metni de oradan değişir." },
+        { "type": "text", "id": "label", "label": "Başlık", "default": "Metraj fiyatı" }
       ]
     },
     {
