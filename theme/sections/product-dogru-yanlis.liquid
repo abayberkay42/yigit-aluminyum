@@ -3,21 +3,37 @@
   uygulama sırası (numaralı adımlar) ve isteğe bağlı özet görsel. İlk kullanım: trimless profilde
   "Montajda kapağı çıkarmayın" (firmanın uygulama kılavuzu, 2026-09).
   Yanlış / doğru ayrımı yalnız renkle verilmez: simge ve "Yanlış:" / "Doğru:" yazısı da vardır.
+  "Yalnız özet görseli göster" açıksa ekranda yalnız özet görsel; içerik görünmez metin olarak kalır.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
+  assign yalniz = false
+  if s.yalniz_ozet and s.ozet
+    assign yalniz = true
+  endif
   assign var = false
   if s.image_yanlis or s.image_dogru or section.blocks.size > 0
     assign var = true
   endif
 -%}
 {%- if var -%}
-  <section class="psec dy" aria-labelledby="Dy-{{ section.id }}">
-    <div class="psec__head">
+  <section class="psec dy{% if yalniz %} psec--ozet{% endif %}" aria-labelledby="Dy-{{ section.id }}">
+    <div class="psec__head{% if yalniz %} visually-hidden{% endif %}">
       <h2 class="psec__title" id="Dy-{{ section.id }}">{{ s.heading }}</h2>
       {%- if s.text != blank -%}<p class="psec__text">{{ s.text }}</p>{%- endif -%}
     </div>
 
+    {%- if yalniz -%}
+      {%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}
+      <div class="visually-hidden">
+        {%- if s.label_yanlis != blank -%}<p>{{ 'products.wrong' | t }} {{ s.label_yanlis }}. {{ s.caption_yanlis }}</p>{%- endif -%}
+        {%- if s.label_dogru != blank -%}<p>{{ 'products.right' | t }} {{ s.label_dogru }}. {{ s.caption_dogru }}</p>{%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          {%- if s.sira_baslik != blank -%}<p>{{ s.sira_baslik }}</p>{%- endif -%}
+          <ol>{%- for block in section.blocks -%}<li>{{ block.settings.text }}</li>{%- endfor -%}</ol>
+        {%- endif -%}
+      </div>
+    {%- else -%}
     <div class="dy__ikili">
       {%- for i in (1..2) -%}
         {%- if i == 1 -%}
@@ -62,6 +78,7 @@
       </div>
     {%- endif -%}
     {%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}
+    {%- endif -%}
   </section>
 {%- endif -%}
 
@@ -82,7 +99,8 @@
     { "type": "text", "id": "caption_dogru", "label": "Açıklama" },
     { "type": "header", "content": "Doğru uygulama sırası" },
     { "type": "text", "id": "sira_baslik", "label": "Başlık", "default": "Doğru uygulama sırası" },
-    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." }
+    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." },
+    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; başlık ve içerik arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
   ],
   "blocks": [
     { "type": "step", "name": "Adım", "limit": 8, "settings": [

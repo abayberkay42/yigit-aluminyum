@@ -2,15 +2,25 @@
   Ürün sayfası: iki sütunlu karşılaştırma tablosu (ör. spot / LED profil, normal / 240 çipli LED şerit).
   Önerilen sütunun üst kenarında LED çizgisi yanar. Satır yoksa bölüm görünmez.
   İsteğe bağlı: iki sütunun görseli (tablonun üstünde yan yana, aynı mekânın iki hâli gibi), not satırı ve özet görsel.
+  "Yalnız özet görseli göster" açıksa ekranda yalnız özet görsel; başlık ve tablo görünmez metin olarak kalır.
 {%- endcomment -%}
+{%- liquid
+  assign yalniz = false
+  if section.settings.yalniz_ozet and section.settings.ozet
+    assign yalniz = true
+  endif
+-%}
 {%- if section.blocks.size > 0 -%}
   {%- assign hl = section.settings.highlight -%}
-  <section class="psec cmp" aria-labelledby="Cmp-{{ section.id }}">
-    <div class="psec__head">
+  <section class="psec cmp{% if yalniz %} psec--ozet{% endif %}" aria-labelledby="Cmp-{{ section.id }}">
+    <div class="psec__head{% if yalniz %} visually-hidden{% endif %}">
       <h2 class="psec__title" id="Cmp-{{ section.id }}">{{ section.settings.heading }}</h2>
       {%- if section.settings.text != blank -%}<p class="psec__text">{{ section.settings.text }}</p>{%- endif -%}
     </div>
-    {%- if section.settings.image_a or section.settings.image_b -%}
+    {%- if yalniz -%}{%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}{%- endif -%}
+    {%- assign sutun_gorsel = false -%}
+    {%- if section.settings.image_a or section.settings.image_b -%}{%- unless yalniz -%}{%- assign sutun_gorsel = true -%}{%- endunless -%}{%- endif -%}
+    {%- if sutun_gorsel -%}
       <div class="cmp__gorseller">
         {%- for i in (1..2) -%}
           {%- if i == 1 -%}
@@ -30,7 +40,8 @@
       </div>
     {%- endif -%}
     {%- comment -%} Dar ekranda yatay kayan alan klavyeyle de kaydırılabilsin (odaklanabilir bölge) {%- endcomment -%}
-    <div class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}">
+    {%- comment -%} Yalnız özet açıkken tablo görünmez ama sayfada kalır; odaklanamaz (tabindex yok) {%- endcomment -%}
+    <div class="cmp__wrap{% if yalniz %} visually-hidden{% endif %}"{% unless yalniz %} role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}"{% endunless %}>
       <table class="cmp__table">
         <thead>
           <tr>
@@ -50,8 +61,10 @@
         </tbody>
       </table>
     </div>
-    {%- if section.settings.note != blank -%}<p class="cmp__not">{{ section.settings.note }}</p>{%- endif -%}
-    {%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}
+    {%- unless yalniz -%}
+      {%- if section.settings.note != blank -%}<p class="cmp__not">{{ section.settings.note }}</p>{%- endif -%}
+      {%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}
+    {%- endunless -%}
   </section>
 {%- endif -%}
 
@@ -70,7 +83,8 @@
     { "type": "image_picker", "id": "image_a", "label": "1. sütun görseli" },
     { "type": "image_picker", "id": "image_b", "label": "2. sütun görseli" },
     { "type": "text", "id": "note", "label": "Not", "info": "Tablonun altında küçük yazı (ör. \"Temsili aydınlatma tasarımları.\")" },
-    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." }
+    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." },
+    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; başlık ve içerik arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
   ],
   "blocks": [
     { "type": "row", "name": "Satır", "limit": 12, "settings": [
