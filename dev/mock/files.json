@@ -95,13 +95,21 @@
     "width": 673,
     "height": 949
   },
-  "karsilastirma-serit-240.webp": {
-    "width": 1200,
-    "height": 896
+  "led-serit-120.webp": {
+    "width": 2154,
+    "height": 154
   },
-  "karsilastirma-serit-normal.webp": {
-    "width": 1200,
-    "height": 896
+  "led-serit-240.webp": {
+    "width": 2155,
+    "height": 162
+  },
+  "led-serit-60.webp": {
+    "width": 2157,
+    "height": 161
+  },
+  "led-serit-rehber.webp": {
+    "width": 1548,
+    "height": 1016
   },
   "led.png": {
     "width": 750,

@@ -160,49 +160,6 @@
         "highlight": "b"
       }
     },
-    "compare_strip": {
-      "type": "product-compare",
-      "blocks": {
-        "r1": {
-          "type": "row",
-          "settings": {
-            "label": "Metredeki çip sayısı",
-            "a": "Daha az (şeride göre değişir)",
-            "b": "240"
-          }
-        },
-        "r2": {
-          "type": "row",
-          "settings": {
-            "label": "Kapak altında görünüm",
-            "a": "Kapak şeride yakınsa noktalar seçilebilir",
-            "b": "Noktalar birleşir, çizgi kesintisiz görünür"
-          }
-        },
-        "r3": {
-          "type": "row",
-          "settings": {
-            "label": "Uygun olduğu yer",
-            "a": "Derin profiller, dolaylı ışık",
-            "b": "Sığ profiller, doğrudan görünen çizgiler"
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3"
-      ],
-      "settings": {
-        "heading": "Normal LED şerit ve 240 çipli LED şerit",
-        "col_a": "Normal LED şerit",
-        "col_b": "240 çipli LED şerit",
-        "highlight": "b",
-        "image_a": "shopify://shop_images/karsilastirma-serit-normal.webp",
-        "image_b": "shopify://shop_images/karsilastirma-serit-240.webp",
-        "note": "Temsili görseller."
-      }
-    },
     "applications": {
       "type": "product-applications",
       "blocks": {
@@ -287,6 +244,53 @@
     "related": {
       "type": "product-related",
       "settings": {}
+    },
+    "serit": {
+      "type": "product-serit",
+      "blocks": {
+        "s60": {
+          "type": "serit",
+          "settings": {
+            "title": "60 Çipli LED Şerit",
+            "text": "Belirgin ışık noktaları",
+            "image": "shopify://shop_images/led-serit-60.webp",
+            "onerilen": false
+          }
+        },
+        "s120": {
+          "type": "serit",
+          "settings": {
+            "title": "120 Çipli LED Şerit",
+            "text": "Daha sık ışık noktaları",
+            "image": "shopify://shop_images/led-serit-120.webp",
+            "onerilen": false
+          }
+        },
+        "s240": {
+          "type": "serit",
+          "settings": {
+            "title": "240 Çipli LED Şerit",
+            "text": "Daha homojen, akıcı bir ışık çizgisi",
+            "image": "shopify://shop_images/led-serit-240.webp",
+            "onerilen": true
+          }
+        }
+      },
+      "block_order": [
+        "s60",
+        "s120",
+        "s240"
+      ],
+      "settings": {
+        "heading": "LED şerit karşılaştırması",
+        "text": "Daha sık çip, daha homojen ışık.",
+        "sol_etiket": "Kapaksız görünüm",
+        "sag_etiket": "Difüzör kapaklı görünüm",
+        "onerilen_etiket": "Önerilen seçim",
+        "note": "Aynı profil ve difüzör için temsili karşılaştırma.",
+        "ozet": "shopify://shop_images/led-serit-rehber.webp",
+        "yalniz_ozet": true
+      }
     }
   },
   "order": [
@@ -294,7 +298,7 @@
     "guide",
     "cover",
     "compare_spot",
-    "compare_strip",
+    "serit",
     "applications",
     "faq",
     "installments",

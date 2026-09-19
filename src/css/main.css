@@ -1234,6 +1234,24 @@
     background: var(--c-panel); box-shadow: var(--edge), inset 0 0 0 1px var(--c-rule);
   }
   .rehber-gorsel__img { inline-size: 100%; block-size: 100%; object-fit: contain; }
+  /* LED şerit karşılaştırması (sections/product-serit.liquid): geniş şerit görselleri alt alta, önerilen altın çerçeveli */
+  .serit__sutunlar { display: grid; grid-template-columns: 1fr 1fr; margin-block-end: 0.5rem; font-size: 0.75rem; font-weight: 620; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-ink-soft); text-align: center; }
+  .serit__liste { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+  .serit__satir {
+    display: grid; gap: 0.85rem; padding: 1.1rem 1.25rem 1.25rem; border-radius: var(--radius-lg);
+    background: #0f0e0c; color: oklch(0.97 0.006 85); box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.06);
+  }
+  .serit__satir--onerilen { box-shadow: inset 0 0 0 1.5px var(--c-gold-bright), 0 1rem 2.4rem -1.4rem var(--altin-isik); }
+  .serit__ust { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 0.5rem 1rem; }
+  .serit__ad { font-size: clamp(1.0625rem, 1.4vw, 1.25rem); font-weight: 680; }
+  .serit__acik { margin-block-start: 0.2rem; font-size: 0.9375rem; color: var(--c-gold-bright); }
+  .serit__rozet {
+    display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.8rem; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 680; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--c-gold-bright); box-shadow: inset 0 0 0 1.5px var(--c-gold-bright);
+  }
+  .serit__gorsel img { inline-size: 100%; block-size: 100%; object-fit: contain; }
+  @media (max-width: 47.99em) { .serit__sutunlar { font-size: 0.6875rem; letter-spacing: 0.08em; } .serit__satir { padding: 0.9rem; } }
   /* Yalnız özet görseli: başlık görünmez, görsel bölümün kendisi */
   .psec--ozet .rehber-gorsel { margin-block-start: 0; }
 
