@@ -61,6 +61,19 @@ Ana sayfanın en başındaki kaydırmalı film, videonun kareleri olarak Dosyala
 - Tema düzenleyici > Ana sayfa > Tanıtım filmi: masaüstü ve mobil için ayrı önek, kare sayısı, ölçü ve kaydırma uzunluğu. Kareler başka adla ya da sayıyla yüklenirse yalnız bu ayarlar değişir. Mobil kare sayısı 0 yazılırsa telefonda film gösterilmez.
 - Kontrol: yükleme sonrası ana sayfa önizlemesinde ilk kare görünmeli; kaydırınca film oynamalı. Görünmüyorsa önek ve kare sayısı Dosyalar'daki adlarla aynı mı bakılır.
 
+## Üretim sayfası tanıtım filmi
+
+Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfasının başına, süreç adımlarının üstüne yerleştirildi.
+
+| Dosya | Nereye | Not |
+|---|---|---|
+| `dist/shopify-dosyalar/video/yigit-tanitim-filmi.mp4` (14 MB) | Shopify > İçerik > Dosyalar | Web için sıkıştırıldı (H.264, aynı çözünürlük; kaynak 54 MB). Adı değiştirilmeden yüklenir |
+| `dist/shopify-dosyalar/video/yigit-tanitim-filmi-kapak.webp` | Shopify > İçerik > Dosyalar | Oynatmadan önce görünen kare (filmin 38. saniyesi, ekstrüzyon presi) |
+
+- `page.uretim` şablonu bu iki dosyayı adıyla anar. Tema düzenleyicide film görünmezse: Üretim sayfası > Üretim bölümü > "Tanıtım filmi" alanından yüklenen video bir kez seçilir.
+- Film yalnız ziyaretçi oynat düğmesine basınca iner; sayfa açılışını yavaşlatmaz. Kapaktaki büyük altın düğmeyle sesli başlar, sonra tarayıcının denetimleri gelir.
+- Kapak "Film kapağı" alanından, altındaki yazı "Film başlığı" alanından değişir.
+
 ## Menü
 
 Üst menüdeki "Ürünler" başlığı dört ana kategorili geniş bir panel olarak açılır ("Tüm ürünler" yok). Shopify > Online Mağaza > Gezinme > Ana menü > "Ürünler" altına ana kategoriler, ana kategorilerin altına da alt bağlantılar eklenir (üç düzey; bağlantıyı bir üstteki bağlantının üzerine sürükleyince alt bağlantı olur):

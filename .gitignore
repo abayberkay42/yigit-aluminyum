@@ -13,6 +13,8 @@ dist/
 /assets/
 /.impeccable/
 *.mp4
+# Üretim sayfasının tanıtım filmi (web için sıkıştırılmış, 14 MB): önizleme sitesinde oynasın diye depoda
+!dev/mock/files/yigit-tanitim-filmi.mp4
 
 # Vercel CLI'nin yazdığı ortam dosyası: erişim anahtarı (VERCEL_OIDC_TOKEN) içerir, asla depoya girmez
 .env*

@@ -73,6 +73,8 @@ export function createRenderer(THEME) {
       else if (d.type === 'page') out[d.id] = scope.pages?.[v] ?? null;
       // Shopify "Dosyalar"daki görsel: shopify://shop_images/ad.webp → görsel nesnesi (yerelde dev/mock/files)
       else if (d.type === 'image_picker') out[d.id] = scope.files?.[v] ?? null;
+      // Dosyalar'daki video: shopify://files/videos/ad.mp4
+      else if (d.type === 'video') out[d.id] = scope.files?.[v] ?? null;
       else if (d.type === 'collection_list') out[d.id] = v.map((h) => scope.collections?.[h]).filter(Boolean);
       else if (d.type === 'product_list') out[d.id] = v.map((h) => scope.all_products?.[h]).filter(Boolean);
     }

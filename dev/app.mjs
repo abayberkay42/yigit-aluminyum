@@ -87,6 +87,16 @@ function loadFiles() {
     const src = `/files/${name}`;
     out[`shopify://shop_images/${name}`] = { id: name, src, url: src, width, height, alt: '', aspect_ratio: +(width / height).toFixed(4) };
   }
+  // Dosyalar'daki video: shopify://files/videos/ad.mp4 → video nesnesi. Önizleme görseli, aynı adın "-kapak" görseli
+  // (Shopify videodan kendisi üretir). Ölçü kapak görselinden alınır.
+  for (const name of fs.readdirSync(FILES).filter((n) => /\.mp4$/i.test(n))) {
+    const kapak = out[`shopify://shop_images/${name.replace(/\.mp4$/i, '-kapak.webp')}`] || null;
+    const src = `/files/${name}`;
+    out[`shopify://files/videos/${name}`] = {
+      id: name, media_type: 'video', alt: '', preview_image: kapak, aspect_ratio: kapak?.aspect_ratio || 16 / 9,
+      sources: [{ url: src, mime_type: 'video/mp4', format: 'mp4', width: kapak?.width, height: kapak?.height }],
+    };
+  }
   return out;
 }
 

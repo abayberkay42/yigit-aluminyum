@@ -1,6 +1,7 @@
 /*
   Üretim sayfası. Süreç adımları firmanın mevcut üretim sayfasındaki metinden kısaltıldı (www.yigitaluminium.com/pages/uretim, 2026-09-11).
-  Film, sayılar, belgeler ve VR bağlantısı firma içeriği gelince tema düzenleyiciden eklenir; boşken görünmez.
+  Tanıtım filmi firmanın "TANITIM FİLMİ.mp4" dosyası (2026-09-19; web için sıkıştırıldı, Dosyalar'a yigit-tanitim-filmi.mp4 adıyla yüklenir).
+  Sayılar, belgeler ve VR bağlantısı firma içeriği gelince tema düzenleyiciden eklenir; boşken görünmez.
 */
 {
   "sections": {
@@ -88,7 +89,11 @@
         "yuzey",
         "kalite"
       ],
-      "settings": {}
+      "settings": {
+        "video": "shopify://files/videos/yigit-tanitim-filmi.mp4",
+        "video_poster": "shopify://shop_images/yigit-tanitim-filmi-kapak.webp",
+        "video_title": "Yiğit Alüminyum tanıtım filmi"
+      }
     },
     "doors": {
       "type": "home-doors",

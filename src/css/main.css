@@ -1465,8 +1465,33 @@
   }
 
   /* Üretim */
-  .prod__film { aspect-ratio: 16 / 9; margin-block-end: clamp(3rem, 8svh, 5rem); border-radius: var(--radius-lg); overflow: clip; background: var(--c-ground-deep); box-shadow: inset 0 0 0 1px var(--c-rule); }
-  .prod__film video { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .prod__film { position: relative; margin: 0 0 clamp(3rem, 8svh, 5rem); }
+  .prod__film video {
+    display: block; inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg);
+    background: var(--c-ground-deep); box-shadow: var(--edge), inset 0 0 0 1px var(--c-rule);
+  }
+  /* Kapak üzerinde büyük oynat düğmesi (src/js/sections/film-tanitim.js); oynarken kalkar, denetimler tarayıcıda */
+  .prod__oynat {
+    position: absolute; inset: 0 0 auto; aspect-ratio: 16 / 9; display: grid; place-content: center; justify-items: center; gap: 0.9rem;
+    border-radius: var(--radius-lg); color: #fff; cursor: pointer;
+    background: radial-gradient(ellipse at center, rgb(0 0 0 / 0.28), rgb(0 0 0 / 0.08) 70%);
+  }
+  .prod__oynat[hidden] { display: none; }
+  .prod__oynat-daire {
+    display: grid; place-items: center; inline-size: clamp(4rem, 8vw, 5.75rem); aspect-ratio: 1; border-radius: 50%;
+    color: var(--c-on-gold); background: var(--altin-degrade);
+    box-shadow: inset 0 1px 0 rgb(255 252 230 / 0.8), 0 1rem 2.5rem -0.8rem rgb(0 0 0 / 0.55), 0 0 0 0.5rem rgb(255 255 255 / 0.16);
+    transition: transform var(--dur-ui) var(--ease-out), box-shadow var(--dur-ui) ease;
+  }
+  .prod__oynat-daire svg { translate: 0.12rem 0; }
+  .prod__oynat-yazi { padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.9375rem; font-weight: 620; background: rgb(0 0 0 / 0.45); }
+  .prod__oynat:active .prod__oynat-daire { transform: scale(0.95); }
+  .prod__oynat:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 4px; }
+  @media (hover: hover) and (pointer: fine) {
+    .prod__oynat:hover .prod__oynat-daire { transform: scale(1.05); box-shadow: inset 0 1px 0 rgb(255 252 230 / 0.8), 0 1rem 2.5rem -0.8rem rgb(0 0 0 / 0.55), 0 0 0 0.75rem rgb(255 255 255 / 0.22); }
+  }
+  @media (prefers-reduced-motion: reduce) { .prod__oynat-daire { transition: none; } }
+  .prod__film-alt { margin-block-start: 0.75rem; font-size: 0.875rem; color: var(--c-ink-soft); }
   .prod__film-link { margin-block-end: clamp(2.5rem, 6svh, 4rem); }
   .prod__block + .prod__block, .prod__block + .facts { margin-block-start: clamp(3rem, 8svh, 5rem); }
   /* Üretim sayfasının başlığı ortalı olduğu için ara başlıklar da ortalı */

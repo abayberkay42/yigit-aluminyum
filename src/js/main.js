@@ -14,6 +14,7 @@ import { initCart } from './store/cart.js';
 import { initDock } from './sections/dock.js';
 import { initQuickAdd } from './store/quick-add.js';
 import { initOzellikler } from './store/ozellikler.js';
+import { initTanitim } from './sections/film-tanitim.js';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,6 +37,7 @@ initCart();
 initRooms();
 initReveal();
 initDock();
+initTanitim();
 initQuickAdd();
 initOzellikler();
 // İletişim formu gönderildiyse onay mesajına odaklan (ekran okuyucu duyurur)
