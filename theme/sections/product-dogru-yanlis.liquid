@@ -1,6 +1,6 @@
 {%- comment -%}
   Ürün sayfası: sık yapılan montaj hatası. Yanlış ve doğru uygulama yan yana (görsel + açıklama), altında doğru
-  uygulama sırası (numaralı adımlar) ve isteğe bağlı özet görsel bağlantısı. İlk kullanım: trimless profilde
+  uygulama sırası (numaralı adımlar) ve isteğe bağlı özet görsel. İlk kullanım: trimless profilde
   "Montajda kapağı çıkarmayın" (firmanın uygulama kılavuzu, 2026-09).
   Yanlış / doğru ayrımı yalnız renkle verilmez: simge ve "Yanlış:" / "Doğru:" yazısı da vardır.
 {%- endcomment -%}
@@ -61,7 +61,7 @@
         </ol>
       </div>
     {%- endif -%}
-    {%- render 'rehber-baglanti', gorsel: s.ozet, etiket: s.ozet_label -%}
+    {%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}
   </section>
 {%- endif -%}
 
@@ -82,8 +82,7 @@
     { "type": "text", "id": "caption_dogru", "label": "Açıklama" },
     { "type": "header", "content": "Doğru uygulama sırası" },
     { "type": "text", "id": "sira_baslik", "label": "Başlık", "default": "Doğru uygulama sırası" },
-    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Konunun tek görsellik hâli. Altta \"tek görselde aç\" bağlantısı olarak çıkar." },
-    { "type": "text", "id": "ozet_label", "label": "Özet bağlantısı metni", "default": "Kılavuzu tek görselde açın" }
+    { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." }
   ],
   "blocks": [
     { "type": "step", "name": "Adım", "limit": 8, "settings": [

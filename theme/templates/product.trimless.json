@@ -109,8 +109,7 @@
       ],
       "settings": {
         "heading": "Adım adım uygulama",
-        "ozet": "shopify://shop_images/trimless-uygulama-rehber.webp",
-        "ozet_label": "Uygulama rehberini tek görselde açın"
+        "ozet": "shopify://shop_images/trimless-uygulama-rehber.webp"
       }
     },
     "cover": {
@@ -157,8 +156,7 @@
       ],
       "settings": {
         "heading": "Difüzör kapak nasıl takılır?",
-        "ozet": "shopify://shop_images/trimless-kapak-rehber.webp",
-        "ozet_label": "Kapak montaj rehberini tek görselde açın"
+        "ozet": "shopify://shop_images/trimless-kapak-rehber.webp"
       }
     },
     "compare_spot": {
@@ -203,8 +201,7 @@
         "image_a": "shopify://shop_images/trimless-spot-spot.webp",
         "image_b": "shopify://shop_images/trimless-spot-trimless.webp",
         "note": "Temsili aydınlatma tasarımları.",
-        "ozet": "shopify://shop_images/trimless-spot-rehber.webp",
-        "ozet_label": "Karşılaştırmayı tek görselde açın"
+        "ozet": "shopify://shop_images/trimless-spot-rehber.webp"
       }
     },
     "compare_strip": {
@@ -378,8 +375,7 @@
         "label_dogru": "Kapak takılı montaj",
         "caption_dogru": "Kapak, montaj sırasında profilin iç ölçüsünü korur.",
         "sira_baslik": "Doğru uygulama sırası",
-        "ozet": "shopify://shop_images/trimless-hata-rehber.webp",
-        "ozet_label": "Kılavuzu tek görselde açın"
+        "ozet": "shopify://shop_images/trimless-hata-rehber.webp"
       }
     },
     "kesim": {
@@ -408,8 +404,7 @@
       ],
       "settings": {
         "heading": "Köşe dönüşlerinde 45° kesim",
-        "ozet": "shopify://shop_images/trimless-kesim-rehber.webp",
-        "ozet_label": "Kesim rehberini tek görselde açın"
+        "ozet": "shopify://shop_images/trimless-kesim-rehber.webp"
       }
     }
   },

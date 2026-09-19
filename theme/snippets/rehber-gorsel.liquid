@@ -1,0 +1,11 @@
+{%- comment -%}
+  Bölümün tek sayfalık özet görseli (firmanın hazırladığı rehber görseli), bölümün altında tam genişlikte.
+  Önceden "tek görselde açın" bağlantısıydı; müşteri isteğiyle doğrudan sayfada gösteriliyor (2026-09-19).
+  Görselin içindeki yazılar bölümde zaten HTML metin olarak var; alt metin görselin ne olduğunu söyler.
+  Parametreler: gorsel (image), alt (metin: bölüm başlığı)
+{%- endcomment -%}
+{%- if gorsel -%}
+  <figure class="rehber-gorsel" style="aspect-ratio: {{ gorsel.aspect_ratio }}">
+    {{ gorsel | image_url: width: 2000 | image_tag: widths: '600,900,1200,1600,2000', sizes: '(min-width: 86rem) 86rem, 100vw', loading: 'lazy', alt: alt, class: 'rehber-gorsel__img' }}
+  </figure>
+{%- endif -%}

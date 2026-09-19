@@ -1,5 +1,5 @@
 // Trimless ürün şablonunun rehber bölümlerini çeker (masaüstü + telefon): karşılaştırma, uygulama adımları,
-// doğru/yanlış, kapak montajı, 45° kesim. Kırık görsel ve yatay taşma denetimi.
+// doğru/yanlış, kapak montajı, 45° kesim ve bölüm altlarındaki özet görseller. Kırık görsel ve yatay taşma denetimi.
 // Kullanım: node tools/shot-trimless.mjs [ürün tutamacı] [çıktı öneki=.impeccable/review/trimless]
 import { chromium } from 'file:///D:/Claude%20Projeler/Claude%20skil/.qa-tools/node_modules/playwright/index.mjs';
 
@@ -28,7 +28,7 @@ for (const [ad, vp] of [['masaustu', { width: 1440, height: 900 }], ['telefon', 
   sonuc[`${ad}-kirik`] = await p.$$eval('.psec img', (imgs) => imgs.filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
   sonuc[`${ad}-gorsel`] = await p.$$eval('.psec img', (imgs) => imgs.length);
   sonuc[`${ad}-tasma`] = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
-  sonuc[`${ad}-rehber`] = await p.$$eval('.rehber-link', (a) => a.map((x) => x.getAttribute('href').split('/').pop().split('?')[0]));
+  sonuc[`${ad}-rehber`] = await p.$$eval('.rehber-gorsel img', (a) => a.map((x) => x.currentSrc.split('/').pop().split('?')[0]));
   await ctx.close();
 }
 await browser.close();

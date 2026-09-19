@@ -43,7 +43,7 @@ Shopify > Sayfalar > sayfa > Tema şablonu:
 Şablonlar görselleri `shopify://shop_images/<ad>` ile anar. Aktarımda Shopify > İçerik > Dosyalar'a aynı adla yüklenir:
 `room-salon.webp, room-koridor.webp, room-mutfak.webp, room-yatak.webp, room-banyo.webp, room-ofis.webp, room-galeri.webp, room-dis.webp` (bizim ürettiğimiz oda görselleri). Katalog kapakları ve üretim görselleri mağazanın Dosyalar'ında zaten var.
 
-**Trimless rehber görselleri (23 dosya, 1 MB):** `dist/shopify-dosyalar/trimless/` klasöründeki `trimless-*.webp` dosyaları aynı adla yüklenir. Firmanın "TRİMLESS LED PROFİLLERİ" klasöründen (2026-09-18) WebP'ye çevrildi, büyütülmedi (`tools/trimless-gorseller.py`). `product.trimless` şablonu bunları kullanır: spot / trimless karşılaştırması, 8 adımlı uygulama, "montajda kapağı çıkarmayın" (doğru / yanlış), 4 adımlı difüzör kapak montajı, 45° köşe kesimi. Her bölümün altında firmanın tek görsellik rehberi (`trimless-*-rehber.webp`) yeni sekmede açılan bağlantı olarak durur. Bölüm metinleri görsellerdeki metinlerin aynısıdır.
+**Trimless rehber görselleri (23 dosya, 1 MB):** `dist/shopify-dosyalar/trimless/` klasöründeki `trimless-*.webp` dosyaları aynı adla yüklenir. Firmanın "TRİMLESS LED PROFİLLERİ" klasöründen (2026-09-18) WebP'ye çevrildi, büyütülmedi (`tools/trimless-gorseller.py`). `product.trimless` şablonu bunları kullanır: spot / trimless karşılaştırması, 8 adımlı uygulama, "montajda kapağı çıkarmayın" (doğru / yanlış), 4 adımlı difüzör kapak montajı, 45° köşe kesimi. Her bölümün altında firmanın tek görsellik rehberi (`trimless-*-rehber.webp`) tam genişlikte görünür. Bölüm metinleri görsellerdeki metinlerin aynısıdır.
 
 ## Ana sayfa tanıtım filmi (masaüstü 944 kare, mobil 361 kare)
 
