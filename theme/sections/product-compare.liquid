@@ -40,8 +40,8 @@
       </div>
     {%- endif -%}
     {%- comment -%} Dar ekranda yatay kayan alan klavyeyle de kaydırılabilsin (odaklanabilir bölge) {%- endcomment -%}
-    {%- comment -%} Yalnız özet açıkken tablo görünmez ama sayfada kalır; odaklanamaz (tabindex yok) {%- endcomment -%}
-    <div class="cmp__wrap{% if yalniz %} visually-hidden{% endif %}"{% unless yalniz %} role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}"{% endunless %}>
+    {%- comment -%} Yalnız özet açıkken tablo görünmez ama sayfada kalır; kaydırma kabı (cmp__wrap) ve odak olmaz {%- endcomment -%}
+    <div{% if yalniz %} class="visually-hidden"{% else %} class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}"{% endif %}>
       <table class="cmp__table">
         <thead>
           <tr>
