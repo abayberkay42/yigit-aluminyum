@@ -1,6 +1,7 @@
 {%- comment -%} Sayfa metni (Shopify > Sayfalar'da yazılan içerik) ve isteğe bağlı görsel. Hakkımızda sayfası bunu kullanır. {%- endcomment -%}
 <section class="pcontent{% unless section.settings.image %} pcontent--center{% endunless %}">
-  <div class="rte pcontent__text reveal" data-reveal>{{ page.content }}</div>
+  {%- comment -%} Sayfanın tek H1'i başlıkta; mağazada sayfa metnine yazılmış H1 başlıklar burada H2 olur (SEO: tek H1) {%- endcomment -%}
+  <div class="rte pcontent__text reveal" data-reveal>{{ page.content | replace: '<h1', '<h2' | replace: '</h1>', '</h2>' }}</div>
   {%- if section.settings.image -%}
     {%- comment -%} Metnin yanında, sayfanın en üstünde: tembel yükleme verilmez {%- endcomment -%}
     <div class="pcontent__media">{{ section.settings.image | image_url: width: 1400 | image_tag: widths: '600,900,1200,1400', sizes: '(min-width: 64em) 40vw, 100vw', loading: 'eager' }}</div>

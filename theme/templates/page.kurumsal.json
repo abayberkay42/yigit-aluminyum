@@ -5,7 +5,8 @@
       "settings": {
         "eyebrow": "Kurumsal",
         "title": "2008'den beri alüminyum profil",
-        "align": "center"
+        "align": "center",
+        "banner": "shopify://shop_images/banner-kurumsal.webp"
       }
     },
     "content": {

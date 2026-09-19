@@ -13,7 +13,9 @@
           "supurgelik-profilleri-1",
           "duvar-panel-profilleri-1",
           "fuga-profilleri"
-        ]
+        ],
+        "banner": "shopify://shop_images/banner-urunler.webp",
+        "banner_ust": "Ürünler"
       }
     }
   },

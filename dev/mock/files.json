@@ -1,4 +1,8 @@
 {
+  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
+    "width": 2048,
+    "height": 923
+  },
   "10.jpg": {
     "width": 2048,
     "height": 920
@@ -7,10 +11,6 @@
     "width": 2048,
     "height": 920
   },
-  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
-    "width": 2048,
-    "height": 923
-  },
   "8.jpg": {
     "width": 2048,
     "height": 920
@@ -18,6 +18,74 @@
   "9.jpg": {
     "width": 2048,
     "height": 920
+  },
+  "banner-alcipan.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-duvar-panel.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-genel.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-iletisim.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-kanal.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-kanatli.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-kataloglar.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-kullanim-alanlari.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-kurumsal.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-led-profilleri.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-numune.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-sss.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-supurgelik.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-tavan-kose.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-trimless.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-uretim.webp": {
+    "width": 2400,
+    "height": 1339
+  },
+  "banner-urunler.webp": {
+    "width": 2400,
+    "height": 1339
   },
   "duvar_panel.png": {
     "width": 782,

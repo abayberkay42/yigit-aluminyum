@@ -163,7 +163,11 @@
       "one": "{{ count }} product",
       "other": "{{ count }} products"
     },
-    "empty": "No products in this group yet."
+    "empty": "No products in this group yet.",
+    "banner_eyebrow": {
+      "one": "Product group · {{ count }} product",
+      "other": "Product group · {{ count }} products"
+    }
   },
   "cart": {
     "title": "Cart",

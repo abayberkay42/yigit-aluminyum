@@ -22,6 +22,12 @@
       },
       {
         "type": "image_picker",
+        "id": "logo_acik",
+        "label": "Açık logo (koyu zemin için)",
+        "info": "Sayfa başı bannerlarının üzerinde, menü şeffafken görünür: yazısı açık renkli sürüm. Boşsa temayla gelen açık sürüm kullanılır."
+      },
+      {
+        "type": "image_picker",
         "id": "share_image",
         "label": "Paylaşım görseli",
         "info": "Kendi görseli olmayan sayfalar paylaşılınca görünür. 1200×630 önerilir."

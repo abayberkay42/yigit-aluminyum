@@ -5,8 +5,21 @@
   temayla gelen dosya basılır (assets/yigit-logo.png, müşterinin verdiği logo PDF'inden üretildi; beyaz zemin sürümü).
   Ölçü öznitelikleri her iki yolda da yazılır: logo yüklenirken satır kaymaz.
   Logo metni zaten görselin içinde olduğu için alt metin firma adıdır; ayrıca yazı basılmaz.
+  acik: true → koyu zemin sürümü (yazısı açık; sayfa başı bannerı üzerinde menü şeffafken). Ayar: Firma bilgileri >
+  Açık logo, boşsa assets/yigit-logo-acik.png (temadaki logonun koyu gri yazısı açık renge çevrildi, altın simge aynı).
+  İki sürümden her an yalnız biri görünür (diğeri display:none, erişilebilirlik ağacında yok); ikisinin de alt metni
+  firma adı, bağlantının adı hiç boş kalmaz. Açık sürüm tembel yüklenir, bannersız sayfada gizli kaldığı için hiç inmez.
 {%- endcomment -%}
-{%- if settings.logo != blank -%}
+{%- if acik -%}
+  {%- if settings.logo_acik != blank -%}
+    {{ settings.logo_acik | image_url: width: 1200 | image_tag: widths: '300,600,900,1200', sizes: '14rem', loading: 'lazy', class: class, alt: shop.name }}
+  {%- else -%}
+    <img class="{{ class }}"
+      src="{{ 'yigit-logo-acik.png' | asset_url }}"
+      srcset="{{ 'yigit-logo-acik.png' | asset_url }} 601w, {{ 'yigit-logo-acik-2x.png' | asset_url }} 1202w"
+      sizes="14rem" width="601" height="212" loading="lazy" alt="{{ shop.name | escape }}">
+  {%- endif -%}
+{%- elsif settings.logo != blank -%}
   {{ settings.logo | image_url: width: 1200 | image_tag: widths: '300,600,900,1200', sizes: '14rem', loading: 'eager', class: class, alt: shop.name }}
 {%- else -%}
   <img class="{{ class }}"

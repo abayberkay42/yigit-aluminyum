@@ -4,7 +4,9 @@
     "hero": {
       "type": "page-hero",
       "settings": {
-        "eyebrow": "Sıkça sorulan sorular"
+        "eyebrow": "Sıkça sorulan sorular",
+        "banner": "shopify://shop_images/banner-sss.webp",
+        "align": "center"
       }
     },
     "content": {

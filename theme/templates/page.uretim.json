@@ -11,7 +11,8 @@
         "eyebrow": "Üretim",
         "title": "Kalıptan rafa",
         "lede": "Alüminyum profillerimizi 2008'den beri Beylikdüzü'nde üretiyoruz. Bir profilin kalıptan çıkıp size ulaşana kadar geçtiği adımlar aşağıda.",
-        "align": "center"
+        "align": "center",
+        "banner": "shopify://shop_images/banner-uretim.webp"
       }
     },
     "production": {

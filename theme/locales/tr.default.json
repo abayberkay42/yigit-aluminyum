@@ -163,7 +163,11 @@
       "one": "{{ count }} ürün",
       "other": "{{ count }} ürün"
     },
-    "empty": "Bu grupta henüz ürün yok."
+    "empty": "Bu grupta henüz ürün yok.",
+    "banner_eyebrow": {
+      "one": "Ürün grubu · {{ count }} ürün",
+      "other": "Ürün grubu · {{ count }} ürün"
+    }
   },
   "cart": {
     "title": "Sepet",

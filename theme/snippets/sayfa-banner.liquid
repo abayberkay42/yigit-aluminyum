@@ -1,0 +1,21 @@
+{%- comment -%}
+  Sayfa başı sinematik banner: tam genişlik görsel, üzerinde ortalı üst etiket, sayfanın H1 başlığı, alt etiket
+  ve giriş metni. Koleksiyon, kurumsal sayfalar, ürün grupları, arama, sepet, blog ve 404 kullanır.
+  SEO: başlık sayfanın tek H1'idir ve gerçek metindir (görselin içinde yazı yok); görsel süstür (alt="", aria-hidden).
+  Hız: görsel ilk ekranda olduğu için tembel yüklenmez, önceliği yüksek; genişliğe göre boyut (srcset), yükseklik
+  CSS'te sabit olduğu için sayfa kaymaz. Menü çubuğu banner üzerindeyken açık renge döner (html:has(.sbanner)).
+  Parametreler: gorsel (image), baslik, baslik_id, ust, alt, metin (hepsi isteğe bağlı, baslik hariç)
+{%- endcomment -%}
+<header class="sbanner" data-sbanner>
+  {%- if gorsel -%}
+    <div class="sbanner__media" aria-hidden="true">
+      {{ gorsel | image_url: width: 3840 | image_tag: widths: '750,1100,1500,1920,2560,3840', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '', class: 'sbanner__img' }}
+    </div>
+  {%- endif -%}
+  <div class="sbanner__icerik">
+    {%- if ust != blank -%}<p class="sbanner__ust">{{ ust }}</p>{%- endif -%}
+    <h1 class="sbanner__baslik"{% if baslik_id != blank %} id="{{ baslik_id }}"{% endif %}>{{ baslik }}</h1>
+    {%- if alt != blank -%}<p class="sbanner__alt">{{ alt }}</p>{%- endif -%}
+    {%- if metin != blank -%}<p class="sbanner__metin">{{ metin }}</p>{%- endif -%}
+  </div>
+</header>

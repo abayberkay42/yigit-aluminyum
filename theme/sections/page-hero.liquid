@@ -1,16 +1,34 @@
-{%- comment -%} Kurumsal sayfaların başlığı: sayfa yolu, üst etiket, başlık (boşsa sayfa adı), giriş metni. {%- endcomment -%}
-<section class="phero{% if section.settings.align == 'center' %} phero--center{% endif %}" aria-labelledby="PageTitle-{{ section.id }}">
+{%- comment -%}
+  Kurumsal sayfaların başlığı: sayfa yolu, üst etiket, başlık (boşsa sayfa adı), giriş metni.
+  "Banner görseli" seçiliyse başlık sinematik banner olarak basılır (snippets/sayfa-banner.liquid); sayfa yolu
+  bannerın altına iner. Görsel yoksa eski sade başlık.
+{%- endcomment -%}
+{%- assign baslik = section.settings.title | default: page.title -%}
+{%- assign baslik_id = 'PageTitle-' | append: section.id -%}
+<section class="phero{% if section.settings.align == 'center' %} phero--center{% endif %}{% if section.settings.banner %} phero--banner{% endif %}" aria-labelledby="PageTitle-{{ section.id }}">
+  {%- if section.settings.banner -%}
+    {%- render 'sayfa-banner',
+      gorsel: section.settings.banner,
+      baslik: baslik,
+      baslik_id: baslik_id,
+      ust: section.settings.eyebrow,
+      alt: section.settings.alt_etiket,
+      metin: section.settings.lede
+    -%}
+  {%- endif -%}
   <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
     <ol role="list">
       <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
       <li aria-current="page">{{ page.title }}</li>
     </ol>
   </nav>
-  <div class="phero__text">
-    {%- if section.settings.eyebrow != blank -%}<p class="phero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-    <h1 class="phero__title" id="PageTitle-{{ section.id }}">{{ section.settings.title | default: page.title }}</h1>
-    {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
-  </div>
+  {%- unless section.settings.banner -%}
+    <div class="phero__text">
+      {%- if section.settings.eyebrow != blank -%}<p class="phero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="phero__title" id="PageTitle-{{ section.id }}">{{ baslik }}</h1>
+      {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
+    </div>
+  {%- endunless -%}
 </section>
 
 {% schema %}
@@ -24,7 +42,10 @@
     { "type": "select", "id": "align", "label": "Hizalama", "default": "start", "options": [
       { "value": "start", "label": "Sola yaslı" },
       { "value": "center", "label": "Ortalı" }
-    ] }
+    ], "info": "Banner görseli seçiliyken başlık her zaman ortalıdır." },
+    { "type": "header", "content": "Banner" },
+    { "type": "image_picker", "id": "banner", "label": "Banner görseli", "info": "Seçilirse başlık tam genişlik görselin üzerinde, ortalı basılır. Yatay, en az 2560 piksel genişlik." },
+    { "type": "text", "id": "alt_etiket", "label": "Alt etiket", "info": "Başlığın altında küçük altın yazı (isteğe bağlı)." }
   ],
   "presets": [{ "name": "Sayfa başlığı" }]
 }

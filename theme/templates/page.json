@@ -1,7 +1,19 @@
 {
   "sections": {
-    "hero": { "type": "page-hero", "settings": {} },
-    "content": { "type": "page-content", "settings": {} }
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "banner": "shopify://shop_images/banner-genel.webp",
+        "align": "center"
+      }
+    },
+    "content": {
+      "type": "page-content",
+      "settings": {}
+    }
   },
-  "order": ["hero", "content"]
+  "order": [
+    "hero",
+    "content"
+  ]
 }

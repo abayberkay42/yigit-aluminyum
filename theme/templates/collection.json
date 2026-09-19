@@ -13,8 +13,94 @@
           "duvar-panel-profilleri-1",
           "fuga-profilleri"
         ],
-        "per_page": 24
-      }
+        "per_page": 24,
+        "banner": "shopify://shop_images/banner-urunler.webp"
+      },
+      "blocks": {
+        "banner-1": {
+          "type": "banner",
+          "settings": {
+            "collection": "led-profilleri",
+            "image": "shopify://shop_images/banner-led-profilleri.webp",
+            "alt": ""
+          }
+        },
+        "banner-2": {
+          "type": "banner",
+          "settings": {
+            "collection": "tri̇mless-alcipan-led-profi̇lleri̇",
+            "image": "shopify://shop_images/banner-trimless.webp",
+            "alt": "LED Profilleri"
+          }
+        },
+        "banner-3": {
+          "type": "banner",
+          "settings": {
+            "collection": "tavan-kose-led-profilleri",
+            "image": "shopify://shop_images/banner-tavan-kose.webp",
+            "alt": "LED Profilleri"
+          }
+        },
+        "banner-4": {
+          "type": "banner",
+          "settings": {
+            "collection": "siva-ustu-led-profilleri",
+            "image": "shopify://shop_images/banner-kanal.webp",
+            "alt": "LED Profilleri"
+          }
+        },
+        "banner-5": {
+          "type": "banner",
+          "settings": {
+            "collection": "gomme-led-profilleri",
+            "image": "shopify://shop_images/banner-kanatli.webp",
+            "alt": "LED Profilleri"
+          }
+        },
+        "banner-6": {
+          "type": "banner",
+          "settings": {
+            "collection": "supurgelik-profilleri-1",
+            "image": "shopify://shop_images/banner-supurgelik.webp",
+            "alt": "LED Profilleri"
+          }
+        },
+        "banner-7": {
+          "type": "banner",
+          "settings": {
+            "collection": "duvar-panel-profilleri-1",
+            "image": "shopify://shop_images/banner-duvar-panel.webp",
+            "alt": ""
+          }
+        },
+        "banner-8": {
+          "type": "banner",
+          "settings": {
+            "collection": "fuga-profilleri",
+            "image": "shopify://shop_images/banner-alcipan.webp",
+            "alt": ""
+          }
+        },
+        "banner-9": {
+          "type": "banner",
+          "settings": {
+            "collection": "numuneler",
+            "image": "shopify://shop_images/banner-numune.webp",
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner-1",
+        "banner-2",
+        "banner-3",
+        "banner-4",
+        "banner-5",
+        "banner-6",
+        "banner-7",
+        "banner-8",
+        "banner-9"
+      ]
     }
   },
   "order": [

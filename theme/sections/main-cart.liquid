@@ -1,9 +1,21 @@
 {%- comment -%} Sepet sayfası. Satırlar çekmeceyle ortak (snippets/cart-lines.liquid). {%- endcomment -%}
+{%- liquid
+  assign baslik = 'cart.title' | t
+  assign baslik_id = 'CartTitle-' | append: section.id
+  assign ust = section.settings.banner_ust
+  if cart.item_count > 0
+    assign ust = 'cart.count' | t: count: cart.items.size | remove: '(' | remove: ')'
+  endif
+-%}
 <section class="cartpage" aria-labelledby="CartTitle-{{ section.id }}">
-  <h1 class="cartpage__title" id="CartTitle-{{ section.id }}">
-    {{- 'cart.title' | t -}}
-    {%- if cart.item_count > 0 %} <span class="cartpage__count">{{ 'cart.count' | t: count: cart.items.size }}</span>{% endif -%}
-  </h1>
+  {%- if section.settings.banner -%}
+    {%- render 'sayfa-banner', gorsel: section.settings.banner, baslik: baslik, baslik_id: baslik_id, ust: ust, metin: section.settings.banner_metin -%}
+  {%- else -%}
+    <h1 class="cartpage__title" id="CartTitle-{{ section.id }}">
+      {{- baslik -}}
+      {%- if cart.item_count > 0 %} <span class="cartpage__count">{{ 'cart.count' | t: count: cart.items.size }}</span>{% endif -%}
+    </h1>
+  {%- endif -%}
 
   {%- if cart.item_count == 0 -%}
     <div class="cartpage__empty">
@@ -25,6 +37,11 @@
 {
   "name": "Sepet",
   "class": "section-main-cart",
-  "settings": []
+  "settings": [
+    { "type": "header", "content": "Banner" },
+    { "type": "image_picker", "id": "banner", "label": "Banner görseli", "info": "Seçilirse başlık tam genişlik görselin üzerinde, ortalı basılır. Yatay, en az 2560 piksel genişlik." },
+    { "type": "text", "id": "banner_ust", "label": "Üst etiket" },
+    { "type": "textarea", "id": "banner_metin", "label": "Giriş metni" }
+  ]
 }
 {% endschema %}

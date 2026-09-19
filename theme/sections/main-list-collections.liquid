@@ -7,17 +7,29 @@
 {%- else -%}
   {%- assign list = collections -%}
 {%- endif -%}
+{%- liquid
+  assign baslik = 'collections.all_groups' | t
+  if section.settings.title != blank
+    assign baslik = section.settings.title
+  endif
+  assign baslik_id = 'LcollTitle-' | append: section.id
+-%}
 <section class="lcoll" aria-labelledby="LcollTitle-{{ section.id }}">
+  {%- if section.settings.banner -%}
+    {%- render 'sayfa-banner', gorsel: section.settings.banner, baslik: baslik, baslik_id: baslik_id, ust: section.settings.banner_ust, metin: section.settings.lede -%}
+  {%- endif -%}
   <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
     <ol role="list">
       <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
       <li aria-current="page">{{ 'collections.all_groups' | t }}</li>
     </ol>
   </nav>
-  <div class="phero__text lcoll__head">
-    <h1 class="phero__title" id="LcollTitle-{{ section.id }}">{{ section.settings.title | default: 'collections.all_groups' | t }}</h1>
-    {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
-  </div>
+  {%- unless section.settings.banner -%}
+    <div class="phero__text lcoll__head">
+      <h1 class="phero__title" id="LcollTitle-{{ section.id }}">{{ baslik }}</h1>
+      {%- if section.settings.lede != blank -%}<p class="phero__lede">{{ section.settings.lede }}</p>{%- endif -%}
+    </div>
+  {%- endunless -%}
 
   <ul class="grid grid--groups" role="list">
     {%- for c in list -%}
@@ -52,7 +64,10 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Başlık", "info": "Boş bırakılırsa \"Ürün grupları\"." },
     { "type": "textarea", "id": "lede", "label": "Giriş metni" },
-    { "type": "collection_list", "id": "collections", "label": "Gruplar ve sırası", "info": "Boş bırakılırsa bütün koleksiyonlar gösterilir.", "limit": 24 }
+    { "type": "collection_list", "id": "collections", "label": "Gruplar ve sırası", "info": "Boş bırakılırsa bütün koleksiyonlar gösterilir.", "limit": 24 },
+    { "type": "header", "content": "Banner" },
+    { "type": "image_picker", "id": "banner", "label": "Banner görseli", "info": "Seçilirse başlık ve giriş metni tam genişlik görselin üzerinde, ortalı basılır." },
+    { "type": "text", "id": "banner_ust", "label": "Üst etiket" }
   ]
 }
 {% endschema %}

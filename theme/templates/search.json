@@ -1,6 +1,13 @@
 {
   "sections": {
-    "main": { "type": "main-search", "settings": {} }
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "banner": "shopify://shop_images/banner-genel.webp"
+      }
+    }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

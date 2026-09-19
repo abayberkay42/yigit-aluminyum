@@ -4,7 +4,9 @@
       "type": "page-hero",
       "settings": {
         "eyebrow": "Kullanım alanları",
-        "lede": "Profillerimizin evde, işyerinde ve dış mekânda nasıl kullanıldığını odalara göre inceleyin. Görseldeki noktalar ilgili ürüne götürür."
+        "lede": "Profillerimizin evde, işyerinde ve dış mekânda nasıl kullanıldığını odalara göre inceleyin. Görseldeki noktalar ilgili ürüne götürür.",
+        "banner": "shopify://shop_images/banner-kullanim-alanlari.webp",
+        "align": "center"
       }
     },
     "rooms": {

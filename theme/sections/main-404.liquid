@@ -1,9 +1,17 @@
 {%- comment -%} Sayfa bulunamadı: kesik bir ışık çizgisi, ürün gruplarına ve aramaya yönlendirme. {%- endcomment -%}
-<section class="nf" aria-labelledby="NfTitle">
-  <div class="nf__line" aria-hidden="true"><span></span><span></span><span></span></div>
-  <p class="phero__eyebrow">404</p>
-  <h1 class="phero__title" id="NfTitle">{{ 'errors.not_found_title' | t }}</h1>
-  <p class="phero__lede">{{ 'errors.not_found' | t }}</p>
+{%- liquid
+  assign baslik = 'errors.not_found_title' | t
+  assign metin = 'errors.not_found' | t
+-%}
+<section class="nf{% if section.settings.banner %} nf--banner{% endif %}" aria-labelledby="NfTitle">
+  {%- if section.settings.banner -%}
+    {%- render 'sayfa-banner', gorsel: section.settings.banner, baslik: baslik, baslik_id: 'NfTitle', ust: '404', metin: metin -%}
+  {%- else -%}
+    <div class="nf__line" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="phero__eyebrow">404</p>
+    <h1 class="phero__title" id="NfTitle">{{ baslik }}</h1>
+    <p class="phero__lede">{{ metin }}</p>
+  {%- endif -%}
   <form class="nf__search" action="{{ routes.search_url }}" method="get" role="search">
     <label class="visually-hidden" for="NfSearch">{{ 'search.label' | t }}</label>
     <input id="NfSearch" type="search" name="q" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off">
@@ -19,6 +27,9 @@
 {
   "name": "Bulunamadı",
   "class": "section-main-404",
-  "settings": []
+  "settings": [
+    { "type": "header", "content": "Banner" },
+    { "type": "image_picker", "id": "banner", "label": "Banner görseli", "info": "Seçilirse başlık tam genişlik görselin üzerinde, ortalı basılır." }
+  ]
 }
 {% endschema %}

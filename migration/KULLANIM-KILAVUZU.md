@@ -20,6 +20,15 @@ Sitenin tamamı Shopify panelinden yönetilir; koda dokunmanız gerekmez. Bu kı
 
 **Kalıp bloğu eklemek:** 3B ekstrüzyon sahnesi Üretim sayfasındadır ("Üretim süreci"nin altında). Yeni bir ürün grubu açtığınızda tema düzenleyicide Üretim sayfasını seçin, "Ekstrüzyon ve üretim" bölümüne "Kalıp" bloğu ekleyin, koleksiyonu ve örnek ürünü seçin. Kesit listesinden en yakın biçimi seçmeniz yeterli.
 
+## Sayfa başı bannerları
+
+Koleksiyonların ve kurumsal sayfaların başındaki büyük görsel:
+
+- **Kurumsal sayfalar:** Tema düzenleyici > sayfayı aç > Sayfa başlığı bölümü > "Banner görseli". Üst etiket, başlık, alt etiket ve giriş metni aynı bölümde.
+- **Ürün grupları (koleksiyonlar):** Tema düzenleyici > bir koleksiyon aç > Koleksiyon bölümü. Her grup için bir "Grup bannerı" bloğu var (grup + görsel + alt etiket). Bloğu olmayan grup "Varsayılan banner"ı kullanır. Başlık grubun adı, giriş metni grup açıklamasının başıdır.
+- Görsel yatay ve en az 2560 piksel genişlikte olmalı; ortası sakin, koyu tonlu görseller başlığı en iyi taşır. Görsel boşaltılırsa sayfa sade başlığa döner.
+- Şu anki görseller yapay zekâyla üretilmiş temsili görsellerdir; gerçek fotoğraflar geldikçe değiştirilebilir.
+
 ## Ürün sayfaları
 
 Dört şablon var: LED profilleri (varsayılan), duvar paneli, fuga-alçıpan, süpürgelik. Bir ürünün şablonu Ürünler > ürün > sağ alttaki **Tema şablonu** alanından seçilir.

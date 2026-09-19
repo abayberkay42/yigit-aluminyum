@@ -9,7 +9,9 @@
       "settings": {
         "eyebrow": "İletişim",
         "title": "Teklif, bayilik, ürün seçimi",
-        "lede": "Talebinizi WhatsApp'tan iletin ya da bizi arayın. Proje miktarı ve kullanılacak alanı yazarsanız doğru ürünü birlikte belirleriz."
+        "lede": "Talebinizi WhatsApp'tan iletin ya da bizi arayın. Proje miktarı ve kullanılacak alanı yazarsanız doğru ürünü birlikte belirleriz.",
+        "banner": "shopify://shop_images/banner-iletisim.webp",
+        "align": "center"
       }
     },
     "contact": {

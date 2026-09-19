@@ -61,6 +61,29 @@ Ana sayfanın en başındaki kaydırmalı film, videonun kareleri olarak Dosyala
 - Tema düzenleyici > Ana sayfa > Tanıtım filmi: masaüstü ve mobil için ayrı önek, kare sayısı, ölçü ve kaydırma uzunluğu. Kareler başka adla ya da sayıyla yüklenirse yalnız bu ayarlar değişir. Mobil kare sayısı 0 yazılırsa telefonda film gösterilmez.
 - Kontrol: yükleme sonrası ana sayfa önizlemesinde ilk kare görünmeli; kaydırınca film oynamalı. Görünmüyorsa önek ve kare sayısı Dosyalar'daki adlarla aynı mı bakılır.
 
+## Sayfa başı bannerları
+
+Ana sayfa ve ürün sayfaları dışındaki bütün sayfaların başında tam genişlik, sinematik bir banner var: koyu görsel, üzerinde ortalı altın üst etiket, sayfanın başlığı (H1), gerekirse alt etiket ve giriş metni. Menü çubuğu banner üzerindeyken açık renge döner (logonun açık sürümü `assets/yigit-logo-acik.png`, temayla gelir).
+
+**Görseller yapay zekâyla üretildi** (Gemini, 2026-09-19): mekân ve ışık atmosferi gösteren temsili görsellerdir, firmanın gerçek ürün ya da tesis fotoğrafı değildir; içlerinde yazı ve logo yoktur. Gerçek fotoğraf geldiğinde aynı alandan değiştirilir.
+
+`dist/shopify-dosyalar/banner/` klasöründeki 17 dosya (3840 piksel, toplam 4 MB) Shopify > İçerik > Dosyalar'a adları değiştirilmeden yüklenir; şablonlar adıyla anar.
+
+| Sayfa | Dosya | Nereden değişir |
+|---|---|---|
+| LED Profilleri | `banner-led-profilleri.webp` | Koleksiyon şablonu > Koleksiyon bölümü > "Grup bannerı" blokları (grup başına bir blok) |
+| Trimless / Tavan Köşe / Kanal / Kanatlı / Süpürgelik | `banner-trimless`, `-tavan-kose`, `-kanal`, `-kanatli`, `-supurgelik` | Aynı bloklar; alt etiket "LED Profilleri" |
+| Duvar Panel / Alçıpan / Numuneler | `banner-duvar-panel`, `-alcipan`, `-numune` | Aynı bloklar |
+| Bloğu olmayan diğer gruplar, Ürün grupları sayfası | `banner-urunler.webp` | Koleksiyon bölümü > "Varsayılan banner"; Ürün grupları bölümü > "Banner görseli" |
+| Kurumsal, Üretim, Kullanım alanları, İletişim, SSS, Kataloglar | `banner-kurumsal`, `-uretim`, `-kullanim-alanlari`, `-iletisim`, `-sss`, `-kataloglar` | İlgili sayfa şablonu > Sayfa başlığı > "Banner görseli" |
+| Varsayılan sayfa, Arama, Sepet, Blog, 404 | `banner-genel.webp` | İlgili bölüm > "Banner görseli" |
+
+- **SEO:** başlık görselin içinde değil, sayfanın tek H1'i olarak gerçek metin; görsel süs olarak işaretli (boş alt metin). Koleksiyonda başlık grubun adı, giriş metni grup açıklamasının başı; açıklamanın tamamı ızgaranın altında kalır. Sayfa metnine (mağazada) H1 yazılmışsa H2'ye çevrilir: her sayfada tek H1.
+- **Hız:** görsel ilk ekranda olduğu için öncelikli iner, ekran genişliğine göre boyutlanır (telefon 750 piksellik sürümü indirir); yükseklik sabit olduğu için sayfa kaymaz.
+- Banner görseli boş bırakılan sayfa eski sade başlığıyla görünür.
+- Ürün sayfalarına banner konmadı: ürünün görseli ve "Sepete ekle" ilk ekranda kalmalı. Ana sayfanın kendi tanıtım filmi var.
+- Kendi logonuzu yüklerseniz koyu zemin için yazısı açık renkli sürümü Tema ayarları > Firma bilgileri > "Açık logo" alanına yükleyin.
+
 ## Üretim sayfası tanıtım filmi
 
 Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfasının başına, süreç adımlarının üstüne yerleştirildi.

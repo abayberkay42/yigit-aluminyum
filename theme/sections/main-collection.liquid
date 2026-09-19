@@ -1,8 +1,37 @@
 {%- comment -%}
   Koleksiyon (ürün grubu) sayfası: sayfa yolu, başlık ve açıklama, gruplar arası geçiş, sıralama, ürün ızgarası.
   Sıralama Shopify'ın kendi sort_by parametresiyle çalışır (JS yoksa "Uygula" düğmesi görünür).
+  Banner (snippets/sayfa-banner.liquid): "Grup bannerı" bloklarından bu koleksiyonunki, yoksa "Varsayılan banner".
+  İkisi de boşsa eski sade başlık. Açıklamanın başı bannerda, tamamı ızgaranın altında kalır.
 {%- endcomment -%}
-<section class="coll" aria-labelledby="CollTitle-{{ section.id }}">
+{%- liquid
+  assign banner_gorsel = section.settings.banner
+  assign banner_alt = ''
+  for block in section.blocks
+    if block.type == 'banner' and block.settings.collection.handle == collection.handle
+      if block.settings.image
+        assign banner_gorsel = block.settings.image
+      endif
+      assign banner_alt = block.settings.alt
+    endif
+  endfor
+  assign baslik_id = 'CollTitle-' | append: section.id
+-%}
+<section class="coll{% if banner_gorsel %} coll--banner{% endif %}" aria-labelledby="CollTitle-{{ section.id }}">
+  {%- if banner_gorsel -%}
+    {%- liquid
+      assign banner_ust = 'collections.banner_eyebrow' | t: count: collection.products_count
+      assign banner_metin = collection.description | strip_html | truncatewords: 28
+    -%}
+    {%- render 'sayfa-banner',
+      gorsel: banner_gorsel,
+      baslik: collection.title,
+      baslik_id: baslik_id,
+      ust: banner_ust,
+      alt: banner_alt,
+      metin: banner_metin
+    -%}
+  {%- endif -%}
   <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
     <ol role="list">
       <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
@@ -11,13 +40,15 @@
     </ol>
   </nav>
 
-  <header class="coll__head">
-    <h1 class="coll__title" id="CollTitle-{{ section.id }}">{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}
-      {%- comment -%} Başta kısa giriş; açıklamanın tamamı ızgaranın altında (arama motorları için sayfada kalır) {%- endcomment -%}
-      <p class="coll__lead">{{ collection.description | strip_html | truncatewords: 28 }}</p>
-    {%- endif -%}
-  </header>
+  {%- unless banner_gorsel -%}
+    <header class="coll__head">
+      <h1 class="coll__title" id="CollTitle-{{ section.id }}">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        {%- comment -%} Başta kısa giriş; açıklamanın tamamı ızgaranın altında (arama motorları için sayfada kalır) {%- endcomment -%}
+        <p class="coll__lead">{{ collection.description | strip_html | truncatewords: 28 }}</p>
+      {%- endif -%}
+    </header>
+  {%- endunless -%}
 
   {%- if section.settings.groups != blank -%}
     <nav class="coll__groups" aria-label="{{ 'collections.group_nav' | t }}">
@@ -82,7 +113,16 @@
   "class": "section-main-collection",
   "settings": [
     { "type": "collection_list", "id": "groups", "label": "Gruplar arası geçiş", "info": "Başlığın altında sırayla gösterilir. Boş bırakılırsa gösterilmez.", "limit": 12 },
-    { "type": "range", "id": "per_page", "label": "Sayfa başına ürün", "min": 8, "max": 48, "step": 4, "default": 24 }
+    { "type": "range", "id": "per_page", "label": "Sayfa başına ürün", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "header", "content": "Banner" },
+    { "type": "image_picker", "id": "banner", "label": "Varsayılan banner", "info": "Kendi bannerı tanımlanmamış bütün gruplarda kullanılır. Boşsa ve grubun bannerı da yoksa sade başlık." }
+  ],
+  "blocks": [
+    { "type": "banner", "name": "Grup bannerı", "settings": [
+      { "type": "collection", "id": "collection", "label": "Grup" },
+      { "type": "image_picker", "id": "image", "label": "Banner görseli", "info": "Yatay, en az 2560 piksel genişlik." },
+      { "type": "text", "id": "alt", "label": "Alt etiket", "info": "Başlığın altında küçük altın yazı; ör. üst grubun adı." }
+    ] }
   ]
 }
 {% endschema %}

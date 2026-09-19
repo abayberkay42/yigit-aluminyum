@@ -7,7 +7,9 @@
 <header class="rail" data-rail>
   <div class="rail__bar">
     <a class="rail__logo" href="{{ routes.root_url }}">
-      {%- render 'logo', class: 'rail__logo-img' -%}
+      {%- render 'logo', class: 'rail__logo-img rail__logo-img--koyu' -%}
+      {%- comment -%} Sayfa başı bannerı üzerindeyken (menü şeffaf) görünen açık sürüm {%- endcomment -%}
+      {%- render 'logo', class: 'rail__logo-img rail__logo-img--acik', acik: true -%}
     </a>
 
     {%- if section.settings.menu != blank -%}
