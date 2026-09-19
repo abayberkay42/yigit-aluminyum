@@ -1,8 +1,4 @@
 {
-  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
-    "width": 2048,
-    "height": 923
-  },
   "10.jpg": {
     "width": 2048,
     "height": 920
@@ -10,6 +6,10 @@
   "14.jpg": {
     "width": 2048,
     "height": 920
+  },
+  "1_c427f066-bc98-4a6f-9423-d3dfd45f6a3c.jpg": {
+    "width": 2048,
+    "height": 923
   },
   "8.jpg": {
     "width": 2048,
@@ -164,6 +164,10 @@
     "height": 1011
   },
   "yigit-tanitim-filmi-kapak.webp": {
+    "width": 1280,
+    "height": 720
+  },
+  "yigit-tanitim-filmi.mp4": {
     "width": 1280,
     "height": 720
   }

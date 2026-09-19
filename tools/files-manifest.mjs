@@ -8,7 +8,7 @@ import { execFileSync } from 'node:child_process';
 const dir = path.resolve(import.meta.dirname, '../dev/mock/files');
 fs.mkdirSync(dir, { recursive: true });
 const out = {};
-for (const f of fs.readdirSync(dir).filter((n) => /\.(webp|jpe?g|png|avif)$/i.test(n)).sort()) {
+for (const f of fs.readdirSync(dir).filter((n) => /\.(webp|jpe?g|png|avif|mp4)$/i.test(n)).sort()) {
   const [width, height] = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', path.join(dir, f)])
     .toString().trim().split(',').map(Number);
   out[f] = { width, height };
