@@ -1,16 +1,11 @@
 {%- comment -%}
   Metraj fiyatı paneli (ürün sayfası). Firmanın metre başı iskonto tablosu: miktar arttıkça metre fiyatı liste
   fiyatından dip fiyata doğru iner. Canlı hesap src/js/store/product.js + metraj.js; JS yokken en az miktardaki
-  fiyat ve tablo görünür. Tablodaki fiyatlar snippets/metraj-fiyat.liquid ile hesaplanır.
-  Parametreler: blok, liste (kuruş), dip (TL), esik (m), baslangic (m), en_az, adim, kisa (birim kısaltması)
+  fiyat görünür. Metraj fiyat tablosu ve açıklama notu müşteri isteğiyle kaldırıldı (2026-09-19): alıcı yalnız kendi
+  miktarının fiyatını ve indirimini görür.
+  Parametreler: blok, liste (kuruş), dip (TL), esik (m), baslangic (m), en_az, kisa (birim kısaltması)
 {%- endcomment -%}
 {%- liquid
-  assign ilk = baslangic | plus: 0
-  assign kalan = ilk | modulo: adim
-  if kalan > 0
-    assign ilk = ilk | minus: kalan | plus: adim
-  endif
-  assign dip_k = dip | times: 100 | round
   assign bas_oran = baslangic | times: 100.0 | divided_by: esik | at_most: 100
   assign baslik = blok.settings.label
   if baslik == blank
@@ -40,7 +35,7 @@
     <p class="metraj__rozet" data-metraj-off hidden></p>
   </div>
   <p class="metraj__fiyat" aria-live="polite">
-    <strong class="metraj__v" data-metraj-fiyat>{{ liste | money }}</strong>
+    <strong class="metraj__v fiyat-neon" data-metraj-fiyat>{{ liste | money }}</strong>
     <span class="metraj__birim">/ {{ kisa }}</span>
     <s class="metraj__liste" data-metraj-liste hidden><span class="visually-hidden">{{ 'products.metraj_list' | t }}: </span>{{ liste | money }}</s>
   </p>
@@ -57,38 +52,4 @@
   </div>
   <p class="metraj__durum" data-metraj-durum>{{ t_start | replace: '[m]', bas_metin }}</p>
 
-  <details class="metraj__tablo">
-    <summary>{{ 'products.metraj_table' | t }}</summary>
-    <table>
-      <thead>
-        <tr><th scope="col">{{ 'products.metraj_col_m' | t }}</th><th scope="col">{{ 'products.metraj_col_p' | t }}</th></tr>
-      </thead>
-      <tbody>
-        {%- if en_az < ilk -%}
-          <tr><td>{{ en_az }}–{{ ilk | minus: adim }} {{ kisa }}</td><td>{{ liste | money }}</td></tr>
-        {%- endif -%}
-        {%- assign onceki = 0 -%}
-        {%- assign hedefler = '0,100,150,200,250' | split: ',' -%}
-        {%- for h in hedefler -%}
-          {%- liquid
-            assign m = h | plus: 0
-            if m < ilk
-              assign m = ilk
-            endif
-            assign r = m | modulo: adim
-            if r > 0
-              assign m = m | minus: r | plus: adim
-            endif
-          -%}
-          {%- if m > onceki and m < esik -%}
-            {%- capture f -%}{%- render 'metraj-fiyat', liste: liste, dip: dip, esik: esik, metre: m -%}{%- endcapture -%}
-            <tr><td>{{ m }} {{ kisa }}</td><td>{{ f | plus: 0 | money }}</td></tr>
-            {%- assign onceki = m -%}
-          {%- endif -%}
-        {%- endfor -%}
-        <tr class="metraj__dip-satir"><td>{{ esik }} {{ kisa }} +</td><td>{{ dip_k | money }}</td></tr>
-      </tbody>
-    </table>
-  </details>
-  {%- if settings.metraj_not != blank -%}<p class="metraj__not">{{ settings.metraj_not }}</p>{%- endif -%}
 </div>

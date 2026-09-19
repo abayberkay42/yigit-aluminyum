@@ -78,6 +78,8 @@ Ana sayfa ve ürün sayfaları dışındaki bütün sayfaların başında tam ge
 | Kurumsal, Üretim, Kullanım alanları, İletişim, SSS, Kataloglar | `banner-kurumsal`, `-uretim`, `-kullanim-alanlari`, `-iletisim`, `-sss`, `-kataloglar` | İlgili sayfa şablonu > Sayfa başlığı > "Banner görseli" |
 | Varsayılan sayfa, Arama, Sepet, Blog, 404 | `banner-genel.webp` | İlgili bölüm > "Banner görseli" |
 
+Aynı klasörde ürün sayfasındaki "Normal LED şerit ve 240 çipli LED şerit" karşılaştırmasının iki görseli de var (`karsilastirma-serit-normal.webp`, `karsilastirma-serit-240.webp`; yapay zekâyla üretilmiş temsili görseller, sayfada "Temsili görseller." notuyla). Aynı adla yüklenir.
+
 - **SEO:** başlık görselin içinde değil, sayfanın tek H1'i olarak gerçek metin; görsel süs olarak işaretli (boş alt metin). Koleksiyonda başlık grubun adı, giriş metni grup açıklamasının başı; açıklamanın tamamı ızgaranın altında kalır. Sayfa metnine (mağazada) H1 yazılmışsa H2'ye çevrilir: her sayfada tek H1.
 - **Hız:** görsel ilk ekranda olduğu için öncelikli iner, ekran genişliğine göre boyutlanır (telefon 750 piksellik sürümü indirir); yükseklik sabit olduğu için sayfa kaymaz.
 - Banner görseli boş bırakılan sayfa eski sade başlığıyla görünür.

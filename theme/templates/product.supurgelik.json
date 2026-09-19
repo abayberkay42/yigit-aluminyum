@@ -15,16 +15,11 @@
         "project": {
           "type": "project",
           "settings": {}
-        },
-        "calculator": {
-          "type": "calculator",
-          "settings": {}
         }
       },
       "block_order": [
         "tier",
         "actions",
-        "calculator",
         "project"
       ],
       "settings": {}

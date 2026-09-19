@@ -1157,24 +1157,6 @@
   .metraj__olcek-bas { position: absolute; inset-inline-start: var(--bas); translate: -50% 0; }
   .metraj__durum { font-size: 0.875rem; font-weight: 600; color: var(--c-gold); }
   .metraj.is-dipte .metraj__durum { color: var(--c-ink); }
-  .metraj__tablo { border-block-start: 1px solid var(--c-rule); padding-block-start: 0.35rem; }
-  .metraj__tablo summary {
-    display: flex; align-items: center; justify-content: space-between; min-block-size: 2.5rem;
-    font-size: 0.875rem; font-weight: 600; cursor: pointer; list-style: none;
-  }
-  .metraj__tablo summary::-webkit-details-marker { display: none; }
-  .metraj__tablo summary::after {
-    content: ''; inline-size: 0.5rem; block-size: 0.5rem; margin-inline-end: 0.2rem;
-    border-inline-end: 1.5px solid currentColor; border-block-end: 1.5px solid currentColor;
-    rotate: 45deg; translate: 0 -0.15rem; transition: rotate var(--dur-ui) var(--ease-out);
-  }
-  .metraj__tablo[open] summary::after { rotate: 225deg; translate: 0 0.1rem; }
-  .metraj__tablo table { inline-size: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
-  .metraj__tablo th { padding-block: 0.35rem; font-weight: 600; text-align: start; color: var(--c-ink-soft); font-size: 0.8125rem; }
-  .metraj__tablo th:last-child, .metraj__tablo td:last-child { text-align: end; }
-  .metraj__tablo td { padding-block: 0.45rem; border-block-start: 1px solid var(--c-rule); }
-  .metraj__dip-satir td { font-weight: 650; }
-  .metraj__not { font-size: 0.8125rem; color: var(--c-ink-soft); }
   @media (prefers-reduced-motion: reduce) { .metraj__dolu { transition: none; } }
 
   /* Satış koşulu (ürün sayfası, miktarın üstünde) */
@@ -1938,6 +1920,16 @@
   .pdp__title { margin: 0; font-size: clamp(1.5rem, 2.2vw, 2.25rem); font-weight: 660; font-stretch: 112%; line-height: 1.04; letter-spacing: -0.025em; }
   .pdp__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.45rem; font-size: 1.375rem; font-weight: 600; font-stretch: 104%; font-variant-numeric: tabular-nums; }
   .pdp__birim { font-size: 1rem; font-weight: 500; color: var(--c-ink-soft); }
+  /* Fiyat: logonun altın degradesi (koyu uçları; beyaz zeminde okunur kalsın diye açık sarı uç kullanılmaz) ve hafif
+     neon parıltı. Parıltı drop-shadow ile: degradeli (saydam dolgulu) yazıda text-shadow harfin içinden görünür.
+     "background:" kısaltması yazılmaz: Lightning CSS onu yeniden basınca background-clip sıfırlanıyor. */
+  .fiyat-neon {
+    background-image: linear-gradient(180deg, #b58a36 0%, #9a7328 45%, #7a5a1b 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: #86651f;
+    filter: drop-shadow(0 0 0.28em rgb(225 195 96 / 0.55)) drop-shadow(0 0 0.06em rgb(244 233 166 / 0.6));
+  }
+  @media (forced-colors: active) { .fiyat-neon { -webkit-text-fill-color: currentColor; background-image: none; filter: none; } }
   .pdp__kdv { align-self: center; padding: 0.1rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 560; letter-spacing: 0.02em; color: var(--c-ink-soft); box-shadow: inset 0 0 0 1px var(--c-rule); }
   .pdp__note { font-size: 0.875rem; color: var(--c-ink-soft); }
   .pdp__form { display: grid; gap: 1.4rem; }
@@ -1965,6 +1957,18 @@
   .pdp__project { display: grid; gap: 0.35rem; padding: 1.25rem; border-radius: var(--radius); background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule); font-size: 0.9375rem; }
   .pdp__project-t { font-weight: 620; }
   .pdp__project a { justify-self: start; font-weight: 600; min-block-size: 2.25rem; display: inline-flex; align-items: center; }
+  .pdp__project a.pdp__project-wa {
+    gap: 0.55rem; min-block-size: 2.75rem; margin-block-start: 0.4rem; padding-inline: 0.95rem 1.15rem; border-radius: 999px;
+    text-decoration: none; color: #fff; background: #1c8742;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), 0 0.6rem 1.2rem -0.7rem rgb(28 135 66 / 0.7);
+    transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-ui) ease;
+  }
+  .pdp__project-wa .icon { flex: none; }
+  .pdp__project-wa:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) { .pdp__project-wa:hover { background-color: #177538; } }
+  .pdp__project-wa:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 3px; }
+  /* Taksit özeti bilgi sütununun en altında: ince çizgiyle ayrılır */
+  .pdp__taksit:not(:empty) { padding-block-start: 1.25rem; border-block-start: 1px solid var(--c-rule); }
   .pdp__features { margin-block-start: clamp(3rem, 8svh, 5rem); }
   .pdp__h2 { margin-block-end: 0.5rem; font-size: clamp(1.25rem, 1.6vw, 1.625rem); font-weight: 660; font-stretch: 112%; letter-spacing: -0.02em; }
 

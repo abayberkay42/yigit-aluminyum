@@ -20,16 +20,11 @@
         "project": {
           "type": "project",
           "settings": {}
-        },
-        "calculator": {
-          "type": "calculator",
-          "settings": {}
         }
       },
       "block_order": [
         "tier",
         "actions",
-        "calculator",
         "project"
       ],
       "settings": {}
@@ -249,7 +244,10 @@
         "heading": "Normal LED şerit ve 240 çipli LED şerit",
         "col_a": "Normal LED şerit",
         "col_b": "240 çipli LED şerit",
-        "highlight": "b"
+        "highlight": "b",
+        "image_a": "shopify://shop_images/karsilastirma-serit-normal.webp",
+        "image_b": "shopify://shop_images/karsilastirma-serit-240.webp",
+        "note": "Temsili görseller."
       }
     },
     "applications": {

@@ -145,12 +145,6 @@
         "label": "Dip fiyat eşiği (metre)",
         "info": "Bu metrajda ve üzerinde dip fiyat (custom.tier_price) geçer. Üründe custom.dip_esik doluysa o kullanılır.",
         "default": 300
-      },
-      {
-        "type": "text",
-        "id": "metraj_not",
-        "label": "Metraj notu",
-        "default": "Aynı üründen alınan toplam metraja göre hesaplanır; indirim ödeme adımında uygulanır."
       }
     ]
   },

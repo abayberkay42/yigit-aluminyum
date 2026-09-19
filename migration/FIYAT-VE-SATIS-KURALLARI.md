@@ -15,8 +15,8 @@ Sitenin hesabı Excel'deki formülle birebir aynıdır: 55 ürün × 300 metre, 
 - Miktar kutusunun üstünde satış koşulu yazar: "En az 15 m · 3 m artışla · 1 boy = 3 m". Paketli ürünlerde "1 paket = 50 adet" de yazar.
 - Miktar en az miktardan başlar. + ve − düğmeleri artış miktarı kadar ilerler (LED'de 3 m, PVC panelde 50 adet). Elle 40 yazılırsa 42'ye çıkar ve nedeni ekranda yazar. En az miktarın altına inilmez.
 - Miktarın altında toplam tutar yazar: "Toplam ₺11.088,00 · 120 m × ₺92,40".
-- **Metraj fiyatı paneli** (dip fiyatı girilmiş LED ürünlerinde): miktar değiştikçe metre fiyatı, indirim yüzdesi ve dip fiyata kalan metraj canlı değişir. Açılır "Metraj fiyat tablosu" 51, 102, 150, 201, 252 ve 300 m için metre fiyatlarını gösterir.
-- "Ne kadar gerekli?" hesaplayıcısının sonucu da kurala oturur (17 m → 18 m, 60 adet → 100 adet).
+- **Metraj fiyatı paneli** (dip fiyatı girilmiş LED ürünlerinde): miktar değiştikçe metre fiyatı, indirim yüzdesi ve dip fiyata kalan metraj canlı değişir. Alıcı yalnız kendi miktarının fiyatını görür; metrajlara göre fiyat tablosu firmanın isteğiyle gösterilmez (2026-09-19).
+- "Ne kadar gerekli?" hesaplayıcısı firmanın isteğiyle ürün sayfalarından kaldırıldı (2026-09-19). Bölümde isteğe bağlı blok olarak durur; eklenirse sonucu yine satış kuralına oturur.
 - "Ürün Özellikleri" penceresinde ürün kodu (ör. Y6279) ve satış birimi görünür.
 
 **Ürün kartı:** Fiyatın yanında "/ m" ya da "/ adet" yazar. "Sepete ekle" en az miktarı ekler; düğmenin üzerinde miktar yazar (ör. "15 m").
@@ -64,7 +64,7 @@ Excel'deki kural:
 
 1. **Shopify Functions ile özel indirim.** Formül zaten yazılı ve doğrulanmış; aynı kod indirim fonksiyonuna taşınır. Shopify'ın kuralına göre özel uygulama içinde fonksiyon çalıştırmak **Shopify Plus** planında mümkün. Mağazanın planı ve Shopify'ın güncel kuralı başlamadan önce kontrol edilir.
 2. **App Store'daki bir kademeli indirim uygulaması.** Bu uygulamalar kademe (ör. 51 m'de %X, 102 m'de %Y) tanımlar. Excel'deki sürekli formül kademelere bölünerek yaklaşık uygulanabilir. Ürün başına kademe sayısı sınırı ve aylık ücreti uygulamaya göre değişir.
-3. **Teklifle satış.** 50 m üstü siparişler WhatsApp'tan teklifle alınır; sitede tablo bilgi amaçlı kalır.
+3. **Teklifle satış.** 50 m üstü siparişler WhatsApp'tan teklifle alınır; sitedeki metraj fiyatı bilgi amaçlı kalır.
 
 Hangisi seçilirse seçilsin, **indirim ödemede uygulanmıyorsa site yayına alınmadan önce Tema ayarları > Satış > "Metraj indirimini göster" kapatılmalı.** Yoksa müşteri sepette göremeyeceği bir indirimi ürün sayfasında görür. Kapatınca panel, sepetteki metraj satırı ve indirim toplamı gizlenir; satış kuralları çalışmaya devam eder.
 
@@ -112,6 +112,5 @@ Tema ayarları > Satış:
 - **Metraj indirimini göster:** açık ya da kapalı (yukarıdaki uyarıya bakın).
 - **İndirimin başladığı metraj:** 50.
 - **Dip fiyat eşiği:** 300 (ürün bazında `custom.dip_esik`).
-- **Metraj notu:** panelin altındaki açıklama.
 
 Kategori kurallarının kendisi (en az, artış, boy uzunluğu) temanın `snippets/satis-kurali.liquid` dosyasındadır. Firmanın kuralı değişirse orada tek satır değişir. Tek bir ürün için farklı değer gerekiyorsa `custom.min_siparis` ve `custom.adim` yeterlidir.

@@ -42,7 +42,8 @@ Dört şablon var: LED profilleri (varsayılan), duvar paneli, fuga-alçıpan, s
 - **Numune iste ve Ürün Özellikleri:** "Sepete ekle"nin altında yan yana iki düğme. "Numune iste" WhatsApp'ı ürünün adını içeren hazır mesajla açar (numune düğmesi sitede yalnız ürün sayfalarındadır). "Ürün Özellikleri" bir pencere açar: ürün grubu, ürün adındaki ölçü, malzeme (açıklamada geçiyorsa), renk/ölçü seçenekleri, stok kodu, teknik bilgiler ve ürün açıklaması. Ayar: Tema düzenleyici > ürün şablonu > "Ek düğmeler".
 - **Teknik bilgiler:** Ürünün "Teknik özellikler" meta alanına her satıra bir bilgi "Başlık: Değer" biçiminde yazılır (örnek: `Boy: 300 cm`). Pencerede tablo satırı olarak görünür. Yalnız doğrulanmış ölçüler girilmelidir.
 - **Taksit:** Fiyatın altında "12 aya varan taksit" satırı ve kart görselleri, sayfanın aşağısında kart kart taksit bölümü. Ayar: Tema ayarları > Taksit.
-- **Adım adım anlatım, karşılaştırma tabloları, sıkça sorulan sorular, taksit tablosu:** Her biri ayrı bölüm. Bunlar ürüne değil şablona bağlıdır: değişiklik o şablonu kullanan bütün ürünlerde görünür.
+- **Taksit bilgisi:** Kart logolarıyla birlikte bilgi sütununun en altında (fiyatın altından taşındı).
+- **Adım adım anlatım, karşılaştırma tabloları (iki sütun görseli eklenebilir), sıkça sorulan sorular, taksit tablosu:** Her biri ayrı bölüm. Bunlar ürüne değil şablona bağlıdır: değişiklik o şablonu kullanan bütün ürünlerde görünür.
 - **Açıklama:** Shopify'daki ürün açıklaması, "Ürün Özellikleri" penceresinde "Özellikler" başlığı altında görünür. "Başlık: metin" biçimindeki satırlar düzenli bir listeye dönüşür.
 
 ## Koleksiyon (ürün grubu) sayfaları
