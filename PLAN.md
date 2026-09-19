@@ -36,7 +36,7 @@ Müşteriye giden plan: `Downloads/Yigit-Aluminyum-Proje-Plani.pdf`. Bu belge ek
 | 4 | LED sahnesi (tek WebGL): kesitten üretilen 3B profil, 3000K/4000K/6500K ışık seçimi, telefon karşılığı | threejs-fundamentals, threejs-geometry, threejs-materials, threejs-lighting, threejs-shaders, threejs-postprocessing, threejs-textures, threejs-interaction, webgl-performance | ✓ bitti — gerçek kesit çizimleri gelince yeniden ele alınacak |
 | 5 | Görüntü hattı: video kodlama, kaydırmalı kare dizisi, poster kareleri, görsel boyutları | web-video-encoding, seo-images | kısmen — oda görselleri üretildi; müşteri videoları ve gerçek ürün çekimleri bekleniyor |
 | 6 | Mağaza sayfaları: koleksiyon, ürün (varyant, metraj hesaplayıcı, kademe), sepet çekmecesi, arama | ui-ux-pro-max, emil-design-eng, page-cro, seo-ecommerce, seo-schema, wcag-audit | ✓ bitti — metraj hesaplayıcı satış birimi kararına bağlı |
-| 7 | Kurumsal sayfalar: üretim, kullanım alanları, hakkımızda, toptan/bayilik, iletişim, katalog, VR | ui-ux-pro-max, emil-design-eng, copywriting, site-architecture, web-maps (statik harita + yol tarifi) | ✓ bitti — film, sayılar, belgeler ve VR içeriği bekleniyor |
+| 7 | Kurumsal sayfalar: üretim, kullanım alanları, hakkımızda, toptan, iletişim, katalog, VR | ui-ux-pro-max, emil-design-eng, copywriting, site-architecture, web-maps (statik harita + yol tarifi) | ✓ bitti — film, sayılar, belgeler ve VR içeriği bekleniyor |
 | 8 | Dil ve SEO: TR/EN, Arapça hazırlığı, yapılandırılmış veri, eski adreslerin 301 haritası, geçiş öncesi temel çizgi | rtl-arabic, seo-hreflang, seo-technical, seo-schema, seo-sitemap, seo-drift | ✓ bitti — sayfa içeriklerinin İngilizcesi aktarımda girilecek |
 | 9 | Kalite: erişilebilirlik, performans, Playwright görsel testleri, azaltılmış hareket ve telefon kontrolleri | ui-ux-pro-max, emil-design-eng, wcag-audit, web-perf, webapp-testing, verification-before-completion, review-animations | ✓ bitti (axe 0 ihlal, tema denetimi 0 bulgu) |
 | 10 | Çevrim içi önizleme ve müşteri onayı | — | bekliyor — temanın mağazaya yüklenmesi gerekiyor (Shopify erişimi) |
@@ -52,7 +52,7 @@ Kullanılmayanlar ve nedeni: react-three-fiber ve react-view-transitions (Liquid
 4. **Metraj hesaplayıcı** (ürün sayfası). Toplam metre ya da oda ölçüsü girilir; kaç boy gerektiği, fire payı ve 300 m kademesine ne kadar kaldığı gösterilir; sonuç adet olarak sepete gider.
 5. **Gerçek numuneyle renk ve kapak seçimi.** Renk kutusu yerine her eloksal/boya renginin makro çekimi; kapak (opal/şeffaf) seçildiğinde ışığın görünümü değişir.
 6. **Oda üzerinde ürün noktaları** (kullanım alanları). 8 odanın profesyonel çekimi üzerinde profilin kullanıldığı noktalar; nokta ürüne götürür. Aynı bilgi liste olarak da vardır.
-7. **İki kapı.** Toptan/proje (teknik föy, numune talebi, bayilik formu, WhatsApp) ve uygulamacı/son kullanıcı (mağaza, hesaplayıcı, montaj videosu). Ana sayfa kapanışında ve menüde.
+7. **İki kapı.** Toptan/proje (teknik föy, numune talebi, WhatsApp; firma bayilik vermiyor, 2026-09-19) ve uygulamacı/son kullanıcı (mağaza, hesaplayıcı, montaj videosu). Ana sayfa kapanışında ve menüde.
 8. **Otomatik teknik föy.** Her ürün sayfası meta alanlardan yazdırılabilir bir teknik föy üretir (kesit, ölçüler, renkler, boy). Ayrı PDF hazırlamaya gerek kalmaz.
 9. **Numune talebi.** Mevcut "numuneler" koleksiyonu proje müşterisi için düşük eşikli ilk adıma dönüşür.
 10. **Açılış yükleme ekranıdır.** Açılışta kesit çizimi çizilir, arkada fabrika videosu yüklenir; iki saniyenin altında, tekrar ziyarette atlanır.

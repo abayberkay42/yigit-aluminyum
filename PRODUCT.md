@@ -8,7 +8,7 @@ brand
 
 Üç ziyaretçi grubu, aynı ana sayfaya farklı soruyla gelir:
 
-- **Toptancı ve proje firmaları** (yapı marketler, aydınlatma bayileri, müteahhitler, iç mimarlar): "Bu firma gerçekten üretici mi, kapasitesi ve süreklilik güvencesi var mı, teknik veriye ulaşabilir miyim?" Masaüstünde, ofiste, karar vermeden önce karşılaştırma yaparak gezer.
+- **Toptancı ve proje firmaları** (yapı marketler, aydınlatma satıcıları, müteahhitler, iç mimarlar): "Bu firma gerçekten üretici mi, kapasitesi ve süreklilik güvencesi var mı, teknik veriye ulaşabilir miyim?" Masaüstünde, ofiste, karar vermeden önce karşılaştırma yaparak gezer.
 - **Uygulamacılar** (alçıpancı, elektrikçi, dekorasyon ustası): "Hangi profil hangi işe uygun, kaç boy almalıyım, stokta var mı?" Çoğunlukla telefonda, şantiyede.
 - **Son kullanıcılar** (evini yaptıran kişi): "Bu ışık benim evimde nasıl görünür, fiyatı ne?" Telefonda, akşam, ilham ararken.
 

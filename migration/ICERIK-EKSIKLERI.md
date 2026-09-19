@@ -96,3 +96,7 @@ Açıklaması hiç olmayan 7 ürün (3. madde) için pencerede yalnız ürün gr
 - **Maximum logosu:** maximum.com.tr bağlantı vermediği için İş Bankası'nın resmi "Maximum Mobil" uygulamasının App Store görselinden alındı. Kaynak çözünürlüğü düşük; İş Bankası'ndan vektör (SVG/AI) logo gelirse değiştirilmesi iyi olur.
 - **CardFinans** için sitede yalnız QNB logosu var; **Advantage** için yalnız kart görseli. Bankalardan ya da PayTR'den program logoları gelirse bunlar da değiştirilebilir.
 - **Hangi kartlarda kaç taksit ve vade farkı olduğu** PayTR panelindeki ayarlarla teyit edilmeli.
+
+## 12. Kurumsal sayfa metninde bayi ağı
+
+Firma bayilik vermediği için sitedeki bayilik başvurusu ve bayilik ifadeleri kaldırıldı (2026-09-19). Kurumsal sayfanın mağazadaki metninde (Shopify > Online Mağaza > Sayfalar > Kurumsal) hâlâ şu cümle var: "…üretim yapmakta; **bayi ağı sayesinde** tüm Türkiye'ye dağıtım sağlamaktadır." Bu metin temanın değil mağazanın içeriği olduğu için oradan düzeltilmeli. Öneri: "…üretim yapmakta ve tüm Türkiye'ye dağıtım sağlamaktadır." İngilizce çevirisinde de "through our dealer network" ifadesi çıkarılmalı.
