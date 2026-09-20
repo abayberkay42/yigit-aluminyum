@@ -2,12 +2,21 @@
   Ürün sayfası: adım adım anlatım (uygulama, kapak takma). Grup şablonunda tanımlanır; video isteğe bağlı.
   Adımlar sıralı olduğu için numaralıdır. Adım yoksa ve video yoksa bölüm görünmez.
   Adım görselleri kendi oranında gösterilir (kırpılmaz). "Özet görsel" doluysa bölümün altında tam genişlikte gösterilir.
-  "Yalnız özet görseli göster" açıksa ekranda yalnız özet görsel kalır; başlık ve adımlar görünmez metin olarak durur
-  (görseldeki yazıyı arama motoru ve ekran okuyucu okuyamaz). Adım görselleri o zaman hiç basılmaz, inmez.
+  "Görünüm" ayarı: kartlar (varsayılan), kartlar + altında özet görsel ya da yalnız özet görsel. Yalnız özet görselde
+  başlık ve adımlar görünmez metin olarak durur (görseldeki yazıyı arama motoru ve ekran okuyucu okuyamaz); adım
+  görselleri o zaman hiç basılmaz, inmez.
 {%- endcomment -%}
 {%- liquid
+  comment
+    Görünüm: kart = adım kartları (özet görsel basılmaz), ikisi = kartlar + altında özet görsel,
+    ozet = ekranda yalnız özet görsel. Eski onay kutusu (yalniz_ozet) hâlâ okunur.
+  endcomment
+  assign gorunum = section.settings.gorunum | default: 'kart'
+  if section.settings.yalniz_ozet and section.settings.gorunum == blank
+    assign gorunum = 'ozet'
+  endif
   assign yalniz = false
-  if section.settings.yalniz_ozet and section.settings.ozet
+  if gorunum == 'ozet' and section.settings.ozet
     assign yalniz = true
   endif
 -%}
@@ -42,7 +51,7 @@
         {%- endfor -%}
       </ol>
     {%- endif -%}
-    {%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}
+    {%- if gorunum == 'ikisi' -%}{%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}{%- endif -%}
     {%- endif -%}
   </section>
 {%- endif -%}
@@ -56,7 +65,11 @@
     { "type": "textarea", "id": "text", "label": "Metin" },
     { "type": "video", "id": "video", "label": "Video" },
     { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." },
-    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; başlık ve içerik arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
+    { "type": "select", "id": "gorunum", "label": "Görünüm", "default": "kart", "options": [
+      { "value": "kart", "label": "Adım kartları" },
+      { "value": "ikisi", "label": "Adım kartları ve özet görsel" },
+      { "value": "ozet", "label": "Yalnız özet görsel" }
+    ], "info": "Yalnız özet görselde ekranda tek görsel kalır; içerik arama motorları ve ekran okuyucular için sayfada görünmez metin olarak durur." }
   ],
   "blocks": [
     { "type": "step", "name": "Adım", "limit": 8, "settings": [

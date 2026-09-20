@@ -110,7 +110,7 @@
       "settings": {
         "heading": "Adım adım uygulama",
         "ozet": "shopify://shop_images/trimless-uygulama-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     },
     "cover": {
@@ -158,7 +158,7 @@
       "settings": {
         "heading": "Difüzör kapak nasıl takılır?",
         "ozet": "shopify://shop_images/trimless-kapak-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     },
     "compare_spot": {
@@ -204,7 +204,7 @@
         "image_b": "shopify://shop_images/trimless-spot-trimless.webp",
         "note": "Temsili aydınlatma tasarımları.",
         "ozet": "shopify://shop_images/trimless-spot-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     },
     "applications": {
@@ -336,7 +336,7 @@
         "caption_dogru": "Kapak, montaj sırasında profilin iç ölçüsünü korur.",
         "sira_baslik": "Doğru uygulama sırası",
         "ozet": "shopify://shop_images/trimless-hata-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     },
     "kesim": {
@@ -366,7 +366,7 @@
       "settings": {
         "heading": "Köşe dönüşlerinde 45° kesim",
         "ozet": "shopify://shop_images/trimless-kesim-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     },
     "serit": {
@@ -413,7 +413,7 @@
         "onerilen_etiket": "Önerilen seçim",
         "note": "Aynı profil ve difüzör için temsili karşılaştırma.",
         "ozet": "shopify://shop_images/led-serit-rehber.webp",
-        "yalniz_ozet": true
+        "gorunum": "kart"
       }
     }
   },

@@ -3,12 +3,16 @@
   uygulama sırası (numaralı adımlar) ve isteğe bağlı özet görsel. İlk kullanım: trimless profilde
   "Montajda kapağı çıkarmayın" (firmanın uygulama kılavuzu, 2026-09).
   Yanlış / doğru ayrımı yalnız renkle verilmez: simge ve "Yanlış:" / "Doğru:" yazısı da vardır.
-  "Yalnız özet görseli göster" açıksa ekranda yalnız özet görsel; içerik görünmez metin olarak kalır.
+  "Görünüm" ayarı: kartlar, kartlar + özet görsel ya da yalnız özet görsel (o zaman içerik görünmez metin olarak kalır).
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
+  assign gorunum = s.gorunum | default: 'kart'
+  if s.yalniz_ozet and s.gorunum == blank
+    assign gorunum = 'ozet'
+  endif
   assign yalniz = false
-  if s.yalniz_ozet and s.ozet
+  if gorunum == 'ozet' and s.ozet
     assign yalniz = true
   endif
   assign var = false
@@ -77,7 +81,7 @@
         </ol>
       </div>
     {%- endif -%}
-    {%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}
+    {%- if gorunum == 'ikisi' -%}{%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}{%- endif -%}
     {%- endif -%}
   </section>
 {%- endif -%}
@@ -100,7 +104,11 @@
     { "type": "header", "content": "Doğru uygulama sırası" },
     { "type": "text", "id": "sira_baslik", "label": "Başlık", "default": "Doğru uygulama sırası" },
     { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." },
-    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; başlık ve içerik arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
+    { "type": "select", "id": "gorunum", "label": "Görünüm", "default": "kart", "options": [
+      { "value": "kart", "label": "Kartlar" },
+      { "value": "ikisi", "label": "Kartlar ve özet görsel" },
+      { "value": "ozet", "label": "Yalnız özet görsel" }
+    ], "info": "Yalnız özet görselde ekranda tek görsel kalır; içerik arama motorları ve ekran okuyucular için sayfada görünmez metin olarak durur." }
   ],
   "blocks": [
     { "type": "step", "name": "Adım", "limit": 8, "settings": [

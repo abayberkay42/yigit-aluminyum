@@ -53,6 +53,12 @@ async function audit(ctxOpts, path, label) {
     await gez();
   }
   await page.waitForTimeout(800);
+  // Belirme animasyonu (reveal) bitmeden ölçülen yazı yarı saydamdır: axe rengi açık okuyup kontrast hatası verir.
+  // Yalnız biten animasyonlar beklenir; sonsuz dönenler (nabız, ışık) beklenirse denetim hiç bitmez.
+  await page
+    .evaluate(() => Promise.all(document.getAnimations().filter((a) => Number.isFinite(a.effect?.getComputedTiming?.().endTime)).map((a) => a.finished.catch(() => {}))))
+    .catch(() => {});
+  await page.waitForTimeout(200);
   const broken = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0 && i.getAttribute('src')).map((i) => i.getAttribute('src').slice(0, 90)));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   await page.addScriptTag({ path: AXE });

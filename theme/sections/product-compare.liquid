@@ -2,11 +2,15 @@
   Ürün sayfası: iki sütunlu karşılaştırma tablosu (ör. spot / LED profil, normal / 240 çipli LED şerit).
   Önerilen sütunun üst kenarında LED çizgisi yanar. Satır yoksa bölüm görünmez.
   İsteğe bağlı: iki sütunun görseli (tablonun üstünde yan yana, aynı mekânın iki hâli gibi), not satırı ve özet görsel.
-  "Yalnız özet görseli göster" açıksa ekranda yalnız özet görsel; başlık ve tablo görünmez metin olarak kalır.
+  "Görünüm" ayarı: tablo, tablo + özet görsel ya da yalnız özet görsel (o zaman başlık ve tablo görünmez metin olarak kalır).
 {%- endcomment -%}
 {%- liquid
+  assign gorunum = section.settings.gorunum | default: 'kart'
+  if section.settings.yalniz_ozet and section.settings.gorunum == blank
+    assign gorunum = 'ozet'
+  endif
   assign yalniz = false
-  if section.settings.yalniz_ozet and section.settings.ozet
+  if gorunum == 'ozet' and section.settings.ozet
     assign yalniz = true
   endif
 -%}
@@ -63,7 +67,7 @@
     </div>
     {%- unless yalniz -%}
       {%- if section.settings.note != blank -%}<p class="cmp__not">{{ section.settings.note }}</p>{%- endif -%}
-      {%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}
+      {%- if gorunum == 'ikisi' -%}{%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}{%- endif -%}
     {%- endunless -%}
   </section>
 {%- endif -%}
@@ -84,7 +88,11 @@
     { "type": "image_picker", "id": "image_b", "label": "2. sütun görseli" },
     { "type": "text", "id": "note", "label": "Not", "info": "Tablonun altında küçük yazı (ör. \"Temsili aydınlatma tasarımları.\")" },
     { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Bölümün altında tam genişlikte gösterilir (firmanın tek görsellik rehberi)." },
-    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; başlık ve içerik arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
+    { "type": "select", "id": "gorunum", "label": "Görünüm", "default": "kart", "options": [
+      { "value": "kart", "label": "Tablo" },
+      { "value": "ikisi", "label": "Tablo ve özet görsel" },
+      { "value": "ozet", "label": "Yalnız özet görsel" }
+    ], "info": "Yalnız özet görselde ekranda tek görsel kalır; içerik arama motorları ve ekran okuyucular için sayfada görünmez metin olarak durur." }
   ],
   "blocks": [
     { "type": "row", "name": "Satır", "limit": 12, "settings": [

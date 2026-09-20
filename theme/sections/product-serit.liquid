@@ -2,13 +2,17 @@
   Ürün sayfası: LED şerit karşılaştırması (60 / 120 / 240 çipli). Firmanın "Tüm LED profilleri için ürün sayfası
   içerikleri" klasöründen (2026-09-19). Her satır: şerit adı, kısa açıklama, geniş şerit görseli (solu kapaksız,
   sağı difüzör kapaklı görünüm). Önerilen satırda altın çerçeve ve "Önerilen seçim" etiketi.
-  "Yalnız özet görseli göster" açıksa ekranda yalnız firmanın tek görsellik karşılaştırması; satırlar görünmez
+  "Görünüm" ayarı: satırlar, satırlar + özet görsel ya da yalnız özet görsel. Yalnız özet görselde satırlar görünmez
   metin olarak kalır (görseldeki yazıyı arama motoru ve ekran okuyucu okuyamaz), şerit görselleri hiç basılmaz.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
+  assign gorunum = s.gorunum | default: 'kart'
+  if s.yalniz_ozet and s.gorunum == blank
+    assign gorunum = 'ozet'
+  endif
   assign yalniz = false
-  if s.yalniz_ozet and s.ozet
+  if gorunum == 'ozet' and s.ozet
     assign yalniz = true
   endif
 -%}
@@ -56,7 +60,7 @@
         {%- endfor -%}
       </ul>
       {%- if s.note != blank -%}<p class="cmp__not">{{ s.note }}</p>{%- endif -%}
-      {%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}
+      {%- if gorunum == 'ikisi' -%}{%- render 'rehber-gorsel', gorsel: s.ozet, alt: s.heading -%}{%- endif -%}
     {%- endif -%}
   </section>
 {%- endif -%}
@@ -73,7 +77,11 @@
     { "type": "text", "id": "onerilen_etiket", "label": "Önerilen etiketi", "default": "Önerilen seçim" },
     { "type": "text", "id": "note", "label": "Not", "default": "Aynı profil ve difüzör için temsili karşılaştırma." },
     { "type": "image_picker", "id": "ozet", "label": "Özet görsel", "info": "Karşılaştırmanın tek görsellik hâli (firmanın görseli)." },
-    { "type": "checkbox", "id": "yalniz_ozet", "label": "Yalnız özet görseli göster", "default": false, "info": "Açıkken ekranda yalnız özet görsel görünür; satırlar arama motorları ve ekran okuyucular için sayfada metin olarak kalır (görünmez)." }
+    { "type": "select", "id": "gorunum", "label": "Görünüm", "default": "kart", "options": [
+      { "value": "kart", "label": "Satırlar" },
+      { "value": "ikisi", "label": "Satırlar ve özet görsel" },
+      { "value": "ozet", "label": "Yalnız özet görsel" }
+    ], "info": "Yalnız özet görselde ekranda tek görsel kalır; içerik arama motorları ve ekran okuyucular için sayfada görünmez metin olarak durur." }
   ],
   "blocks": [
     { "type": "serit", "name": "Şerit", "limit": 6, "settings": [
