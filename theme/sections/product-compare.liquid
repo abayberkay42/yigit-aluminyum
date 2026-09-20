@@ -1,7 +1,8 @@
 {%- comment -%}
   Ürün sayfası: iki sütunlu karşılaştırma tablosu (ör. spot / LED profil, normal / 240 çipli LED şerit).
   Önerilen sütunun üst kenarında LED çizgisi yanar. Satır yoksa bölüm görünmez.
-  İsteğe bağlı: iki sütunun görseli (tablonun üstünde yan yana, aynı mekânın iki hâli gibi), not satırı ve özet görsel.
+  "Düzen": kart = her sütun kendi görseli ve ölçüt listesiyle bir kart (görsel varsa varsayılan); tablo = iki sütunlu tablo,
+  görseller tablonun üstünde. İsteğe bağlı not satırı ve özet görsel.
   "Görünüm" ayarı: tablo, tablo + özet görsel ya da yalnız özet görsel (o zaman başlık ve tablo görünmez metin olarak kalır).
 {%- endcomment -%}
 {%- liquid
@@ -16,55 +17,110 @@
 -%}
 {%- if section.blocks.size > 0 -%}
   {%- assign hl = section.settings.highlight -%}
+  {%- comment -%} Düzen: kart = her sütun kendi görseli ve ölçüt listesiyle bir kart; tablo = eski iki sütunlu tablo {%- endcomment -%}
+  {%- assign duzen = section.settings.duzen | default: 'kart' -%}
+  {%- if section.settings.image_a == blank and section.settings.image_b == blank -%}{%- assign duzen = 'tablo' -%}{%- endif -%}
   <section class="psec cmp{% if yalniz %} psec--ozet{% endif %}" aria-labelledby="Cmp-{{ section.id }}">
     <div class="psec__head{% if yalniz %} visually-hidden{% endif %}">
       <h2 class="psec__title" id="Cmp-{{ section.id }}">{{ section.settings.heading }}</h2>
       {%- if section.settings.text != blank -%}<p class="psec__text">{{ section.settings.text }}</p>{%- endif -%}
     </div>
-    {%- if yalniz -%}{%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}{%- endif -%}
-    {%- assign sutun_gorsel = false -%}
-    {%- if section.settings.image_a or section.settings.image_b -%}{%- unless yalniz -%}{%- assign sutun_gorsel = true -%}{%- endunless -%}{%- endif -%}
-    {%- if sutun_gorsel -%}
-      <div class="cmp__gorseller">
-        {%- for i in (1..2) -%}
-          {%- if i == 1 -%}
-            {%- assign g = section.settings.image_a -%}{%- assign ad = section.settings.col_a -%}{%- assign harf = 'a' -%}
-          {%- else -%}
-            {%- assign g = section.settings.image_b -%}{%- assign ad = section.settings.col_b -%}{%- assign harf = 'b' -%}
-          {%- endif -%}
-          {%- if g -%}
-            <figure class="cmp__gorsel{% if hl == harf %} cmp__gorsel--hl{% endif %}">
-              <div class="cmp__gorsel-kutu" style="aspect-ratio: {{ g.aspect_ratio }}">
-                {{ g | image_url: width: 1200 | image_tag: widths: '480,720,960,1200', sizes: '(min-width: 48em) 45vw, 92vw', loading: 'lazy', alt: ad }}
-              </div>
-              <figcaption>{{ ad }}</figcaption>
-            </figure>
-          {%- endif -%}
+    {%- if yalniz -%}
+      {%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}
+      <div class="visually-hidden">
+        {%- for block in section.blocks -%}
+          <p>{{ block.settings.label }} — {{ section.settings.col_a }}: {{ block.settings.a }}; {{ section.settings.col_b }}: {{ block.settings.b }}</p>
         {%- endfor -%}
       </div>
-    {%- endif -%}
-    {%- comment -%} Dar ekranda yatay kayan alan klavyeyle de kaydırılabilsin (odaklanabilir bölge) {%- endcomment -%}
-    {%- comment -%} Yalnız özet açıkken tablo görünmez ama sayfada kalır; kaydırma kabı (cmp__wrap) ve odak olmaz {%- endcomment -%}
-    <div{% if yalniz %} class="visually-hidden"{% else %} class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}"{% endif %}>
-      <table class="cmp__table">
-        <thead>
-          <tr>
-            <td></td>
-            <th scope="col"{% if hl == 'a' %} class="cmp__hl"{% endif %}>{{ section.settings.col_a }}</th>
-            <th scope="col"{% if hl == 'b' %} class="cmp__hl"{% endif %}>{{ section.settings.col_b }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {%- for block in section.blocks -%}
-            <tr {{ block.shopify_attributes }}>
-              <th scope="row">{{ block.settings.label }}</th>
-              <td{% if hl == 'a' %} class="cmp__hl"{% endif %}>{{ block.settings.a }}</td>
-              <td{% if hl == 'b' %} class="cmp__hl"{% endif %}>{{ block.settings.b }}</td>
-            </tr>
+    {%- elsif duzen == 'kart' -%}
+      <div class="cmp__kartlar">
+        {%- for i in (1..2) -%}
+          {%- liquid
+            if i == 1
+              assign g = section.settings.image_a
+              assign ad = section.settings.col_a
+              assign harf = 'a'
+            else
+              assign g = section.settings.image_b
+              assign ad = section.settings.col_b
+              assign harf = 'b'
+            endif
+          -%}
+          <article class="cmp__kart{% if hl == harf %} cmp__kart--hl{% endif %}">
+            {%- if g -%}
+              <div class="cmp__kart-gorsel" style="aspect-ratio: {{ g.aspect_ratio }}">
+                {{ g | image_url: width: 1200 | image_tag: widths: '480,720,960,1200', sizes: '(min-width: 48em) 45vw, 92vw', loading: 'lazy', alt: ad }}
+              </div>
+            {%- endif -%}
+            <h3 class="cmp__kart-ad">{{ ad }}</h3>
+            <dl class="cmp__kart-liste">
+              {%- for block in section.blocks -%}
+                <div {{ block.shopify_attributes }}>
+                  <dt>{{ block.settings.label }}</dt>
+                  <dd>
+                    <span class="cmp__isaret" aria-hidden="true">
+                      {%- if hl == harf -%}
+                        <svg viewBox="0 0 24 24" width="16" height="16" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      {%- else -%}
+                        <svg viewBox="0 0 24 24" width="16" height="16" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/></svg>
+                      {%- endif -%}
+                    </span>
+                    {%- if hl == harf -%}{{ block.settings.b }}{%- else -%}{{ block.settings.a }}{%- endif -%}
+                  </dd>
+                </div>
+              {%- endfor -%}
+            </dl>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- if section.settings.image_a or section.settings.image_b -%}
+        <div class="cmp__gorseller">
+          {%- for i in (1..2) -%}
+            {%- liquid
+              if i == 1
+                assign g = section.settings.image_a
+                assign ad = section.settings.col_a
+                assign harf = 'a'
+              else
+                assign g = section.settings.image_b
+                assign ad = section.settings.col_b
+                assign harf = 'b'
+              endif
+            -%}
+            {%- if g -%}
+              <figure class="cmp__gorsel{% if hl == harf %} cmp__gorsel--hl{% endif %}">
+                <div class="cmp__gorsel-kutu" style="aspect-ratio: {{ g.aspect_ratio }}">
+                  {{ g | image_url: width: 1200 | image_tag: widths: '480,720,960,1200', sizes: '(min-width: 48em) 45vw, 92vw', loading: 'lazy', alt: ad }}
+                </div>
+                <figcaption>{{ ad }}</figcaption>
+              </figure>
+            {%- endif -%}
           {%- endfor -%}
-        </tbody>
-      </table>
-    </div>
+        </div>
+      {%- endif -%}
+      {%- comment -%} Dar ekranda yatay kayan alan klavyeyle de kaydırılabilsin (odaklanabilir bölge) {%- endcomment -%}
+      <div class="cmp__wrap" role="region" tabindex="0" aria-labelledby="Cmp-{{ section.id }}">
+        <table class="cmp__table">
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col"{% if hl == 'a' %} class="cmp__hl"{% endif %}>{{ section.settings.col_a }}</th>
+              <th scope="col"{% if hl == 'b' %} class="cmp__hl"{% endif %}>{{ section.settings.col_b }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.label }}</th>
+                <td{% if hl == 'a' %} class="cmp__hl"{% endif %}>{{ block.settings.a }}</td>
+                <td{% if hl == 'b' %} class="cmp__hl"{% endif %}>{{ block.settings.b }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
     {%- unless yalniz -%}
       {%- if section.settings.note != blank -%}<p class="cmp__not">{{ section.settings.note }}</p>{%- endif -%}
       {%- if gorunum == 'ikisi' -%}{%- render 'rehber-gorsel', gorsel: section.settings.ozet, alt: section.settings.heading -%}{%- endif -%}
@@ -84,6 +140,10 @@
     { "type": "select", "id": "highlight", "label": "Öne çıkan sütun", "default": "b", "options": [
       { "value": "none", "label": "Yok" }, { "value": "a", "label": "1. sütun" }, { "value": "b", "label": "2. sütun" }
     ] },
+    { "type": "select", "id": "duzen", "label": "Düzen", "default": "kart", "options": [
+      { "value": "kart", "label": "Kartlar (görselli)" },
+      { "value": "tablo", "label": "Tablo" }
+    ], "info": "Kartta her sütun kendi görseli ve ölçüt listesiyle görünür. Görsel seçilmemişse tablo kullanılır." },
     { "type": "image_picker", "id": "image_a", "label": "1. sütun görseli" },
     { "type": "image_picker", "id": "image_b", "label": "2. sütun görseli" },
     { "type": "text", "id": "note", "label": "Not", "info": "Tablonun altında küçük yazı (ör. \"Temsili aydınlatma tasarımları.\")" },
