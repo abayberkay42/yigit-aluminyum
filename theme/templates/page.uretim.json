@@ -1,7 +1,8 @@
 /*
   Üretim sayfası. Süreç adımları firmanın mevcut üretim sayfasındaki metinden kısaltıldı (www.yigitaluminium.com/pages/uretim, 2026-09-11).
   Tanıtım filmi firmanın "TANITIM FİLMİ.mp4" dosyası (2026-09-19; web için sıkıştırıldı, Dosyalar'a yigit-tanitim-filmi.mp4 adıyla yüklenir).
-  Sayılar, belgeler ve VR bağlantısı firma içeriği gelince tema düzenleyiciden eklenir; boşken görünmez.
+  Polikarbon kapak üretimi bölümü firmanın "adım adım üretim detay" metni, "ilgili fotoğraflar" görselleri ve üretim
+  hattı videosundan (2026-09-21). Sayılar, belgeler ve VR bağlantısı firma içeriği gelince tema düzenleyiciden eklenir; boşken görünmez.
 */
 {
   "sections": {
@@ -10,7 +11,7 @@
       "settings": {
         "eyebrow": "Üretim",
         "title": "Kalıptan rafa",
-        "lede": "Alüminyum profillerimizi 2008'den beri Beylikdüzü'nde üretiyoruz. Bir profilin kalıptan çıkıp size ulaşana kadar geçtiği adımlar aşağıda.",
+        "lede": "Alüminyum profillerimizi 2012’den beri kendi tesisimizde üretiyoruz; üretim bugün Tekirdağ Veliköy’deki 3.000 m² kapalı alanlı fabrikamızda sürüyor. Bir profilin kalıptan çıkıp size ulaşana kadar geçtiği adımlar aşağıda.",
         "align": "center",
         "banner": "shopify://shop_images/banner-uretim.webp"
       }
@@ -238,11 +239,95 @@
       "settings": {
         "heading_tag": "h2"
       }
+    },
+    "polikarbon": {
+      "type": "page-production",
+      "blocks": {
+        "pk1": {
+          "type": "step",
+          "settings": {
+            "title": "Ham madde hazırlığı",
+            "text": "Üretimde granül hâlindeki polikarbon kullanılır. İstenen ışık geçirgenliği ve opal görünüm için ışık dağıtıcı katkılarla uygun karışım hazırlanır.",
+            "image": "shopify://shop_images/kapak-uretim-01.webp"
+          }
+        },
+        "pk2": {
+          "type": "step",
+          "settings": {
+            "title": "Kurutma ve nem alma",
+            "text": "Polikarbonun içindeki nem, üretim öncesinde kurutucuyla giderilir. Bu işlem eritme sırasında kabarcık, yüzey bozukluğu ve dayanım düşüşü oluşmasını önler.",
+            "image": "shopify://shop_images/kapak-uretim-02.webp"
+          }
+        },
+        "pk3": {
+          "type": "step",
+          "settings": {
+            "title": "Eritme ve homojenleştirme",
+            "text": "Kurutulan ham madde ekstrüzyon makinesine beslenir. Isıtıcılar ve dönen vida malzemeyi eritir, eşit şekilde karıştırır ve kalıba doğru ilerletir.",
+            "image": "shopify://shop_images/kapak-uretim-03.webp"
+          }
+        },
+        "pk4": {
+          "type": "step",
+          "settings": {
+            "title": "Kalıptan geçirme ve şekillendirme",
+            "text": "Eriyik malzeme, kapağa özel hazırlanmış kalıptan geçirilir. Kapağın kesiti, genişliği ve alüminyum profile oturan tırnak yapısı bu aşamada oluşur."
+          }
+        },
+        "pk5": {
+          "type": "step",
+          "settings": {
+            "title": "Ölçülendirme ve soğutma",
+            "text": "Kalıptan çıkan sıcak kapak kalibrasyon bölümünde hedef ölçüsüne getirilir ve kontrollü soğutulur. Böylece şekli sabitlenir; eğilme ve ölçü farkları sınırlanır.",
+            "image": "shopify://shop_images/kapak-uretim-04.webp"
+          }
+        },
+        "pk6": {
+          "type": "step",
+          "settings": {
+            "title": "Çekme ve boy kesimi",
+            "text": "Çekici sistem kapağı hat boyunca dengeli bir hızla ilerletir. Soğuyan kapak siparişe göre belirlenen uzunlukta, örneğin 3 metre olarak kesilir.",
+            "image": "shopify://shop_images/kapak-uretim-05.webp"
+          }
+        },
+        "pk7": {
+          "type": "step",
+          "settings": {
+            "title": "Kalite kontrol",
+            "text": "Kapağın ölçüleri, et kalınlığı, yüzey düzgünlüğü ve alüminyum profile oturması kontrol edilir. LED ile ışık dağılımı ve renk tutarlılığı incelenir; kusurlu ürünler ayrılır."
+          }
+        },
+        "pk8": {
+          "type": "step",
+          "settings": {
+            "title": "Paketleme ve sevkiyat",
+            "text": "Kontrolden geçen kapaklar çizilmeye ve şekil bozulmasına karşı korunarak paketlenir. Ürün tipi, boyu ve miktarı belirtilerek sevkiyata hazırlanır."
+          }
+        }
+      },
+      "block_order": [
+        "pk1",
+        "pk2",
+        "pk3",
+        "pk4",
+        "pk5",
+        "pk6",
+        "pk7",
+        "pk8"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/yigit-kapak-uretim.mp4",
+        "video_poster": "shopify://shop_images/yigit-kapak-uretim-kapak.webp",
+        "video_title": "Polikarbon kapak üretim hattı",
+        "steps_title": "Polikarbon kapak üretimi",
+        "video_buton": "Kapak üretim hattını izleyin"
+      }
     }
   },
   "order": [
     "hero",
     "production",
+    "polikarbon",
     "sahne",
     "doors"
   ]

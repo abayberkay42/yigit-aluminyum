@@ -86,6 +86,20 @@ Ana sayfa ve ürün sayfaları dışındaki bütün sayfaların başında tam ge
 - Ürün sayfalarına banner konmadı: ürünün görseli ve "Sepete ekle" ilk ekranda kalmalı. Ana sayfanın kendi tanıtım filmi var.
 - Kendi logonuzu yüklerseniz koyu zemin için yazısı açık renkli sürümü Tema ayarları > Firma bilgileri > "Açık logo" alanına yükleyin.
 
+## Üretim sayfası: polikarbon kapak üretimi
+
+Firmanın verdiği metin, görseller ve hat videosuyla ikinci bir üretim bölümü eklendi (2026-09-21): 8 adım, 5 ürün/makine görseli ve 44 saniyelik üretim hattı videosu. Shopify > İçerik > Dosyalar'a yüklenecek dosyalar `dist/shopify-dosyalar/uretim/` klasöründedir:
+
+| Dosya | Not |
+|---|---|
+| `yigit-kapak-uretim.mp4` (20 MB) | Firmanın hat videosu, web için sıkıştırıldı (kaynak 84 MB) |
+| `yigit-kapak-uretim-kapak.webp` | Videonun kapak karesi |
+| `kapak-uretim-01…05.webp` | Ham madde, kurutma, ekstrüzyon, kalıptan çıkış, boy kesimi görselleri (saydam zeminli) |
+
+Adım metinleri firmanın "adım adım üretim detay" dosyasındandır. Bölüm, Üretim sayfasında alüminyum üretim adımlarının altındadır; başlığı, videosu ve adımları tema düzenleyiciden değiştirilir.
+
+**Düzeltme:** Üretim sayfasının giriş metni "2008'den beri Beylikdüzü'nde üretiyoruz" diyordu. Firmanın tarihçesine göre üretim 2012'de Çatalca'da başladı, 2020'den beri Tekirdağ Veliköy'deki 3.000 m² fabrikada sürüyor; Beylikdüzü satış merkezidir. Metin buna göre düzeltildi.
+
 ## Üretim sayfası tanıtım filmi
 
 Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfasının başına, süreç adımlarının üstüne yerleştirildi.

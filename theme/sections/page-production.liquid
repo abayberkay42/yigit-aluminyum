@@ -19,6 +19,10 @@
       assign film = section.settings.video
       assign kapak = section.settings.video_poster | default: film.preview_image
       assign film_ad = section.settings.video_title | default: page.title
+      assign film_buton = section.settings.video_buton
+      if film_buton == blank
+        assign film_buton = 'pages.watch_film' | t
+      endif
     -%}
     <figure class="prod__film" data-tanitim>
       <video
@@ -38,7 +42,7 @@
         <span class="prod__oynat-daire" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28" focusable="false"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
         </span>
-        <span class="prod__oynat-yazi">{{ 'pages.watch_film' | t }}</span>
+        <span class="prod__oynat-yazi">{{ film_buton }}</span>
       </button>
       {%- if section.settings.video_title != blank -%}<figcaption class="prod__film-alt">{{ section.settings.video_title }}</figcaption>{%- endif -%}
     </figure>
@@ -109,6 +113,7 @@
     { "type": "video", "id": "video", "label": "Tanıtım filmi", "info": "MP4. Shopify > İçerik > Dosyalar'a yüklenen video. Yalnız ziyaretçi oynat düğmesine basınca iner." },
     { "type": "image_picker", "id": "video_poster", "label": "Film kapağı", "info": "Film oynatılmadan önce görünen kare. Boşsa Shopify'ın videodan ürettiği önizleme kullanılır." },
     { "type": "text", "id": "video_title", "label": "Film başlığı", "info": "Filmin altında küçük yazı; ekran okuyucular için filmin adı." },
+    { "type": "text", "id": "video_buton", "label": "Oynat düğmesi metni", "info": "Boşsa \"Tanıtım filmini izleyin\"." },
     { "type": "url", "id": "video_url", "label": "Film bağlantısı (video yüklenmediyse)" },
     { "type": "text", "id": "steps_title", "label": "Süreç başlığı", "default": "Üretim süreci" },
     { "type": "header", "content": "VR fabrika gezintisi" },
