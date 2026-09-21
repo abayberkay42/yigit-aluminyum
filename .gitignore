@@ -26,3 +26,6 @@ dist/
 
 /TÜM LED PROFİLLERİ İÇİN ÜRÜN SAYFASI İÇERİKLERİ/
 /TÜM LED PROFİLLERİ İÇİN ÜRÜN SAYFASI İÇERİKLERİ-*.zip
+
+# Müşteriden gelen ham kaynaklar (Drive): depo herkese açık, dışarıda kalır
+/kaynak/
