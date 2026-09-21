@@ -121,7 +121,7 @@ Ana sayfaya üç bölüm eklendi (2026-09-21). Üçü de tema düzenleyiciden (A
 | Bölüm | Ne yapar |
 |---|---|
 | Kullanım alanları kart | "LED profilleri nerelerde kullanılır?" — altı alan kartı; her kart Kullanım alanları sayfasındaki ilgili alana gider |
-| İhracat | Noktalı dünya haritası, Türkiye'den 18 ülkeye çıkan oklar, "18 ülkeye ihracat" sayısı |
+| İhracat | Noktalı harita (Kanada–Uzak Avrupa kuşağı), Türkiye'den 18 ülkeye çıkan oklar, "18 ülkeye ihracat" sayısı. Listedeki ülke adının üzerine gelince (telefonda dokununca) o ülkenin oku öne çıkar |
 | Blog | Sayfanın en altında seçilen blogun son yazıları; blog yazısı azken elle içerik satırı da eklenebilir (şu an SSS ve Kataloglar) |
 
 Haritadaki ülkeler firmanın verdiği listeye göre girildi (18 ülke: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, ABD, Kanada). Firmanın verdiği güncel bilgi 18 ülkedir; tarihçe belgesindeki "16 ülke" ifadesi buna göre güncellendi (ana sayfa, Kurumsal tarihçesi ve Kurumsal sayfa metni).

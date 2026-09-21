@@ -3,7 +3,8 @@
 // Çıktı:
 //   theme/assets/yigit-dunya.svg  → noktalı dünya (her nokta 1 ızgara hücresi; karadaysa çizilir)
 //   theme/snippets/dunya-koordinat.liquid → ülke kodu → harita üzerindeki yüzde konum tablosu (oklar için)
-// Harita eşdikdörtgen (equirectangular) izdüşümdür; kırpma: boylam -168…190, enlem 78…-56 (Antarktika yok).
+// Harita eşdikdörtgen (equirectangular) izdüşümdür. İhracat yapılan ülkelerin tamamı kuzey yarımkürede
+// olduğu için kırpma kuzey kuşağıdır (Kanada'dan Uzak Doğu'ya): boş okyanus yerine ülkeler büyük görünür.
 import fs from 'node:fs';
 import { geoContains, geoCentroid } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -11,11 +12,11 @@ import { feature } from 'topojson-client';
 const topo = JSON.parse(fs.readFileSync('node_modules/world-atlas/countries-110m.json', 'utf8'));
 const dunya = feature(topo, topo.objects.countries);
 
-const LON = [-168, 190];
-const LAT = [78, -56];
+const LON = [-128, 62];
+const LAT = [72, 4];
 const W = 1000;
-const H = 480;
-const ADIM = 1.05; // derece cinsinden nokta aralığı
+const H = 358;
+const ADIM = 0.62; // derece cinsinden nokta aralığı
 
 const x = (lon) => {
   let l = lon;
@@ -39,7 +40,7 @@ for (let lat = LAT[0]; lat >= LAT[1]; lat -= ADIM) {
 // Noktalar tek bir yol olarak yazılır (her nokta sıfır uzunlukta bir çizgi, yuvarlak uç): dosya küçük kalır
 const d = noktalar.map(([px, py]) => `M${px} ${py}h0`).join('');
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-hidden="true">
-<path d="${d}" fill="none" stroke="#aca596" stroke-width="2.6" stroke-linecap="round"/>
+<path d="${d}" fill="none" stroke="#a39c8d" stroke-width="2.3" stroke-linecap="round"/>
 </svg>`;
 fs.writeFileSync('theme/assets/yigit-dunya.svg', svg + '\n');
 

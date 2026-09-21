@@ -15,9 +15,15 @@
         <p class="export__fact"><strong class="export__fact-v">{{ section.settings.sayi }}</strong> <span class="export__fact-k">{{ section.settings.sayi_etiket }}</span></p>
       {%- endif -%}
       {%- if ulkeler.size > 0 -%}
+        {%- comment -%}
+          Liste ile harita birbirine bağlı: bir ülkenin üzerine gelince ya da odaklanınca haritada
+          o ülkenin oku öne çıkar, adı haritada yazar (src/js/sections/export.js). JS yoksa düz liste kalır.
+        {%- endcomment -%}
         <ul class="export__list" role="list">
           {%- for block in ulkeler -%}
-            <li {{ block.shopify_attributes }}>{{ block.settings.ad }}</li>
+            <li {{ block.shopify_attributes }}>
+              <button type="button" class="export__ulke" data-export-ulke-btn="{{ forloop.index0 }}">{{ block.settings.ad }}</button>
+            </li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
@@ -27,9 +33,9 @@
     </div>
 
     <div class="export__map" data-export-map>
-      <img class="export__dots" src="{{ 'yigit-dunya.svg' | asset_url }}" alt="" width="1000" height="480" loading="lazy" decoding="async">
+      <img class="export__dots" src="{{ 'yigit-dunya.svg' | asset_url }}" alt="" width="1000" height="358" loading="lazy" decoding="async">
       {%- comment -%} Oklar buraya JS ile çizilir (src/js/sections/export.js); çizilemezse harita boş kalır, liste yine görünür {%- endcomment -%}
-      <svg class="export__arcs" viewBox="0 0 1000 480" fill="none" aria-hidden="true" focusable="false" data-export-arcs></svg>
+      <svg class="export__arcs" viewBox="0 0 1000 358" fill="none" aria-hidden="true" focusable="false" data-export-arcs></svg>
       <script type="application/json" data-export-konum>{% render 'dunya-koordinat' %}</script>
       <script type="application/json" data-export-ulke>[{% for block in ulkeler %}{"ad":{{ block.settings.ad | json }},"kod":{{ block.settings.kod | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
     </div>
