@@ -43,7 +43,7 @@
 
   assign metraj_dip = product.metafields.custom.tier_price.value | plus: 0
   assign metraj_esik = product.metafields.custom.dip_esik.value | default: settings.tier_threshold_m | default: 300 | plus: 0
-  assign metraj_bas = settings.metraj_baslangic_m | default: 50 | plus: 0
+  assign metraj_bas = settings.metraj_baslangic_m | default: 100 | plus: 0
   assign metraj_var = false
   if settings.metraj_indirim and k_birim == 'metre' and metraj_dip > 0 and metraj_esik > 0
     assign dip_k = metraj_dip | times: 100

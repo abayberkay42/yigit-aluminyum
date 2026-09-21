@@ -138,7 +138,7 @@
     "metraj_title": "Price by length",
     "metraj_for": "Price per metre for [m]",
     "metraj_off": "[p]% off",
-    "metraj_start": "Discount starts at [m]",
+    "metraj_start": "Discount starts above [m]",
     "metraj_left": "[m] to the floor price",
     "metraj_floor": "Floor price applies",
     "metraj_table": "Price table by length",

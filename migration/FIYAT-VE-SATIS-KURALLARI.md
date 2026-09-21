@@ -3,7 +3,7 @@
 Firmadan gelen iki belge siteye işlendi (2026-09-18):
 
 - **Ürün Kategorileri ve Satış Kuralları** (PDF): 10 kategori için satış birimi, en az sipariş ve artış miktarı.
-- **LED Profilleri Her Metre İskonto Tablosu** (Excel, iki dosya): 55 LED profili için liste fiyatı, dip fiyat ve dip fiyat eşiği. İki dosyada fiyatlar aynı; birinde ayrıca her ürün için 1–300 m arası metraj dökümü var.
+- **LED Profilleri Her Metre İskonto Tablosu** (Excel; son sürüm 2026-09-21, iskonto 100 m üzerinde başlar): 55 LED profili için liste fiyatı, dip fiyat ve dip fiyat eşiği. İki dosyada fiyatlar aynı; birinde ayrıca her ürün için 1–300 m arası metraj dökümü var.
 
 Sitenin hesabı Excel'deki formülle birebir aynıdır: 55 ürün × 300 metre, toplam 16.500 satır tek tek karşılaştırıldı ve kuruşu kuruşuna tuttu (hem ürün sayfasındaki hesap hem sepetteki hesap).
 
@@ -53,18 +53,18 @@ Her ürünün kuralı `custom.satis_kurali` meta alanıyla seçilir. Boş bırak
 
 Excel'deki kural:
 
-- 50 m altında liste fiyatı.
-- 50 m'den itibaren metre fiyatı dip fiyata doğru iner: iskonto = (1 − dip / liste) × (metraj / eşik).
+- 100 m ve altında liste fiyatı. (Firma iskontonun başladığı metrajı 2026-09-21'de 50 m'den 100 m'ye çıkardı; "50 m çok az".)
+- 100 m'nin üzerinde metre fiyatı dip fiyata doğru iner: iskonto = (1 − dip / liste) × (metraj / eşik).
 - Eşikte (çoğu üründe 300 m, üç üründe 150 m) ve üzerinde dip fiyat.
 - Bulunan metre fiyatı siparişin tamamına uygulanır.
 - Metraj aynı ürün kodunun toplamıdır; farklı ürünlerin metrajı birleşmez.
-- Profiller 3 m olduğu için indirimin başladığı ilk sipariş 51 m'dir.
+- Profiller 3 m olduğu için indirimin başladığı ilk sipariş 102 m'dir.
 
 **Önemli: tema indirimi gösterir, tahsil etmez.** Shopify'da fiyatı sepette düşürmenin yolu bir indirim kuralıdır. Shopify'ın hazır otomatik indirimleri bu sürekli formülü kuramıyor (yalnız sabit yüzde ya da tutar veriyor). Seçenekler:
 
 1. **Shopify Functions ile özel indirim.** Formül zaten yazılı ve doğrulanmış; aynı kod indirim fonksiyonuna taşınır. Shopify'ın kuralına göre özel uygulama içinde fonksiyon çalıştırmak **Shopify Plus** planında mümkün. Mağazanın planı ve Shopify'ın güncel kuralı başlamadan önce kontrol edilir.
 2. **App Store'daki bir kademeli indirim uygulaması.** Bu uygulamalar kademe (ör. 51 m'de %X, 102 m'de %Y) tanımlar. Excel'deki sürekli formül kademelere bölünerek yaklaşık uygulanabilir. Ürün başına kademe sayısı sınırı ve aylık ücreti uygulamaya göre değişir.
-3. **Teklifle satış.** 50 m üstü siparişler WhatsApp'tan teklifle alınır; sitedeki metraj fiyatı bilgi amaçlı kalır.
+3. **Teklifle satış.** 100 m üstü siparişler WhatsApp'tan teklifle alınır; sitedeki metraj fiyatı bilgi amaçlı kalır.
 
 Hangisi seçilirse seçilsin, **indirim ödemede uygulanmıyorsa site yayına alınmadan önce Tema ayarları > Satış > "Metraj indirimini göster" kapatılmalı.** Yoksa müşteri sepette göremeyeceği bir indirimi ürün sayfasında görür. Kapatınca panel, sepetteki metraj satırı ve indirim toplamı gizlenir; satış kuralları çalışmaya devam eder.
 
@@ -110,7 +110,7 @@ Tema ayarları > Satış:
 
 - **Fiyat notu:** KDV hariç / KDV dahil / gösterme.
 - **Metraj indirimini göster:** açık ya da kapalı (yukarıdaki uyarıya bakın).
-- **İndirimin başladığı metraj:** 50.
+- **İndirimsiz metraj sınırı:** 100 (bu metraja kadar liste fiyatı geçer, indirim üzerinde başlar).
 - **Dip fiyat eşiği:** 300 (ürün bazında `custom.dip_esik`).
 
 Kategori kurallarının kendisi (en az, artış, boy uzunluğu) temanın `snippets/satis-kurali.liquid` dosyasındadır. Firmanın kuralı değişirse orada tek satır değişir. Tek bir ürün için farklı değer gerekiyorsa `custom.min_siparis` ve `custom.adim` yeterlidir.

@@ -136,8 +136,9 @@
       {
         "type": "number",
         "id": "metraj_baslangic_m",
-        "label": "İndirimin başladığı metraj",
-        "default": 50
+        "label": "İndirimsiz metraj sınırı",
+        "info": "Bu metraja kadar (dahil) liste fiyatı geçer; indirim bunun üzerinde başlar. Firmanın tablosunda 100 m.",
+        "default": 100
       },
       {
         "type": "number",

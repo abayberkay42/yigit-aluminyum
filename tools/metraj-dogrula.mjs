@@ -3,6 +3,7 @@
 // Excel depoya girmez; satırlar önce python ile çıkarılır:
 //   node tools/metraj-dogrula.mjs <metraj.json> <fiyatlar.json>
 // metraj.json: { "Y6131": [[m, fiyat_tl, tutar_tl], ...] }, fiyatlar.json: { "Y6131": {liste, dip, esik} }
+// İndirimsiz metraj sınırı 100 (firma 2026-09-21 tablosunda 50'den yükseltti).
 import fs from 'node:fs';
 import { Liquid } from 'liquidjs';
 import { metreFiyati } from '../src/js/store/metraj.js';
@@ -20,7 +21,7 @@ for (const [kod, rows] of Object.entries(detay)) {
     satir++;
     const liste = Math.round(f.liste * 100);
     const js = metreFiyati(liste, f.dip, f.esik, m);
-    const lq = Number((await liquid.render(sablon, { liste, dip: f.dip, esik: f.esik, metre: m, settings: { metraj_baslangic_m: 50 } })).trim());
+    const lq = Number((await liquid.render(sablon, { liste, dip: f.dip, esik: f.esik, metre: m, settings: { metraj_baslangic_m: 100 } })).trim());
     const beklenen = Math.round(excelFiyat * 100);
     if (js !== beklenen || lq !== beklenen || js * m !== Math.round(excelTutar * 100)) hatalar.push({ kod, m, js, lq, excelFiyat, excelTutar });
   }
