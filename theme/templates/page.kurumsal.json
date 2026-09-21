@@ -1,10 +1,14 @@
+/*
+  Kurumsal: sayfa metni, firmanın tarihçesi (yıl yıl dönüm noktaları + vizyon/misyon) ve kapılar.
+  Tarihçe metinleri firmanın "Yiğit Alüminyum Tarihçesi" belgesinden alındı; görseller firma arşivinden.
+*/
 {
   "sections": {
     "hero": {
       "type": "page-hero",
       "settings": {
         "eyebrow": "Kurumsal",
-        "title": "2008'den beri alüminyum profil",
+        "title": "2007’den bugüne alüminyum profil",
         "align": "center",
         "banner": "shopify://shop_images/banner-kurumsal.webp"
       }
@@ -47,11 +51,112 @@
       "settings": {
         "heading": "Üretim ve iletişim"
       }
+    },
+    "tarihce": {
+      "type": "page-timeline",
+      "blocks": {
+        "y1": {
+          "type": "year",
+          "settings": {
+            "year": "2007",
+            "title": "Ticaretin ilk adımı",
+            "text": "Kurucumuz Mustafa Yiğit, kalıpçı olarak çalıştığı fabrikadan ayrılarak kendi aracıyla esnafı ziyaret etmeye ve malzeme satmaya başladı. Üretimin içinden gelen teknik birikim, sahada doğrudan gözlenen ihtiyaçlarla birleşti."
+          }
+        },
+        "y2": {
+          "type": "year",
+          "settings": {
+            "year": "2008",
+            "title": "Esenyurt’ta 40 m² dükkân",
+            "text": "İstanbul Esenyurt’ta kiralanan 40 m² dükkânla araç üzerinden yürütülen ticaret sabit bir merkeze kavuştu. Alüminyum profiller burada stoklanmaya başlandı; tonaj bazında büyüyen satışlar, kendi üretimini yapma kararının zeminini hazırladı.",
+            "image": "shopify://shop_images/dukkan-2008-01.webp",
+            "image_alt": "2008 yılında Esenyurt’taki ilk dükkânın cephesi",
+            "caption": "Esenyurt, 2008: ilk iş yeri"
+          }
+        },
+        "y3": {
+          "type": "year",
+          "settings": {
+            "year": "2012",
+            "title": "Çatalca’da üretime başlangıç",
+            "text": "İstanbul Çatalca’da 1.100 m² büyüklüğündeki fabrikaya ekstrüzyon presi kurularak alüminyum profil üretimine başlandı. Kalıpçılıktan gelen teknik deneyim ile sahada kazanılan ticari bilgi aynı çatı altında buluştu; firma üretici kimliğini kazandı."
+          }
+        },
+        "y4": {
+          "type": "year",
+          "settings": {
+            "year": "2012–2020",
+            "title": "İç pazarda ve ihracatta gelişim",
+            "text": "Çatalca’daki fabrikada üretim ve satış birlikte yürütülürken iç pazardaki satışların yanına ihracat da eklendi. Sekiz yıllık üretim deneyimi, daha büyük bir tesise geçişin temelini oluşturdu."
+          }
+        },
+        "y5": {
+          "type": "year",
+          "settings": {
+            "year": "2020",
+            "title": "Veliköy’de 3.000 m² kapalı alanlı fabrika",
+            "text": "Üretim, Tekirdağ’ın Veliköy bölgesindeki 3.000 m² kapalı alanlı fabrikaya taşındı ve yeni bir ekstrüzyon presi devreye alındı. 1.100 m²’den 3.000 m²’ye geçiş, üretim kapasitesini bugünkü seviyesine taşıdı.",
+            "image": "shopify://shop_images/9.jpg",
+            "image_alt": "Veliköy fabrikasındaki ekstrüzyon hattı",
+            "caption": "Veliköy fabrikası: ekstrüzyon hattı"
+          }
+        },
+        "y6": {
+          "type": "year",
+          "settings": {
+            "year": "2020",
+            "title": "Beylikdüzü’nde altı katlı satış merkezi",
+            "text": "Aynı yıl İstanbul Beylikdüzü’nde altı katlı, 1.200 m² büyüklüğünde bir mağaza açıldı. Tüm satış işlemleri tek merkezde toplandı: Veliköy fabrikası üretimin, Beylikdüzü mağazası satışın merkezi oldu."
+          }
+        },
+        "y7": {
+          "type": "year",
+          "settings": {
+            "year": "Bugün",
+            "title": "Türkiye geneli satış, 16 ülkeye ihracat",
+            "text": "Yiğit Alüminyum bugün Türkiye geneline uzanan satışları ve 16 ülkeye gerçekleştirdiği ihracatla çalışmalarını sürdürüyor. 2007’de bir aracın bagajıyla başlayan yolculuk, üretim ve satışın iki ayrı merkezde yürüdüğü bugünkü yapıya ulaştı.",
+            "image": "shopify://shop_images/14.jpg",
+            "image_alt": "Fabrikada sevkiyata hazır alüminyum profiller",
+            "caption": "Sevkiyata hazır profiller"
+          }
+        },
+        "vizyon": {
+          "type": "value",
+          "settings": {
+            "title": "Vizyon",
+            "text": "<p>Alüminyum profil üretiminde Türkiye’de ve uluslararası pazarlarda güvenle tercih edilen, ürünleri ve iş ilişkilerindeki istikrarıyla tanınan bir firma olmak.</p><p>Üretim altyapımızı geliştirirken hizmet verdiğimiz pazarları genişletmeyi, ihracatta ulaştığımız ülke sayısını artırmayı ve mevcut pazarlarımızdaki iş ilişkilerini derinleştirmeyi hedefliyoruz.</p>"
+          }
+        },
+        "misyon": {
+          "type": "value",
+          "settings": {
+            "title": "Misyon",
+            "text": "<p>Müşterilerimizin ihtiyaçlarını doğru anlamak ve bu ihtiyaçlara uygun bir tedarik sunmak. Üretim alanındaki teknik deneyimimizi, iç pazar ve ihracatta kazandığımız ticari birikimle bir araya getiriyoruz.</p><p>Siparişten teslimata uzanan süreçlerde açık iletişimi, doğru bilgilendirmeyi ve verilen sözlerin yerine getirilmesini esas alıyoruz.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "y1",
+        "y2",
+        "y3",
+        "y4",
+        "y5",
+        "y6",
+        "y7",
+        "vizyon",
+        "misyon"
+      ],
+      "settings": {
+        "eyebrow": "Tarihçe",
+        "title": "Bir aracın bagajından iki merkeze",
+        "text": "Esnaf ziyaretleriyle başlayan ticaret, önce 40 m² bir dükkâna, sonra kendi ekstrüzyon presine dönüştü. Bugün üretim Veliköy’de, satış Beylikdüzü’nde sürüyor."
+      }
     }
   },
   "order": [
     "hero",
     "content",
+    "tarihce",
     "doors"
   ]
 }

@@ -1,0 +1,75 @@
+{%- comment -%}
+  Kurumsal tarihçe: yıl yıl dönüm noktaları ve altında vizyon/misyon kartları.
+  Metinler firmanın "Yiğit Alüminyum Tarihçesi" belgesinden; görseller firmanın kendi arşivinden.
+  Görseli olmayan yıl yalnız metinle görünür (uydurma görsel konmaz).
+  Yılları bağlayan çizgi kaydırdıkça ışıkla dolar (CSS kaydırma zaman çizelgesi; desteklemeyen tarayıcıda düz çizgi).
+{%- endcomment -%}
+{%- liquid
+  assign years = section.blocks | where: 'type', 'year'
+  assign values = section.blocks | where: 'type', 'value'
+-%}
+<section class="tline" aria-labelledby="tline-baslik">
+  <header class="tline__head">
+    {%- if section.settings.eyebrow != blank -%}<p class="tline__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="tline__h2" id="tline-baslik">{{ section.settings.title }}</h2>
+    {%- if section.settings.text != blank -%}<p class="tline__lede">{{ section.settings.text }}</p>{%- endif -%}
+  </header>
+
+  {%- if years.size > 0 -%}
+    <ol class="tline__list" role="list">
+      {%- for block in years -%}
+        <li class="tl" {{ block.shopify_attributes }}>
+          <p class="tl__year"><span class="tl__year-in reveal" data-reveal>{{ block.settings.year }}</span></p>
+          <div class="tl__body reveal" data-reveal>
+            <h3 class="tl__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="tl__text">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+          {%- if block.settings.image -%}
+            <figure class="tl__media reveal reveal--clip" data-reveal>
+              {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '500,800,1100,1400', sizes: '(min-width: 64em) 38vw, 100vw', loading: 'lazy', alt: block.settings.image_alt | default: block.settings.title }}
+              {%- if block.settings.caption != blank -%}<figcaption class="tl__caption">{{ block.settings.caption }}</figcaption>{%- endif -%}
+            </figure>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+  {%- endif -%}
+
+  {%- if values.size > 0 -%}
+    <div class="tline__values">
+      {%- for block in values -%}
+        <article class="tval reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <h3 class="tval__title">{{ block.settings.title }}</h3>
+          <div class="tval__text rte">{{ block.settings.text }}</div>
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Tarihçe",
+  "class": "section-page-timeline",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "Tarihçe" },
+    { "type": "text", "id": "title", "label": "Başlık", "default": "Bir aracın bagajından iki merkeze" },
+    { "type": "textarea", "id": "text", "label": "Giriş metni" }
+  ],
+  "blocks": [
+    { "type": "year", "name": "Yıl", "limit": 12, "settings": [
+      { "type": "text", "id": "year", "label": "Yıl", "default": "2007" },
+      { "type": "text", "id": "title", "label": "Başlık" },
+      { "type": "textarea", "id": "text", "label": "Metin" },
+      { "type": "image_picker", "id": "image", "label": "Görsel", "info": "Yalnızca firmanın kendi arşiv görseli." },
+      { "type": "text", "id": "image_alt", "label": "Görsel açıklaması" },
+      { "type": "text", "id": "caption", "label": "Görsel alt yazısı" }
+    ] },
+    { "type": "value", "name": "Vizyon / misyon", "limit": 4, "settings": [
+      { "type": "text", "id": "title", "label": "Başlık", "default": "Vizyon" },
+      { "type": "richtext", "id": "text", "label": "Metin" }
+    ] }
+  ],
+  "presets": [{ "name": "Tarihçe" }]
+}
+{% endschema %}

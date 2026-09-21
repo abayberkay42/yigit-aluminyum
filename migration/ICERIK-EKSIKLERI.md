@@ -100,3 +100,15 @@ Açıklaması hiç olmayan 7 ürün (3. madde) için pencerede yalnız ürün gr
 ## 12. Kurumsal sayfa metninde bayi ağı
 
 Firma bayilik vermediği için sitedeki bayilik başvurusu ve bayilik ifadeleri kaldırıldı (2026-09-19). Kurumsal sayfanın mağazadaki metninde (Shopify > Online Mağaza > Sayfalar > Kurumsal) hâlâ şu cümle var: "…üretim yapmakta; **bayi ağı sayesinde** tüm Türkiye'ye dağıtım sağlamaktadır." Bu metin temanın değil mağazanın içeriği olduğu için oradan düzeltilmeli. Öneri: "…üretim yapmakta ve tüm Türkiye'ye dağıtım sağlamaktadır." İngilizce çevirisinde de "through our dealer network" ifadesi çıkarılmalı.
+
+## 13. Tarihçe için eksik görseller ve ülke listesi
+
+Kurumsal sayfasındaki tarihçe şeridinde üç madde görselsiz duruyor; elimizde o döneme ait fotoğraf yok:
+
+- **2012 – Çatalca fabrikası** (1.100 m², ilk ekstrüzyon presi)
+- **2012–2020 – ihracatın başladığı dönem**
+- **2020 – Beylikdüzü'ndeki altı katlı mağaza** (tarihçe belgesinde "mağaza görselleri bu başlığın altında kullanılacak" notu var ama dosyalarda mağaza fotoğrafı yok)
+
+Bu fotoğraflar gelirse şeride eklenir; en çok mağaza fotoğrafı gerekiyor, satış merkezi sitede hiç görünmüyor.
+
+**16 ülke:** Tarihçede "16 ülkeye ihracat" yazıyor, ülkelerin adları yok. Ana sayfaya planlanan ihracat haritası için ülke listesi gerekiyor; liste gelmeden harita uydurma ülkelerle çizilmez.

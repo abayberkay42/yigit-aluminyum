@@ -100,6 +100,21 @@ Adım metinleri firmanın "adım adım üretim detay" dosyasındandır. Bölüm,
 
 **Düzeltme:** Üretim sayfasının giriş metni "2008'den beri Beylikdüzü'nde üretiyoruz" diyordu. Firmanın tarihçesine göre üretim 2012'de Çatalca'da başladı, 2020'den beri Tekirdağ Veliköy'deki 3.000 m² fabrikada sürüyor; Beylikdüzü satış merkezidir. Metin buna göre düzeltildi.
 
+## Kurumsal sayfası: tarihçe
+
+Firmanın "Yiğit Alüminyum Tarihçesi" belgesinden yedi dönüm noktası (2007, 2008, 2012, 2012–2020, 2020 fabrika, 2020 mağaza, Bugün) ile vizyon ve misyon, Kurumsal sayfasına yıl şeridi olarak eklendi (2026-09-21). Metinler tema düzenleyiciden (Kurumsal > Tarihçe bölümü) değiştirilir.
+
+Shopify > İçerik > Dosyalar'a yüklenecek görseller `dist/shopify-dosyalar/kurumsal/` klasöründedir:
+
+| Dosya | Nerede kullanılıyor |
+|---|---|
+| `dukkan-2008-01.webp` | 2008 — Esenyurt'taki ilk dükkânın cephesi |
+| `dukkan-2008-02.webp` | Yedek: aynı dükkânın iç görseli (şu an şeritte kullanılmıyor) |
+
+2020 fabrika ve Bugün maddelerinde hâlihazırda yüklü fabrika görselleri (`9.jpg`, `14.jpg`) kullanıldı.
+
+**Sayfa metni:** Kurumsal sayfasının mağazadaki metni de kısaltıldı; şeritte anlatılan tarihçeyi tekrar etmeyen iki paragraflık bir giriş öneriliyor. Metin temanın değil mağazanın içeriği olduğu için Shopify > Online Mağaza > Sayfalar > Kurumsal'dan güncellenmelidir (önerilen metin `dev/mock/pages.json` dosyasındaki halidir; istenirse gönderilebilir). Sayfa başlığı "2008'den beri alüminyum profil" yerine "2007'den bugüne alüminyum profil" oldu: ticaret 2007'de başladı.
+
 ## Üretim sayfası tanıtım filmi
 
 Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfasının başına, süreç adımlarının üstüne yerleştirildi.

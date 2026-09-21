@@ -1624,6 +1624,48 @@
   .cert__media img { inline-size: 100%; block-size: 100%; object-fit: contain; }
   .cert__title { font-size: 0.875rem; font-weight: 550; }
 
+  /* Kurumsal tarihçe: yıl şeridi + vizyon/misyon kartları */
+  .tline { margin-block: clamp(3rem, 8svh, 5rem) clamp(4rem, 10svh, 7rem); }
+  .tline__head { max-inline-size: 46rem; margin-block-end: clamp(2.5rem, 7svh, 4rem); }
+  .tline__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .tline__h2 { margin-block-start: 0.6rem; font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }
+  .tline__lede { margin-block-start: 1rem; font-size: clamp(1.0625rem, 1.15vw, 1.1875rem); line-height: 1.6; color: var(--c-ink-soft); }
+  .tline__list { --rail-x: clamp(1.25rem, 3vw, 2.5rem); position: relative; display: grid; gap: clamp(2.5rem, 7svh, 4.5rem); padding-inline-start: var(--rail-x); }
+  /* Yılları bağlayan çizgi; ışığı kaydırdıkça aşağı iner */
+  .tline__list::before, .tline__list::after { content: ''; position: absolute; inset-block: 0.75rem; inset-inline-start: 0; inline-size: 2px; border-radius: 2px; }
+  .tline__list::before { background: var(--c-rule); }
+  .tline__list::after { background: var(--altin-degrade, var(--c-gold)); transform-origin: top; scale: 1 0; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .tline__list::after { animation: steps-fill linear both; animation-timeline: view(); animation-range: entry 25% exit 55%; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) { .tline__list::after { scale: 1 1; } }
+  .tl { position: relative; display: grid; gap: 0.35rem clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  .tl::before {
+    content: ''; position: absolute; inset-block-start: 0.7rem; inset-inline-start: calc(var(--rail-x) * -1 - 5px);
+    inline-size: 12px; block-size: 12px; border-radius: 50%;
+    background: var(--c-ground); box-shadow: inset 0 0 0 2px var(--c-gold);
+  }
+  .tl__year { word-break: keep-all; overflow-wrap: normal; hyphens: none; font-size: clamp(1.375rem, 1.9vw, 1.875rem); font-weight: 680; font-stretch: 114%; line-height: 1; letter-spacing: -0.03em; color: var(--c-gold); font-variant-numeric: tabular-nums; }
+  .tl__title { margin-block-start: 0.5rem; font-size: clamp(1.125rem, 1.5vw, 1.5rem); font-weight: 650; font-stretch: 112%; line-height: 1.15; letter-spacing: -0.02em; }
+  .tl__text { margin-block-start: 0.75rem; max-inline-size: 52ch; font-size: clamp(1rem, 1.05vw, 1.0625rem); line-height: 1.6; color: var(--c-ink-soft); }
+  .tl__media { margin-block-start: 1.25rem; border-radius: var(--radius); overflow: clip; }
+  .tl__media img { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .tl__caption { padding: 0.6rem 0.8rem; font-size: 0.8125rem; color: var(--c-ink-soft); background: var(--c-panel); }
+  .tline__values { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: var(--gutter); margin-block-start: clamp(3rem, 8svh, 5rem); }
+  .tval { padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: var(--radius); background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .tval__title { font-size: clamp(1.125rem, 1.4vw, 1.375rem); font-weight: 650; font-stretch: 112%; letter-spacing: -0.02em; }
+  .tval__text { margin-block-start: 0.85rem; font-size: 1rem; line-height: 1.65; color: var(--c-ink-soft); }
+  .tval__text p + p { margin-block-start: 0.75rem; }
+  @media (min-width: 64em) {
+    .tl { grid-template-columns: minmax(0, 10rem) minmax(0, 1.05fr) minmax(0, 1fr); }
+    .tl__year { grid-row: 1; }
+    .tl__body { grid-column: 2; }
+    .tl:not(:has(.tl__media)) .tl__body { max-inline-size: 52rem; }
+    .tl__media { grid-column: 3; grid-row: 1; margin-block-start: 0.25rem; }
+  }
+
   /* Sayfa metni (hakkımızda) */
   .pcontent { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; margin-block-end: clamp(4rem, 10svh, 7rem); }
   .pcontent:not(:has(.pcontent__media)) { grid-template-columns: minmax(0, 46rem); }
