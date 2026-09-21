@@ -818,7 +818,13 @@
   /* Menü, banner üzerinde ve şeffafken açık renk: yazılar beyaz, logonun açık sürümü. Kaydırınca, imleç ya da
      klavye odağı gelince ve menü açıkken çubuk beyaz gövdeye döner; o zaman her şey normal renginde. */
   .rail__logo-img--acik { display: none; }
-  html:has(.sbanner) .rail:not(.is-kaydi, .is-open) .rail__bar:not(:hover, :focus-within, :has([aria-expanded='true'])) {
+  /* Ana sayfada film, iç sayfalarda banner çubuğun altından geçer: ikisinde de çubuk şeffafken yazı açık renk olur.
+     Kaydırınca, imleç/klavye odağı gelince ve menü açıkken çubuk beyaz gövdeye döner; her şey normal rengine döner. */
+  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open):not(:has(.rail__bar:hover, .rail__bar:focus-within, [aria-expanded='true'])) {
+    /* Açık görsellerin üzerinde de okunsun diye çubuğun arkasında ince bir karartma */
+    background: linear-gradient(180deg, oklch(0.18 0.01 70 / 0.5), transparent);
+  }
+  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open) .rail__bar:not(:hover, :focus-within, :has([aria-expanded='true'])) {
     & .rail__logo-img--koyu { display: none; }
     & .rail__logo-img--acik { display: block; }
     & :is(.rail__link, .rail__lang a, .rail__cart, .rail__search) { color: oklch(0.97 0.006 85 / 0.88); }

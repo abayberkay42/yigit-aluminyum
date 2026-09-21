@@ -59,62 +59,45 @@
     "groups": {
       "type": "home-groups",
       "blocks": {
-        "g-kanal": {
+        "g-led": {
           "type": "group",
           "settings": {
-            "collection": "siva-ustu-led-profilleri"
-          }
-        },
-        "g-trimless": {
-          "type": "group",
-          "settings": {
-            "collection": "tri̇mless-alcipan-led-profi̇lleri̇"
-          }
-        },
-        "g-kanatli": {
-          "type": "group",
-          "settings": {
-            "collection": "gomme-led-profilleri"
-          }
-        },
-        "g-kose": {
-          "type": "group",
-          "settings": {
-            "collection": "tavan-kose-led-profilleri"
-          }
-        },
-        "g-supurgelik": {
-          "type": "group",
-          "settings": {
-            "collection": "supurgelik-profilleri-1"
+            "collection": "led-profilleri",
+            "title": "LED Profilleri"
           }
         },
         "g-panel": {
           "type": "group",
           "settings": {
-            "collection": "duvar-panel-profilleri-1"
+            "collection": "duvar-panel-profilleri-1",
+            "title": "PVC Panel Profilleri"
           }
         },
         "g-alcipan": {
           "type": "group",
           "settings": {
-            "collection": "fuga-profilleri"
+            "collection": "fuga-profilleri",
+            "title": "Alçıpan Profilleri"
+          }
+        },
+        "g-supurgelik": {
+          "type": "group",
+          "settings": {
+            "collection": "supurgelik-profilleri-1",
+            "title": "Süpürgelik Profilleri"
           }
         }
       },
       "block_order": [
-        "g-kanal",
-        "g-trimless",
-        "g-kanatli",
-        "g-kose",
-        "g-supurgelik",
+        "g-led",
         "g-panel",
-        "g-alcipan"
+        "g-alcipan",
+        "g-supurgelik"
       ],
       "settings": {
         "eyebrow": "Ürün grupları",
         "heading": "Profil gruplarımız",
-        "text": "LED aydınlatma, alçıpan, süpürgelik ve duvar paneli için alüminyum profiller. Bir grubu seçin, ürünlerini inceleyin."
+        "text": "LED aydınlatma, PVC duvar paneli, alçıpan ve süpürgelik için alüminyum profiller. Bir grubu seçin, ürünlerini inceleyin."
       }
     },
     "doors": {

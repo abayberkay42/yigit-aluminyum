@@ -115,7 +115,7 @@ Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfa
 
 ## Menü
 
-Üst menüdeki "Ürünler" başlığı dört ana kategorili geniş bir panel olarak açılır ("Tüm ürünler" yok). Shopify > Online Mağaza > Gezinme > Ana menü > "Ürünler" altına ana kategoriler, ana kategorilerin altına da alt bağlantılar eklenir (üç düzey; bağlantıyı bir üstteki bağlantının üzerine sürükleyince alt bağlantı olur):
+Üst menü: **Ürünler · Üretim · Kurumsal · İletişim**. "Kullanım alanları" firmanın isteğiyle üst menüden kaldırıldı (2026-09-21); sayfaya Ürünler menüsünden ve ana sayfadaki kullanım alanları bölümünden gidilir. "Ürünler" başlığı dört ana kategorili geniş bir panel olarak açılır ("Tüm ürünler" yok). Shopify > Online Mağaza > Gezinme > Ana menü > "Ürünler" altına ana kategoriler, ana kategorilerin altına da alt bağlantılar eklenir (üç düzey; bağlantıyı bir üstteki bağlantının üzerine sürükleyince alt bağlantı olur):
 
 | Ana kategori (2. düzey) | Alt bağlantılar (3. düzey) |
 |---|---|
@@ -125,6 +125,10 @@ Firmanın "TANITIM FİLMİ.mp4" dosyası (53 sn, 1280×720, sesli) Üretim sayfa
 | Kullanım Alanları → sayfa `kullanim-alanlari` | (alt bağlantı yok) |
 
 Masaüstünde her ana kategori bir sütundur (başlık altın renkli, altında alt bağlantılar); telefonda alt alta listelenir. Alt bağlantısı olmayan ana kategori yalnız başlık olarak durur. Alt menüden (`footer`) "Numune talebi" bağlantısı kaldırılmalıdır: numune yalnız ürün sayfalarındaki "Numune iste" düğmesiyle istenir.
+
+## Ana sayfa ürün grupları
+
+Ana sayfadaki "Profil gruplarımız" listesi firmanın isteğiyle yalnız ana kategorileri gösterir (2026-09-21): LED Profilleri, PVC Panel Profilleri, Alçıpan Profilleri, Süpürgelik Profilleri. Alt gruplar (trimless, kanal, kanatlı, tavan köşe) menüden ve koleksiyon sayfalarından gezilir. Liste, ana sayfa > Ürün grupları bölümündeki bloklardan değişir.
 
 ## Marka varlıkları (yükleme gerekmez)
 
