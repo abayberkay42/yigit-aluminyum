@@ -71,6 +71,7 @@ export function createRenderer(THEME) {
       else if (d.type === 'collection') out[d.id] = scope.collections?.[v] ?? null;
       else if (d.type === 'product') out[d.id] = scope.all_products?.[v] ?? null;
       else if (d.type === 'page') out[d.id] = scope.pages?.[v] ?? null;
+      else if (d.type === 'blog') out[d.id] = scope.blogs?.[v] ?? null;
       // Shopify "Dosyalar"daki görsel: shopify://shop_images/ad.webp → görsel nesnesi (yerelde dev/mock/files)
       else if (d.type === 'image_picker') out[d.id] = scope.files?.[v] ?? null;
       // Dosyalar'daki video: shopify://files/videos/ad.mp4

@@ -44,6 +44,9 @@
       "loading": "Loading film",
       "skip": "Continue to site",
       "percent": "#%"
+    },
+    "usage": {
+      "all": "All application areas"
     }
   },
   "pages": {

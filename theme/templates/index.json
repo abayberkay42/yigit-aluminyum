@@ -134,12 +134,121 @@
         "door-magaza"
       ],
       "settings": {}
+    },
+    "kullanim": {
+      "type": "home-usage",
+      "blocks": {
+        "salon": {
+          "type": "room",
+          "settings": {
+            "title": "Salon",
+            "text": "Tavana gömülen trimless profil: ışık var, kaynak görünmüyor.",
+            "image": "shopify://shop_images/room-salon.webp",
+            "anchor": "salon"
+          }
+        },
+        "koridor": {
+          "type": "room",
+          "settings": {
+            "title": "Koridor",
+            "text": "Tavanda boydan boya çizgi, zeminde LED’li süpürgelik.",
+            "image": "shopify://shop_images/room-koridor.webp",
+            "anchor": "koridor"
+          }
+        },
+        "mutfak": {
+          "type": "room",
+          "settings": {
+            "title": "Mutfak",
+            "text": "Dolap altında sıva üstü kanal profil; tezgâh gölgesiz aydınlanır.",
+            "image": "shopify://shop_images/room-mutfak.webp",
+            "anchor": "mutfak"
+          }
+        },
+        "banyo": {
+          "type": "room",
+          "settings": {
+            "title": "Banyo",
+            "text": "Ayna çevresinde ve niş içinde ince ışık çizgisi.",
+            "image": "shopify://shop_images/room-banyo.webp",
+            "anchor": "banyo"
+          }
+        },
+        "ofis": {
+          "type": "room",
+          "settings": {
+            "title": "Ofis",
+            "text": "Sarkıt ve gömme profillerle göz yormayan eşit aydınlatma.",
+            "image": "shopify://shop_images/room-ofis.webp",
+            "anchor": "ofis"
+          }
+        },
+        "dis": {
+          "type": "room",
+          "settings": {
+            "title": "Dış cephe",
+            "text": "Cephe ve bahçe duvarlarında dış mekâna uygun profiller.",
+            "image": "shopify://shop_images/room-dis.webp",
+            "anchor": "dis"
+          }
+        }
+      },
+      "block_order": [
+        "salon",
+        "koridor",
+        "mutfak",
+        "banyo",
+        "ofis",
+        "dis"
+      ],
+      "settings": {
+        "eyebrow": "Kullanım alanları",
+        "heading": "LED profilleri nerelerde kullanılır?",
+        "text": "Aynı profil, oturma odasında da mağaza vitrininde de işe yarar. Alanı seçin; o alanda hangi profilin nasıl kullanıldığını görün.",
+        "link_label": "Tüm kullanım alanları"
+      }
+    },
+    "gunluk": {
+      "type": "home-journal",
+      "blocks": {
+        "sss": {
+          "type": "post",
+          "settings": {
+            "meta": "Rehber",
+            "title": "Sık sorulan sorular",
+            "text": "Ölçü, boy, kesim, kargo ve fatura: sipariş öncesi en çok sorulanlar.",
+            "url": "/pages/sss"
+          }
+        },
+        "katalog": {
+          "type": "post",
+          "settings": {
+            "meta": "Katalog",
+            "title": "Ürün katalogları",
+            "text": "Profil ölçüleri ve kesit çizimleri için katalogları indirin.",
+            "url": "/pages/kataloglar"
+          }
+        }
+      },
+      "block_order": [
+        "sss",
+        "katalog"
+      ],
+      "settings": {
+        "eyebrow": "Bilgi",
+        "heading": "Profil seçerken işinize yarayacak yazılar",
+        "text": "Hangi profilin nereye uygun olduğunu, montajda nelere dikkat edildiğini ve sipariş sürecini anlatan içerikler.",
+        "blog": "tri̇mless-led-profi̇lleri̇",
+        "count": 3
+      }
     }
   },
   "order": [
     "film",
     "production",
     "groups",
-    "doors"
+    "kullanim",
+    "doors",
+    "gunluk"
   ]
 }

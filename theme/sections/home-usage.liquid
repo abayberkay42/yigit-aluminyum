@@ -1,0 +1,65 @@
+{%- comment -%}
+  Ana sayfa: "LED profilleri nerelerde kullanılır?" bölümü. Her kart kullanım alanları sayfasındaki
+  ilgili alana gider (#room-…). Kartlar aynı sayfadaki fotoğrafları kullanır; görsel seçilmezse kart görünmez.
+  İlk kart geniş ekranda iki sütun kaplar, sıra tek düze bir ızgara gibi okunmasın diye.
+{%- endcomment -%}
+{%- assign hedef = section.settings.page_url | default: '/pages/kullanim-alanlari' -%}
+<section class="usage" aria-labelledby="UsageTitle-{{ section.id }}">
+  <header class="usage__head">
+    {%- if section.settings.eyebrow != blank -%}<p class="usage__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="usage__title" id="UsageTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="usage__text">{{ section.settings.text }}</p>{%- endif -%}
+    {%- liquid
+      assign tum = section.settings.link_label
+      if tum == blank
+        assign tum = 'home.usage.all' | t
+      endif
+    -%}
+    <a class="usage__all" href="{{ hedef }}">
+      {{ tum }}
+      <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <ul class="usage__grid" role="list">
+    {%- for block in section.blocks -%}
+      {%- assign img = block.settings.image -%}
+      {%- if img == blank -%}{%- continue -%}{%- endif -%}
+      {%- capture url -%}{{ hedef }}{% if block.settings.anchor != blank %}#room-{{ block.settings.anchor }}{% endif %}{%- endcapture -%}
+      <li class="ucard reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        <a class="ucard__link" href="{{ url }}">
+          <span class="ucard__media">
+            {{ img | image_url: width: 1200 | image_tag: widths: '400,600,900,1200', sizes: '(min-width: 64em) 30vw, 85vw', loading: 'lazy', alt: '' }}
+          </span>
+          <span class="ucard__body">
+            <span class="ucard__title">{{ block.settings.title }}</span>
+            {%- if block.settings.text != blank -%}<span class="ucard__text">{{ block.settings.text }}</span>{%- endif -%}
+          </span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Kullanım alanları kart",
+  "class": "section-home-usage",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "Kullanım alanları" },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "LED profilleri nerelerde kullanılır?" },
+    { "type": "textarea", "id": "text", "label": "Açıklama" },
+    { "type": "url", "id": "page_url", "label": "Kullanım alanları sayfası", "info": "Boşsa /pages/kullanim-alanlari." },
+    { "type": "text", "id": "link_label", "label": "Bağlantı metni", "default": "Tüm kullanım alanları" }
+  ],
+  "blocks": [
+    { "type": "room", "name": "Alan", "limit": 8, "settings": [
+      { "type": "text", "id": "title", "label": "Başlık", "default": "Salon" },
+      { "type": "textarea", "id": "text", "label": "Kısa metin" },
+      { "type": "image_picker", "id": "image", "label": "Görsel" },
+      { "type": "text", "id": "anchor", "label": "Sayfadaki alan kimliği", "info": "Kullanım alanları sayfasındaki bloğun kimliği (salon, mutfak…). Kart doğrudan o alana gider." }
+    ] }
+  ],
+  "presets": [{ "name": "Kullanım alanları kart" }]
+}
+{% endschema %}

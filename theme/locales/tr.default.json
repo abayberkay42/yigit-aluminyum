@@ -44,6 +44,9 @@
       "loading": "Film yükleniyor",
       "skip": "Siteye geç",
       "percent": "%#"
+    },
+    "usage": {
+      "all": "Tüm kullanım alanları"
     }
   },
   "pages": {
