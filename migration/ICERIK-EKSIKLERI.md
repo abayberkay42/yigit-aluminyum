@@ -111,7 +111,7 @@ Kurumsal sayfasındaki tarihçe şeridinde üç madde görselsiz duruyor; elimiz
 
 Bu fotoğraflar gelirse şeride eklenir; en çok mağaza fotoğrafı gerekiyor, satış merkezi sitede hiç görünmüyor.
 
-**16 ülke:** Tarihçede "16 ülkeye ihracat" yazıyor, ülkelerin adları yok. Ana sayfadaki ihracat haritası hazır ve çalışıyor; şu an yalnız Türkiye işaretli. **İhracat yapılan ülkelerin listesi gelince** haritaya oklar olarak eklenecek (bkz. `AKTARIM.md` > "Ana sayfa: yeni bölümler"). Liste gelmeden uydurma ülke konmadı.
+**Ülke sayısı:** Tarihçe belgesinde "16 ülkeye ihracat" yazıyor; ihracat listesi olarak verilen ülkeler ise 18 tane (Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, ABD, Kanada). Ana sayfadaki ihracat bölümünde sayı 18 olarak gösteriliyor ve ülkeler haritaya işlendi. **Doğru sayı teyit edilip** tarihçe metni ya da bölümdeki sayı buna göre düzeltilmeli.
 
 ## 14. Numune ürünü ve numune ücreti
 

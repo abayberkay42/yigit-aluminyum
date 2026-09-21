@@ -3,7 +3,7 @@
 // Çıktı:
 //   theme/assets/yigit-dunya.svg  → noktalı dünya (her nokta 1 ızgara hücresi; karadaysa çizilir)
 //   theme/snippets/dunya-koordinat.liquid → ülke kodu → harita üzerindeki yüzde konum tablosu (oklar için)
-// Harita eşdikdörtgen (equirectangular) izdüşümdür; viewBox 0 0 1000 480, kırpma: boylam -168…190, enlem 78…-56.
+// Harita eşdikdörtgen (equirectangular) izdüşümdür; kırpma: boylam -168…190, enlem 78…-56 (Antarktika yok).
 import fs from 'node:fs';
 import { geoContains, geoCentroid } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -15,7 +15,7 @@ const LON = [-168, 190];
 const LAT = [78, -56];
 const W = 1000;
 const H = 480;
-const ADIM = 1.15; // derece cinsinden nokta aralığı
+const ADIM = 1.05; // derece cinsinden nokta aralığı
 
 const x = (lon) => {
   let l = lon;
@@ -39,18 +39,30 @@ for (let lat = LAT[0]; lat >= LAT[1]; lat -= ADIM) {
 // Noktalar tek bir yol olarak yazılır (her nokta sıfır uzunlukta bir çizgi, yuvarlak uç): dosya küçük kalır
 const d = noktalar.map(([px, py]) => `M${px} ${py}h0`).join('');
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-hidden="true">
-<path d="${d}" fill="none" stroke="#b9b3a6" stroke-width="2.7" stroke-linecap="round"/>
+<path d="${d}" fill="none" stroke="#aca596" stroke-width="2.6" stroke-linecap="round"/>
 </svg>`;
 fs.writeFileSync('theme/assets/yigit-dunya.svg', svg + '\n');
 
 // Ülke kodu → harita üzerindeki yüzde konum (ok uçları için). Natural Earth'te ISO A2 yok, ad ve id var;
 // id = ISO 3166-1 sayısal kod. Kod tablosu snippet olarak yazılır, tema kodu bunu okur.
+// Coğrafi merkezin yanıltıcı olduğu ülkelerde ok ucu elle verilir (Rusya: Moskova, Fransa: anakara vb.)
+const ELLE = {
+  643: [37.6, 55.8], // Rusya
+  250: [2.4, 46.6], // Fransa (deniz aşırı topraklar merkezi kaydırıyor)
+  124: [-101, 57], // Kanada
+  840: [-98, 39], // Amerika Birleşik Devletleri
+  528: [5.4, 52.2], // Hollanda
+};
+
 const konum = {};
 for (const f of dunya.features) {
   if (f.properties.name === 'Antarctica') continue;
-  const [lon, lat] = geoCentroid(f);
+  // Kosova'nın ISO sayısal kodu yok; kullanıcı tarafından atanan XK koduyla girer
+  const anahtar = /^\d+$/.test(String(f.id ?? '')) ? String(f.id) : (f.properties.name === 'Kosovo' ? 'XK' : null);
+  if (!anahtar) continue;
+  const [lon, lat] = ELLE[Number(f.id)] || geoCentroid(f);
   if (lat > LAT[0] || lat < LAT[1]) continue;
-  konum[f.id] = {
+  konum[anahtar] = {
     ad: f.properties.name,
     x: +((x(lon) / W) * 100).toFixed(2),
     y: +((y(lat) / H) * 100).toFixed(2),

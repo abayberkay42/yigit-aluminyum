@@ -244,13 +244,159 @@
     },
     "ihracat": {
       "type": "home-export",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "u01": {
+          "type": "country",
+          "settings": {
+            "ad": "Bulgaristan",
+            "kod": "100"
+          }
+        },
+        "u02": {
+          "type": "country",
+          "settings": {
+            "ad": "Romanya",
+            "kod": "642"
+          }
+        },
+        "u03": {
+          "type": "country",
+          "settings": {
+            "ad": "Yunanistan",
+            "kod": "300"
+          }
+        },
+        "u04": {
+          "type": "country",
+          "settings": {
+            "ad": "Sırbistan",
+            "kod": "688"
+          }
+        },
+        "u05": {
+          "type": "country",
+          "settings": {
+            "ad": "Makedonya",
+            "kod": "807"
+          }
+        },
+        "u06": {
+          "type": "country",
+          "settings": {
+            "ad": "Arnavutluk",
+            "kod": "008"
+          }
+        },
+        "u07": {
+          "type": "country",
+          "settings": {
+            "ad": "Kosova",
+            "kod": "XK"
+          }
+        },
+        "u08": {
+          "type": "country",
+          "settings": {
+            "ad": "Bosna-Hersek",
+            "kod": "070"
+          }
+        },
+        "u09": {
+          "type": "country",
+          "settings": {
+            "ad": "Hırvatistan",
+            "kod": "191"
+          }
+        },
+        "u10": {
+          "type": "country",
+          "settings": {
+            "ad": "Gürcistan",
+            "kod": "268"
+          }
+        },
+        "u11": {
+          "type": "country",
+          "settings": {
+            "ad": "Azerbaycan",
+            "kod": "031"
+          }
+        },
+        "u12": {
+          "type": "country",
+          "settings": {
+            "ad": "Irak",
+            "kod": "368"
+          }
+        },
+        "u13": {
+          "type": "country",
+          "settings": {
+            "ad": "Rusya",
+            "kod": "643"
+          }
+        },
+        "u14": {
+          "type": "country",
+          "settings": {
+            "ad": "Almanya",
+            "kod": "276"
+          }
+        },
+        "u15": {
+          "type": "country",
+          "settings": {
+            "ad": "Fransa",
+            "kod": "250"
+          }
+        },
+        "u16": {
+          "type": "country",
+          "settings": {
+            "ad": "İtalya",
+            "kod": "380"
+          }
+        },
+        "u17": {
+          "type": "country",
+          "settings": {
+            "ad": "Amerika Birleşik Devletleri",
+            "kod": "840"
+          }
+        },
+        "u18": {
+          "type": "country",
+          "settings": {
+            "ad": "Kanada",
+            "kod": "124"
+          }
+        }
+      },
+      "block_order": [
+        "u01",
+        "u02",
+        "u03",
+        "u04",
+        "u05",
+        "u06",
+        "u07",
+        "u08",
+        "u09",
+        "u10",
+        "u11",
+        "u12",
+        "u13",
+        "u14",
+        "u15",
+        "u16",
+        "u17",
+        "u18"
+      ],
       "settings": {
         "eyebrow": "İhracat",
         "heading": "Veliköy’de üretiyoruz, sınırların ötesine gönderiyoruz",
         "text": "Türkiye genelindeki satışlarımızın yanında alüminyum profillerimizi yurt dışına da gönderiyoruz. Proje miktarındaki ihracat talepleriniz için doğrudan bize yazın.",
-        "sayi": "16",
+        "sayi": "18",
         "sayi_etiket": "ülkeye ihracat",
         "link_label": "İhracat için iletişim",
         "link_url": "/pages/iletisim"

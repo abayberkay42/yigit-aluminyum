@@ -1627,7 +1627,7 @@
   .cert__title { font-size: 0.875rem; font-weight: 550; }
 
   /* Ana sayfa: kullanım alanları kartları */
-  .usage { margin-block: clamp(4rem, 12svh, 8rem); }
+  .usage { max-inline-size: var(--page); margin-inline: auto; padding: clamp(4rem, 11svh, 7.5rem) var(--gutter); }
   .usage__head { display: grid; gap: 0.75rem; max-inline-size: 52rem; margin-block-end: clamp(2rem, 6svh, 3.25rem); }
   .usage__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
   .usage__title { font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }
@@ -1645,7 +1645,7 @@
   .ucard__link:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
   @media (min-width: 64em) {
     /* Bento düzen: ilk alan büyük kare, sağında iki yatay kart, altta üç kart */
-    .usage__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: clamp(10rem, 14vw, 14rem); }
+    .usage__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: clamp(9rem, 12vw, 12.5rem); }
     .ucard { grid-column: span 2; }
     .ucard:first-child { grid-column: span 4; grid-row: span 2; }
     .ucard:nth-child(2), .ucard:nth-child(3) { grid-column: span 2; }
@@ -1659,7 +1659,7 @@
   @media (prefers-reduced-motion: reduce) { .ucard__media img, .usage__all svg { transition: none; } }
 
   /* Ana sayfa: ihracat haritası */
-  .export { margin-block: clamp(4rem, 12svh, 8rem); }
+  .export { max-inline-size: var(--page); margin-inline: auto; padding: clamp(4rem, 11svh, 7.5rem) var(--gutter); }
   .export__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   .export__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
   .export__title { margin-block-start: 0.6rem; font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }
@@ -1671,6 +1671,8 @@
   .export__list li { padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.9375rem; background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule); }
   .export__cta { margin-block-start: 1.75rem; }
   .export__map { position: relative; }
+  /* Telefonda harita önce gelsin: metin ve ülke listesi altında dursun */
+  @media (max-width: 63.99em) { .export__map { order: -1; } .export__body { margin-block-start: 0.5rem; } }
   .export__dots { inline-size: 100%; block-size: auto; opacity: 0.85; }
   .export__arcs { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
   .export__arc { stroke: var(--c-gold); stroke-width: 2; stroke-linecap: round; opacity: 0.85; stroke-dasharray: var(--uzunluk); stroke-dashoffset: var(--uzunluk); }
@@ -1690,7 +1692,7 @@
   }
 
   /* Ana sayfa: blog listesi */
-  .journal { margin-block: clamp(4rem, 12svh, 8rem); }
+  .journal { max-inline-size: var(--page); margin-inline: auto; padding: clamp(4rem, 11svh, 7.5rem) var(--gutter); }
   .journal__head { display: grid; gap: 0.75rem; max-inline-size: 52rem; margin-block-end: clamp(1.5rem, 5svh, 2.5rem); }
   .journal__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
   .journal__title { font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }

@@ -18,6 +18,8 @@ export function initExport(root = document) {
       if (!anahtar) return null;
       const k = String(anahtar).trim();
       if (konum[k]) return konum[k];
+      // Tablodaki kodlar üç haneli: "8" → "008"
+      if (/^\d+$/.test(k) && konum[k.padStart(3, '0')]) return konum[k.padStart(3, '0')];
       const kucuk = k.toLocaleLowerCase('en');
       const bulunan = Object.values(konum).find((v) => v.ad.toLowerCase() === kucuk);
       return bulunan || null;

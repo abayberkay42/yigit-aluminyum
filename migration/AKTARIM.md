@@ -124,6 +124,8 @@ Ana sayfaya üç bölüm eklendi (2026-09-21). Üçü de tema düzenleyiciden (A
 | İhracat | Noktalı dünya haritası, Türkiye'den ülkelere çıkan oklar, "16 ülkeye ihracat" sayısı |
 | Blog | Sayfanın en altında seçilen blogun son yazıları; blog yazısı azken elle içerik satırı da eklenebilir (şu an SSS ve Kataloglar) |
 
+Haritadaki ülkeler firmanın verdiği listeye göre girildi (18 ülke: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, ABD, Kanada). **Dikkat:** tarihçe belgesinde "16 ülke" yazıyor, verilen liste 18 ülke; bölümdeki sayı 18 olarak girildi, hangisinin doğru olduğu teyit edilmeli.
+
 **İhracat haritasına ülke eklemek:** İhracat bölümü > "Ülke" bloğu eklenir; "Ülke adı" alanına sitede görünecek ad (ör. Almanya), "Ülke kodu" alanına ISO 3166-1 sayısal kod (Almanya 276) **ya da** İngilizce ülke adı (Germany) yazılır. Ok ve nokta haritada kendiliğinden doğru yere çıkar. Ülke eklenmemişse harita yalnız Türkiye işaretiyle görünür, bölüm yine çalışır.
 
 Harita Natural Earth (kamu malı) verisinden `tools/dunya-harita.mjs` ile üretildi; `theme/assets/yigit-dunya.svg` dosyası temanın içindedir, ayrıca yükleme gerekmez.
