@@ -135,15 +135,6 @@
     "sahne": {
       "type": "home-hero",
       "blocks": {
-        "die-led": {
-          "type": "group",
-          "settings": {
-            "title": "LED kanal",
-            "shape": "led",
-            "collection": "siva-ustu-led-profilleri",
-            "product": "22x13-led-profili"
-          }
-        },
         "die-trimless": {
           "type": "group",
           "settings": {
@@ -151,42 +142,6 @@
             "shape": "trimless",
             "collection": "tri̇mless-alcipan-led-profi̇lleri̇",
             "product": "2-2cm-trimless-alcipan-led-profili"
-          }
-        },
-        "die-kose": {
-          "type": "group",
-          "settings": {
-            "title": "Köşe LED",
-            "shape": "kose",
-            "collection": "tavan-kose-led-profilleri",
-            "product": "tavan-kose-led-profili"
-          }
-        },
-        "die-supurgelik": {
-          "type": "group",
-          "settings": {
-            "title": "Süpürgelik",
-            "shape": "supurgelik",
-            "collection": "supurgelik-profilleri-1",
-            "product": "ledli-supurgelik-profili"
-          }
-        },
-        "die-z": {
-          "type": "group",
-          "settings": {
-            "title": "Alçıpan Z",
-            "shape": "z",
-            "collection": "fuga-profilleri",
-            "product": "alcipan-z-profili"
-          }
-        },
-        "die-panel": {
-          "type": "group",
-          "settings": {
-            "title": "Duvar paneli",
-            "shape": "panel",
-            "collection": "duvar-panel-profilleri-1",
-            "product": "pvc-duvar-panel-h-birlesim-profili"
           }
         },
         "stage-cut": {
@@ -201,8 +156,8 @@
           "type": "stage",
           "settings": {
             "kind": "finish",
-            "title": "Yüzey ve renk",
-            "text": "Renk seçenekleri: gümüş, beyaz, altın, antrasit ve siyah."
+            "title": "Yüzey",
+            "text": "Trimless profil ham (press) alüminyum olarak üretilir: presten çıktığı yüzey, ek bir kaplama yapılmadan kalır."
           }
         },
         "stage-led": {
@@ -225,19 +180,18 @@
         }
       },
       "block_order": [
-        "die-led",
         "die-trimless",
-        "die-kose",
-        "die-supurgelik",
-        "die-z",
-        "die-panel",
         "stage-cut",
         "stage-finish",
         "stage-led",
         "stage-apply"
       ],
       "settings": {
-        "heading_tag": "h2"
+        "heading_tag": "h2",
+        "line_1": "2012'den beri",
+        "line_2": "alüminyum profil",
+        "line_3": "üretiyoruz.",
+        "lede": "Trimless profil, presten çıktığı anda: sıcak alüminyum kalıptan geçer, soğur, kesilir."
       }
     },
     "polikarbon": {

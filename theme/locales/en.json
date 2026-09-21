@@ -34,7 +34,8 @@
       "finish_siyah": "Black",
       "finish_antrasit": "Anthracite",
       "finish_altin": "Gold",
-      "finish_beyaz": "White"
+      "finish_beyaz": "White",
+      "finish_ham": "Mill finish (press)"
     },
     "groups": {
       "featured": "From this group"

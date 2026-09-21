@@ -12,7 +12,11 @@
   assign groups = section.blocks | where: 'type', 'group'
   assign stages = section.blocks | where: 'type', 'stage'
   assign first = groups.first
-  assign finishes = 'gumus,beyaz,altin,antrasit,siyah' | split: ','
+  comment
+    Yüzey listesi: trimless profil yalnız ham (press) alüminyum üretildiği için tek seçenek (firma, 2026-09-21).
+    Liste genişlerse src/js/hero/extrusion.js içindeki FINISHES de aynı sıraya getirilmeli.
+  endcomment
+  assign finishes = 'ham' | split: ','
   assign kelvins = '3000,4000,6500' | split: ','
   assign baslik = section.settings.heading_tag | default: 'h2'
 -%}

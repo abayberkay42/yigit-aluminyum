@@ -12,11 +12,14 @@ export const PROFILES = {
     ],
   },
   trimless: {
+    // Firmanın gerçek trimless profiline göre: 22 mm kanal, iki yanda sıvaya gömülen delikli kanat,
+    // kanal ağzında difüzör kapağının oturduğu tırnak. Kanatlardaki delikler 3B sahnede yüzey deseni olarak basılır.
     label: 'Trimless',
-    mm: [50, 13],
+    mm: [50, 11.8],
+    kanatBandi: [11, 25],
     outline: [
-      [-25, 11.8], [-7.5, 11.8], [-7.5, 0], [7.5, 0], [7.5, 11.8], [25, 11.8], [25, 13.2],
-      [6, 13.2], [6, 1.5], [-6, 1.5], [-6, 13.2], [-25, 13.2],
+      [-25, 10.6], [-11, 10.6], [-11, 0], [11, 0], [11, 10.6], [25, 10.6], [25, 11.8],
+      [9.6, 11.8], [9.6, 10.4], [8.4, 10.4], [8.4, 1.2], [-8.4, 1.2], [-8.4, 10.4], [-9.6, 10.4], [-9.6, 11.8], [-25, 11.8],
     ],
   },
   kose: {

@@ -34,7 +34,8 @@
       "finish_siyah": "Siyah",
       "finish_antrasit": "Antrasit",
       "finish_altin": "Altın",
-      "finish_beyaz": "Beyaz"
+      "finish_beyaz": "Beyaz",
+      "finish_ham": "Ham (press)"
     },
     "groups": {
       "featured": "Bu gruptan"

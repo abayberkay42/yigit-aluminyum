@@ -12,14 +12,10 @@ const DIE_DEPTH = 1.0;
 const CUT_Z = 9; // testerenin kestiği nokta
 const PIECE = LENGTH - CUT_Z;
 
-// Mağazadaki gerçek renk seçenekleri. Sıra bilinçli: siyahla biter, LED durağında yanan opal çizgi koyu gövdede okunur.
-// Sıra değişirse home-hero.liquid'deki renk listesi de aynı sıraya getirilmeli.
+// Yüzey seçenekleri. Trimless profil yalnız ham (press) alüminyum olarak üretiliyor (firma, 2026-09-21),
+// bu yüzden sahnede tek yüzey var. Liste genişlerse home-hero.liquid'deki renk listesi de aynı sıraya getirilmeli.
 export const FINISHES = [
-  { key: 'gumus', color: 0xd6d9dc, metal: 1, rough: 0.3 },
-  { key: 'beyaz', color: 0xeeeeec, metal: 0.15, rough: 0.55 },
-  { key: 'altin', color: 0xc6a46a, metal: 1, rough: 0.32 },
-  { key: 'antrasit', color: 0x45484d, metal: 0.85, rough: 0.38 },
-  { key: 'siyah', color: 0x1c1d1f, metal: 0.7, rough: 0.42 },
+  { key: 'ham', color: 0xc9ccce, metal: 1, rough: 0.34 },
 ];
 // 3000K: turuncu kehribar yerine logodaki sıcak altına yakın ton (CSS --light ile aynı aile)
 const KELVIN = { 3000: 0xffc862, 4000: 0xffdca8, 6500: 0xe4edff };
@@ -48,6 +44,23 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeIn = (t) => t * t * t;
+
+// Gerçek trimless profilinde kanatlar deliklidir (sıva tutunsun diye). Delikler geometriye açılmaz —
+// metrelerce profilde yüzlerce delik pahalıya gelir — yüzeyde koyu desen olarak basılır; uzaktan delik gibi okunur.
+const MM = SHAPE_SIZE / 50; // 50 mm genişliğindeki kesitin sahne birimine ölçeği
+function delikKodu(bant) {
+  if (!bant) return '';
+  const [ic, dis] = bant.map((v) => (v * MM).toFixed(3));
+  return `
+    float kx = abs(vObj.x);
+    if (kx > ${ic} && kx < ${dis}) {
+      vec2 hucre = fract(vec2(kx, vDist) / vec2(0.30, 0.44)) - 0.5;
+      float d = length(hucre * vec2(0.30, 0.44));
+      float delik = smoothstep(0.085, 0.052, d);
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.05, 0.05, 0.055), delik * 0.85);
+      roughnessFactor = mix(roughnessFactor, 0.9, delik);
+    }`;
+}
 
 function shapeFrom(outline, grow = 0) {
   const pts = normalize(outline, SHAPE_SIZE + grow);
@@ -145,6 +158,41 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
   die.castShadow = true;
   scene.add(die);
 
+  // Kalıbın arkasındaki pres: profil makineden çıkıyormuş gibi görünsün (firma isteği, 2026-09-21).
+  // Basit hacimler: gövde, kovan, ısıtıcı bantlar, kalıp taşıyıcı plaka ve besleme hunisi.
+  const makine = new THREE.Group();
+  const govdeMat = new THREE.MeshStandardMaterial({ color: 0x3c4147, metalness: 0.6, roughness: 0.52 });
+  const celikMat = new THREE.MeshStandardMaterial({ color: 0x8d9298, metalness: 1, roughness: 0.28 });
+  const govde = new THREE.Mesh(new THREE.BoxGeometry(7.6, 5.4, 11), govdeMat);
+  govde.position.set(0, 0, -7.2);
+  // Gövde üstünde makine sırtı ve iki yanda panel çizgisi: düz kutu yerine pres gövdesi gibi okunur
+  const sirt = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.9, 9.4), celikMat);
+  sirt.position.set(0, 2.85, -7.4);
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(7.75, 0.28, 9.6), celikMat);
+  panel.position.set(0, -1.2, -7.4);
+  for (let i = -1; i <= 1; i += 2) {
+    const ayak = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.5, 1.1), celikMat);
+    ayak.position.set(i * 2.6, -2.9, -7.2);
+    makine.add(ayak);
+  }
+  makine.add(sirt, panel);
+  const kovan = new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.9, 9.4, 40), celikMat);
+  kovan.rotation.x = Math.PI / 2;
+  kovan.position.set(0, 0.35, -6.4);
+  for (let i = 0; i < 4; i++) {
+    const bant = new THREE.Mesh(new THREE.TorusGeometry(2.02, 0.17, 10, 40), govdeMat);
+    bant.position.set(0, 0.35, -3.2 - i * 2.1);
+    makine.add(bant);
+  }
+  const plaka = new THREE.Mesh(new THREE.BoxGeometry(7.2, 5.2, 0.7), celikMat);
+  plaka.position.set(0, 0, -1.35);
+  const huni = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 0.5, 1.7, 24, 1, true), celikMat);
+  huni.position.set(0, 3.4, -9.4);
+  huni.material.side = THREE.DoubleSide;
+  makine.add(govde, kovan, plaka, huni);
+  makine.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } });
+  scene.add(makine);
+
   // Profil: ısı ve akış gölgelendiricisi
   const uniforms = { uTime: { value: 0 }, uLen: { value: 0 }, uHeat: { value: 1 } };
   const profMat = new THREE.MeshStandardMaterial({ color: 0xd6d9dc, metalness: 1, roughness: 0.3 });
@@ -165,6 +213,7 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
         float flow = vnoise(vec2((vObj.x - vObj.y) * 5.0, (vDist - uTime * 1.1) * 0.7));
         roughnessFactor = clamp(roughnessFactor + (grain - 0.5) * 0.14 + (flow - 0.5) * 0.12, 0.1, 0.85);`)
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        ${delikKodu(PROFILES[shape].kanatBandi)}
         float heat = exp(-vDist * 0.62) * uHeat;
         vec3 hot = mix(vec3(1.0, 0.24, 0.03), vec3(1.0, 0.72, 0.36), smoothstep(0.55, 1.0, heat));
         diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.16, 0.08, 0.06), clamp(heat * 0.75, 0.0, 1.0));
@@ -205,6 +254,16 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
   // Kesilen parça + LED şerit + opal kapak
   const pieceGroup = new THREE.Group();
   const pieceMat = new THREE.MeshStandardMaterial({ color: FINISHES[0].color, metalness: 1, roughness: 0.3 });
+  pieceMat.onBeforeCompile = (sh) => {
+    sh.uniforms.uParca = { value: PIECE };
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', '#include <common>\nuniform float uParca;\nvarying float vDist;\nvarying vec3 vObj;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvDist = position.z * uParca;\nvObj = position;');
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying float vDist;\nvarying vec3 vObj;')
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        ${delikKodu(PROFILES[shape].kanatBandi)}`);
+  };
   const piece = new THREE.Mesh(profileGeometry(PROFILES[shape].outline), pieceMat);
   piece.scale.z = PIECE;
   piece.castShadow = true;
@@ -296,11 +355,11 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
       const lift = smooth(STORY.lift[0], STORY.lift[1], p);
       pieceGroup.position.set(0, lift * 0.9, CUT_Z + lift * 1.2);
       pieceGroup.rotation.set(lift * 0.12, -lift * 0.35, 0);
-      const f = clamp01((p - STORY.finish[0]) / (STORY.finish[1] - STORY.finish[0])) * (FINISHES.length - 1);
-      const i = Math.min(Math.floor(f), FINISHES.length - 2);
+      const f = clamp01((p - STORY.finish[0]) / (STORY.finish[1] - STORY.finish[0])) * Math.max(FINISHES.length - 1, 0);
+      const i = Math.min(Math.floor(f), Math.max(FINISHES.length - 2, 0));
       const k = smooth(0.55, 1, f - i);
       const a = FINISHES[i];
-      const b = FINISHES[i + 1];
+      const b = FINISHES[i + 1] || a;
       pieceMat.color.copy(finishA.set(a.color)).lerp(finishB.set(b.color), k);
       pieceMat.metalness = THREE.MathUtils.lerp(a.metal, b.metal, k);
       pieceMat.roughness = THREE.MathUtils.lerp(a.rough, b.rough, k);
