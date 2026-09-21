@@ -114,6 +114,20 @@ Tek bir ürün için farklı bir numune kullanmak isterseniz, o ürünün `custo
 
 **Not:** Numunenin ücreti, kaç numune istenebileceği ve kargo ücretinin numunede nasıl işleyeceği firmanın kararıdır; şu an numune ürünü fiyatı neyse sepete o yansır.
 
+## Ana sayfa: yeni bölümler
+
+Ana sayfaya üç bölüm eklendi (2026-09-21). Üçü de tema düzenleyiciden (Ana sayfa) değiştirilir:
+
+| Bölüm | Ne yapar |
+|---|---|
+| Kullanım alanları kart | "LED profilleri nerelerde kullanılır?" — altı alan kartı; her kart Kullanım alanları sayfasındaki ilgili alana gider |
+| İhracat | Noktalı dünya haritası, Türkiye'den ülkelere çıkan oklar, "16 ülkeye ihracat" sayısı |
+| Blog | Sayfanın en altında seçilen blogun son yazıları; blog yazısı azken elle içerik satırı da eklenebilir (şu an SSS ve Kataloglar) |
+
+**İhracat haritasına ülke eklemek:** İhracat bölümü > "Ülke" bloğu eklenir; "Ülke adı" alanına sitede görünecek ad (ör. Almanya), "Ülke kodu" alanına ISO 3166-1 sayısal kod (Almanya 276) **ya da** İngilizce ülke adı (Germany) yazılır. Ok ve nokta haritada kendiliğinden doğru yere çıkar. Ülke eklenmemişse harita yalnız Türkiye işaretiyle görünür, bölüm yine çalışır.
+
+Harita Natural Earth (kamu malı) verisinden `tools/dunya-harita.mjs` ile üretildi; `theme/assets/yigit-dunya.svg` dosyası temanın içindedir, ayrıca yükleme gerekmez.
+
 ## Kurumsal sayfası: tarihçe
 
 Firmanın "Yiğit Alüminyum Tarihçesi" belgesinden yedi dönüm noktası (2007, 2008, 2012, 2012–2020, 2020 fabrika, 2020 mağaza, Bugün) ile vizyon ve misyon, Kurumsal sayfasına yıl şeridi olarak eklendi (2026-09-21). Metinler tema düzenleyiciden (Kurumsal > Tarihçe bölümü) değiştirilir.

@@ -1,0 +1,60 @@
+{%- comment -%}
+  Ana sayfa: ihracat bölümü. Türkiye merkezli noktalı dünya haritası, ülkelere doğru çıkan oklar.
+  Ülkeler blok olarak eklenir: görünen ad + ülke kodu (ISO 3166-1 sayısal) ya da İngilizce ülke adı.
+  Konumlar snippets/dunya-koordinat.liquid tablosundan gelir (tools/dunya-harita.mjs üretir).
+  JS yoksa ya da ülke kodu tanınmazsa ülkeler yalnız liste olarak görünür; bölüm yine anlamlıdır.
+{%- endcomment -%}
+{%- assign ulkeler = section.blocks | where: 'type', 'country' -%}
+<section class="export" data-export aria-labelledby="ExportTitle-{{ section.id }}">
+  <div class="export__grid">
+    <div class="export__body">
+      {%- if section.settings.eyebrow != blank -%}<p class="export__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="export__title" id="ExportTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="export__text">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.sayi != blank -%}
+        <p class="export__fact"><strong class="export__fact-v">{{ section.settings.sayi }}</strong> <span class="export__fact-k">{{ section.settings.sayi_etiket }}</span></p>
+      {%- endif -%}
+      {%- if ulkeler.size > 0 -%}
+        <ul class="export__list" role="list">
+          {%- for block in ulkeler -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.ad }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.link_url != blank and section.settings.link_label != blank -%}
+        <a class="button button--ghost export__cta" href="{{ section.settings.link_url }}">{{ section.settings.link_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="export__map" data-export-map>
+      <img class="export__dots" src="{{ 'yigit-dunya.svg' | asset_url }}" alt="" width="1000" height="480" loading="lazy" decoding="async">
+      {%- comment -%} Oklar buraya JS ile çizilir (src/js/sections/export.js); çizilemezse harita boş kalır, liste yine görünür {%- endcomment -%}
+      <svg class="export__arcs" viewBox="0 0 1000 480" fill="none" aria-hidden="true" focusable="false" data-export-arcs></svg>
+      <script type="application/json" data-export-konum>{% render 'dunya-koordinat' %}</script>
+      <script type="application/json" data-export-ulke>[{% for block in ulkeler %}{"ad":{{ block.settings.ad | json }},"kod":{{ block.settings.kod | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "İhracat",
+  "class": "section-home-export",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "İhracat" },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Ürettiğimiz profiller sınır tanımıyor" },
+    { "type": "textarea", "id": "text", "label": "Açıklama" },
+    { "type": "text", "id": "sayi", "label": "Sayı", "info": "Örn. 16. Boş bırakılırsa görünmez; yalnızca doğrulanmış değer girin." },
+    { "type": "text", "id": "sayi_etiket", "label": "Sayının açıklaması", "default": "ülkeye ihracat" },
+    { "type": "text", "id": "link_label", "label": "Düğme metni" },
+    { "type": "url", "id": "link_url", "label": "Düğme bağlantısı" }
+  ],
+  "blocks": [
+    { "type": "country", "name": "Ülke", "limit": 20, "settings": [
+      { "type": "text", "id": "ad", "label": "Ülke adı", "info": "Sitede görünen ad (Türkçe)." },
+      { "type": "text", "id": "kod", "label": "Ülke kodu", "info": "ISO 3166-1 sayısal kod (ör. Almanya 276) ya da İngilizce ülke adı (Germany). Harita üzerindeki konum bundan bulunur." }
+    ] }
+  ],
+  "presets": [{ "name": "İhracat" }]
+}
+{% endschema %}

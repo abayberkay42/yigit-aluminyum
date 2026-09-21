@@ -1656,6 +1656,37 @@
   }
   @media (prefers-reduced-motion: reduce) { .ucard__media img, .usage__all svg { transition: none; } }
 
+  /* Ana sayfa: ihracat haritası */
+  .export { margin-block: clamp(4rem, 12svh, 8rem); }
+  .export__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .export__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .export__title { margin-block-start: 0.6rem; font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }
+  .export__text { margin-block-start: 1rem; max-inline-size: 46ch; font-size: clamp(1rem, 1.1vw, 1.125rem); line-height: 1.6; color: var(--c-ink-soft); }
+  .export__fact { display: flex; align-items: baseline; gap: 0.6rem; margin-block-start: 1.75rem; }
+  .export__fact-v { font-size: clamp(2.5rem, 4.5vw, 4rem); font-weight: 680; font-stretch: 112%; line-height: 1; letter-spacing: -0.04em; color: var(--c-gold); font-variant-numeric: tabular-nums; }
+  .export__fact-k { font-size: 1.0625rem; color: var(--c-ink-soft); }
+  .export__list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1.5rem; }
+  .export__list li { padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.9375rem; background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .export__cta { margin-block-start: 1.75rem; }
+  .export__map { position: relative; }
+  .export__dots { inline-size: 100%; block-size: auto; opacity: 0.85; }
+  .export__arcs { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+  .export__arc { stroke: var(--c-gold); stroke-width: 2; stroke-linecap: round; opacity: 0.85; stroke-dasharray: var(--uzunluk); stroke-dashoffset: var(--uzunluk); }
+  .export__dot { fill: var(--c-gold); opacity: 0; }
+  .export__home { fill: var(--c-gold-bright); stroke: var(--c-gold); stroke-width: 2; }
+  .export.is-cizili .export__arc { animation: export-ciz 1.1s var(--ease-expo) var(--gecikme, 0s) forwards; }
+  .export.is-cizili .export__dot { animation: export-nokta 0.5s ease var(--gecikme, 0s) forwards; }
+  @keyframes export-ciz { to { stroke-dashoffset: 0; } }
+  @keyframes export-nokta { to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .export__arc { stroke-dashoffset: 0; }
+    .export__dot { opacity: 1; }
+    .export.is-cizili .export__arc, .export.is-cizili .export__dot { animation: none; }
+  }
+  @media (min-width: 64em) {
+    .export__grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  }
+
   /* Ana sayfa: blog listesi */
   .journal { margin-block: clamp(4rem, 12svh, 8rem); }
   .journal__head { display: grid; gap: 0.75rem; max-inline-size: 52rem; margin-block-end: clamp(1.5rem, 5svh, 2.5rem); }

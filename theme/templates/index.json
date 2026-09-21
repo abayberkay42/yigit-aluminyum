@@ -241,6 +241,20 @@
         "blog": "tri̇mless-led-profi̇lleri̇",
         "count": 3
       }
+    },
+    "ihracat": {
+      "type": "home-export",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "eyebrow": "İhracat",
+        "heading": "Veliköy’de üretiyoruz, sınırların ötesine gönderiyoruz",
+        "text": "Türkiye genelindeki satışlarımızın yanında alüminyum profillerimizi yurt dışına da gönderiyoruz. Proje miktarındaki ihracat talepleriniz için doğrudan bize yazın.",
+        "sayi": "16",
+        "sayi_etiket": "ülkeye ihracat",
+        "link_label": "İhracat için iletişim",
+        "link_url": "/pages/iletisim"
+      }
     }
   },
   "order": [
@@ -248,6 +262,7 @@
     "production",
     "groups",
     "kullanim",
+    "ihracat",
     "doors",
     "gunluk"
   ]
