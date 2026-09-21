@@ -2166,6 +2166,9 @@
   .lines { display: grid; }
   .line { display: grid; grid-template-columns: 4.75rem minmax(0, 1fr) auto; gap: 0.9rem; padding-block: 1.1rem; border-block-start: 1px solid var(--c-rule); transition: opacity var(--dur-ui) ease; }
   .line:first-child { border-block-start: 0; }
+  /* Görseli olmayan satır (numune) ilk sütunu boş bırakmasın */
+  .line:not(:has(.line__media)) { grid-template-columns: minmax(0, 1fr) auto; }
+  .line__opt--numune { color: var(--c-ink-soft); }
   .line[aria-busy='true'] { opacity: 0.5; pointer-events: none; }
   .line__media { aspect-ratio: 1; border-radius: var(--radius); overflow: clip; background: var(--plinth); box-shadow: 0 0 0 1px var(--c-rule); isolation: isolate; }
   .line__media img { inline-size: 100%; block-size: 100%; object-fit: contain; mix-blend-mode: multiply; }

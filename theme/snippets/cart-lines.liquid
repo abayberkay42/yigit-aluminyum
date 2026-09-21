@@ -61,11 +61,22 @@
       {%- assign metraj_fiyat = metraj_fiyat | plus: 0 -%}
     {%- endif -%}
     <li class="line{% unless gecerli %} line--uyari{% endunless %}">
-      <a class="line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
-        {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: '' }}{%- endif -%}
-      </a>
+      {%- comment -%} Görseli olmayan ürün (ör. numune) boş kare bırakmaz {%- endcomment -%}
+      {%- if item.image -%}
+        <a class="line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+          {{- item.image | image_url: width: 240 | image_tag: widths: '120,240', sizes: '6rem', loading: 'lazy', alt: '' -}}
+        </a>
+      {%- endif -%}
       <div class="line__info">
-        <a class="line__title" href="{{ item.url }}">{{ item.product_title }}</a>
+        {%- comment -%} Numune satırı: başlıkta hangi ürünün numunesi olduğu yazar, bağlantı o ürüne gider {%- endcomment -%}
+        {%- assign numune_ad = item.properties.Numune -%}
+        {%- if numune_ad != blank -%}
+          {%- assign numune_url = item.properties._numune_url | default: item.url -%}
+          <a class="line__title" href="{{ numune_url }}">{{ numune_ad }}</a>
+          <p class="line__opt line__opt--numune">{{ item.product_title }}</p>
+        {%- else -%}
+          <a class="line__title" href="{{ item.url }}">{{ item.product_title }}</a>
+        {%- endif -%}
         {%- for o in item.options_with_values -%}
           <p class="line__opt">{{ o.name }}: {{ o.value }}</p>
         {%- endfor -%}

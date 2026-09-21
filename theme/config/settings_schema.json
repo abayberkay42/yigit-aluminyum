@@ -116,11 +116,37 @@
         "label": "Fiyat notu",
         "default": "haric",
         "options": [
-          { "value": "haric", "label": "KDV hariç" },
-          { "value": "dahil", "label": "KDV dahil" },
-          { "value": "yok", "label": "Gösterme" }
+          {
+            "value": "haric",
+            "label": "KDV hariç"
+          },
+          {
+            "value": "dahil",
+            "label": "KDV dahil"
+          },
+          {
+            "value": "yok",
+            "label": "Gösterme"
+          }
         ],
         "info": "Fiyatın yanında yazar. Firmanın fiyat tablosu KDV hariçtir; mağazanın vergi ayarıyla aynı olmalı."
+      },
+      {
+        "type": "header",
+        "content": "Numune"
+      },
+      {
+        "type": "product",
+        "id": "numune_urun",
+        "label": "Numune ürünü",
+        "info": "Ürün sayfasındaki \"Numune iste\" düğmesi bu ürünü sepete ekler; hangi ürünün numunesi olduğu satırda yazar. Boş bırakılırsa düğme WhatsApp’a gider."
+      },
+      {
+        "type": "number",
+        "id": "numune_boy_cm",
+        "label": "Numune boyu (cm)",
+        "default": 10,
+        "info": "Numune satırında yazan uzunluk."
       },
       {
         "type": "header",

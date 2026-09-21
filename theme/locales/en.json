@@ -152,7 +152,11 @@
     "spec_code": "Product code",
     "spec_unit": "Sales unit",
     "wrong": "Wrong:",
-    "right": "Right:"
+    "right": "Right:",
+    "sample_button_cart": "Request a {{ boy }} cm sample",
+    "sample_line": "{{ title }} — {{ boy }} cm sample",
+    "sample_added": "Sample added to cart",
+    "sample_error": "Could not add the sample"
   },
   "collections": {
     "sort": "Sort",

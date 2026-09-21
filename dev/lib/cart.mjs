@@ -8,7 +8,14 @@ const EN_FAZLA_SATIR = 100;
 
 const fail = (status, message) => Object.assign(new Error(message), { status });
 
-// İstek çerezinden sepet durumu: { lines: [{ variant_id, quantity }] }. Bozuk ya da yoksa boş sepet.
+// Satır özellikleri (numune satırında kaynak ürünün adı) satırı ayırır: aynı varyant farklı özelliklerle
+// ayrı satır olur, Shopify'da olduğu gibi.
+const ozAnahtar = (o) => {
+  const g = Object.entries(o || {}).filter(([, v]) => v !== '' && v != null).sort(([a], [b]) => a.localeCompare(b));
+  return g.length ? JSON.stringify(g) : '';
+};
+
+// İstek çerezinden sepet durumu: { lines: [{ variant_id, quantity, properties }] }. Bozuk ya da yoksa boş sepet.
 export function sepetOku(req) {
   const m = String(req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${CEREZ}=([^;]+)`));
   if (!m) return { lines: [] };
@@ -16,8 +23,12 @@ export function sepetOku(req) {
     const d = JSON.parse(Buffer.from(m[1], 'base64url').toString('utf8'));
     if (!Array.isArray(d)) return { lines: [] };
     const lines = d
-      .filter((x) => Array.isArray(x) && x.length === 2)
-      .map(([variant_id, quantity]) => ({ variant_id, quantity: Math.max(0, parseInt(quantity, 10) || 0) }))
+      .filter((x) => Array.isArray(x) && x.length >= 2)
+      .map(([variant_id, quantity, properties]) => ({
+        variant_id,
+        quantity: Math.max(0, parseInt(quantity, 10) || 0),
+        properties: properties && typeof properties === 'object' ? properties : {},
+      }))
       .filter((l) => l.quantity > 0)
       .slice(0, EN_FAZLA_SATIR);
     return { lines };
@@ -28,7 +39,9 @@ export function sepetOku(req) {
 
 // Yanıta eklenecek Set-Cookie değeri (bir hafta; sayfa JS'i çerezi okumaz, /cart.js kullanır)
 export function sepetCerezi(state) {
-  const deger = Buffer.from(JSON.stringify(state.lines.map((l) => [l.variant_id, l.quantity]))).toString('base64url');
+  const deger = Buffer.from(
+    JSON.stringify(state.lines.map((l) => (ozAnahtar(l.properties) ? [l.variant_id, l.quantity, l.properties] : [l.variant_id, l.quantity]))),
+  ).toString('base64url');
   return `${CEREZ}=${deger}; Path=/; Max-Age=604800; SameSite=Lax; HttpOnly`;
 }
 
@@ -47,9 +60,11 @@ export function addItems(state, store, items) {
     if (!found) throw fail(404, 'Ürün bulunamadı');
     if (!found.v.available) throw fail(422, 'Bu seçenek şu an satışta değil');
     const q = Math.max(1, parseInt(it.quantity ?? 1, 10) || 1);
-    const line = state.lines.find((l) => String(l.variant_id) === String(found.v.id));
+    const oz = it.properties && typeof it.properties === 'object' ? it.properties : {};
+    const anahtar = ozAnahtar(oz);
+    const line = state.lines.find((l) => String(l.variant_id) === String(found.v.id) && ozAnahtar(l.properties) === anahtar);
     if (line) line.quantity += q;
-    else if (state.lines.length < EN_FAZLA_SATIR) state.lines.push({ variant_id: found.v.id, quantity: q });
+    else if (state.lines.length < EN_FAZLA_SATIR) state.lines.push({ variant_id: found.v.id, quantity: q, properties: oz });
     added.push(found.v.id);
   }
   return added;
@@ -93,7 +108,7 @@ export function cartFor(state, store) {
       const variantTitle = p.has_only_default_variant ? null : v.title;
       const line = v.price * l.quantity;
       return {
-        key: `${v.id}:yerel`,
+        key: `${v.id}:${ozAnahtar(l.properties) ? Buffer.from(ozAnahtar(l.properties)).toString('base64url').slice(0, 10) : 'yerel'}`,
         id: v.id,
         variant_id: v.id,
         product_id: p.id,
@@ -115,7 +130,7 @@ export function cartFor(state, store) {
         product: p,
         variant: v,
         options_with_values: p.has_only_default_variant ? [] : p.options.map((name, i) => ({ name, value: v.options[i] })),
-        properties: {},
+        properties: l.properties || {},
         requires_shipping: true,
         discounts: [],
         line_level_discount_allocations: [],

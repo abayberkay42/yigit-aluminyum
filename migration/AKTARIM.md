@@ -100,6 +100,20 @@ Adım metinleri firmanın "adım adım üretim detay" dosyasındandır. Bölüm,
 
 **Düzeltme:** Üretim sayfasının giriş metni "2008'den beri Beylikdüzü'nde üretiyoruz" diyordu. Firmanın tarihçesine göre üretim 2012'de Çatalca'da başladı, 2020'den beri Tekirdağ Veliköy'deki 3.000 m² fabrikada sürüyor; Beylikdüzü satış merkezidir. Metin buna göre düzeltildi.
 
+## Numune iste: sepete numune satırı
+
+"Numune iste" düğmesi artık WhatsApp yerine numuneyi **sepete ekliyor** (firma isteği, 2026-09-21). Sepette satır şöyle görünür: **"1.5CM Trimless LED Profili — 10 cm numune"**, altında küçük yazıyla numune ürününün adı. Her ürünün numunesi ayrı satırdır; numune satırındaki bağlantı ilgili ürün sayfasına gider.
+
+Çalışması için Shopify'da yapılacaklar:
+
+1. **Bir numune ürünü açın.** Önerilen ad: "Ürün Numunesi", stok kodu `YIG-NUMUNE`, tek varyant, kargo gerektirir. Fiyatı siz belirleyin (ücretsiz verilecekse 0,00 ₺). Arama sonuçlarında çıkmasını istemiyorsanız ürünü hiçbir koleksiyona eklemeyin.
+2. **Tema ayarları > Satış ve fiyat > Numune** bölümünden "Numune ürünü" alanında bu ürünü seçin, "Numune boyu (cm)" alanına numune uzunluğunu yazın (öntanımlı 10).
+3. Ayar boş bırakılırsa düğme eski davranışına döner ve WhatsApp'tan numune mesajı açar.
+
+Tek bir ürün için farklı bir numune kullanmak isterseniz, o ürünün `custom.numune_urun` metaalanına (ürün referansı) o numune ürününü seçin; tema ayarını geçersiz kılar.
+
+**Not:** Numunenin ücreti, kaç numune istenebileceği ve kargo ücretinin numunede nasıl işleyeceği firmanın kararıdır; şu an numune ürünü fiyatı neyse sepete o yansır.
+
 ## Kurumsal sayfası: tarihçe
 
 Firmanın "Yiğit Alüminyum Tarihçesi" belgesinden yedi dönüm noktası (2007, 2008, 2012, 2012–2020, 2020 fabrika, 2020 mağaza, Bugün) ile vizyon ve misyon, Kurumsal sayfasına yıl şeridi olarak eklendi (2026-09-21). Metinler tema düzenleyiciden (Kurumsal > Tarihçe bölümü) değiştirilir.

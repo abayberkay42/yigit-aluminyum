@@ -152,7 +152,11 @@
     "spec_code": "Ürün kodu",
     "spec_unit": "Satış birimi",
     "wrong": "Yanlış:",
-    "right": "Doğru:"
+    "right": "Doğru:",
+    "sample_button_cart": "{{ boy }} cm numune iste",
+    "sample_line": "{{ title }} — {{ boy }} cm numune",
+    "sample_added": "Numune sepete eklendi",
+    "sample_error": "Numune eklenemedi"
   },
   "collections": {
     "sort": "Sırala",

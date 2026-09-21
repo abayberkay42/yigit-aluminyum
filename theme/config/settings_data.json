@@ -43,6 +43,8 @@
     "taksit_kart_9_ad": "Sağlam Kart",
     "taksit_kart_9_banka": "Kuveyt Türk",
     "taksit_kart_9_dosya": "taksit-saglam.svg",
-    "taksit_kart_9_zemin": "#004859"
+    "taksit_kart_9_zemin": "#004859",
+    "numune_urun": "urun-numunesi",
+    "numune_boy_cm": 10
   }
 }

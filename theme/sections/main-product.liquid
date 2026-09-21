@@ -217,14 +217,45 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'actions' -%}
-            {%- capture numune_mesaj -%}{{ 'products.sample_message' | t: title: product.title }}{%- endcapture -%}
+            {%- comment -%}
+              Numune: tema ayarlarında bir "Numune ürünü" seçiliyse düğme o ürünü sepete ekler ve satırda hangi
+              ürünün numunesi olduğu yazar (firma isteği, 2026-09-21). Ürün seçili değilse eski davranış: WhatsApp.
+              Ürüne özel numune ürünü varsa custom.numune_urun metaalanı tema ayarını geçersiz kılar.
+            {%- endcomment -%}
+            {%- liquid
+              capture numune_mesaj
+                echo 'products.sample_message' | t: title: product.title
+              endcapture
+              assign numune_urun = product.metafields.custom.numune_urun.value | default: settings.numune_urun
+              assign numune_varyant = numune_urun.selected_or_first_available_variant | default: numune_urun.variants.first
+              assign numune_boy = settings.numune_boy_cm | default: 10
+              capture numune_ad
+                echo 'products.sample_line' | t: title: product.title, boy: numune_boy
+              endcapture
+            -%}
             <div class="pdp__actions" {{ block.shopify_attributes }}>
               {%- if block.settings.sample_enabled -%}
-                <a class="button button--ghost pdp__numune" href="{% render 'wa-href', mesaj: numune_mesaj %}" target="_blank" rel="noopener">
-                  <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 8.5 12 13l8-4.5M12 13v7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-                  {{- 'products.sample_button' | t -}}
-                  <span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span>
-                </a>
+                {%- if numune_varyant and numune_varyant.available -%}
+                  <button
+                    type="button"
+                    class="button button--ghost pdp__numune"
+                    data-numune
+                    data-id="{{ numune_varyant.id }}"
+                    data-ad="{{ numune_ad | escape }}"
+                    data-kaynak="{{ product.url }}"
+                    data-t-ok="{{ 'products.sample_added' | t | escape }}"
+                    data-t-hata="{{ 'products.sample_error' | t | escape }}"
+                  >
+                    <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 8.5 12 13l8-4.5M12 13v7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                    <span data-numune-label>{{ 'products.sample_button_cart' | t: boy: numune_boy }}</span>
+                  </button>
+                {%- else -%}
+                  <a class="button button--ghost pdp__numune" href="{% render 'wa-href', mesaj: numune_mesaj %}" target="_blank" rel="noopener">
+                    <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 8.5 12 13l8-4.5M12 13v7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                    {{- 'products.sample_button' | t -}}
+                    <span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span>
+                  </a>
+                {%- endif -%}
               {%- endif -%}
               <button type="button" class="button button--ghost pdp__ozellik-ac" data-ozellik-ac aria-haspopup="dialog" aria-controls="Ozellik-{{ product.id }}">
                 <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M5 6.5h14M5 12h14M5 17.5h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>

@@ -112,3 +112,11 @@ Kurumsal sayfasındaki tarihçe şeridinde üç madde görselsiz duruyor; elimiz
 Bu fotoğraflar gelirse şeride eklenir; en çok mağaza fotoğrafı gerekiyor, satış merkezi sitede hiç görünmüyor.
 
 **16 ülke:** Tarihçede "16 ülkeye ihracat" yazıyor, ülkelerin adları yok. Ana sayfaya planlanan ihracat haritası için ülke listesi gerekiyor; liste gelmeden harita uydurma ülkelerle çizilmez.
+
+## 14. Numune ürünü ve numune ücreti
+
+Sepete numune ekleyen düğmenin çalışması için Shopify'da bir "Ürün Numunesi" ürünü açılmalı (bkz. `AKTARIM.md` > "Numune iste"). Karar bekleyen üç konu var:
+
+- **Numune ücreti:** ücretsiz mi, sembolik bir bedel mi? Önizlemede 0,00 ₺ görünüyor.
+- **Kargo:** numune tek başına sipariş edilirse kargo ücreti alınacak mı?
+- **Sınır:** bir siparişte en fazla kaç numune istenebilir? Şu an sınır yok.
