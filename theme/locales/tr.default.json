@@ -47,6 +47,9 @@
     },
     "usage": {
       "all": "Tüm kullanım alanları"
+    },
+    "journal": {
+      "read": "Yazıyı okuyun"
     }
   },
   "pages": {

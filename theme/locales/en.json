@@ -47,6 +47,9 @@
     },
     "usage": {
       "all": "All application areas"
+    },
+    "journal": {
+      "read": "Read the article"
     }
   },
   "pages": {

@@ -8,7 +8,10 @@
   assign facts = section.blocks | where: 'type', 'fact'
   assign certs = section.blocks | where: 'type', 'cert'
 -%}
-<section class="prod" aria-label="{{ page.title | escape }}">
+{%- comment -%}
+  Görsel oturtma: fotoğraflar kadrajı kaplar (kapla), ürün/makine görselleri ise kırpılmadan sığdırılır (sigdir).
+{%- endcomment -%}
+<section class="prod{% if section.settings.gorsel_oturt == "sigdir" %} prod--sigdir{% endif %}" aria-label="{{ page.title | escape }}">
   {%- if section.settings.video != blank -%}
     {%- comment -%}
       Tanıtım filmi: yalnız oynat düğmesine basınca iner (preload none), sesli oynar. Kapak: "Film kapağı" ayarı,
@@ -116,6 +119,7 @@
     { "type": "text", "id": "video_buton", "label": "Oynat düğmesi metni", "info": "Boşsa \"Tanıtım filmini izleyin\"." },
     { "type": "url", "id": "video_url", "label": "Film bağlantısı (video yüklenmediyse)" },
     { "type": "text", "id": "steps_title", "label": "Süreç başlığı", "default": "Üretim süreci" },
+    { "type": "select", "id": "gorsel_oturt", "label": "Adım görselleri", "default": "kapla", "options": [ { "value": "kapla", "label": "Kadrajı kaplasın (fotoğraf)" }, { "value": "sigdir", "label": "Kırpılmadan sığsın (ürün/makine görseli)" } ] },
     { "type": "header", "content": "VR fabrika gezintisi" },
     { "type": "url", "id": "vr_url", "label": "Gezinti bağlantısı", "info": "Boş bırakılırsa bu alan görünmez." },
     { "type": "text", "id": "vr_label", "label": "Düğme metni", "default": "VR ile fabrikayı gezin" },

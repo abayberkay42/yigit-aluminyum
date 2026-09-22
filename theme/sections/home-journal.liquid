@@ -1,6 +1,7 @@
 {%- comment -%}
-  Ana sayfanın altındaki blog bölümü. Seçilen blogun en yeni yazıları satır satır listelenir;
+  Ana sayfanın altındaki blog bölümü: görselli kartlar. Seçilen blogun en yeni yazıları listelenir;
   ayrıca elle "yazı" blokları eklenebilir (henüz blog yazısı yoksa sitedeki rehber sayfalarına yönlendirmek için).
+  Yazının kendi görseli yoksa bölümün "Yedek görsel" ayarı kullanılır; o da yoksa kart yazıyla görünür.
   Yazı yoksa ve blok da yoksa bölüm hiç görünmez.
 {%- endcomment -%}
 {%- liquid
@@ -27,37 +28,47 @@
       {%- endif -%}
     </header>
 
-    <ul class="journal__list" role="list">
+    <ul class="journal__grid" role="list">
       {%- for article in blog.articles limit: sayi -%}
-        <li class="jpost reveal" data-reveal style="--i: {{ forloop.index0 }}">
-          <a class="jpost__link" href="{{ article.url }}">
-            {%- if article.image -%}
-              <span class="jpost__media">{{ article.image | image_url: width: 600 | image_tag: widths: '300,450,600', sizes: '(min-width: 64em) 18vw, 30vw', loading: 'lazy', alt: '' }}</span>
+        {%- assign gorsel = article.image | default: section.settings.fallback_image -%}
+        <li class="jcard reveal" data-reveal style="--i: {{ forloop.index0 }}">
+          <a class="jcard__link" href="{{ article.url }}">
+            {%- if gorsel -%}
+              <span class="jcard__media">{{ gorsel | image_url: width: 1000 | image_tag: widths: '400,600,800,1000', sizes: '(min-width: 64em) 30vw, 85vw', loading: 'lazy', alt: '' }}</span>
             {%- endif -%}
-            <span class="jpost__body">
-              <span class="jpost__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time></span>
-              <span class="jpost__title">{{ article.title }}</span>
-              <span class="jpost__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</span>
-            </span>
-            <span class="jpost__go" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="jcard__body">
+              <span class="jcard__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time></span>
+              <span class="jcard__title">{{ article.title }}</span>
+              <span class="jcard__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</span>
+              <span class="jcard__go">
+                {{ 'home.journal.read' | t }}
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </span>
           </a>
         </li>
       {%- endfor -%}
       {%- for block in eller -%}
-        <li class="jpost reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
-          <a class="jpost__link" href="{{ block.settings.url }}">
-            {%- if block.settings.image -%}
-              <span class="jpost__media">{{ block.settings.image | image_url: width: 600 | image_tag: widths: '300,450,600', sizes: '(min-width: 64em) 18vw, 30vw', loading: 'lazy', alt: '' }}</span>
+        {%- assign gorsel = block.settings.image | default: section.settings.fallback_image -%}
+        <li class="jcard reveal" data-reveal style="--i: {{ forloop.index0 | plus: yazi_sayisi }}" {{ block.shopify_attributes }}>
+          <a class="jcard__link" href="{{ block.settings.url }}">
+            {%- if gorsel -%}
+              <span class="jcard__media">{{ gorsel | image_url: width: 1000 | image_tag: widths: '400,600,800,1000', sizes: '(min-width: 64em) 30vw, 85vw', loading: 'lazy', alt: '' }}</span>
             {%- endif -%}
-            <span class="jpost__body">
-              {%- if block.settings.meta != blank -%}<span class="jpost__meta">{{ block.settings.meta }}</span>{%- endif -%}
-              <span class="jpost__title">{{ block.settings.title }}</span>
-              {%- if block.settings.text != blank -%}<span class="jpost__excerpt">{{ block.settings.text }}</span>{%- endif -%}
-            </span>
-            <span class="jpost__go" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="jcard__body">
+              {%- if block.settings.meta != blank -%}<span class="jcard__meta">{{ block.settings.meta }}</span>{%- endif -%}
+              <span class="jcard__title">{{ block.settings.title }}</span>
+              {%- if block.settings.text != blank -%}<span class="jcard__excerpt">{{ block.settings.text }}</span>{%- endif -%}
+              {%- liquid
+                assign oku = block.settings.link_label
+                if oku == blank
+                  assign oku = 'home.journal.read' | t
+                endif
+              -%}
+              <span class="jcard__go">
+                {{ oku }}
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </span>
           </a>
         </li>
@@ -76,6 +87,7 @@
     { "type": "textarea", "id": "text", "label": "Açıklama" },
     { "type": "blog", "id": "blog", "label": "Blog", "info": "Bu blogun en yeni yazıları listelenir." },
     { "type": "range", "id": "count", "label": "Kaç yazı", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "image_picker", "id": "fallback_image", "label": "Yedek görsel", "info": "Yazının kendi görseli yoksa kartta bu görünür." },
     { "type": "text", "id": "link_label", "label": "Bağlantı metni", "info": "Boşsa blogun adı." }
   ],
   "blocks": [
@@ -84,7 +96,8 @@
       { "type": "textarea", "id": "text", "label": "Kısa metin" },
       { "type": "text", "id": "meta", "label": "Üst bilgi", "info": "Tarih ya da tür (ör. Rehber)." },
       { "type": "url", "id": "url", "label": "Bağlantı" },
-      { "type": "image_picker", "id": "image", "label": "Görsel" }
+      { "type": "image_picker", "id": "image", "label": "Görsel" },
+      { "type": "text", "id": "link_label", "label": "Kart bağlantı metni", "info": "Boşsa \"Yazıyı okuyun\"." }
     ] }
   ],
   "presets": [{ "name": "Blog (ana sayfa)" }]

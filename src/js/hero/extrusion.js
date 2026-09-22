@@ -45,20 +45,33 @@ const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeIn = (t) => t * t * t;
 
-// Gerçek trimless profilinde kanatlar deliklidir (sıva tutunsun diye). Delikler geometriye açılmaz —
-// metrelerce profilde yüzlerce delik pahalıya gelir — yüzeyde koyu desen olarak basılır; uzaktan delik gibi okunur.
+// Gerçek trimless profilinde kanatlar deliklidir (sıva tutunsun diye): her kanatta iki sıra yuvarlak delik.
+// Delikler geometriye açılmaz — metrelerce profilde yüzlerce delik pahalıya gelir — gölgelendiricide
+// o noktalar atılır (discard), yani profilin içi gerçekten görünür. Ölçüler firmanın profiline yakındır:
+// delik çapı ~4 mm, sıralar merkezden 15,5 ve 21 mm'de, boyunca 13 mm aralıkla ve iki sıra şaşırtmalı.
 const MM = SHAPE_SIZE / 50; // 50 mm genişliğindeki kesitin sahne birimine ölçeği
+const DELIK = { yaricap: 2.1, sira: [15.5, 21], adim: 13 };
 function delikKodu(bant) {
   if (!bant) return '';
   const [ic, dis] = bant.map((v) => (v * MM).toFixed(3));
+  const r = (DELIK.yaricap * MM).toFixed(4);
+  const adim = (DELIK.adim * MM).toFixed(4);
+  const siralar = DELIK.sira.map((v) => (v * MM).toFixed(4));
   return `
     float kx = abs(vObj.x);
     if (kx > ${ic} && kx < ${dis}) {
-      vec2 hucre = fract(vec2(kx, vDist) / vec2(0.30, 0.44)) - 0.5;
-      float d = length(hucre * vec2(0.30, 0.44));
-      float delik = smoothstep(0.085, 0.052, d);
-      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.05, 0.05, 0.055), delik * 0.85);
-      roughnessFactor = mix(roughnessFactor, 0.9, delik);
+      float delikKenar = 1.0;
+      for (int i = 0; i < 2; i++) {
+        float sx = i == 0 ? ${siralar[0]} : ${siralar[1]};
+        float kaydir = i == 0 ? 0.0 : ${adim} * 0.5;
+        float dz = mod(vDist + kaydir, ${adim}) - ${adim} * 0.5;
+        float d = length(vec2(kx - sx, dz));
+        if (d < ${r}) discard;
+        delikKenar = min(delikKenar, smoothstep(${r}, ${r} * 1.9, d));
+      }
+      // Delik ağzındaki kalınlık gölgesi: kenar koyulaşır, yüzey orada matlaşır
+      diffuseColor.rgb *= mix(0.45, 1.0, delikKenar);
+      roughnessFactor = mix(0.75, roughnessFactor, delikKenar);
     }`;
 }
 
@@ -195,7 +208,8 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
 
   // Profil: ısı ve akış gölgelendiricisi
   const uniforms = { uTime: { value: 0 }, uLen: { value: 0 }, uHeat: { value: 1 } };
-  const profMat = new THREE.MeshStandardMaterial({ color: 0xd6d9dc, metalness: 1, roughness: 0.3 });
+  // Delikler gölgelendiricide atıldığı için profilin iç yüzeyi görünür: çift taraflı çizilir
+  const profMat = new THREE.MeshStandardMaterial({ color: 0xd6d9dc, metalness: 1, roughness: 0.3, side: THREE.DoubleSide });
   profMat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, uniforms);
     sh.vertexShader = sh.vertexShader
@@ -253,7 +267,7 @@ export function mountExtrusion(root, { shape = 'led', kelvin = 3000 } = {}) {
 
   // Kesilen parça + LED şerit + opal kapak
   const pieceGroup = new THREE.Group();
-  const pieceMat = new THREE.MeshStandardMaterial({ color: FINISHES[0].color, metalness: 1, roughness: 0.3 });
+  const pieceMat = new THREE.MeshStandardMaterial({ color: FINISHES[0].color, metalness: 1, roughness: 0.3, side: THREE.DoubleSide });
   pieceMat.onBeforeCompile = (sh) => {
     sh.uniforms.uParca = { value: PIECE };
     sh.vertexShader = sh.vertexShader

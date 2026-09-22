@@ -1614,6 +1614,9 @@
   .step__text { margin-block-start: 0.75rem; max-inline-size: 46ch; font-size: clamp(1rem, 1.05vw, 1.125rem); color: var(--c-ink-soft); }
   .step__media { aspect-ratio: 3 / 2; border-radius: var(--radius); overflow: clip; }
   .step__media img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  /* Ürün ve makine görselleri kırpılınca yarım görünüyor: bu bölümde kadraja sığdırılır */
+  .prod--sigdir .step__media { aspect-ratio: 4 / 3; border-radius: var(--radius); background: var(--c-panel); }
+  .prod--sigdir .step__media img { object-fit: contain; padding: clamp(0.75rem, 2vw, 1.5rem); }
   .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1.5rem var(--gutter); margin: clamp(3rem, 8svh, 5rem) 0 0; padding-block-start: 2rem; border-block-start: 1px solid var(--c-rule); }
   .fact { display: flex; flex-direction: column-reverse; gap: 0.4rem; }
   .fact__value { margin: 0; font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 660; font-stretch: 112%; line-height: 1; letter-spacing: -0.03em; }
@@ -1721,41 +1724,39 @@
     .export__grid { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); align-items: center; }
   }
 
-  /* Ana sayfa: blog listesi */
+  /* Ana sayfa: blog kartları */
   .journal { max-inline-size: var(--page); margin-inline: auto; padding: clamp(4rem, 11svh, 7.5rem) var(--gutter); }
-  .journal__head { display: grid; gap: 0.75rem; max-inline-size: 52rem; margin-block-end: clamp(1.5rem, 5svh, 2.5rem); }
+  .journal__head { display: grid; gap: 0.75rem; max-inline-size: 52rem; margin-block-end: clamp(2rem, 6svh, 3.25rem); }
   .journal__eyebrow { font-size: 0.8125rem; font-weight: 620; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
   .journal__title { font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 660; font-stretch: 112%; line-height: 1.05; letter-spacing: -0.03em; }
   .journal__text { max-inline-size: 52ch; font-size: clamp(1rem, 1.1vw, 1.125rem); line-height: 1.6; color: var(--c-ink-soft); }
   .journal__all { justify-self: start; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 620; color: var(--c-gold); text-decoration: none; box-shadow: inset 0 -1px 0 color-mix(in oklch, var(--c-gold) 45%, transparent); }
   .journal__all svg { transition: translate var(--dur-ui) var(--ease-out); }
-  .journal__list { display: grid; }
-  .jpost { border-block-start: 1px solid var(--c-rule); }
-  .jpost:last-child { border-block-end: 1px solid var(--c-rule); }
-  .jpost__link {
-    display: flex; align-items: center;
-    gap: clamp(1rem, 2.5vw, 2rem); padding-block: clamp(1.25rem, 3svh, 1.9rem);
-    text-decoration: none; color: inherit;
-    transition: padding-inline var(--dur-ui) var(--ease-out);
+  .journal__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+  .jcard { display: flex; }
+  .jcard__link {
+    display: flex; flex-direction: column; inline-size: 100%;
+    border-radius: var(--radius); overflow: clip; text-decoration: none; color: inherit;
+    background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule);
+    transition: box-shadow var(--dur-ui) ease, translate var(--dur-ui) var(--ease-out);
   }
-  .jpost__media { inline-size: clamp(4.5rem, 8vw, 7rem); aspect-ratio: 4 / 3; border-radius: calc(var(--radius) * 0.6); overflow: clip; background: var(--c-panel); }
-  .jpost__media img { inline-size: 100%; block-size: 100%; object-fit: cover; }
-  .jpost__body { flex: 1; display: grid; gap: 0.3rem; }
-  .jpost__media { flex: none; }
-  .jpost__meta { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-ink-soft); }
-  .jpost__title { font-size: clamp(1.125rem, 1.6vw, 1.5rem); font-weight: 640; font-stretch: 112%; line-height: 1.15; letter-spacing: -0.02em; }
-  .jpost__excerpt { max-inline-size: 70ch; font-size: 1rem; line-height: 1.55; color: var(--c-ink-soft); }
-  .jpost__go { flex: none; display: grid; place-items: center; inline-size: 2.75rem; aspect-ratio: 1; border-radius: 50%; color: var(--c-gold); box-shadow: inset 0 0 0 1px var(--c-rule-strong); transition: background-color var(--dur-ui) ease, translate var(--dur-ui) var(--ease-out); }
-  .jpost__link:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
+  .jcard__media { display: block; aspect-ratio: 16 / 10; background: var(--plinth); overflow: clip; }
+  .jcard__media img { inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale 0.9s var(--ease-expo); }
+  .jcard__body { display: grid; gap: 0.45rem; align-content: start; padding: clamp(1.1rem, 2.2vw, 1.6rem); }
+  .jcard__meta { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .jcard__title { font-size: clamp(1.0625rem, 1.4vw, 1.3125rem); font-weight: 650; font-stretch: 112%; line-height: 1.2; letter-spacing: -0.02em; }
+  .jcard__excerpt { font-size: 0.9688rem; line-height: 1.55; color: var(--c-ink-soft); }
+  .jcard__go { display: inline-flex; align-items: center; gap: 0.4rem; margin-block-start: 0.5rem; font-size: 0.9375rem; font-weight: 620; color: var(--c-gold); }
+  .jcard__go svg { transition: translate var(--dur-ui) var(--ease-out); }
+  .jcard__link:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
   @media (hover: hover) and (pointer: fine) {
-    .jpost__link:hover { padding-inline: 1rem; }
-    .jpost__link:hover .jpost__go { background: color-mix(in oklch, var(--c-gold) 12%, transparent); translate: 0.2rem 0; }
+    .jcard__link:hover { translate: 0 -3px; box-shadow: inset 0 0 0 1px var(--c-rule-strong), 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.25); }
+    .jcard__link:hover .jcard__media img { scale: 1.04; }
+    .jcard__link:hover .jcard__go svg { translate: 0.25rem 0; }
     .journal__all:hover svg { translate: 0.25rem 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .jpost__link, .jpost__go, .journal__all svg { transition: none; } }
-  @media (max-width: 47.99em) {
-    .jpost__go { display: none; }
-    .jpost__excerpt { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .jcard__link, .jcard__media img, .jcard__go svg, .journal__all svg { transition: none; }
   }
 
   /* Kurumsal tarihçe: yıl şeridi + vizyon/misyon kartları */

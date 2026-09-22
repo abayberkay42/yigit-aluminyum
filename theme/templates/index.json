@@ -217,7 +217,9 @@
             "meta": "Rehber",
             "title": "Sık sorulan sorular",
             "text": "Ölçü, boy, kesim, kargo ve fatura: sipariş öncesi en çok sorulanlar.",
-            "url": "/pages/sss"
+            "url": "/pages/sss",
+            "image": "shopify://shop_images/banner-sss.webp",
+            "link_label": "Soruları görün"
           }
         },
         "katalog": {
@@ -226,7 +228,9 @@
             "meta": "Katalog",
             "title": "Ürün katalogları",
             "text": "Profil ölçüleri ve kesit çizimleri için katalogları indirin.",
-            "url": "/pages/kataloglar"
+            "url": "/pages/kataloglar",
+            "image": "shopify://shop_images/banner-kataloglar.webp",
+            "link_label": "Katalogları indirin"
           }
         }
       },
@@ -239,7 +243,8 @@
         "heading": "Profil seçerken işinize yarayacak yazılar",
         "text": "Hangi profilin nereye uygun olduğunu, montajda nelere dikkat edildiğini ve sipariş sürecini anlatan içerikler.",
         "blog": "tri̇mless-led-profi̇lleri̇",
-        "count": 3
+        "count": 3,
+        "fallback_image": "shopify://shop_images/banner-trimless.webp"
       }
     },
     "ihracat": {
