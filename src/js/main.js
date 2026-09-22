@@ -16,6 +16,7 @@ import { initQuickAdd } from './store/quick-add.js';
 import { initOzellikler } from './store/ozellikler.js';
 import { initNumune } from './store/numune.js';
 import { initExport } from './sections/export.js';
+import { initHarita } from './sections/harita.js';
 import { initTanitim } from './sections/film-tanitim.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -44,6 +45,7 @@ initQuickAdd();
 initOzellikler();
 initNumune();
 initExport();
+initHarita();
 // İletişim formu gönderildiyse onay mesajına odaklan (ekran okuyucu duyurur)
 // (tarayıcının #contact_form'a atlaması bittikten sonra; aksi halde odak geri alınır)
 requestAnimationFrame(() => document.querySelector('[data-contact-ok]')?.focus({ preventScroll: true }));
@@ -56,6 +58,7 @@ document.addEventListener('shopify:section:load', (e) => {
   initRooms(e.target);
   initReveal(e.target);
   initExport(e.target);
+  initHarita(e.target);
 });
 // Çekmece açıkken sayfa kaydırması durur
 document.addEventListener('yigit:lock', () => {

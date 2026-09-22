@@ -79,6 +79,15 @@
     "related": {
       "type": "product-related",
       "settings": {}
+    },
+    "google_yorum": {
+      "type": "product-reviews",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "title": "Müşterilerimiz ne diyor?",
+        "text": "Yorumlar Google İşletme Profilimizden alınır. Bizden aldığınız ürünle ilgili görüşünüzü Google üzerinden yazabilirsiniz."
+      }
     }
   },
   "order": [
@@ -86,6 +95,7 @@
     "guide",
     "faq",
     "installments",
+    "google_yorum",
     "reviews",
     "production",
     "related"

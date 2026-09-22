@@ -1,0 +1,28 @@
+{%- comment -%}
+  Yıldız gösterimi. Parametre: puan (1-5, ondalık olabilir: 4,8 ya da 4.8).
+  Ekran okuyucuya puan yazıyla verilir; yıldızlar süs olarak işaretlenir.
+{%- endcomment -%}
+{%- liquid
+  assign ham = puan | default: 0 | replace: ',', '.'
+  assign deger = ham | times: 1.0
+  assign tam = deger | floor
+  assign kalan = deger | minus: tam
+  assign yarim_sira = tam | plus: 1
+-%}
+<span class="yildiz" role="img" aria-label="{{ 'products.reviews_star' | t: puan: puan }}">
+  {%- for i in (1..5) -%}
+    {%- liquid
+      assign sinif = ''
+      if i <= tam
+        assign sinif = ' is-dolu'
+      elsif i == yarim_sira
+        if kalan >= 0.25
+          assign sinif = ' is-yarim'
+        endif
+      endif
+    -%}
+    <svg class="yildiz__s{{ sinif }}" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+      <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9L12 3.5z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+  {%- endfor -%}
+</span>

@@ -39,6 +39,42 @@
       {%- endfor -%}
     </aside>
   </div>
+
+  {%- comment -%}
+    Mağazanın harita görünümü. Gizlilik ve sayfa hızı için harita açılışta yüklenmez:
+    ziyaretçi düğmeye basınca Google Haritalar çerçevesi eklenir (src/js/sections/harita.js).
+    JS yoksa "Google Haritalar'da aç" bağlantısı çalışır.
+  {%- endcomment -%}
+  {%- if section.settings.harita_adres != blank -%}
+    {%- liquid
+      assign sorgu = section.settings.harita_adres | strip | url_encode
+      assign gomme = section.settings.harita_embed
+      if gomme == blank
+        assign gomme = 'https://www.google.com/maps?q=' | append: sorgu | append: '&hl=tr&z=16&output=embed'
+      endif
+      assign ac = section.settings.harita_link
+      if ac == blank
+        assign ac = 'https://www.google.com/maps/search/?api=1&query=' | append: sorgu
+      endif
+    -%}
+    <div class="harita" data-harita data-embed="{{ gomme | escape }}">
+      <div class="harita__ust">
+        <div>
+          <h2 class="harita__baslik">{{ section.settings.harita_baslik }}</h2>
+          <p class="harita__adres">{{ section.settings.harita_adres | newline_to_br }}</p>
+        </div>
+        <a class="button button--ghost" href="{{ ac }}" target="_blank" rel="noopener">
+          {{ 'pages.map_open' | t }}<span class="visually-hidden"> ({{ 'general.new_tab' | t }})</span>
+        </a>
+      </div>
+      <div class="harita__kutu">
+        {%- if section.settings.harita_gorsel -%}
+          {{ section.settings.harita_gorsel | image_url: width: 1600 | image_tag: widths: '800,1200,1600', sizes: '100vw', loading: 'lazy', alt: '', class: 'harita__onizleme' }}
+        {%- endif -%}
+        <button type="button" class="button button--primary harita__ac" data-harita-ac>{{ 'pages.map_show' | t }}</button>
+      </div>
+    </div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -50,7 +86,13 @@
     { "type": "textarea", "id": "cta_text", "label": "Metin", "default": "Ürünü, proje miktarını ve kullanılacak alanı yazın; doğru profili ve fiyatı birlikte belirleyelim." },
     { "type": "textarea", "id": "cta_items", "label": "Maddeler", "info": "Her satır bir madde.", "default": "Proje ve toptan fiyat teklifi\nÜrün seçimi ve teknik bilgi" },
     { "type": "text", "id": "cta_label", "label": "Düğme metni", "default": "Teklif alın" },
-    { "type": "text", "id": "cta_message", "label": "WhatsApp hazır mesajı", "default": "Merhaba, fiyat teklifi almak istiyorum." }
+    { "type": "text", "id": "cta_message", "label": "WhatsApp hazır mesajı", "default": "Merhaba, fiyat teklifi almak istiyorum." },
+    { "type": "header", "content": "Harita" },
+    { "type": "textarea", "id": "harita_adres", "label": "Mağaza adresi", "info": "Boş bırakılırsa harita görünmez. Harita bu adrese göre açılır." },
+    { "type": "text", "id": "harita_baslik", "label": "Harita başlığı", "default": "Mağazamız" },
+    { "type": "url", "id": "harita_embed", "label": "Harita gömme bağlantısı", "info": "İsteğe bağlı. Google Haritalar > Paylaş > Harita yerleştir bölümündeki bağlantı. Boşsa adresten üretilir." },
+    { "type": "url", "id": "harita_link", "label": "Haritada aç bağlantısı", "info": "İsteğe bağlı. Boşsa adresten üretilir." },
+    { "type": "image_picker", "id": "harita_gorsel", "label": "Harita ön görseli", "info": "Harita yüklenmeden önce görünen kare. Boşsa düz zemin." }
   ],
   "blocks": [
     { "type": "item", "name": "Bilgi", "limit": 8, "settings": [

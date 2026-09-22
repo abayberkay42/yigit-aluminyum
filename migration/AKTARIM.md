@@ -124,11 +124,42 @@ Ana sayfaya üç bölüm eklendi (2026-09-21). Üçü de tema düzenleyiciden (A
 | İhracat | Noktalı harita (Kanada–Uzak Avrupa kuşağı), Türkiye'den 18 ülkeye çıkan oklar, "18 ülkeye ihracat" sayısı. Listedeki ülke adının üzerine gelince (telefonda dokununca) o ülkenin oku öne çıkar |
 | Blog | Sayfanın en altında seçilen blogun son yazıları; blog yazısı azken elle içerik satırı da eklenebilir (şu an SSS ve Kataloglar) |
 
-Haritadaki ülkeler firmanın verdiği listeye göre girildi (18 ülke: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, ABD, Kanada). Firmanın verdiği güncel bilgi 18 ülkedir; tarihçe belgesindeki "16 ülke" ifadesi buna göre güncellendi (ana sayfa, Kurumsal tarihçesi ve Kurumsal sayfa metni).
+Haritadaki ülkeler firmanın verdiği listeye göre girildi (20 ülke: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, ABD, Kanada, Birleşik Arap Emirlikleri, Suudi Arabistan). Tarihçe belgesindeki "16 ülke" ifadesi eskidir; site 20 ülke üzerinden güncellendi (ana sayfa, Kurumsal tarihçesi ve Kurumsal sayfa metni).
 
 **İhracat haritasına ülke eklemek:** İhracat bölümü > "Ülke" bloğu eklenir; "Ülke adı" alanına sitede görünecek ad (ör. Almanya), "Ülke kodu" alanına ISO 3166-1 sayısal kod (Almanya 276) **ya da** İngilizce ülke adı (Germany) yazılır. Ok ve nokta haritada kendiliğinden doğru yere çıkar. Ülke eklenmemişse harita yalnız Türkiye işaretiyle görünür, bölüm yine çalışır.
 
 Harita Natural Earth (kamu malı) verisinden `tools/dunya-harita.mjs` ile üretildi; `theme/assets/yigit-dunya.svg` dosyası temanın içindedir, ayrıca yükleme gerekmez.
+
+## İletişim sayfası: mağaza haritası
+
+İletişim sayfasının altına Beylikdüzü mağazasının harita görünümü eklendi (2026-09-23). Harita sayfa açılışında **yüklenmez**: ziyaretçi "Haritayı göster" düğmesine basınca Google Haritalar çerçevesi gelir. Böylece sayfa açılışında Google'a istek gitmez ve çerez konmaz (KVKK açısından da doğru yol), sayfa da yavaşlamaz.
+
+Tema düzenleyici > İletişim sayfası > İletişim bölümü > **Harita**:
+
+| Ayar | Ne yapar |
+|---|---|
+| Mağaza adresi | Haritanın açılacağı adres. Boş bırakılırsa harita bölümü görünmez |
+| Harita başlığı | Haritanın üstündeki başlık |
+| Harita gömme bağlantısı | İsteğe bağlı. Google Haritalar > Paylaş > "Harita yerleştir" bağlantısı. Boşsa adresten üretilir |
+| Haritada aç bağlantısı | İsteğe bağlı. Boşsa adresten üretilir |
+| Harita ön görseli | Harita yüklenmeden önce görünen kare |
+
+⚠️ **Adres teyidi gerekiyor.** Adres olarak "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17, Beylikdüzü/İstanbul" girildi (firmanın eski sitesinden/katalogundan derlendi). İğnenin doğru yere düşmesi için firmanın **Google İşletme Profili bağlantısı** alınıp "Harita gömme bağlantısı" alanına yapıştırılmalı.
+
+## Ürün sayfaları: Google yorumları
+
+Ürün sayfalarına, fiyat/taksit bölümünün altına yorumlar bölümü eklendi (2026-09-23). Bölüm üç parçadan oluşur: Google puanı ve yorum sayısı, "Google'da yorum yazın" düğmesi, firmanın seçtiği yorumların kartları. **Hiçbir alan doldurulmadıysa bölüm hiç görünmez** (şu anki durum budur).
+
+Doldurulacak alanlar (Tema düzenleyici > herhangi bir ürün sayfası > Yorumlar):
+
+1. **Google puanı** ve **yorum sayısı** — profilde yazan gerçek değerler.
+2. **Tüm yorumlar bağlantısı** — Google İşletme Profili'nin yorumlar adresi.
+3. **Yorum yazma bağlantısı** — `https://search.google.com/local/writereview?placeid=YER_KIMLIGI`. Yer kimliği (Place ID), Google'ın "Place ID Finder" aracından alınır.
+4. **Yorum blokları** — gösterilecek yorumlar; yazan kişi, puan, tarih ve yorumun kendisi. Yorumlar kısaltılmadan, olduğu gibi yazılmalıdır.
+
+**Neden elle giriliyor?** Google yorumlarını canlı çekmek Places API anahtarı ister; anahtarın tema dosyasına yazılması onu herkese açık hâle getirir. Canlı çekim isteniyorsa iki yol var: (a) küçük bir sunucu/uç nokta yazıp yorumları günde bir kez tazelemek, (b) bunu yapan bir Shopify uygulaması kurmak. İkisi de ek iştir; karar firmanın.
+
+**Siteye yorum yazma (ürünü puanlama):** Shopify temaları ziyaretçiden yorum toplayamaz, bunun için uygulama gerekir (ör. Judge.me'nin ücretsiz paketi). Tema buna hazır: ürün sayfasındaki "Uygulamalar" bölümüne uygulamanın bloğu eklenince yorum formu ve liste orada görünür.
 
 ## Kurumsal sayfası: tarihçe
 

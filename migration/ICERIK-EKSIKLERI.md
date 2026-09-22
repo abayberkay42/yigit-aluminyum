@@ -111,7 +111,7 @@ Kurumsal sayfasındaki tarihçe şeridinde üç madde görselsiz duruyor; elimiz
 
 Bu fotoğraflar gelirse şeride eklenir; en çok mağaza fotoğrafı gerekiyor, satış merkezi sitede hiç görünmüyor.
 
-**Ülke sayısı:** Firmadan gelen güncel bilgiye göre ihracat **18 ülkeye** yapılıyor: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, Amerika Birleşik Devletleri, Kanada. Sitede (ana sayfa ihracat bölümü, Kurumsal tarihçesi ve Kurumsal sayfa metni) 18 yazıyor ve ülkeler haritada işaretli. Tarihçe belgesinde geçen "16 ülke" ifadesi eskidir; firma kendi belgesini de güncellemek isteyebilir.
+**Ülke sayısı:** Firmadan gelen güncel bilgiye göre ihracat **20 ülkeye** yapılıyor: Bulgaristan, Romanya, Yunanistan, Sırbistan, Makedonya, Arnavutluk, Kosova, Bosna-Hersek, Hırvatistan, Gürcistan, Azerbaycan, Irak, Rusya, Almanya, Fransa, İtalya, Amerika Birleşik Devletleri, Kanada, Birleşik Arap Emirlikleri, Suudi Arabistan. Sitede (ana sayfa ihracat bölümü, Kurumsal tarihçesi ve Kurumsal sayfa metni) 20 yazıyor ve ülkeler haritada işaretli. Tarihçe belgesindeki "16 ülke" ifadesi eskidir; firma kendi belgesini de güncellemek isteyebilir.
 
 ## 14. Numune ürünü ve numune ücreti
 
@@ -120,3 +120,10 @@ Sepete numune ekleyen düğmenin çalışması için Shopify'da bir "Ürün Numu
 - **Numune ücreti:** ücretsiz mi, sembolik bir bedel mi? Önizlemede 0,00 ₺ görünüyor.
 - **Kargo:** numune tek başına sipariş edilirse kargo ücreti alınacak mı?
 - **Sınır:** bir siparişte en fazla kaç numune istenebilir? Şu an sınır yok.
+
+## 15. Google yorumları ve mağaza haritası için gerekenler
+
+- **Google İşletme Profili bağlantısı / Yer Kimliği (Place ID):** hem ürün sayfalarındaki yorum bölümü hem de iletişim sayfasındaki harita için gerekli. Gelmeden yorum bölümü görünmüyor, harita ise adresten üretilen konuma düşüyor.
+- **Mağaza adresinin teyidi:** haritada kullanılan adres firmanın eski kaynaklarından derlendi, doğrulanmalı.
+- **Gösterilecek yorumlar:** firma hangi yorumların sitede görüneceğini seçmeli (yazan, puan, tarih, metin).
+- **Ziyaretçinin site üzerinden yorum yazması:** bir yorum uygulaması (ör. Judge.me) kurulmalı; tema hazır.

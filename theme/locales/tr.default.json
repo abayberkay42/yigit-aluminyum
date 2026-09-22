@@ -56,7 +56,9 @@
     "rooms_nav": "Odalar",
     "room_groups": "Bu odada kullanılan ürün grupları",
     "watch_film": "Tanıtım filmini izleyin",
-    "open_pdf": "PDF'i aç"
+    "open_pdf": "PDF'i aç",
+    "map_open": "Google Haritalar'da aç",
+    "map_show": "Haritayı göster"
   },
   "contact": {
     "name": "Ad soyad",
@@ -162,7 +164,12 @@
     "sample_button_cart": "{{ boy }} cm numune iste",
     "sample_line": "{{ title }} — {{ boy }} cm numune",
     "sample_added": "Numune sepete eklendi",
-    "sample_error": "Numune eklenemedi"
+    "sample_error": "Numune eklenemedi",
+    "reviews_count": "{{ adet }} yorum",
+    "reviews_write": "Google’da yorum yazın",
+    "reviews_all": "Tüm yorumları görün",
+    "reviews_source": "Yorumlar Google İşletme Profilimizden alınmıştır.",
+    "reviews_star": "5 üzerinden {{ puan }}"
   },
   "collections": {
     "sort": "Sırala",

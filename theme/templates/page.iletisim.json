@@ -21,7 +21,7 @@
           "type": "item",
           "settings": {
             "label": "Adres",
-            "value": "Beylikdüzü, İstanbul"
+            "value": "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17, Beylikdüzü / İstanbul"
           }
         },
         "telefon": {
@@ -88,7 +88,10 @@
         "facebook",
         "numune"
       ],
-      "settings": {}
+      "settings": {
+        "harita_baslik": "Beylikdüzü mağazamız",
+        "harita_adres": "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17\nBeylikdüzü / İstanbul"
+      }
     }
   },
   "order": [

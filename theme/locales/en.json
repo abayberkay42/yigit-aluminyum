@@ -56,7 +56,9 @@
     "rooms_nav": "Rooms",
     "room_groups": "Product groups used in this room",
     "watch_film": "Watch the company film",
-    "open_pdf": "Open PDF"
+    "open_pdf": "Open PDF",
+    "map_open": "Open in Google Maps",
+    "map_show": "Show the map"
   },
   "contact": {
     "name": "Full name",
@@ -162,7 +164,12 @@
     "sample_button_cart": "Request a {{ boy }} cm sample",
     "sample_line": "{{ title }} — {{ boy }} cm sample",
     "sample_added": "Sample added to cart",
-    "sample_error": "Could not add the sample"
+    "sample_error": "Could not add the sample",
+    "reviews_count": "{{ adet }} reviews",
+    "reviews_write": "Write a review on Google",
+    "reviews_all": "See all reviews",
+    "reviews_source": "Reviews are taken from our Google Business Profile.",
+    "reviews_star": "{{ puan }} out of 5"
   },
   "collections": {
     "sort": "Sort",

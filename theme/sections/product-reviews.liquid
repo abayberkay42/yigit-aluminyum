@@ -1,0 +1,86 @@
+{%- comment -%}
+  Ürün sayfasında müşteri yorumları. Yorumlar Google İşletme Profili'nden alınır ve blok olarak girilir;
+  "Google'da yorum yazın" düğmesi ziyaretçiyi doğrudan Google'ın yorum penceresine götürür.
+  Tema kendi başına Google'dan yorum çekemez (gizli anahtar gerektirir); yorumların nasıl güncelleneceği
+  migration/AKTARIM.md dosyasında yazılıdır. Hiç yorum ve bağlantı girilmemişse bölüm görünmez.
+{%- endcomment -%}
+{%- liquid
+  assign yorumlar = section.blocks | where: 'type', 'review'
+  assign baglanti_var = false
+  if section.settings.google_url != blank or section.settings.google_yaz_url != blank
+    assign baglanti_var = true
+  endif
+-%}
+{%- if yorumlar.size > 0 or baglanti_var -%}
+  <section class="psec reviews" aria-labelledby="ReviewsTitle-{{ section.id }}">
+    <header class="reviews__head">
+      <div>
+        <h2 class="reviews__title" id="ReviewsTitle-{{ section.id }}">{{ section.settings.title }}</h2>
+        {%- if section.settings.puan != blank -%}
+          <p class="reviews__ozet">
+            <span class="reviews__puan">{{ section.settings.puan }}</span>
+            {%- render 'yildiz', puan: section.settings.puan -%}
+            {%- if section.settings.adet != blank -%}
+              <span class="reviews__adet">{{ 'products.reviews_count' | t: adet: section.settings.adet }}</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="reviews__text">{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+      <div class="reviews__actions">
+        {%- if section.settings.google_yaz_url != blank -%}
+          <a class="button button--primary" href="{{ section.settings.google_yaz_url }}" target="_blank" rel="noopener">
+            {{ 'products.reviews_write' | t }}<span class="visually-hidden"> ({{ 'general.new_tab' | t }})</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.google_url != blank -%}
+          <a class="button button--ghost" href="{{ section.settings.google_url }}" target="_blank" rel="noopener">
+            {{ 'products.reviews_all' | t }}<span class="visually-hidden"> ({{ 'general.new_tab' | t }})</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </header>
+
+    {%- if yorumlar.size > 0 -%}
+      <ul class="reviews__list" role="list">
+        {%- for block in yorumlar -%}
+          <li class="review reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <article>
+              {%- render 'yildiz', puan: block.settings.puan -%}
+              <p class="review__metin">{{ block.settings.text }}</p>
+              <p class="review__kim">
+                <span class="review__ad">{{ block.settings.ad }}</span>
+                {%- if block.settings.tarih != blank -%}<span class="review__tarih">{{ block.settings.tarih }}</span>{%- endif -%}
+              </p>
+            </article>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="reviews__kaynak">{{ 'products.reviews_source' | t }}</p>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Yorumlar",
+  "class": "section-product-reviews",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Başlık", "default": "Müşterilerimiz ne diyor?" },
+    { "type": "textarea", "id": "text", "label": "Metin" },
+    { "type": "text", "id": "puan", "label": "Google puanı", "info": "Örn. 4,8. Yalnızca Google İşletme Profili'nde görünen gerçek puanı girin." },
+    { "type": "text", "id": "adet", "label": "Yorum sayısı", "info": "Örn. 42." },
+    { "type": "url", "id": "google_url", "label": "Tüm yorumlar bağlantısı", "info": "Google İşletme Profili'nin yorumlar sayfası." },
+    { "type": "url", "id": "google_yaz_url", "label": "Yorum yazma bağlantısı", "info": "Google'ın yorum penceresi: https://search.google.com/local/writereview?placeid=YER_KIMLIGI" }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Yorum", "limit": 12, "settings": [
+      { "type": "text", "id": "ad", "label": "Yorumu yazan", "default": "Müşteri" },
+      { "type": "range", "id": "puan", "label": "Puan", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "text", "id": "tarih", "label": "Tarih", "info": "Örn. Ağustos 2026." },
+      { "type": "textarea", "id": "text", "label": "Yorum", "info": "Google'daki yorumun kendisi; kısaltılmadan yazılmalıdır." }
+    ] }
+  ],
+  "presets": [{ "name": "Yorumlar" }]
+}
+{% endschema %}

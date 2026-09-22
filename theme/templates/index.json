@@ -375,6 +375,20 @@
             "ad": "Kanada",
             "kod": "124"
           }
+        },
+        "u19": {
+          "type": "country",
+          "settings": {
+            "ad": "Birleşik Arap Emirlikleri",
+            "kod": "784"
+          }
+        },
+        "u20": {
+          "type": "country",
+          "settings": {
+            "ad": "Suudi Arabistan",
+            "kod": "682"
+          }
         }
       },
       "block_order": [
@@ -395,13 +409,15 @@
         "u15",
         "u16",
         "u17",
-        "u18"
+        "u18",
+        "u19",
+        "u20"
       ],
       "settings": {
         "eyebrow": "İhracat",
-        "heading": "Veliköy’de üretiyoruz, sınırların ötesine gönderiyoruz",
+        "heading": "Türkiye’den üretiyoruz, sınırların ötesine gönderiyoruz",
         "text": "Türkiye genelindeki satışlarımızın yanında alüminyum profillerimizi yurt dışına da gönderiyoruz. Proje miktarındaki ihracat talepleriniz için doğrudan bize yazın.",
-        "sayi": "18",
+        "sayi": "20",
         "sayi_etiket": "ülkeye ihracat",
         "link_label": "İhracat için iletişim",
         "link_url": "/pages/iletisim"
