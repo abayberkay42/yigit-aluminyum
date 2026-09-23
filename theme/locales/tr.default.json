@@ -23,20 +23,6 @@
     "close": "Kapat"
   },
   "home": {
-    "hero": {
-      "choose_die": "Kalıp seçin",
-      "selected_die": "Kalıptan çıkan",
-      "view_group": "Grubu incele"
-    },
-    "story": {
-      "label": "Kalıptan uygulamaya",
-      "finish_gumus": "Gümüş",
-      "finish_siyah": "Siyah",
-      "finish_antrasit": "Antrasit",
-      "finish_altin": "Altın",
-      "finish_beyaz": "Beyaz",
-      "finish_ham": "Ham (press)"
-    },
     "groups": {
       "featured": "Bu gruptan"
     },
@@ -50,6 +36,9 @@
     },
     "journal": {
       "read": "Yazıyı okuyun"
+    },
+    "hero": {
+      "view_group": "Grubu incele"
     }
   },
   "pages": {

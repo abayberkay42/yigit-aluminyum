@@ -130,6 +130,14 @@ Haritadaki ülkeler firmanın verdiği listeye göre girildi (20 ülke: Bulgaris
 
 Harita Natural Earth (kamu malı) verisinden `tools/dunya-harita.mjs` ile üretildi; `theme/assets/yigit-dunya.svg` dosyası temanın içindedir, ayrıca yükleme gerekmez.
 
+## 3B üretim sahnesi kaldırıldı
+
+Üretim sayfasının başındaki üç boyutlu ekstrüzyon sahnesi (kalıptan çıkan profil, kaydırmayla ilerleyen anlatı) firma isteğiyle siteden tamamen kaldırıldı (2026-09-23). Sayfa artık banner + üretim adımlarıyla başlıyor.
+
+Bununla birlikte kalkanlar: sahne bölümü, three.js kütüphanesi ve sahnenin JavaScript'i, kesit simgeleri, sahneye ait stiller ve metinler. **Üretim sayfasının JavaScript yükü 1.479 KB'den 162 KB'ye indi.**
+
+Not: ışık sıcaklığı seçimi (3000K / 4000K / 6500K) yalnız bu sahnenin içindeydi; artık seçim düğmesi yok. Kullanım alanları sayfasındaki fotoğraflar öntanımlı 3000K tonunda görünüyor. Seçim yeniden istenirse kullanım alanları sayfasına küçük bir düğme grubu olarak konabilir.
+
 ## Üst çubukta kataloglar kısayolu
 
 Menü çubuğuna, aramanın solunda altın renkli bir **Kataloglar** düğmesi eklendi (2026-09-23): diğer simgelerden ayrışsın ve tıklansın diye logonun altın rengiyle çerçevelendi, üzerine gelince altın zemine dönüyor. Telefonda yalnız simge görünür.

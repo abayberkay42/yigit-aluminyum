@@ -23,20 +23,6 @@
     "close": "Close"
   },
   "home": {
-    "hero": {
-      "choose_die": "Choose a die",
-      "selected_die": "Coming out of the die",
-      "view_group": "View the group"
-    },
-    "story": {
-      "label": "From die to application",
-      "finish_gumus": "Silver",
-      "finish_siyah": "Black",
-      "finish_antrasit": "Anthracite",
-      "finish_altin": "Gold",
-      "finish_beyaz": "White",
-      "finish_ham": "Mill finish (press)"
-    },
     "groups": {
       "featured": "From this group"
     },
@@ -50,6 +36,9 @@
     },
     "journal": {
       "read": "Read the article"
+    },
+    "hero": {
+      "view_group": "View the group"
     }
   },
   "pages": {

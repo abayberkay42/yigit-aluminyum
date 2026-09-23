@@ -132,68 +132,6 @@
       ],
       "settings": {}
     },
-    "sahne": {
-      "type": "home-hero",
-      "blocks": {
-        "die-trimless": {
-          "type": "group",
-          "settings": {
-            "title": "Trimless",
-            "shape": "trimless",
-            "collection": "tri̇mless-alcipan-led-profi̇lleri̇",
-            "product": "2-2cm-trimless-alcipan-led-profili"
-          }
-        },
-        "stage-cut": {
-          "type": "stage",
-          "settings": {
-            "kind": "cut",
-            "title": "Kesim",
-            "text": "Soğuyan profil, istenen boyda kesilir."
-          }
-        },
-        "stage-finish": {
-          "type": "stage",
-          "settings": {
-            "kind": "finish",
-            "title": "Yüzey",
-            "text": "Trimless profil ham (press) alüminyum olarak üretilir: presten çıktığı yüzey, ek bir kaplama yapılmadan kalır."
-          }
-        },
-        "stage-led": {
-          "type": "stage",
-          "settings": {
-            "kind": "led",
-            "title": "LED ve kapak",
-            "text": "Şerit LED kanala yerleşir, opal kapak üstüne oturur."
-          }
-        },
-        "stage-apply": {
-          "type": "stage",
-          "settings": {
-            "kind": "apply",
-            "title": "Uygulama",
-            "text": "Tavanda, duvarda ve merdivende ışık tek bir çizgi olarak kalır. Işık sıcaklığını aşağıdan seçin.",
-            "link_label": "Kullanım alanlarını gör",
-            "link": "/pages/kullanim-alanlari"
-          }
-        }
-      },
-      "block_order": [
-        "die-trimless",
-        "stage-cut",
-        "stage-finish",
-        "stage-led",
-        "stage-apply"
-      ],
-      "settings": {
-        "heading_tag": "h2",
-        "line_1": "2012'den beri",
-        "line_2": "alüminyum profil",
-        "line_3": "üretiyoruz.",
-        "lede": "Trimless profil, presten çıktığı anda: sıcak alüminyum kalıptan geçer, soğur, kesilir."
-      }
-    },
     "polikarbon": {
       "type": "page-production",
       "blocks": {
@@ -283,7 +221,6 @@
     "hero",
     "production",
     "polikarbon",
-    "sahne",
     "doors"
   ]
 }
