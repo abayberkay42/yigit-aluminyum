@@ -160,30 +160,28 @@
     border-radius: var(--radius-lg);
     isolation: isolate;
   }
-  /* Gövde üç halde (iki ayrı katman, yalnız opacity geçişi):
-     1. Sayfanın en üstünde, altında içerik yokken: tamamen şeffaf.
-     2. Kaydırınca (led-bar.js → .rail.is-kaydi): buzlu cam (::before). Yarı saydam, arkası bulanık, çerçevesiz;
-        altından geçen yazı okunmaz hale gelir, menü yazısı hep okunur. Tamamen şeffaf bırakmak yazıları üst üste bindiriyordu.
-     3. İmleç üzerindeyken, klavye odağı içindeyken ya da menü açıkken: belirgin gövde (::after), altın kenar ve gölge.
-     Bulanıklık ayrı katmanda: opacity ile yarılanan backdrop-filter bulanıklığı da yarılar, okunurluk bozulur. */
+  /* Gövde iki katman (yalnız opacity geçişi):
+     1. Her zaman: koyu buzlu cam (::before). Arkası bulanık, altından geçen görsel okunurluğu bozmaz.
+     2. İmleç üzerindeyken, klavye odağı içindeyken ya da menü açıkken: daha koyu gövde (::after), altın kenar ve gölge.
+     Bulanıklık ayrı katmanda: opacity ile yarılanan backdrop-filter bulanıklığı da yarılar, okunurluk bozulur.
+     Çubuk firma isteğiyle her sayfada koyu (2026-09-23); beyaz gövde ve şeffaf hâl kaldırıldı. */
   .rail__bar::before, .rail__bar::after {
     content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
     opacity: 0;
     transition: opacity 280ms var(--ease-out);
   }
   .rail__bar::before {
-    background-color: oklch(1 0 0 / 0.7);
-    -webkit-backdrop-filter: blur(20px) saturate(1.3);
-    backdrop-filter: blur(20px) saturate(1.3);
+    opacity: 1;
+    background-color: oklch(0.19 0.012 65 / 0.82);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+    backdrop-filter: blur(20px) saturate(1.25);
   }
   .rail__bar::after {
-    background-color: oklch(1 0 0 / 0.75);
+    background-color: oklch(0.16 0.012 65 / 0.94);
     box-shadow:
-      inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 24%, transparent),
-      0 1px 2px oklch(0.3 0.02 70 / 0.06),
-      0 1.2rem 2.8rem -1.4rem oklch(0.35 0.03 70 / 0.28);
+      inset 0 0 0 1px color-mix(in oklch, var(--c-gold-bright) 32%, transparent),
+      0 1.2rem 2.8rem -1.4rem oklch(0.1 0.02 70 / 0.55);
   }
-  .rail.is-kaydi .rail__bar::before { opacity: 1; }
   .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::before, .rail.is-open .rail__bar::before,
   .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::after, .rail.is-open .rail__bar::after { opacity: 1; transition-duration: 180ms; }
   /* Dokunmatik cihazda imleç yok: kaydırınca belirgin gövde */
@@ -207,13 +205,13 @@
     display: inline-flex; align-items: center; min-block-size: 2.75rem; padding-inline: 0.8rem;
     font-size: 0.9375rem; font-weight: 500; font-stretch: 110%; text-decoration: none;
     border-radius: 999px;
-    color: var(--c-ink-soft);
+    color: oklch(0.97 0.006 85 / 0.88);
     transition: color var(--dur-ui) ease, background-color var(--dur-ui) ease;
   }
-  .rail__link[aria-current='page'], .rail__disc[aria-expanded='true'] { color: var(--c-ink); }
+  .rail__link[aria-current='page'], .rail__disc[aria-expanded='true'] { color: oklch(1 0 0); }
   .rail__link[aria-current='page'] { font-weight: 650; }
   @media (hover: hover) and (pointer: fine) {
-    .rail__link:hover { color: var(--c-ink); background: color-mix(in oklch, var(--c-gold-bright) 16%, transparent); }
+    .rail__link:hover { color: oklch(1 0 0); background: color-mix(in oklch, var(--c-gold-bright) 22%, transparent); }
   }
 
   /* Açılır menü: gövdenin altına düşen opal panel, üst kenarında ışık çizgisi */
@@ -226,8 +224,8 @@
     min-inline-size: 15.5rem; padding: 0.45rem;
     border-radius: var(--radius-lg);
     /* Gövdenin kendi bulanıklığı içinde ikinci bir backdrop-filter çalışmaz: panel neredeyse opak */
-    background: oklch(1 0 0 / 0.98);
-    box-shadow: inset 0 0 0 1px var(--c-rule), 0 1.6rem 3rem -1.2rem oklch(0.35 0.03 70 / 0.3);
+    background: oklch(0.17 0.012 65 / 0.98);
+    box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1), 0 1.6rem 3rem -1.2rem oklch(0.08 0.02 70 / 0.6);
     transform-origin: 1.5rem 0;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -247,46 +245,46 @@
   .rail__sub--mega { inset-inline: 0; min-inline-size: 0; padding: 1.4rem 1.5rem 1.2rem; transform-origin: 50% 0; }
   .rail__sub ul.rail__mega { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 1.5rem; }
   .rail__col { display: grid; align-content: start; gap: 0.35rem; }
-  .rail__col + .rail__col { padding-inline-start: 1.5rem; border-inline-start: 1px solid var(--c-rule); }
+  .rail__col + .rail__col { padding-inline-start: 1.5rem; border-inline-start: 1px solid oklch(1 0 0 / 0.12); }
   .rail__colhead {
     display: inline-flex; align-items: center; gap: 0.5rem; min-block-size: 2.5rem; padding-inline: 0.7rem;
     font-size: 0.8125rem; font-weight: 650; font-stretch: 112%; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--c-gold); text-decoration: none; border-radius: calc(var(--radius-lg) - 0.45rem);
+    color: var(--c-gold-bright); text-decoration: none; border-radius: calc(var(--radius-lg) - 0.45rem);
     transition: background-color var(--dur-ui) ease;
   }
   .rail__colhead::after { content: '→'; font-size: 0.9em; letter-spacing: 0; opacity: 0; translate: -0.25rem 0; transition: opacity var(--dur-ui) ease, translate var(--dur-ui) var(--ease-out); }
   @media (hover: hover) and (pointer: fine) {
-    .rail__colhead:hover { background: color-mix(in oklch, var(--c-gold-bright) 14%, transparent); }
+    .rail__colhead:hover { background: color-mix(in oklch, var(--c-gold-bright) 20%, transparent); }
     .rail__colhead:hover::after { opacity: 1; translate: 0 0; }
   }
   .rail__sublink {
     display: flex; align-items: center; min-block-size: 2.5rem; padding-inline: 0.7rem;
     font-size: 0.9rem; font-weight: 500; text-decoration: none;
     border-radius: calc(var(--radius-lg) - 0.45rem);
-    color: var(--c-ink-soft);
+    color: oklch(0.96 0.006 85 / 0.82);
     transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease;
   }
-  .rail__sublink[aria-current='page'] { font-weight: 650; color: var(--c-ink); }
+  .rail__sublink[aria-current='page'] { font-weight: 650; color: oklch(1 0 0); }
   @media (hover: hover) and (pointer: fine) {
-    .rail__sublink:hover { background: color-mix(in oklch, var(--c-gold-bright) 16%, transparent); color: var(--c-ink); }
+    .rail__sublink:hover { background: color-mix(in oklch, var(--c-gold-bright) 22%, transparent); color: oklch(1 0 0); }
   }
   .rail__tools { display: flex; align-items: center; justify-content: flex-end; gap: 0.9rem; }
 
 
   .rail__lang { display: flex; align-items: center; }
-  .rail__lang li + li { border-inline-start: 1px solid var(--c-rule); }
-  .rail__lang a { display: inline-flex; align-items: center; min-block-size: 2.75rem; padding-inline: 0.5rem; font-size: 0.8125rem; font-weight: 600; text-decoration: none; color: var(--c-ink-soft); }
-  .rail__lang a[aria-current='true'] { color: var(--c-ink); }
-  .rail__cart { display: inline-flex; align-items: center; gap: 0.4rem; min-block-size: 2.75rem; padding-inline: 0.45rem; font-size: 0.875rem; font-weight: 600; text-decoration: none; }
+  .rail__lang li + li { border-inline-start: 1px solid oklch(1 0 0 / 0.22); }
+  .rail__lang a { display: inline-flex; align-items: center; min-block-size: 2.75rem; padding-inline: 0.5rem; font-size: 0.8125rem; font-weight: 600; text-decoration: none; color: oklch(0.97 0.006 85 / 0.88); }
+  .rail__lang a[aria-current='true'] { color: oklch(1 0 0); }
+  .rail__cart { display: inline-flex; align-items: center; gap: 0.4rem; min-block-size: 2.75rem; padding-inline: 0.45rem; font-size: 0.875rem; font-weight: 600; text-decoration: none; color: oklch(0.97 0.006 85 / 0.9); }
   .rail__navsearch { display: none; }
-  .rail__search { display: inline-grid; place-items: center; min-inline-size: 2.75rem; min-block-size: 2.75rem; border-radius: var(--radius); color: inherit; transition: background-color var(--dur-ui) ease; }
-  @media (hover: hover) and (pointer: fine) { .rail__search:hover { background: color-mix(in oklch, var(--c-gold-bright) 16%, transparent); } }
+  .rail__search { display: inline-grid; place-items: center; min-inline-size: 2.75rem; min-block-size: 2.75rem; border-radius: var(--radius); color: oklch(0.97 0.006 85 / 0.9); transition: background-color var(--dur-ui) ease; }
+  @media (hover: hover) and (pointer: fine) { .rail__search:hover { background: color-mix(in oklch, var(--c-gold-bright) 22%, transparent); } }
   /* Kataloglar kısayolu: logonun altın rengiyle, diğer simgelerden ayrışsın diye çerçeveli */
   .rail__katalog {
     display: inline-flex; align-items: center; gap: 0.4rem;
     min-block-size: 2.4rem; padding-inline: 0.7rem;
     border-radius: 999px; text-decoration: none;
-    color: var(--c-gold); box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--c-gold) 40%, transparent);
+    color: var(--c-gold-bright); box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--c-gold-bright) 55%, transparent);
     font-size: 0.875rem; font-weight: 620;
     transition: background-color var(--dur-ui) ease, box-shadow var(--dur-ui) ease, color var(--dur-ui) ease;
   }
@@ -297,14 +295,14 @@
   .rail__katalog:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
   @media (max-width: 47.99em) { .rail__katalog-yazi { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } .rail__katalog { padding-inline: 0.55rem; } }
   .rail__count { min-inline-size: 1.4em; padding-inline: 0.35em; border-radius: 1em; background: var(--c-gold-bright); color: var(--c-on-gold); font-size: 0.75rem; text-align: center; }
-  .rail__toggle { display: none; min-block-size: 2.75rem; padding-inline: 1rem; font-weight: 600; border-radius: 999px; background: var(--c-surface-2); color: var(--c-ink); box-shadow: inset 0 0 0 1px var(--c-rule); }
+  .rail__toggle { display: none; min-block-size: 2.75rem; padding-inline: 1rem; font-weight: 600; border-radius: 999px; background: oklch(1 0 0 / 0.12); color: oklch(0.98 0.006 85); box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.22); }
 
   /* Opal difüzör şerit, gövdenin alt kenarında: kapalıyken koyu, üzerinde ışık ve okuma ilerlemesi yanar */
   .rail__diffuser {
     position: absolute; inset-inline: 1.1rem; inset-block-end: -2px; block-size: 3px;
     border-radius: 3px; overflow: hidden;
-    background: oklch(0.93 0.008 80);
-    box-shadow: inset 0 1px 1px oklch(0.3 0.02 70 / 0.12);
+    background: oklch(1 0 0 / 0.16);
+    box-shadow: inset 0 1px 1px oklch(0 0 0 / 0.25);
   }
   .rail__progress {
     position: absolute; inset: 0;
@@ -605,23 +603,8 @@
     @keyframes sbanner-yazi { from { opacity: 0; transform: translateY(0.9rem); } }
   }
 
-  /* Menü, banner üzerinde ve şeffafken açık renk: yazılar beyaz, logonun açık sürümü. Kaydırınca, imleç ya da
-     klavye odağı gelince ve menü açıkken çubuk beyaz gövdeye döner; o zaman her şey normal renginde. */
-  .rail__logo-img--acik { display: none; }
-  /* Ana sayfada film, iç sayfalarda banner çubuğun altından geçer: ikisinde de çubuk şeffafken yazı açık renk olur.
-     Kaydırınca, imleç/klavye odağı gelince ve menü açıkken çubuk beyaz gövdeye döner; her şey normal rengine döner. */
-  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open):not(:has(.rail__bar:hover, .rail__bar:focus-within, [aria-expanded='true'])) {
-    /* Açık görsellerin üzerinde de okunsun diye çubuğun arkasında ince bir karartma */
-    background: linear-gradient(180deg, oklch(0.18 0.01 70 / 0.5), transparent);
-  }
-  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open) .rail__bar:not(:hover, :focus-within, :has([aria-expanded='true'])) {
-    & .rail__logo-img--koyu { display: none; }
-    & .rail__logo-img--acik { display: block; }
-    & :is(.rail__link, .rail__lang a, .rail__cart, .rail__search) { color: oklch(0.97 0.006 85 / 0.88); }
-    & .rail__katalog { color: var(--c-gold-bright); box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--c-gold-bright) 55%, transparent); }
-    & :is(.rail__link[aria-current='page'], .rail__lang a[aria-current='true']) { color: oklch(1 0 0); }
-    & .rail__lang li + li { border-color: oklch(1 0 0 / 0.22); }
-  }
+  /* Çubuk her sayfada koyu olduğu için logonun açık sürümü kullanılır */
+  .rail__logo-img--koyu { display: none; }
 
   .finishes { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin-block-start: 1.1rem; font-size: 0.9375rem; font-weight: 550; }
   .finish { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--c-ink-soft); transition: color var(--dur-ui) ease; }
