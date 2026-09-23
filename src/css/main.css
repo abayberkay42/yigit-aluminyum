@@ -164,7 +164,10 @@
      1. Her zaman: koyu buzlu cam (::before). Arkası bulanık, altından geçen görsel okunurluğu bozmaz.
      2. İmleç üzerindeyken, klavye odağı içindeyken ya da menü açıkken: daha koyu gövde (::after), altın kenar ve gölge.
      Bulanıklık ayrı katmanda: opacity ile yarılanan backdrop-filter bulanıklığı da yarılar, okunurluk bozulur.
-     Çubuk firma isteğiyle her sayfada koyu (2026-09-23); beyaz gövde ve şeffaf hâl kaldırıldı. */
+     Çubuk koyu (2026-09-23; beyaz gövde kaldırıldı). Banner ya da ana sayfa filminin üstünde, sayfanın
+     en başında gövde saydamdır: görsel kesintisiz görünür. Kaydırınca, imleç/odak gelince ya da menü
+     açılınca koyu gövde belirir. Bannerı olmayan sayfada (beyaz zemin) çubuk baştan koyudur, yoksa
+     açık renkli yazılar okunmaz. */
   .rail__bar::before, .rail__bar::after {
     content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
     opacity: 0;
@@ -172,7 +175,7 @@
   }
   .rail__bar::before {
     opacity: 1;
-    background-color: oklch(0.19 0.012 65 / 0.82);
+    background-color: oklch(0.2 0.012 65 / 0.86);
     -webkit-backdrop-filter: blur(20px) saturate(1.25);
     backdrop-filter: blur(20px) saturate(1.25);
   }
@@ -184,6 +187,12 @@
   }
   .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::before, .rail.is-open .rail__bar::before,
   .rail__bar:is(:hover, :focus-within, :has([aria-expanded='true']))::after, .rail.is-open .rail__bar::after { opacity: 1; transition-duration: 180ms; }
+  /* Sayfanın en başı, altında banner ya da film varken: gövde saydam, arkasındaki görsel görünür */
+  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open) .rail__bar:not(:hover, :focus-within, :has([aria-expanded='true']))::before { opacity: 0; }
+  /* Açık görsellerin üzerinde de yazılar okunsun diye çubuğun arkasında ince bir karartma */
+  :is(html:has(.sbanner), body.template-index) .rail:not(.is-kaydi, .is-open):not(:has(.rail__bar:hover, .rail__bar:focus-within, [aria-expanded='true'])) {
+    background: linear-gradient(180deg, oklch(0.18 0.01 70 / 0.5), transparent);
+  }
   /* Dokunmatik cihazda imleç yok: kaydırınca belirgin gövde */
   @media (hover: none), (pointer: coarse) { .rail.is-kaydi .rail__bar::after { opacity: 1; } }
   .rail__diffuser { opacity: 0; transition: opacity 280ms var(--ease-out); }
