@@ -1,0 +1,218 @@
+/*
+  Üretim parkurumuz sayfası. Metinler firmanın "Yiğit Alüminyum Üretim Parkurumuz" belgesinden (2026-09-23).
+  Durak fotoğrafları firma tarafından fabrikada çekilecek; görsel seçilmeyen durak yalnız yazıyla görünür.
+*/
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Üretim parkurumuz",
+        "title": "Kalıptan sevkiyata altı durak",
+        "lede": "Bir profilin kalıphanede başlayıp sevkiyata hazır hâle gelene kadar geçtiği duraklar; her durakta neye baktığımız ve neyi ölçtüğümüz.",
+        "banner": "shopify://shop_images/banner-uretim.webp",
+        "align": "center"
+      }
+    },
+    "parkur": {
+      "type": "page-parkur",
+      "blocks": {
+        "d1": {
+          "type": "durak",
+          "settings": {
+            "no": "01",
+            "anchor": "kaliphane",
+            "title": "Kalıphane",
+            "lede": "Bir alüminyum profilin ölçü doğruluğu, işlevi ve üretimdeki sürekliliği, doğru tasarlanmış bir kalıpla başlar. Standart profil ihtiyaçlarının yanında, müşterilerimizin teknik çizimlerine ve kullanım beklentilerine göre özel kesit taleplerini de değerlendiriyoruz.",
+            "d1_title": "Teknik çizim ve üretilebilirlik",
+            "d1_text": "Profilin dış ölçüleri, et kalınlıkları, boşlukları ve bağlantı detayları, kullanılacağı sistemle birlikte incelenir. Dar kanallar, ince cidarlar ve kesit içindeki kalınlık farklılıkları üretilebilirlik açısından değerlendirilir. Talep edilen toleranslar ve yüzey beklentileri bu aşamada netleştirilir.",
+            "d2_title": "Kalıp tasarımında metal akışı",
+            "d2_text": "Kalıp geometrisi, alüminyumun kesit boyunca dengeli ilerlemesini sağlayacak biçimde ele alınır. Tasarımda kesitin yapısı, seçilen alaşım ve presleme koşulları birlikte değerlendirilir; sonraki yüzey işlemlerinin geçme ve bağlantı ölçülerine etkisi de dikkate alınır.",
+            "d3_title": "Deneme üretimi ve kesit kontrolü",
+            "d3_text": "Deneme üretiminden alınan profil örnekleri teknik çizimle karşılaştırılır. Kritik ölçüler, et kalınlığı dağılımı, doğrusal form ve yüzey görünümü değerlendirilir; gerektiğinde kalıp düzeltmeleri ve proses ayarları yapılır.",
+            "d4_title": "Kalıp bakımı ve tekrar üretim",
+            "d4_text": "Kullanım sırasında oluşan aşınma ve birikintiler profilin ölçülerini etkileyebilir. Kalıpların temizlik, kontrol ve bakım işlemleri üretim sürekliliğinin parçasıdır; tekrar siparişlerde kesit ve revizyon bilgileri korunur."
+          }
+        },
+        "d2": {
+          "type": "durak",
+          "settings": {
+            "no": "02",
+            "anchor": "ekstruzyon",
+            "title": "Ekstrüzyon pres hattı",
+            "lede": "Ekstrüzyon, alüminyumun tasarlanan kesite dönüştürüldüğü temel üretim aşamasıdır. Uygun sıcaklığa getirilen biyet, pres basıncıyla kalıptan geçirilerek profil formunu alır. Hedefimiz, belirlenen ölçülerde ve tekrar üretime uygun özelliklerde profil elde etmektir.",
+            "d1_title": "Alaşım seçimi ve üretim hazırlığı",
+            "d1_text": "Alaşım; beklenen mekanik özellikler, yüzey işlemleri ve kullanım ortamı birlikte değerlendirilerek seçilir. Üretime başlamadan önce profil kesiti, talep edilen boylar, miktar ve sonraki operasyonlar dikkate alınır.",
+            "d2_title": "Kontrollü presleme",
+            "d2_text": "Presleme sırasında sıcaklık, çıkış hızı ve malzeme akışı profilin geometrisini ve yüzey kalitesini doğrudan etkiler. Proses koşulları, kesitin ince ve kalın bölgelerinin dengeli oluşmasını destekleyecek şekilde ayarlanır.",
+            "d3_title": "Soğutma ve doğrultma",
+            "d3_text": "Pres çıkışındaki profiller, alaşımın ve hedeflenen mekanik özelliklerin gerektirdiği koşullarda soğutulur. Germe ve doğrultma işlemleriyle eğrilik ve burulma gibi geometrik sapmaların giderilmesi hedeflenir.",
+            "d4_title": "Boy kesimi ve mekanik özellikler",
+            "d4_text": "Profiller siparişte tanımlanan boylara kesilir. Isıl işlemle sertleşebilen alaşımlarda yaşlandırma işlemiyle mekanik özellikler geliştirilir; boy, kesit, doğruluk ve yüzey kontrollerinin ardından sonraki aşamaya geçilir."
+          }
+        },
+        "d3": {
+          "type": "durak",
+          "settings": {
+            "no": "03",
+            "anchor": "eloksal",
+            "title": "Eloksal hattı",
+            "lede": "Eloksal, alüminyum yüzeyinde kontrollü bir oksit tabakası oluşturan elektrokimyasal işlemdir. Metalin kendisiyle bütünleşen bu tabaka, uygun koşullarda korozyon ve aşınma direncini artırırken alüminyumun metalik görünümünü korur.",
+            "d1_title": "Yüzey hazırlığı",
+            "d1_text": "Eloksal öncesinde profil yüzeyi temizlik ve ön hazırlık aşamalarından geçirilir. Eloksal alttaki metalin yüzey karakterini görünür bıraktığından, profilin başlangıçtaki yüzey kalitesi nihai görünüm üzerinde belirleyicidir.",
+            "d2_title": "Kontrollü oksit tabakası",
+            "d2_text": "Oksit tabakasının özellikleri ürünün kullanım koşullarına göre belirlenir. Kaplama kalınlığı, yüzey beklentisi ve parçanın teknik işlevi birlikte değerlendirilir; geçme ve bağlantı bölgelerinde kaplamanın ölçülere etkisi dikkate alınır.",
+            "d3_title": "Renk ve yüzey bütünlüğü",
+            "d3_text": "Natürel veya renkli eloksal tercihleri istenen görünüm ve teknik uygunluk doğrultusunda ele alınır. Alaşım, yüzey hazırlığı ve işlem koşulları nihai tonu etkileyebildiği için renk beklentisi numune üzerinden netleştirilir.",
+            "d4_title": "Tespit işlemi ve son kontrol",
+            "d4_text": "İşlem planına uygun tespit işlemiyle oksit tabakasındaki gözenekler kapatılır. Son kontrolde görünüm, renk uyumu ve kaplama özellikleri değerlendirilir; profiller yüzeylerini koruyacak paketleme düzeniyle bir sonraki aşamaya hazırlanır."
+          }
+        },
+        "d4": {
+          "type": "durak",
+          "settings": {
+            "no": "04",
+            "anchor": "toz-boya",
+            "title": "Elektrostatik toz boya tesisi",
+            "lede": "Elektrostatik toz boya, alüminyum profillere renk ve yüzey dokusu kazandıran bir kaplama yöntemidir. Boya parçacıkları elektrostatik olarak yüzeye uygulanır ve uygun fırın koşullarında kürlenerek kaplama tabakasını oluşturur.",
+            "d1_title": "Renk ve kaplama sisteminin belirlenmesi",
+            "d1_text": "RAL referansları ve proje talepleri doğrultusunda renk seçenekleri değerlendirilir. Renk kodunun yanında parlaklık derecesi, yüzey dokusu ve iç veya dış ortamda kullanım bilgisi de netleştirilir.",
+            "d2_title": "Kaplama öncesi yüzey hazırlığı",
+            "d2_text": "Yüzeyin yağ, kir ve uygun olmayan kalıntılardan arındırılması boya uygulamasının temelini oluşturur. Ön işlem sonrasında profiller durulanır ve kurutulur; bu hazırlık boyanın tutunmasını ve kaplama performansını destekler.",
+            "d3_title": "Elektrostatik uygulama ve kürleme",
+            "d3_text": "Toz boya elektrostatik yük sayesinde yüzeye tutunur; kesitin köşe, kanal ve girintileri kaplama dağılımı açısından değerlendirilir. Profiller, boyanın teknik koşullarına uygun sıcaklık ve sürede kürlenir.",
+            "d4_title": "Yüzey kontrolü ve parçalar arası uyum",
+            "d4_text": "Boyanan profillerde görünüm, renk, parlaklık ve kaplama düzgünlüğü değerlendirilir. Geçme ve montaj bölgelerinde boya kalınlığının işlevsel ölçülere etkisi gözetilir; tekrar siparişlerde renk, doku ve parlaklık bilgisi korunur."
+          }
+        },
+        "d5": {
+          "type": "durak",
+          "settings": {
+            "no": "05",
+            "anchor": "mekanik-islem",
+            "title": "Mekanik işlem hattı",
+            "lede": "Mekanik işlemler, ekstrüzyonla elde edilen profilin son kullanımına uygun ölçü ve detaylara hazırlanmasını sağlar. Kesim, delik ve diğer işlem taleplerini teknik çizim üzerinden değerlendiriyoruz.",
+            "d1_title": "Teknik çizime göre işlem planlama",
+            "d1_text": "İşlenecek bölgeler, referans ölçüler ve toleranslar üretim öncesinde netleştirilir. Birden fazla operasyon gereken ürünlerde işlem sırası, ölçülerin birbirine olan ilişkisi dikkate alınarak oluşturulur.",
+            "d2_title": "Boy ve açı kesimleri",
+            "d2_text": "Kesimler teknik çizimdeki boy ve açı gereksinimlerine göre planlanır. Özellikle ince cidarlı ve açık kesitlerde parçanın uygun biçimde desteklenmesi, ölçü sapmalarının ve deformasyonun azaltılmasına yardımcı olur.",
+            "d3_title": "Delik ve bağlantı detayları",
+            "d3_text": "Montaj delikleri, kanal açıklıkları ve benzeri talepler ürünün kullanım amacı doğrultusunda değerlendirilir. İşlem sonrası çapakların giderilmesiyle sonraki montaj aşamalarını zorlaştırabilecek kalıntılar önlenir.",
+            "d4_title": "Son kontrol ve yüzeyin korunması",
+            "d4_text": "Mekanik işlem sırası, yüzey kaplaması ve nihai kullanım şartlarına göre belirlenir. Tamamlanan parçalarda boy, delik konumları, kesim yüzeyleri ve genel form kontrol edilir."
+          }
+        },
+        "d6": {
+          "type": "durak",
+          "settings": {
+            "no": "06",
+            "anchor": "paketleme",
+            "title": "Paketleme ve sevkiyat",
+            "lede": "Paketleme ve sevkiyat, üretimde elde edilen ürün özelliklerinin müşteriye ulaşıncaya kadar korunması için planlanır. Profillerin boyu, kesit yapısı ve yüzey kaplaması uygun ambalajın belirlenmesinde önem taşır.",
+            "d1_title": "Sevkiyat öncesi sipariş kontrolü",
+            "d1_text": "Ürünler; profil tipi, boy, renk, yüzey işlemi ve miktar bakımından siparişle karşılaştırılır. Farklı ürünlerin bulunduğu sevkiyatlarda gruplandırma yapılarak karışıklık riski azaltılır.",
+            "d2_title": "Ürüne uygun yüzey koruması",
+            "d2_text": "Koruyucu malzeme ve paketleme düzeni profilin yüzey özelliklerine göre seçilir. Eloksallı ve boyalı yüzeylerde ambalaj malzemesinin kaplamayla uyumu önemlidir.",
+            "d3_title": "Paket düzeni ve tanımlama",
+            "d3_text": "Paketlerin ağırlığı, uzunluğu ve taşıma biçimi birlikte ele alınır. Ürünlerin tanımlanmasında profil kodu, boy, renk ve miktar gibi sipariş bilgileri esas alınır.",
+            "d4_title": "Sevkiyat planlaması ve yükleme",
+            "d4_text": "Teslimat adresi, taşıma yöntemi ve siparişin hazır olma durumu dikkate alınarak sevkiyat planlanır. Parçalı teslimat veya özel paketleme talepleri sipariş planlamasında netleştirilir."
+          }
+        },
+        "k1": {
+          "type": "nokta",
+          "settings": {
+            "title": "Kalite yaklaşımımız",
+            "text": "Kaliteyi, tasarımın değerlendirilmesinden sevkiyat hazırlığına kadar üretimin bütün aşamalarıyla birlikte ele alıyoruz. Ölçü doğruluğu, yüzey beklentisi ve kullanım işlevinin birbiriyle uyumlu olması, hem ilk siparişte hem de tekrar üretimlerde önceliğimizdir."
+          }
+        },
+        "k2": {
+          "type": "nokta",
+          "settings": {
+            "title": "Üretim boyunca izlenen kriterler",
+            "text": "Kesit ölçüleri, et kalınlığı, boy, doğruluk ve yüzey görünümü ürüne göre değerlendirilir. Kaplamalı ürünlerde renk ve yüzey özellikleri, işlenmiş parçalarda ise bağlantı ölçüleri ve işlem sonrası form da kontrol kapsamına girer."
+          }
+        },
+        "k3": {
+          "type": "nokta",
+          "settings": {
+            "title": "Ürüne göre şekillenen üretim akışı",
+            "text": "Her profil aynı işlem sırasından geçmez. Eloksal ve elektrostatik toz boya, çoğu üründe kullanım koşullarına göre seçilen alternatif bitirme yöntemleridir. Mekanik işlemlerin kaplamadan önce veya sonra yapılması ürünün teknik gereksinimlerine bağlıdır."
+          }
+        },
+        "k4": {
+          "type": "nokta",
+          "settings": {
+            "title": "Özel profil ve toplu üretim talepleri",
+            "text": "Standart bir profil tedarik etmek ya da ürününüze özel bir kesit geliştirmek için bize yazabilirsiniz. Teknik çiziminizi, kullanım alanını, gerekli boy ve miktarı, varsa alaşım ve yüzey beklentinizi paylaşın; kalıp, üretim ve teslimat planını siparişinize göre oluşturalım."
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6",
+        "k1",
+        "k2",
+        "k3",
+        "k4"
+      ],
+      "settings": {
+        "eyebrow": "Üretim parkuru",
+        "heading": "Profil hangi duraklardan geçiyor?",
+        "text": "<p>Farklı sektörlerin ihtiyaçlarına yönelik standart ve özel kesitli alüminyum profiller üretiyoruz. Kalıp tasarımından ekstrüzyona, yüzey işlemlerinden sevkiyata kadar üretimin her aşamasını ürünün teknik gereksinimlerine göre ele alıyoruz.</p><p>Teknik çizim, kullanım alanı ve sipariş beklentilerini birlikte değerlendirerek uygun üretim sürecini planlıyoruz. Ölçü doğruluğu, yüzey kalitesi ve tekrar siparişlerde tutarlılık hedefiyle çalışıyoruz.</p>",
+        "kalite_baslik": "Kalite kontrol ve üretim planlaması",
+        "cta_text": "Standart bir profil ya da size özel bir kesit: talebinizi birlikte değerlendirelim.",
+        "cta_1_label": "Teknik çiziminizi gönderin",
+        "cta_1_message": "Merhaba, teknik çizimimi paylaşmak istiyorum.",
+        "cta_2_label": "Teklif alın",
+        "cta_2_message": "Merhaba, fiyat teklifi almak istiyorum.",
+        "cta_3_label": "Nasıl ürettiğimizi izleyin",
+        "cta_3_link": "/pages/uretim"
+      }
+    },
+    "doors": {
+      "type": "home-doors",
+      "blocks": {
+        "door-urun": {
+          "type": "door",
+          "settings": {
+            "style": "dark",
+            "eyebrow": "Ürünler",
+            "title": "Hangi profili arıyorsunuz?",
+            "text": "LED, PVC panel, alçıpan ve süpürgelik profillerini inceleyin.",
+            "link_1_label": "Ürün grupları",
+            "link_1": "/collections"
+          }
+        },
+        "door-iletisim": {
+          "type": "door",
+          "settings": {
+            "style": "light",
+            "eyebrow": "İletişim",
+            "title": "Proje miktarında mı alacaksınız?",
+            "text": "Miktarı ve kullanım alanını yazın; uygun profili ve fiyatı birlikte belirleyelim.",
+            "link_1_label": "Teklif alın",
+            "link_1_whatsapp": true,
+            "link_1_message": "Merhaba, fiyat teklifi almak istiyorum."
+          }
+        }
+      },
+      "block_order": [
+        "door-urun",
+        "door-iletisim"
+      ],
+      "settings": {
+        "heading": "Ürünler ve iletişim"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "parkur",
+    "doors"
+  ]
+}

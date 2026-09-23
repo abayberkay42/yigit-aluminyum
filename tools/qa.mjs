@@ -9,7 +9,7 @@ const B = process.env.URL || 'http://localhost:3019';
 const ART = '/blogs/tri%CC%87mless-led-profi%CC%87lleri%CC%87/nedir-nasil-uygulanir-ne-ise-yarar-nerelerde-kullanilir';
 const PAGES = [
   '/', '/collections', '/collections/siva-ustu-led-profilleri', '/products/22x13-led-profili', '/products/2-2cm-trimless-alcipan-led-profili', '/products/alcipan-z-profili',
-  '/cart', '/pages/kullanim-alanlari', '/pages/uretim', '/pages/kurumsal', '/pages/iletisim', '/pages/kataloglar',
+  '/cart', '/pages/kullanim-alanlari', '/pages/uretim', '/pages/uretim-parkurumuz', '/pages/kurumsal', '/pages/iletisim', '/pages/kataloglar',
   '/pages/s-s-s', '/search?q=trimless', ART, '/olmayan-sayfa', '/en',
 ];
 const VIEWPORTS = { masaustu: { width: 1440, height: 900 }, telefon: { width: 390, height: 844, isMobile: true, hasTouch: true } };
@@ -20,6 +20,9 @@ const report = { tarih: new Date().toISOString(), sayfalar: [], klavye: null, ha
 async function audit(ctxOpts, path, label) {
   const ctx = await browser.newContext(ctxOpts);
   const page = await ctx.newPage();
+  // Alt alandaki Google Haritalar çerçevesi denetim ortamından açılamıyor ve her sayfada konsol hatası
+  // bırakıyordu. Harita üçüncü taraf; denetimin konusu değil, bu yüzden isteği hiç başlatmıyoruz.
+  await page.route('**://*.google.com/**', (r) => r.abort());
   const errors = [];
   const bytes = { js: 0, css: 0, img: 0, font: 0 };
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));

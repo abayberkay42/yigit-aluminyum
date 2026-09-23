@@ -29,7 +29,8 @@
     "film": {
       "loading": "Loading film",
       "skip": "Continue to site",
-      "percent": "#%"
+      "percent": "#%",
+      "scroll": "Scroll"
     },
     "usage": {
       "all": "All application areas"

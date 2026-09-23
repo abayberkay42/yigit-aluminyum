@@ -138,6 +138,28 @@ Bununla birlikte kalkanlar: sahne bölümü, three.js kütüphanesi ve sahnenin 
 
 Not: ışık sıcaklığı seçimi (3000K / 4000K / 6500K) yalnız bu sahnenin içindeydi; artık seçim düğmesi yok. Kullanım alanları sayfasındaki fotoğraflar öntanımlı 3000K tonunda görünüyor. Seçim yeniden istenirse kullanım alanları sayfasına küçük bir düğme grubu olarak konabilir.
 
+## Üretim iki sayfaya ayrıldı
+
+Üst menüdeki **Üretim** başlığı artık iki sayfa açıyor (2026-09-23):
+
+| Sayfa | İçerik |
+|---|---|
+| **Nasıl üretiyoruz?** (`/pages/uretim`) | Tanıtım filmi, alüminyum üretim adımları, polikarbon kapak üretimi |
+| **Üretim Parkurumuz** (`/pages/uretim-parkurumuz`) | Kalıphaneden sevkiyata altı durak; her durakta dört alt başlık, altında kalite kontrol ve üretim planlaması kartları |
+
+Metinler firmanın "Yiğit Alüminyum Üretim Parkurumuz" belgesinden alındı. Ana sayfada da **Üretim parkurumuz** bölümü var: altı kart, her kart parkur sayfasındaki ilgili durağa atlıyor.
+
+**Shopify'da yapılacaklar:**
+
+1. Online Mağaza > Sayfalar: mevcut "Üretim" sayfasının adını **"Nasıl üretiyoruz?"** yapın (adresi `/pages/uretim` kalsın).
+2. Yeni sayfa açın: başlık **"Üretim Parkurumuz"**, adres `uretim-parkurumuz`, şablon **page.uretim-parkurumuz**.
+3. Online Mağaza > Gezinme > Ana menü: "Üretim" bağlantısının altına iki alt bağlantı ekleyin (Nasıl üretiyoruz? → `/pages/uretim`, Üretim Parkurumuz → `/pages/uretim-parkurumuz`).
+4. **Durak fotoğrafları:** her durağın "Fotoğraf" alanı boş. Fabrikada çekilen fotoğraflar Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa seçilir; fotoğraf seçilmeyen durak yalnız yazıyla görünür (sayfa bozulmaz).
+
+## Ana sayfa filminde kaydırma yönergesi
+
+Filmin altına "Kaydırın" yazısı, aşağı ok ve filmin ne kadarının oynadığını gösteren altın dolum çubuğu eklendi (firma isteği). Kaydırma başlayınca yazı ve ok solar, çubuk kalır; film bitince yönerge tamamen kaybolur. Hareket azaltma açık cihazlarda hiç görünmez.
+
 ## Üst çubukta kataloglar kısayolu
 
 Menü çubuğuna, aramanın solunda altın renkli bir **Kataloglar** düğmesi eklendi (2026-09-23): diğer simgelerden ayrışsın ve tıklansın diye logonun altın rengiyle çerçevelendi, üzerine gelince altın zemine dönüyor. Telefonda yalnız simge görünür.

@@ -16,8 +16,8 @@
     "id": 2,
     "handle": "uretim",
     "title": {
-      "tr": "Üretim",
-      "en": "Manufacturing"
+      "tr": "Nasıl üretiyoruz?",
+      "en": "How we manufacture"
     },
     "content": {
       "tr": "",
@@ -76,5 +76,18 @@
       "tr": "",
       "en": ""
     }
+  },
+  {
+    "id": 99027615003,
+    "handle": "uretim-parkurumuz",
+    "title": {
+      "tr": "Üretim Parkurumuz",
+      "en": "Our production line"
+    },
+    "content": {
+      "tr": "",
+      "en": ""
+    },
+    "template_suffix": "uretim-parkurumuz"
   }
 ]

@@ -253,197 +253,197 @@
         "u01": {
           "type": "country",
           "settings": {
-            "ad": "Bulgaristan",
-            "kod": "100"
+            "ad": "Amerika Birleşik Devletleri",
+            "kod": "840"
           }
         },
         "u02": {
-          "type": "country",
-          "settings": {
-            "ad": "Romanya",
-            "kod": "642"
-          }
-        },
-        "u03": {
-          "type": "country",
-          "settings": {
-            "ad": "Yunanistan",
-            "kod": "300"
-          }
-        },
-        "u04": {
-          "type": "country",
-          "settings": {
-            "ad": "Sırbistan",
-            "kod": "688"
-          }
-        },
-        "u05": {
-          "type": "country",
-          "settings": {
-            "ad": "Makedonya",
-            "kod": "807"
-          }
-        },
-        "u06": {
-          "type": "country",
-          "settings": {
-            "ad": "Arnavutluk",
-            "kod": "008"
-          }
-        },
-        "u07": {
-          "type": "country",
-          "settings": {
-            "ad": "Kosova",
-            "kod": "XK"
-          }
-        },
-        "u08": {
-          "type": "country",
-          "settings": {
-            "ad": "Bosna-Hersek",
-            "kod": "070"
-          }
-        },
-        "u09": {
-          "type": "country",
-          "settings": {
-            "ad": "Hırvatistan",
-            "kod": "191"
-          }
-        },
-        "u10": {
-          "type": "country",
-          "settings": {
-            "ad": "Gürcistan",
-            "kod": "268"
-          }
-        },
-        "u11": {
-          "type": "country",
-          "settings": {
-            "ad": "Azerbaycan",
-            "kod": "031"
-          }
-        },
-        "u12": {
-          "type": "country",
-          "settings": {
-            "ad": "Irak",
-            "kod": "368"
-          }
-        },
-        "u13": {
           "type": "country",
           "settings": {
             "ad": "Rusya",
             "kod": "643"
           }
         },
-        "u14": {
+        "u03": {
           "type": "country",
           "settings": {
             "ad": "Almanya",
             "kod": "276"
           }
         },
-        "u15": {
+        "u04": {
           "type": "country",
           "settings": {
             "ad": "Fransa",
             "kod": "250"
           }
         },
-        "u16": {
+        "u05": {
           "type": "country",
           "settings": {
             "ad": "İtalya",
             "kod": "380"
           }
         },
-        "u17": {
+        "u06": {
           "type": "country",
           "settings": {
-            "ad": "Amerika Birleşik Devletleri",
-            "kod": "840"
+            "ad": "Irak",
+            "kod": "368"
           }
         },
-        "u18": {
+        "u07": {
           "type": "country",
           "settings": {
             "ad": "Kanada",
             "kod": "124"
           }
         },
-        "u19": {
-          "type": "country",
-          "settings": {
-            "ad": "Birleşik Arap Emirlikleri",
-            "kod": "784"
-          }
-        },
-        "u20": {
-          "type": "country",
-          "settings": {
-            "ad": "Suudi Arabistan",
-            "kod": "682"
-          }
-        },
-        "u21": {
-          "type": "country",
-          "settings": {
-            "ad": "Karadağ",
-            "kod": "499"
-          }
-        },
-        "u22": {
-          "type": "country",
-          "settings": {
-            "ad": "Slovenya",
-            "kod": "705"
-          }
-        },
-        "u23": {
-          "type": "country",
-          "settings": {
-            "ad": "Macaristan",
-            "kod": "348"
-          }
-        },
-        "u24": {
-          "type": "country",
-          "settings": {
-            "ad": "Moldova",
-            "kod": "498"
-          }
-        },
-        "u25": {
+        "u08": {
           "type": "country",
           "settings": {
             "ad": "Ukrayna",
             "kod": "804"
           }
         },
-        "u26": {
+        "u09": {
+          "type": "country",
+          "settings": {
+            "ad": "Suudi Arabistan",
+            "kod": "682"
+          }
+        },
+        "u10": {
+          "type": "country",
+          "settings": {
+            "ad": "Romanya",
+            "kod": "642"
+          }
+        },
+        "u11": {
+          "type": "country",
+          "settings": {
+            "ad": "Birleşik Arap Emirlikleri",
+            "kod": "784"
+          }
+        },
+        "u12": {
+          "type": "country",
+          "settings": {
+            "ad": "Çekya",
+            "kod": "203"
+          }
+        },
+        "u13": {
+          "type": "country",
+          "settings": {
+            "ad": "Azerbaycan",
+            "kod": "031"
+          }
+        },
+        "u14": {
+          "type": "country",
+          "settings": {
+            "ad": "Yunanistan",
+            "kod": "300"
+          }
+        },
+        "u15": {
+          "type": "country",
+          "settings": {
+            "ad": "Macaristan",
+            "kod": "348"
+          }
+        },
+        "u16": {
           "type": "country",
           "settings": {
             "ad": "Avusturya",
             "kod": "040"
           }
         },
-        "u27": {
+        "u17": {
+          "type": "country",
+          "settings": {
+            "ad": "Bulgaristan",
+            "kod": "100"
+          }
+        },
+        "u18": {
+          "type": "country",
+          "settings": {
+            "ad": "Sırbistan",
+            "kod": "688"
+          }
+        },
+        "u19": {
           "type": "country",
           "settings": {
             "ad": "Slovakya",
             "kod": "703"
           }
         },
+        "u20": {
+          "type": "country",
+          "settings": {
+            "ad": "Hırvatistan",
+            "kod": "191"
+          }
+        },
+        "u21": {
+          "type": "country",
+          "settings": {
+            "ad": "Gürcistan",
+            "kod": "268"
+          }
+        },
+        "u22": {
+          "type": "country",
+          "settings": {
+            "ad": "Bosna-Hersek",
+            "kod": "070"
+          }
+        },
+        "u23": {
+          "type": "country",
+          "settings": {
+            "ad": "Moldova",
+            "kod": "498"
+          }
+        },
+        "u24": {
+          "type": "country",
+          "settings": {
+            "ad": "Arnavutluk",
+            "kod": "008"
+          }
+        },
+        "u25": {
+          "type": "country",
+          "settings": {
+            "ad": "Slovenya",
+            "kod": "705"
+          }
+        },
+        "u26": {
+          "type": "country",
+          "settings": {
+            "ad": "Kuzey Makedonya",
+            "kod": "807"
+          }
+        },
+        "u27": {
+          "type": "country",
+          "settings": {
+            "ad": "Kosova",
+            "kod": "XK"
+          }
+        },
         "u28": {
           "type": "country",
           "settings": {
-            "ad": "Çekya",
-            "kod": "203"
+            "ad": "Karadağ",
+            "kod": "499"
           }
         }
       },
@@ -486,11 +486,86 @@
         "link_label": "İhracat için iletişim",
         "link_url": "/pages/iletisim"
       }
+    },
+    "parkur": {
+      "type": "home-parkur",
+      "blocks": {
+        "p1": {
+          "type": "durak",
+          "settings": {
+            "no": "01",
+            "title": "Kalıphane",
+            "text": "Kesit geometrisini ve kullanım gereksinimlerini değerlendirerek üretime uygun kalıp tasarımını geliştiriyoruz.",
+            "anchor": "kaliphane"
+          }
+        },
+        "p2": {
+          "type": "durak",
+          "settings": {
+            "no": "02",
+            "title": "Ekstrüzyon pres hattı",
+            "text": "Alüminyumu, uygun alaşım ve proses koşullarıyla istenen profil kesitine dönüştürüyoruz.",
+            "anchor": "ekstruzyon"
+          }
+        },
+        "p3": {
+          "type": "durak",
+          "settings": {
+            "no": "03",
+            "title": "Eloksal hattı",
+            "text": "Alüminyumun metalik karakterini koruyan eloksal işlemiyle yüzeyin korozyon ve aşınma direncini artırıyoruz.",
+            "anchor": "eloksal"
+          }
+        },
+        "p4": {
+          "type": "durak",
+          "settings": {
+            "no": "04",
+            "title": "Elektrostatik toz boya tesisi",
+            "text": "Renk ve yüzey dokusu beklentilerini elektrostatik toz boya seçenekleriyle karşılıyoruz.",
+            "anchor": "toz-boya"
+          }
+        },
+        "p5": {
+          "type": "durak",
+          "settings": {
+            "no": "05",
+            "title": "Mekanik işlem hattı",
+            "text": "Profilleri teknik çizimde tanımlanan ölçü ve bağlantı detaylarına göre işliyoruz.",
+            "anchor": "mekanik-islem"
+          }
+        },
+        "p6": {
+          "type": "durak",
+          "settings": {
+            "no": "06",
+            "title": "Paketleme ve sevkiyat",
+            "text": "Üretimi tamamlanan profilleri yüzey özelliklerine ve taşıma koşullarına uygun biçimde paketliyoruz.",
+            "anchor": "paketleme"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ],
+      "settings": {
+        "eyebrow": "Üretim parkurumuz",
+        "heading": "Profil, kalıptan sevkiyata altı duraktan geçiyor",
+        "text": "<p>Farklı sektörlerin ihtiyaçlarına yönelik standart ve özel kesitli alüminyum profiller üretiyoruz. Kalıp tasarımından ekstrüzyona, yüzey işlemlerinden sevkiyata kadar üretimin her aşamasını ürünün teknik gereksinimlerine göre ele alıyoruz.</p><p>Teknik çizim, kullanım alanı ve sipariş beklentilerini birlikte değerlendirerek uygun üretim sürecini planlıyoruz. Ölçü doğruluğu, yüzey kalitesi ve tekrar siparişlerde tutarlılık hedefiyle çalışıyoruz.</p>",
+        "link_label": "Üretim parkurumuzu inceleyin",
+        "page_url": "/pages/uretim-parkurumuz"
+      }
     }
   },
   "order": [
     "film",
     "production",
+    "parkur",
     "groups",
     "ihracat",
     "kullanim",

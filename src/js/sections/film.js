@@ -134,6 +134,9 @@ function oynatici(el) {
     onUpdate: (s) => {
       const p = s.progress;
       el.style.setProperty('--film-son', Math.min(1, Math.max(0, (p - FILM_SONU) / (1 - FILM_SONU))).toFixed(3));
+      // Kaydırma yönergesi: dolum çubuğu filmin ne kadarının oynadığını gösterir, ilk kaydırmada yazı solar
+      el.style.setProperty('--film-p', Math.min(1, p / FILM_SONU).toFixed(3));
+      el.classList.toggle('is-kaydi', p > 0.015);
       const yeni = Math.min(sayi - 1, Math.max(0, Math.round(Math.min(1, p / FILM_SONU) * (sayi - 1))));
       if (yeni === hedef) return;
       const yon = yeni > hedef ? 1 : -1;

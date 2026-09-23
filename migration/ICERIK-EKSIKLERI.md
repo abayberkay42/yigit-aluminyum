@@ -133,3 +133,9 @@ Sepete numune ekleyen düğmenin çalışması için Shopify'da bir "Ürün Numu
 Firmanın gönderdiği beş üretim görselinin dördünde makine kadrajdan taşıyor (sağ, sol ve alt kenarda kesiliyor); görselin kendisi böyle geldiği için kırpma ayarıyla düzelmiyor. Geçici çözüm olarak kesilen kenarlar yumuşak geçişle söndürüldü, böylece "yarım kalmış" gibi durmuyor. Ham dosyalar `kaynak/kapak-uretim-ham/` klasöründe duruyor.
 
 Kalıcı çözüm iki yoldan biri: (a) makinenin tamamı kadraja giren yeni görseller üretmek (kalıptan çıkış adımında bu yapıldı), (b) firmanın kendi hattından çekilmiş gerçek fotoğrafları kullanmak. Gerçek fotoğraf her zaman daha iyi olur; üretim hattından beş adımı gösteren fotoğraf gelirse bu görsellerin yerine konur.
+
+## 17. Üretim parkuru fotoğrafları
+
+"Üretim Parkurumuz" sayfasındaki altı durağın (kalıphane, ekstrüzyon pres hattı, eloksal hattı, elektrostatik toz boya tesisi, mekanik işlem hattı, paketleme ve sevkiyat) fotoğraf alanları boş. Firma fabrikada her durağa ait fotoğrafları çekecek; geldiklerinde Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa ve ana sayfadaki karta seçilir. Fotoğraf gelene kadar duraklar yalnız yazıyla görünüyor.
+
+Sayfanın başındaki banner şimdilik mevcut üretim bannerını kullanıyor; parkura özel bir banner görseli gelirse değiştirilir.

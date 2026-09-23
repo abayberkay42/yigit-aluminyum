@@ -137,7 +137,23 @@
           "tr": "Üretim",
           "en": "Manufacturing"
         },
-        "url": "/pages/uretim"
+        "url": "/pages/uretim",
+        "links": [
+          {
+            "title": {
+              "tr": "Nasıl üretiyoruz?",
+              "en": "How we manufacture"
+            },
+            "url": "/pages/uretim"
+          },
+          {
+            "title": {
+              "tr": "Üretim Parkurumuz",
+              "en": "Our production line"
+            },
+            "url": "/pages/uretim-parkurumuz"
+          }
+        ]
       },
       {
         "title": {

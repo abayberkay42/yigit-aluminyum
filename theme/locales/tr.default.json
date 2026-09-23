@@ -29,7 +29,8 @@
     "film": {
       "loading": "Film yükleniyor",
       "skip": "Siteye geç",
-      "percent": "%#"
+      "percent": "%#",
+      "scroll": "Kaydırın"
     },
     "usage": {
       "all": "Tüm kullanım alanları"

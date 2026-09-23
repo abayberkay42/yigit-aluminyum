@@ -1,0 +1,137 @@
+{%- comment -%}
+  Üretim parkuru: her durak bir blok (numara, başlık, giriş metni, fotoğraf ve dört alt başlık).
+  Duraklar sırayla numaralanır, yanlarında ince bir şerit yukarıdan aşağı iner.
+  Fotoğraflar firma tarafından fabrikada çekilecek; görsel seçilmemiş durak yalnız yazıyla görünür.
+  İkinci blok türü "nokta": parkurun altındaki kalite/planlama kartları.
+{%- endcomment -%}
+{%- liquid
+  assign duraklar = section.blocks | where: 'type', 'durak'
+  assign noktalar = section.blocks | where: 'type', 'nokta'
+-%}
+<section class="parkur" aria-labelledby="ParkurTitle-{{ section.id }}">
+  {%- if section.settings.heading != blank or section.settings.text != blank -%}
+    <header class="parkur__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="parkur__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="parkur__title" id="ParkurTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<div class="parkur__lede rte">{{ section.settings.text }}</div>{%- endif -%}
+    </header>
+  {%- endif -%}
+
+  {%- if duraklar.size > 0 -%}
+    <ol class="parkur__list" role="list">
+      {%- for block in duraklar -%}
+        {%- assign no = block.settings.no | default: forloop.index | prepend: '0' | slice: -2, 2 -%}
+        <li class="durak" id="durak-{{ block.settings.anchor | default: forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="durak__ust reveal" data-reveal>
+            <p class="durak__no" aria-hidden="true">{{ no }}</p>
+            <div class="durak__giris">
+              <h3 class="durak__title">{{ block.settings.title }}</h3>
+              {%- if block.settings.lede != blank -%}<p class="durak__lede">{{ block.settings.lede }}</p>{%- endif -%}
+            </div>
+          </div>
+
+          {%- if block.settings.image -%}
+            <figure class="durak__media reveal reveal--clip" data-reveal>
+              {{ block.settings.image | image_url: width: 1600 | image_tag: widths: '600,900,1200,1600', sizes: '(min-width: 64em) 52vw, 100vw', loading: 'lazy', alt: block.settings.title }}
+              {%- if block.settings.caption != blank -%}<figcaption class="durak__caption">{{ block.settings.caption }}</figcaption>{%- endif -%}
+            </figure>
+          {%- endif -%}
+
+          <div class="durak__detaylar">
+            {%- for i in (1..4) -%}
+              {%- capture bk -%}d{{ i }}_title{%- endcapture -%}
+              {%- capture mk -%}d{{ i }}_text{%- endcapture -%}
+              {%- assign db = block.settings[bk] -%}
+              {%- assign dm = block.settings[mk] -%}
+              {%- if db == blank and dm == blank -%}{%- continue -%}{%- endif -%}
+              <article class="detay reveal" data-reveal style="--i: {{ forloop.index0 }}">
+                {%- if db != blank -%}<h4 class="detay__title">{{ db }}</h4>{%- endif -%}
+                {%- if dm != blank -%}<p class="detay__text">{{ dm }}</p>{%- endif -%}
+              </article>
+            {%- endfor -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  {%- endif -%}
+
+  {%- if noktalar.size > 0 -%}
+    <div class="parkur__kalite">
+      {%- if section.settings.kalite_baslik != blank -%}<h3 class="parkur__kalite-h">{{ section.settings.kalite_baslik }}</h3>{%- endif -%}
+      <div class="parkur__kalite-grid">
+        {%- for block in noktalar -%}
+          <article class="nokta reveal" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <h4 class="nokta__title">{{ block.settings.title }}</h4>
+            <p class="nokta__text">{{ block.settings.text }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- liquid
+    assign btn1 = section.settings.cta_1_label
+    assign btn2 = section.settings.cta_2_label
+    assign btn3 = section.settings.cta_3_label
+  -%}
+  {%- if btn1 != blank or btn2 != blank or btn3 != blank -%}
+    <div class="parkur__cta">
+      {%- if section.settings.cta_text != blank -%}<p class="parkur__cta-text">{{ section.settings.cta_text }}</p>{%- endif -%}
+      <div class="parkur__cta-btns">
+        {%- if btn1 != blank -%}
+          <a class="button button--primary" href="{% render 'wa-href', mesaj: section.settings.cta_1_message %}" target="_blank" rel="noopener">{{ btn1 }}<span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span></a>
+        {%- endif -%}
+        {%- if btn2 != blank -%}
+          <a class="button button--ghost" href="{% render 'wa-href', mesaj: section.settings.cta_2_message %}" target="_blank" rel="noopener">{{ btn2 }}<span class="visually-hidden"> (WhatsApp, {{ 'general.new_tab' | t }})</span></a>
+        {%- endif -%}
+        {%- if btn3 != blank and section.settings.cta_3_link != blank -%}
+          <a class="button button--ghost" href="{{ section.settings.cta_3_link }}">{{ btn3 }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Üretim parkuru",
+  "class": "section-page-parkur",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "Üretim parkuru" },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Profil hangi duraklardan geçiyor?" },
+    { "type": "richtext", "id": "text", "label": "Giriş metni" },
+    { "type": "text", "id": "kalite_baslik", "label": "Kalite bölümü başlığı", "default": "Kalite kontrol ve üretim planlaması" },
+    { "type": "header", "content": "Alt düğmeler" },
+    { "type": "textarea", "id": "cta_text", "label": "Düğme üstü metin" },
+    { "type": "text", "id": "cta_1_label", "label": "1. düğme (WhatsApp)" },
+    { "type": "text", "id": "cta_1_message", "label": "1. düğme mesajı" },
+    { "type": "text", "id": "cta_2_label", "label": "2. düğme (WhatsApp)" },
+    { "type": "text", "id": "cta_2_message", "label": "2. düğme mesajı" },
+    { "type": "text", "id": "cta_3_label", "label": "3. düğme" },
+    { "type": "url", "id": "cta_3_link", "label": "3. düğme bağlantısı" }
+  ],
+  "blocks": [
+    { "type": "durak", "name": "Durak", "limit": 10, "settings": [
+      { "type": "text", "id": "no", "label": "Numara", "info": "Boşsa sıra numarası kullanılır." },
+      { "type": "text", "id": "anchor", "label": "Bağlantı kimliği", "info": "Ana sayfadaki kart buraya atlar (ör. kaliphane)." },
+      { "type": "text", "id": "title", "label": "Başlık", "default": "Durak" },
+      { "type": "textarea", "id": "lede", "label": "Giriş metni" },
+      { "type": "image_picker", "id": "image", "label": "Fotoğraf", "info": "Fabrikada çekilen gerçek fotoğraf. Boşsa durak yalnız yazıyla görünür." },
+      { "type": "text", "id": "caption", "label": "Fotoğraf alt yazısı" },
+      { "type": "text", "id": "d1_title", "label": "1. alt başlık" },
+      { "type": "textarea", "id": "d1_text", "label": "1. alt metin" },
+      { "type": "text", "id": "d2_title", "label": "2. alt başlık" },
+      { "type": "textarea", "id": "d2_text", "label": "2. alt metin" },
+      { "type": "text", "id": "d3_title", "label": "3. alt başlık" },
+      { "type": "textarea", "id": "d3_text", "label": "3. alt metin" },
+      { "type": "text", "id": "d4_title", "label": "4. alt başlık" },
+      { "type": "textarea", "id": "d4_text", "label": "4. alt metin" }
+    ] },
+    { "type": "nokta", "name": "Kalite kartı", "limit": 6, "settings": [
+      { "type": "text", "id": "title", "label": "Başlık" },
+      { "type": "textarea", "id": "text", "label": "Metin" }
+    ] }
+  ],
+  "presets": [{ "name": "Üretim parkuru" }]
+}
+{% endschema %}
