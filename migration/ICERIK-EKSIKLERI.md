@@ -127,3 +127,9 @@ Sepete numune ekleyen düğmenin çalışması için Shopify'da bir "Ürün Numu
 - **Mağaza adresinin teyidi:** haritada kullanılan adres firmanın eski kaynaklarından derlendi, doğrulanmalı.
 - **Gösterilecek yorumlar:** firma hangi yorumların sitede görüneceğini seçmeli (yazan, puan, tarih, metin).
 - **Ziyaretçinin site üzerinden yorum yazması:** bir yorum uygulaması (ör. Judge.me) kurulmalı; tema hazır.
+
+## 16. Polikarbon üretim görsellerinin kadrajı
+
+Firmanın gönderdiği beş üretim görselinin dördünde makine kadrajdan taşıyor (sağ, sol ve alt kenarda kesiliyor); görselin kendisi böyle geldiği için kırpma ayarıyla düzelmiyor. Geçici çözüm olarak kesilen kenarlar yumuşak geçişle söndürüldü, böylece "yarım kalmış" gibi durmuyor. Ham dosyalar `kaynak/kapak-uretim-ham/` klasöründe duruyor.
+
+Kalıcı çözüm iki yoldan biri: (a) makinenin tamamı kadraja giren yeni görseller üretmek (kalıptan çıkış adımında bu yapıldı), (b) firmanın kendi hattından çekilmiş gerçek fotoğrafları kullanmak. Gerçek fotoğraf her zaman daha iyi olur; üretim hattından beş adımı gösteren fotoğraf gelirse bu görsellerin yerine konur.
