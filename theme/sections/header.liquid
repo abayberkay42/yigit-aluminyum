@@ -65,6 +65,19 @@
     {%- endif -%}
 
     <div class="rail__tools">
+      {%- comment -%}
+        Kataloglar kısayolu: firma isteğiyle üst çubukta altın renkli bir simge (2026-09-23).
+        Bağlantı boş bırakılırsa görünmez. Telefonda da durur; katalog indirmek en çok istenen işlerden biri.
+      {%- endcomment -%}
+      {%- if section.settings.katalog_url != blank -%}
+        <a class="rail__katalog" href="{{ section.settings.katalog_url }}" aria-label="{{ section.settings.katalog_label }}" title="{{ section.settings.katalog_label }}">
+          <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5v-10Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5v-10Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span class="rail__katalog-yazi">{{ section.settings.katalog_label }}</span>
+        </a>
+      {%- endif -%}
       <a class="rail__search" href="{{ routes.search_url }}" aria-label="{{ 'search.label' | t }}">
         <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </a>
@@ -105,7 +118,10 @@
   "name": "Menü çubuğu",
   "class": "section-header",
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" }
+    { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" },
+    { "type": "header", "content": "Kataloglar kısayolu" },
+    { "type": "url", "id": "katalog_url", "label": "Kataloglar bağlantısı", "info": "Boş bırakılırsa simge görünmez." },
+    { "type": "text", "id": "katalog_label", "label": "Simgenin adı", "default": "Kataloglar" }
   ]
 }
 {% endschema %}

@@ -130,6 +130,16 @@ Haritadaki ülkeler firmanın verdiği listeye göre girildi (20 ülke: Bulgaris
 
 Harita Natural Earth (kamu malı) verisinden `tools/dunya-harita.mjs` ile üretildi; `theme/assets/yigit-dunya.svg` dosyası temanın içindedir, ayrıca yükleme gerekmez.
 
+## Üst çubukta kataloglar kısayolu
+
+Menü çubuğuna, aramanın solunda altın renkli bir **Kataloglar** düğmesi eklendi (2026-09-23): diğer simgelerden ayrışsın ve tıklansın diye logonun altın rengiyle çerçevelendi, üzerine gelince altın zemine dönüyor. Telefonda yalnız simge görünür.
+
+Tema düzenleyici > Menü çubuğu > **Kataloglar kısayolu**: bağlantı ve simgenin adı buradan değişir; bağlantı boş bırakılırsa düğme görünmez.
+
+## Ürün grupları çubuğu
+
+Koleksiyon sayfalarındaki grup çubuğundan **"Tüm ürünler"** kaldırıldı (firma isteği: işlevsiz ve düzeni karıştırıyordu). Çubukta yalnız yedi ana grup var. Tema düzenleyici > Koleksiyon sayfası > Ürün grubu bölümü > "Gruplar" listesinden değiştirilir.
+
 ## İletişim sayfası: mağaza haritası
 
 İletişim sayfasının altına Beylikdüzü mağazasının harita görünümü eklendi (2026-09-23). Harita sayfa açılışında **yüklenmez**: ziyaretçi "Haritayı göster" düğmesine basınca Google Haritalar çerçevesi gelir. Böylece sayfa açılışında Google'a istek gitmez ve çerez konmaz (KVKK açısından da doğru yol), sayfa da yavaşlamaz.

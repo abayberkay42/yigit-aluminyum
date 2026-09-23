@@ -2,7 +2,16 @@
   "type": "header",
   "name": "Üst alan",
   "sections": {
-    "header": { "type": "header", "settings": { "menu": "main-menu" } }
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "katalog_url": "/pages/kataloglar",
+        "katalog_label": "Kataloglar"
+      }
+    }
   },
-  "order": ["header"]
+  "order": [
+    "header"
+  ]
 }
