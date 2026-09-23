@@ -123,8 +123,8 @@ Sepete numune ekleyen düğmenin çalışması için Shopify'da bir "Ürün Numu
 
 ## 15. Google yorumları ve mağaza haritası için gerekenler
 
-- **Google İşletme Profili bağlantısı / Yer Kimliği (Place ID):** hem ürün sayfalarındaki yorum bölümü hem de iletişim sayfasındaki harita için gerekli. Gelmeden yorum bölümü görünmüyor, harita ise adresten üretilen konuma düşüyor.
-- **Mağaza adresinin teyidi:** haritada kullanılan adres firmanın eski kaynaklarından derlendi, doğrulanmalı.
+- ~~Google İşletme Profili / Yer Kimliği~~ **alındı** (2026-09-23): harita firmanın kendi kaydına bağlandı, yorum düğmeleri çalışıyor.
+- ~~Mağaza adresinin teyidi~~ **yapıldı.**
 - **Gösterilecek yorumlar:** firma hangi yorumların sitede görüneceğini seçmeli (yazan, puan, tarih, metin).
 - **Ziyaretçinin site üzerinden yorum yazması:** bir yorum uygulaması (ör. Judge.me) kurulmalı; tema hazır.
 

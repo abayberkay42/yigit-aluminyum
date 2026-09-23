@@ -162,18 +162,18 @@ Tema düzenleyici > İletişim sayfası > İletişim bölümü > **Harita**:
 | Haritada aç bağlantısı | İsteğe bağlı. Boşsa adresten üretilir |
 | Harita ön görseli | Harita yüklenmeden önce görünen kare |
 
-⚠️ **Adres teyidi gerekiyor.** Adres olarak "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17, Beylikdüzü/İstanbul" girildi (firmanın eski sitesinden/katalogundan derlendi). İğnenin doğru yere düşmesi için firmanın **Google İşletme Profili bağlantısı** alınıp "Harita gömme bağlantısı" alanına yapıştırılmalı.
+Adres firma tarafından doğrulandı: **Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17, Beylikdüzü/İstanbul**. Harita, firmanın Google İşletme Profili'nin gömme bağlantısıyla açılıyor; iğne işletmenin kendi kaydına düşüyor (Yer Kimliği `ChIJbUgXCdtftRQRylr4mcRW1xM`).
 
 ## Ürün sayfaları: Google yorumları
 
 Ürün sayfalarına, fiyat/taksit bölümünün altına yorumlar bölümü eklendi (2026-09-23). Bölüm üç parçadan oluşur: Google puanı ve yorum sayısı, "Google'da yorum yazın" düğmesi, firmanın seçtiği yorumların kartları. **Hiçbir alan doldurulmadıysa bölüm hiç görünmez** (şu anki durum budur).
 
-Doldurulacak alanlar (Tema düzenleyici > herhangi bir ürün sayfası > Yorumlar):
+**Girilenler (2026-09-23):** firmanın Yer Kimliği `ChIJbUgXCdtftRQRylr4mcRW1xM` alındı; "Google'da yorum yazın" ve "Tüm yorumları görün" düğmeleri bu kayda bağlandı, bölüm ürün sayfalarında görünüyor.
+
+**Kalan alanlar (Tema düzenleyici > herhangi bir ürün sayfası > Yorumlar):**
 
 1. **Google puanı** ve **yorum sayısı** — profilde yazan gerçek değerler.
-2. **Tüm yorumlar bağlantısı** — Google İşletme Profili'nin yorumlar adresi.
-3. **Yorum yazma bağlantısı** — `https://search.google.com/local/writereview?placeid=YER_KIMLIGI`. Yer kimliği (Place ID), Google'ın "Place ID Finder" aracından alınır.
-4. **Yorum blokları** — gösterilecek yorumlar; yazan kişi, puan, tarih ve yorumun kendisi. Yorumlar kısaltılmadan, olduğu gibi yazılmalıdır.
+2. **Yorum blokları** — gösterilecek yorumlar; yazan kişi, puan, tarih ve yorumun kendisi. Yorumlar kısaltılmadan, olduğu gibi yazılmalıdır.
 
 **Neden elle giriliyor?** Google yorumlarını canlı çekmek Places API anahtarı ister; anahtarın tema dosyasına yazılması onu herkese açık hâle getirir. Canlı çekim isteniyorsa iki yol var: (a) küçük bir sunucu/uç nokta yazıp yorumları günde bir kez tazelemek, (b) bunu yapan bir Shopify uygulaması kurmak. İkisi de ek iştir; karar firmanın.
 

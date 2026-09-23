@@ -112,7 +112,9 @@
       "block_order": [],
       "settings": {
         "title": "Müşterilerimiz ne diyor?",
-        "text": "Yorumlar Google İşletme Profilimizden alınır. Bizden aldığınız ürünle ilgili görüşünüzü Google üzerinden yazabilirsiniz."
+        "text": "Yorumlar Google İşletme Profilimizden alınır. Bizden aldığınız ürünle ilgili görüşünüzü Google üzerinden yazabilirsiniz.",
+        "google_yaz_url": "https://search.google.com/local/writereview?placeid=ChIJbUgXCdtftRQRylr4mcRW1xM",
+        "google_url": "https://search.google.com/local/reviews?placeid=ChIJbUgXCdtftRQRylr4mcRW1xM"
       }
     }
   },
