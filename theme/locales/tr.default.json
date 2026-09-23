@@ -30,7 +30,8 @@
       "loading": "Film yükleniyor",
       "skip": "Siteye geç",
       "percent": "%#",
-      "scroll": "Kaydırın"
+      "scroll": "Kaydırın",
+      "jump": "Animasyonu geç"
     },
     "usage": {
       "all": "Tüm kullanım alanları"

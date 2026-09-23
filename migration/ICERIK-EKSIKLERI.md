@@ -139,3 +139,7 @@ Kalıcı çözüm iki yoldan biri: (a) makinenin tamamı kadraja giren yeni gör
 "Üretim Parkurumuz" sayfasındaki altı durağın (kalıphane, ekstrüzyon pres hattı, eloksal hattı, elektrostatik toz boya tesisi, mekanik işlem hattı, paketleme ve sevkiyat) fotoğraf alanları boş. Firma fabrikada her durağa ait fotoğrafları çekecek; geldiklerinde Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa ve ana sayfadaki karta seçilir. Fotoğraf gelene kadar duraklar yalnız yazıyla görünüyor.
 
 Sayfanın başındaki banner şimdilik mevcut üretim bannerını kullanıyor; parkura özel bir banner görseli gelirse değiştirilir.
+
+## 18. YouTube adresi
+
+Mağaza tabelasında ve vitrinde YouTube hesabı görünüyor ama sitede kayıtlı değil. Adres verilirse Tema ayarları > Firma bilgileri > Sosyal medya adresleri'ne eklenir; alt alanda, iletişim sayfasında ve telefon menüsünde kendiliğinden görünür.

@@ -57,12 +57,14 @@
       dolum çubuğu (film.js → --film-p). Kaydırma başlayınca yazı ve oklar solar, çubuk kalır; film bitince
       yönerge tamamen kaybolur. Süs öğesi olduğu için ekran okuyuculardan gizlidir.
     {%- endcomment -%}
-    <div class="film__yonerge" aria-hidden="true">
-      <p class="film__yonerge-yazi">{{ 'home.film.scroll' | t }}</p>
-      <span class="film__ok">
-        <svg viewBox="0 0 24 24" width="22" height="22" focusable="false"><path d="M12 4.5v14m0 0 5.5-5.5M12 18.5 6.5 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="film__yonerge">
+      <p class="film__yonerge-yazi" aria-hidden="true">{{ 'home.film.scroll' | t }}</p>
+      <span class="film__ok" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="44" height="44" focusable="false"><path d="M12 3.5v15m0 0 6.5-6.5M12 18.5 5.5 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      <span class="film__ilerleme"><span class="film__ilerleme-dolgu"></span></span>
+      <span class="film__ilerleme" aria-hidden="true"><span class="film__ilerleme-dolgu"></span></span>
+      {%- comment -%} Filmi izlemek istemeyen ziyaretçi doğrudan sayfanın devamına atlar {%- endcomment -%}
+      <button type="button" class="film__gec" data-film-atla>{{ 'home.film.jump' | t }}</button>
     </div>
   </div>
 

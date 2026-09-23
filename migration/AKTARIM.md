@@ -156,9 +156,17 @@ Metinler firmanın "Yiğit Alüminyum Üretim Parkurumuz" belgesinden alındı. 
 3. Online Mağaza > Gezinme > Ana menü: "Üretim" bağlantısının altına iki alt bağlantı ekleyin (Nasıl üretiyoruz? → `/pages/uretim`, Üretim Parkurumuz → `/pages/uretim-parkurumuz`).
 4. **Durak fotoğrafları:** her durağın "Fotoğraf" alanı boş. Fabrikada çekilen fotoğraflar Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa seçilir; fotoğraf seçilmeyen durak yalnız yazıyla görünür (sayfa bozulmaz).
 
+## Sosyal medya bağlantıları
+
+Sosyal medya hesapları üç yerde birden görünüyor (firma isteği, 2026-09-24): **alt alanda** marka sütununun altında (ad yazılı düğmeler), **iletişim sayfasında** iletişim bilgilerinin altında ve **telefon menüsünde** menü bağlantılarının altında.
+
+Adresler tek yerden yönetilir: **Tema ayarları > Firma bilgileri > Sosyal medya adresleri**, her satıra bir tam adres. Ağın adı adresten tanınır (Instagram, Facebook, YouTube, LinkedIn, TikTok); tanınmayan adres genel bir simgeyle görünür. Şu an iki adres kayıtlı (Instagram, Facebook) — mağaza tabelasında YouTube de var, adresi eklenirse üç yerde birden çıkar.
+
 ## Ana sayfa filminde kaydırma yönergesi
 
 Filmin altına "Kaydırın" yazısı, aşağı ok ve filmin ne kadarının oynadığını gösteren altın dolum çubuğu eklendi (firma isteği). Kaydırma başlayınca yazı ve ok solar, çubuk kalır; film bitince yönerge tamamen kaybolur. Hareket azaltma açık cihazlarda hiç görünmez.
+
+Ok, uzaktan da görünsün diye altın halka içinde büyütüldü; altında **"Animasyonu geç"** düğmesi var: basınca sayfa filmin bittiği yere yumuşak biçimde kayar, ziyaretçi animasyonu izlemek zorunda kalmaz.
 
 ## Üst çubukta kataloglar kısayolu
 

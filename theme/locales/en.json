@@ -30,7 +30,8 @@
       "loading": "Loading film",
       "skip": "Continue to site",
       "percent": "#%",
-      "scroll": "Scroll"
+      "scroll": "Scroll",
+      "jump": "Skip the animation"
     },
     "usage": {
       "all": "All application areas"

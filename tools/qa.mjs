@@ -61,7 +61,9 @@ async function audit(ctxOpts, path, label) {
   await page
     .evaluate(() => Promise.all(document.getAnimations().filter((a) => Number.isFinite(a.effect?.getComputedTiming?.().endTime)).map((a) => a.finished.catch(() => {}))))
     .catch(() => {});
-  await page.waitForTimeout(200);
+  // Belirme geçişleri (CSS transition) kaydırma gezisinden sonra başlayabiliyor: yarı saydam yazı
+  // axe'ta yanlış kontrast hatası veriyordu. Kısa bir bekleme daha eklendi.
+  await page.waitForTimeout(900);
   const broken = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0 && i.getAttribute('src')).map((i) => i.getAttribute('src').slice(0, 90)));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   await page.addScriptTag({ path: AXE });

@@ -147,6 +147,14 @@ function oynatici(el) {
     },
   });
 
+  // "Animasyonu geç": filmin bittiği yere (bölümün alt kenarı) kaydırır. Lenis açıkken de çalışsın diye
+  // kaydırma isteği olay olarak yollanır; main.js Lenis varsa onunla, yoksa tarayıcıyla kaydırır.
+  const atla = el.querySelector('[data-film-atla]');
+  atla?.addEventListener('click', () => {
+    const y = el.getBoundingClientRect().bottom + window.scrollY - 1;
+    document.dispatchEvent(new CustomEvent('yigit:scroll-to', { detail: { y } }));
+  });
+
   const gozlem = new ResizeObserver(() => {
     const [yg, yh] = ekranBoyutu();
     gonder({ tip: 'boyut', g: yg, h: yh });

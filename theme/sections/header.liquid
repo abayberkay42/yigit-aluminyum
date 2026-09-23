@@ -61,6 +61,8 @@
           {%- comment -%} Telefonda üst çubukta yer yok: arama menünün içinde {%- endcomment -%}
           <li class="rail__navsearch"><a class="rail__link" href="{{ routes.search_url }}">{{ 'search.title' | t }}</a></li>
         </ul>
+        {%- comment -%} Telefonda açılan menünün altında sosyal medya bağlantıları {%- endcomment -%}
+        {%- render 'sosyal', sinif: 'rail__sosyal' -%}
       </nav>
     {%- endif -%}
 

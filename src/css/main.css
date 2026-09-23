@@ -381,6 +381,34 @@
     .rail__navsearch { display: list-item; }
   }
 
+  /* Sosyal medya bağlantıları (snippets/sosyal.liquid): alt alan, iletişim sayfası ve telefon menüsü */
+  .sosyal { display: grid; gap: 0.6rem; }
+  .sosyal__h { font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .sosyal__list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .sosyal__link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    min-block-size: 2.75rem; padding-inline: 0.7rem;
+    border-radius: 999px; text-decoration: none; color: inherit;
+    box-shadow: inset 0 0 0 1px var(--c-rule-strong);
+    transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease, box-shadow var(--dur-ui) ease;
+  }
+  .sosyal__ikon { display: grid; place-items: center; color: var(--c-gold); transition: color var(--dur-ui) ease; }
+  .sosyal__ad { font-size: 0.9375rem; font-weight: 600; }
+  .sosyal__link:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) {
+    .sosyal__link:hover { color: var(--c-on-gold); background: var(--altin-degrade); box-shadow: inset 0 0 0 1px transparent; }
+    .sosyal__link:hover .sosyal__ikon { color: var(--c-on-gold); }
+  }
+  .site-footer__sosyal { margin-block-start: clamp(1.5rem, 4svh, 2.25rem); }
+  .contact__sosyal { margin-block-start: clamp(1.5rem, 4svh, 2rem); }
+  /* Telefon menüsünün altında: etiketsiz, yalnız simgeler */
+  .rail__sosyal { display: none; }
+  @media (max-width: 63.99em) {
+    .rail__sosyal { display: grid; margin-block-start: 1.25rem; padding-block-start: 1rem; border-block-start: 1px solid oklch(1 0 0 / 0.14); }
+    .rail__sosyal .sosyal__link { box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.22); }
+    .rail__sosyal .sosyal__ikon { color: var(--c-gold-bright); }
+  }
+
   /* ================= Hızlı iletişim: sağ altta WhatsApp ve telefon (snippets/iletisim-dock.liquid, js/sections/dock.js) ================= */
   /* backdrop-filter bilerek yok: film tuvalinin üstünde her karede yeniden bulanıklaştırma kaydırmayı yavaşlatır */
   .dock {
@@ -519,18 +547,37 @@
      çubuk kalır; film bitince (son %12) yönerge tamamen kaybolur. */
   .film__yonerge {
     position: absolute; inset-inline: 0; inset-block-end: clamp(1.25rem, 4svh, 2.5rem);
-    display: grid; justify-items: center; gap: 0.5rem;
+    display: grid; justify-items: center; gap: 0.6rem;
     color: oklch(0.97 0.006 85);
     opacity: calc(1 - var(--film-son, 0));
     pointer-events: none;
   }
+  /* Düğme tıklanabilir kalsın: yönergenin kendisi tıklamayı geçirir */
+  .film__gec { pointer-events: auto; }
   .film__yonerge-yazi {
-    font-size: 0.75rem; font-weight: 620; letter-spacing: 0.22em; text-transform: uppercase;
-    text-shadow: 0 1px 1rem oklch(0.15 0.01 70 / 0.6);
+    font-size: 0.9375rem; font-weight: 640; letter-spacing: 0.24em; text-transform: uppercase;
+    text-shadow: 0 1px 1rem oklch(0.15 0.01 70 / 0.7);
     opacity: 1; transition: opacity 400ms var(--ease-out);
   }
-  .film__ok { display: grid; place-items: center; opacity: 0.9; transition: opacity 400ms var(--ease-out); }
+  /* Ok uzaktan da görünsün: altın halka içinde büyük ok */
+  .film__ok {
+    display: grid; place-items: center; inline-size: 3.75rem; block-size: 3.75rem;
+    border-radius: 50%; color: oklch(0.99 0.004 85);
+    background: oklch(0.2 0.012 65 / 0.42);
+    box-shadow: inset 0 0 0 2px oklch(1 0 0 / 0.55), 0 0.75rem 2rem -0.75rem oklch(0.1 0.02 70 / 0.6);
+    opacity: 1; transition: opacity 400ms var(--ease-out);
+  }
   .film.is-kaydi .film__yonerge-yazi, .film.is-kaydi .film__ok { opacity: 0; }
+  .film__gec {
+    margin-block-start: 0.15rem; padding: 0.5rem 1.1rem; border-radius: 999px;
+    font-size: 0.875rem; font-weight: 620; color: oklch(0.97 0.006 85);
+    background: oklch(0.2 0.012 65 / 0.5); box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.35);
+    transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease;
+  }
+  .film__gec:focus-visible { outline: 2px solid var(--c-gold-bright); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) {
+    .film__gec:hover { color: var(--c-on-gold); background: var(--altin-degrade); box-shadow: inset 0 0 0 1px transparent; }
+  }
   .film__ilerleme {
     position: relative; inline-size: min(22rem, 52vw); block-size: 3px; border-radius: 3px; overflow: hidden;
     background: oklch(1 0 0 / 0.22);
@@ -542,7 +589,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .film__ok svg { animation: film-ok 1.8s var(--ease-out) infinite; }
-    @keyframes film-ok { 0%, 100% { translate: 0 -0.15rem; } 50% { translate: 0 0.3rem; } }
+    @keyframes film-ok { 0%, 100% { translate: 0 -0.2rem; } 50% { translate: 0 0.35rem; } }
   }
   @media (prefers-reduced-motion: reduce) { .film__yonerge { display: none; } }
 

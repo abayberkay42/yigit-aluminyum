@@ -61,6 +61,14 @@ document.addEventListener('shopify:section:load', (e) => {
   initHarita(e.target);
 });
 // Çekmece açıkken sayfa kaydırması durur
+// Bölümlerden gelen kaydırma isteği (ör. filmdeki "Animasyonu geç"): Lenis varsa onunla yumuşak kaydırılır
+document.addEventListener('yigit:scroll-to', (e) => {
+  const y = Number(e.detail?.y);
+  if (!Number.isFinite(y)) return;
+  if (lenis) lenis.scrollTo(y, { duration: 1.1 });
+  else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+});
+
 document.addEventListener('yigit:lock', () => {
   lenis?.stop();
   document.documentElement.classList.add('is-locked');
