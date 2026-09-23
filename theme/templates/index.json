@@ -389,6 +389,62 @@
             "ad": "Suudi Arabistan",
             "kod": "682"
           }
+        },
+        "u21": {
+          "type": "country",
+          "settings": {
+            "ad": "Karadağ",
+            "kod": "499"
+          }
+        },
+        "u22": {
+          "type": "country",
+          "settings": {
+            "ad": "Slovenya",
+            "kod": "705"
+          }
+        },
+        "u23": {
+          "type": "country",
+          "settings": {
+            "ad": "Macaristan",
+            "kod": "348"
+          }
+        },
+        "u24": {
+          "type": "country",
+          "settings": {
+            "ad": "Moldova",
+            "kod": "498"
+          }
+        },
+        "u25": {
+          "type": "country",
+          "settings": {
+            "ad": "Ukrayna",
+            "kod": "804"
+          }
+        },
+        "u26": {
+          "type": "country",
+          "settings": {
+            "ad": "Avusturya",
+            "kod": "040"
+          }
+        },
+        "u27": {
+          "type": "country",
+          "settings": {
+            "ad": "Slovakya",
+            "kod": "703"
+          }
+        },
+        "u28": {
+          "type": "country",
+          "settings": {
+            "ad": "Çekya",
+            "kod": "203"
+          }
         }
       },
       "block_order": [
@@ -411,13 +467,21 @@
         "u17",
         "u18",
         "u19",
-        "u20"
+        "u20",
+        "u21",
+        "u22",
+        "u23",
+        "u24",
+        "u25",
+        "u26",
+        "u27",
+        "u28"
       ],
       "settings": {
         "eyebrow": "İhracat",
         "heading": "Türkiye’den üretiyoruz, sınırların ötesine gönderiyoruz",
         "text": "Türkiye genelindeki satışlarımızın yanında alüminyum profillerimizi yurt dışına da gönderiyoruz. Proje miktarındaki ihracat talepleriniz için doğrudan bize yazın.",
-        "sayi": "20",
+        "sayi": "28",
         "sayi_etiket": "ülkeye ihracat",
         "link_label": "İhracat için iletişim",
         "link_url": "/pages/iletisim"

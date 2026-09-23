@@ -1,25 +1,48 @@
-// İletişim sayfasındaki mağaza haritası: Google Haritalar çerçevesi açılışta yüklenmez.
-// Ziyaretçi "Haritayı göster" düğmesine basınca eklenir; böylece sayfa açılışında üçüncü taraf
-// isteği ve çerezi olmaz. JS çalışmazsa bölümdeki "Google Haritalar'da aç" bağlantısı kalır.
+// Mağaza haritası (iletişim sayfası ve alt alan): Google Haritalar çerçevesi sayfa açılışında yüklenmez,
+// kutu ekrana girince eklenir. Böylece açılışta üçüncü taraf isteği ve çerezi olmaz, sayfa da yavaşlamaz.
+// Çerçeve yüklenemezse (engelleyici eklenti, ağ kısıtı) kutuda "Google Haritalar'da aç" bağlantısı görünür.
+const BEKLE = 8000;
+
 export function initHarita(root = document) {
   root.querySelectorAll('[data-harita]').forEach((el) => {
     if (el.dataset.ready) return;
     el.dataset.ready = '1';
-    const btn = el.querySelector('[data-harita-ac]');
     const kutu = el.querySelector('.harita__kutu');
-    if (!btn || !kutu || !el.dataset.embed) return;
-    btn.addEventListener('click', () => {
+    const yedek = el.querySelector('[data-harita-yedek]');
+    if (!kutu || !el.dataset.embed) return;
+
+    const yukle = () => {
       const cerceve = document.createElement('iframe');
       cerceve.src = el.dataset.embed;
-      cerceve.title = el.querySelector('.harita__baslik')?.textContent?.trim() || 'Harita';
+      cerceve.title = el.querySelector('.harita__baslik')?.textContent?.trim() || document.title;
       cerceve.loading = 'lazy';
       cerceve.referrerPolicy = 'no-referrer-when-downgrade';
       cerceve.allowFullscreen = true;
       cerceve.className = 'harita__cerceve';
+      let geldi = false;
+      cerceve.addEventListener('load', () => {
+        geldi = true;
+        el.classList.add('is-acik');
+        if (yedek) yedek.hidden = true;
+      });
+      setTimeout(() => {
+        if (geldi || !yedek) return;
+        yedek.hidden = false;
+      }, BEKLE);
       kutu.append(cerceve);
-      el.classList.add('is-acik');
-      btn.remove();
-      cerceve.focus?.();
-    }, { once: true });
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      yukle();
+      return;
+    }
+    const izle = new IntersectionObserver((girdiler) => {
+      for (const g of girdiler) {
+        if (!g.isIntersecting) continue;
+        izle.disconnect();
+        yukle();
+      }
+    }, { rootMargin: '300px' });
+    izle.observe(el);
   });
 }

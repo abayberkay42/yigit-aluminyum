@@ -1,0 +1,53 @@
+{%- comment -%}
+  Mağazanın haritası. İletişim sayfasında başlık ve adresle, alt alanda yalnız harita olarak kullanılır.
+  Adres ve bağlantılar Tema ayarları > Harita'dan gelir; gömme bağlantısı boşsa adresten üretilir.
+  Harita sayfa açılışında yüklenmez: ekrana girince eklenir (src/js/sections/harita.js). Böylece
+  açılışta Google'a istek gitmez, çerez konmaz. JS çalışmazsa "Google Haritalar'da aç" bağlantısı kalır.
+
+  Parametreler: kompakt (true → başlık/adres yok, alçak kadraj), baslik_etiketi ('h2' varsayılan).
+{%- endcomment -%}
+{%- liquid
+  assign adres = settings.harita_adres
+  if adres == blank
+    break
+  endif
+  assign sorgu = adres | strip | url_encode
+  assign gomme = settings.harita_embed
+  if gomme == blank
+    assign gomme = 'https://www.google.com/maps?q=' | append: sorgu | append: '&hl=tr&z=16&output=embed'
+  endif
+  assign ac = settings.harita_link
+  if ac == blank
+    assign ac = 'https://www.google.com/maps/search/?api=1&query=' | append: sorgu
+  endif
+  assign etiket = baslik_etiketi | default: 'h2'
+  assign baslik = settings.harita_baslik | default: shop.name
+-%}
+<div class="harita{% if kompakt %} harita--kompakt{% endif %}" data-harita data-embed="{{ gomme | escape }}">
+  {%- unless kompakt -%}
+    <div class="harita__ust">
+      <div>
+        <{{ etiket }} class="harita__baslik">{{ baslik }}</{{ etiket }}>
+        <p class="harita__adres">{{ adres | newline_to_br }}</p>
+      </div>
+      <a class="button button--ghost" href="{{ ac }}" target="_blank" rel="noopener">
+        {{ 'pages.map_open' | t }}<span class="visually-hidden"> ({{ 'general.new_tab' | t }})</span>
+      </a>
+    </div>
+  {%- endunless -%}
+  <div class="harita__kutu">
+    {%- if settings.harita_gorsel -%}
+      {{ settings.harita_gorsel | image_url: width: 1600 | image_tag: widths: '800,1200,1600', sizes: '100vw', loading: 'lazy', alt: '', class: 'harita__onizleme' }}
+    {%- endif -%}
+    {%- comment -%} Harita yüklenemezse (engelleyici eklenti, ağ) boş kutu kalmasın: bağlantı görünür {%- endcomment -%}
+    <p class="harita__yedek" data-harita-yedek hidden>
+      {{ 'pages.map_fallback' | t }}
+      <a href="{{ ac }}" target="_blank" rel="noopener">{{ 'pages.map_open' | t }}<span class="visually-hidden"> ({{ 'general.new_tab' | t }})</span></a>
+    </p>
+    <noscript>
+      <p class="harita__yedek">
+        <a href="{{ ac }}" target="_blank" rel="noopener">{{ 'pages.map_open' | t }}</a>
+      </p>
+    </noscript>
+  </div>
+</div>

@@ -47,7 +47,8 @@
     "watch_film": "Watch the company film",
     "open_pdf": "Open PDF",
     "map_open": "Open in Google Maps",
-    "map_show": "Show the map"
+    "map_show": "Show the map",
+    "map_fallback": "The map could not load."
   },
   "contact": {
     "name": "Full name",

@@ -47,7 +47,8 @@
     "watch_film": "Tanıtım filmini izleyin",
     "open_pdf": "PDF'i aç",
     "map_open": "Google Haritalar'da aç",
-    "map_show": "Haritayı göster"
+    "map_show": "Haritayı göster",
+    "map_fallback": "Harita yüklenemedi."
   },
   "contact": {
     "name": "Ad soyad",

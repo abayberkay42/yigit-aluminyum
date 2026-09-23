@@ -45,6 +45,10 @@
     "taksit_kart_9_dosya": "taksit-saglam.svg",
     "taksit_kart_9_zemin": "#004859",
     "numune_urun": "urun-numunesi",
-    "numune_boy_cm": 10
+    "numune_boy_cm": 10,
+    "harita_adres": "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cd. No:1/1 İç Kapı No:17\nBeylikdüzü / İstanbul",
+    "harita_baslik": "Beylikdüzü mağazamız",
+    "harita_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.979233707952!2d28.65813757642484!3d41.00382771969834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b55fdb0917486d%3A0x13d756c499f85aca!2sYi%C4%9Fit%20Al%C3%BCminyum%20Profil!5e0!3m2!1str!2str!4v1790172471267!5m2!1str!2str",
+    "harita_link": "https://www.google.com/maps/search/?api=1&query=Yi%C4%9Fit%20Al%C3%BCminyum%20Profil&query_place_id=ChIJbUgXCdtftRQRylr4mcRW1xM"
   }
 }

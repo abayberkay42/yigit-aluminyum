@@ -66,6 +66,40 @@
         "id": "org_same_as",
         "label": "Sosyal medya adresleri",
         "info": "Her satıra bir tam adres (Instagram, Facebook, YouTube, LinkedIn)."
+      },
+      {
+        "type": "header",
+        "content": "Harita"
+      },
+      {
+        "type": "textarea",
+        "id": "harita_adres",
+        "label": "Mağaza adresi",
+        "info": "Boş bırakılırsa harita hiçbir yerde görünmez. İletişim sayfasında ve alt alanda kullanılır."
+      },
+      {
+        "type": "text",
+        "id": "harita_baslik",
+        "label": "Harita başlığı",
+        "default": "Mağazamız"
+      },
+      {
+        "type": "url",
+        "id": "harita_embed",
+        "label": "Harita gömme bağlantısı",
+        "info": "Google Haritalar > Paylaş > \"Harita yerleştir\" bağlantısı. Boşsa adresten üretilir."
+      },
+      {
+        "type": "url",
+        "id": "harita_link",
+        "label": "Haritada aç bağlantısı",
+        "info": "Boşsa adresten üretilir."
+      },
+      {
+        "type": "image_picker",
+        "id": "harita_gorsel",
+        "label": "Harita ön görseli",
+        "info": "Harita yüklenmeden önce görünen kare. Boşsa düz zemin."
       }
     ]
   },

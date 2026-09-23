@@ -55,6 +55,11 @@
     {%- endif -%}
   </div>
 
+  {%- comment -%} Mağaza haritası her sayfanın altında; ekrana girince yüklenir {%- endcomment -%}
+  {%- if section.settings.harita_goster -%}
+    <div class="site-footer__harita">{%- render 'harita', kompakt: true -%}</div>
+  {%- endif -%}
+
   <div class="site-footer__base">
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
     {%- if settings.org_same_as != blank -%}
@@ -115,7 +120,8 @@
     { "type": "textarea", "id": "address", "label": "Adres" },
     { "type": "text", "id": "phone", "label": "Telefon" },
     { "type": "text", "id": "email", "label": "E-posta" },
-    { "type": "url", "id": "whatsapp", "label": "WhatsApp bağlantısı", "info": "Örnek: https://wa.me/90..." }
+    { "type": "url", "id": "whatsapp", "label": "WhatsApp bağlantısı", "info": "Örnek: https://wa.me/90..." },
+    { "type": "checkbox", "id": "harita_goster", "label": "Alt alanda harita göster", "default": true, "info": "Adres ve bağlantı Tema ayarları > Harita'dan gelir." }
   ]
 }
 {% endschema %}
