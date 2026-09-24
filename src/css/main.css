@@ -349,12 +349,13 @@
 
   @media (max-width: 63.99em) {
     .rail__bar { grid-template-columns: 1fr auto; }
+    /* Panel çubukla aynı koyulukta: çubuk koyu olduğu için yazılar açık renk ve beyaz panelde okunmuyordu */
     .rail__nav {
       display: none;
       position: absolute; inset-inline: 0; inset-block-start: calc(100% + 0.6rem);
       padding: 0.5rem; border-radius: var(--radius-lg);
-      background: oklch(1 0 0);
-      box-shadow: inset 0 0 0 1px var(--c-rule), 0 1.6rem 3rem -1.2rem oklch(0.35 0.03 70 / 0.3);
+      background: oklch(0.17 0.012 65 / 0.98);
+      box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1), 0 1.6rem 3rem -1.2rem oklch(0.08 0.02 70 / 0.6);
     }
     .rail.is-open .rail__nav { display: block; }
     /* Masaüstündeki ortalama telefonda paneli içeriğe göre daraltır: tam genişlik */
@@ -372,7 +373,7 @@
     .rail__sublink { font-size: 1.0625rem; min-block-size: 2.9rem; }
     .rail__sub--mega { padding: 0 0 0 0.9rem; }
     .rail__sub ul.rail__mega { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
-    .rail__col + .rail__col { padding-inline-start: 0; border-inline-start: 0; padding-block-start: 0.6rem; border-block-start: 1px solid var(--c-rule); }
+    .rail__col + .rail__col { padding-inline-start: 0; border-inline-start: 0; padding-block-start: 0.6rem; border-block-start: 1px solid oklch(1 0 0 / 0.12); }
     .rail__col > ul { padding-inline-start: 0.5rem; }
     .rail__toggle { display: inline-flex; align-items: center; }
     .rail__lang, .rail__search { display: none; }
@@ -381,10 +382,13 @@
     .rail__navsearch { display: list-item; }
   }
 
-  /* Alt alanın en altındaki yasal bağlantılar */
-  .site-footer__yasal ul { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; }
+  /* Alt alanın en altındaki yasal bağlantılar: tek satırda, aralarında nokta ayraç */
+  .site-footer__yasal ul { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.9rem; }
+  .site-footer__yasal li { display: flex; align-items: center; gap: 0.9rem; }
+  .site-footer__yasal li + li::before { content: ''; inline-size: 3px; block-size: 3px; border-radius: 50%; background: var(--c-rule-strong); }
   .site-footer__yasal a { font-size: 0.8125rem; color: var(--c-ink-soft); text-decoration: none; }
   @media (hover: hover) and (pointer: fine) { .site-footer__yasal a:hover { color: var(--c-ink); text-decoration: underline; } }
+  @media (max-width: 47.99em) { .site-footer__yasal li + li::before { display: none; } .site-footer__yasal ul { gap: 0.55rem 1rem; } }
 
   /* Sosyal medya bağlantıları (snippets/sosyal.liquid): alt alan, iletişim sayfası ve telefon menüsü */
   .sosyal { display: grid; gap: 0.6rem; }
@@ -927,6 +931,8 @@
   @media (hover: hover) and (pointer: fine) { .site-footer a:hover { text-decoration: underline; text-underline-offset: 0.25em; } }
   .site-footer__contact { display: grid; gap: 0.15rem; font-style: normal; font-size: 0.9375rem; color: var(--c-ink-soft); }
   .site-footer__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; padding-block-start: 1.1rem; border-block-start: 1px solid var(--c-rule); font-size: 0.8125rem; color: var(--c-ink-soft); }
+  /* Yasal bağlantılar kendi satırında, aralarında ince ayraçla akar; dar sütuna sıkışıp alt alta dizilmez */
+  .site-footer__yasal { flex: 1 0 100%; order: -1; padding-block-end: 0.9rem; }
   .site-footer ul.site-footer__social { display: flex; gap: 0.25rem; }
   .site-footer__social a { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: var(--radius); transition: background-color var(--dur-ui) ease; }
   @media (hover: hover) and (pointer: fine) { .site-footer__social a:hover { background: var(--c-panel); } }
@@ -1073,7 +1079,7 @@
     color: var(--c-gold-bright); box-shadow: inset 0 0 0 1.5px var(--c-gold-bright);
   }
   .serit__gorsel img { inline-size: 100%; block-size: 100%; object-fit: contain; }
-  @media (max-width: 47.99em) { .serit__sutunlar { font-size: 0.6875rem; letter-spacing: 0.08em; } .serit__satir { padding: 0.9rem; } }
+  @media (max-width: 47.99em) { .serit__sutunlar { font-size: 0.8125rem; letter-spacing: 0.06em; } .serit__satir { padding: 0.9rem; } }
   /* Yalnız özet görseli: başlık görünmez, görsel bölümün kendisi */
   .psec--ozet .rehber-gorsel { margin-block-start: 0; }
 
@@ -1759,15 +1765,16 @@
   .harita__ust { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-block-end: 1.25rem; }
   .harita__baslik { font-size: clamp(1.25rem, 1.7vw, 1.75rem); font-weight: 660; font-stretch: 112%; letter-spacing: -0.02em; }
   .harita__adres { margin-block-start: 0.4rem; max-inline-size: 46ch; color: var(--c-ink-soft); }
+  .harita { inline-size: 100%; }
   .harita__kutu {
     position: relative; display: grid; place-items: center;
-    aspect-ratio: 21 / 9; overflow: clip;
+    inline-size: 100%; aspect-ratio: 21 / 9; overflow: clip;
     border-radius: var(--radius); background: var(--c-panel); box-shadow: inset 0 0 0 1px var(--c-rule);
   }
   .harita__onizleme { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
   .harita__cerceve { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; border: 0; }
-  .harita__yedek { position: relative; padding: 1rem; text-align: center; color: var(--c-ink-soft); }
-  .harita__yedek a { font-weight: 620; }
+  .harita__yedek { position: relative; display: grid; gap: 0.6rem; justify-items: center; padding: 1.5rem; text-align: center; color: var(--c-ink-soft); }
+  .harita__yedek a { font-weight: 620; color: var(--c-gold); }
   /* Alt alandaki harita: başlıksız, alçak ve tam genişlikte bir şerit */
   .site-footer__harita { margin-block-start: clamp(2rem, 5svh, 3rem); }
   .harita--kompakt .harita__kutu { aspect-ratio: auto; block-size: clamp(14rem, 26svh, 20rem); border-radius: var(--radius); }
@@ -1997,7 +2004,7 @@
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 0.75rem; }
     .card { gap: 0.6rem; }
     .card__title { font-size: 0.9375rem; }
-    .card__type { font-size: 0.6875rem; }
+    .card__type { font-size: 0.8125rem; }
     .card__price { font-size: 1.0625rem; }
   }
 
@@ -2307,4 +2314,42 @@
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+
+  /* ================= Telefonda okunurluk =================
+     Masaüstünde ölçü olarak doğru duran küçük etiketler (11-12 px) telefonda okunmuyordu.
+     Burada yalnız dar ekranda: etiket yazıları büyütülür, dokunma hedefleri parmak ölçüsüne çıkarılır.
+     Gövde metinleri zaten 16 px ve üzeri; onlara dokunulmaz. */
+  @media (max-width: 47.99em) {
+    /* Küçük etiketler: en az 13 px */
+    :is(.card__type, .sbanner__ust, .sbanner__alt, .groups__eyebrow, .door__k, .site-footer__h,
+        .jcard__meta, .pkart__no, .usage__eyebrow, .journal__eyebrow, .export__eyebrow, .parkur__eyebrow,
+        .hparkur__eyebrow, .tline__eyebrow, .pdp__kdv, .pdp__type, .reviews__adet, .reviews__kaynak,
+        .review__kim, .durak__caption, .tl__caption, .harita__caption, .film-yukleme__sayi) {
+      font-size: 0.8125rem;
+    }
+    /* Fotoğraf alt yazıları ve tablo etiketleri */
+    :is(figcaption, .hprod__caption, .spec dt, .ozellik dt, .fact__label) { font-size: 0.8125rem; }
+    .card__price { font-size: 1.125rem; }
+    .card__title { font-size: 1rem; }
+
+    /* Dokunma hedefleri: parmakla rahat basılsın */
+    .crumbs a { display: inline-flex; align-items: center; min-block-size: 2.5rem; }
+    .site-footer__col li a,
+    .site-footer__contact a { display: inline-flex; align-items: center; min-block-size: 2.5rem; }
+    .site-footer__yasal a { display: inline-flex; align-items: center; min-block-size: 2.25rem; }
+    .export__ulke { min-block-size: 2.5rem; }
+    .jcard__go, .hparkur__all, .usage__all, .journal__all { min-block-size: 2.5rem; }
+    /* Oda fotoğrafındaki ürün noktaları: dokunmatikte daha büyük hedef */
+    .spot { min-inline-size: 2.75rem; min-block-size: 2.75rem; display: grid; place-items: center; }
+    /* Kalan küçük etiketler: metraj ölçeği ve karşılaştırma kartı satır başlıkları */
+    :is(.metraj__olcek span, .cmp__kart-liste dt, .kart__sayi, .kart__yazi) { font-size: 0.8125rem; }
+    /* İletişim bilgisindeki telefon/e-posta ve taksit metnindeki bağlantı parmakla basılabilsin */
+    :is(.info__v a, .taksit-ozet__metin a) { display: inline-flex; align-items: center; min-block-size: 2.5rem; }
+  }
+
+  /* Ürün kartının tamamı tıklanabilir: telefonda yalnız başlık satırına basmak zor.
+     Başlıktaki bağlantı kartı kaplar; hızlı ekleme düğmesi ve renk noktaları üstte kalır. */
+  .card__title a::after { content: ''; position: absolute; inset: 0; z-index: 0; }
+  .card__media, .card__quick, .card__opts { position: relative; z-index: 1; }
+
 }

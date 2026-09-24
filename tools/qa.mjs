@@ -20,9 +20,11 @@ const report = { tarih: new Date().toISOString(), sayfalar: [], klavye: null, ha
 async function audit(ctxOpts, path, label) {
   const ctx = await browser.newContext(ctxOpts);
   const page = await ctx.newPage();
-  // Alt alandaki Google Haritalar çerçevesi denetim ortamından açılamıyor ve her sayfada konsol hatası
-  // bırakıyordu. Harita üçüncü taraf; denetimin konusu değil, bu yüzden isteği hiç başlatmıyoruz.
-  await page.route('**://*.google.com/**', (r) => r.abort());
+  // Harita üçüncü taraftır ve denetim ortamından açılamıyor. İstekleri engellemek yerine boş ama
+  // başarılı yanıtla karşılıyoruz: hem dışarı istek gitmiyor hem de sayfada yanlış konsol hatası kalmıyor.
+  const BOS_PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+  await page.route('**://*.google.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>harita</title>' }));
+  await page.route('**://*.gstatic.com/**', (r) => r.fulfill({ status: 200, contentType: 'image/png', body: BOS_PNG }));
   const errors = [];
   const bytes = { js: 0, css: 0, img: 0, font: 0 };
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
