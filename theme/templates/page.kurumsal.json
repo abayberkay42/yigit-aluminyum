@@ -151,12 +151,17 @@
         "title": "Bir aracın bagajından iki merkeze",
         "text": "Esnaf ziyaretleriyle başlayan ticaret, önce 40 m² bir dükkâna, sonra kendi ekstrüzyon presine dönüştü. Bugün üretim Veliköy’de, satış Beylikdüzü’nde sürüyor."
       }
+    },
+    "uygulamalar": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "content",
     "tarihce",
+    "uygulamalar",
     "doors"
   ]
 }

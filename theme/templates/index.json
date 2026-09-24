@@ -560,6 +560,10 @@
         "link_label": "Üretim parkurumuzu inceleyin",
         "page_url": "/pages/uretim-parkurumuz"
       }
+    },
+    "uygulamalar": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
@@ -570,6 +574,7 @@
     "ihracat",
     "kullanim",
     "doors",
-    "gunluk"
+    "gunluk",
+    "uygulamalar"
   ]
 }

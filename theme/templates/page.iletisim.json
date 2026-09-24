@@ -89,10 +89,15 @@
         "numune"
       ],
       "settings": {}
+    },
+    "uygulamalar": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
     "hero",
-    "contact"
+    "contact",
+    "uygulamalar"
   ]
 }

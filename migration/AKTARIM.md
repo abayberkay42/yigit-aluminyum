@@ -156,6 +156,30 @@ Metinler firmanın "Yiğit Alüminyum Üretim Parkurumuz" belgesinden alındı. 
 3. Online Mağaza > Gezinme > Ana menü: "Üretim" bağlantısının altına iki alt bağlantı ekleyin (Nasıl üretiyoruz? → `/pages/uretim`, Üretim Parkurumuz → `/pages/uretim-parkurumuz`).
 4. **Durak fotoğrafları:** her durağın "Fotoğraf" alanı boş. Fabrikada çekilen fotoğraflar Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa seçilir; fotoğraf seçilmeyen durak yalnız yazıyla görünür (sayfa bozulmaz).
 
+## Judge.me yorumları yeni temaya nasıl bağlanır
+
+Judge.me mağazaya kuruldu ve Google İşletme Profili'ne bağlandı (2026-09-24). Judge.me, Shopify'ın **uygulama bloğu** düzeneğiyle çalışır: kendi kodunu temaya karıştırmaz, temadaki uygulama yuvalarına yerleşir. Bu temada yuvalar hazır:
+
+| Yuva | Nerede | Ne konur |
+|---|---|---|
+| Ürün bilgileri bölümü | Ürün sayfası, fiyatın çevresi | Judge.me **Preview Badge** (başlık altındaki yıldızlar) |
+| "Uygulamalar" bölümü | Ürün sayfasında, taksitlerin altında | Judge.me **Review Widget** (ürün yorumları listesi ve yorum yazma formu) |
+| "Uygulamalar" bölümü | Ana sayfa (en alt), Kurumsal ve İletişim sayfaları | Judge.me **All Reviews / Store Reviews** (Google'dan gelen mağaza yorumları) |
+
+**Tema yayına alındıktan sonra yapılacaklar (sırayla):**
+
+1. Tema düzenleyici > sağ üstteki **Uygulama yerleştirmeleri** (App embeds) sekmesi > **Judge.me Reviews** anahtarını açın > Kaydet. *Bu ayar her tema için ayrıdır; eski temada açılmış olması yenisi için yetmez.*
+2. Ürün sayfası şablonunu açın > **Uygulamalar** bölümü > **Blok ekle** > **Judge.me Review Widget** > Kaydet.
+3. İsterseniz ürün başlığının altına yıldızlar için: **Ürün bilgileri** bölümü > Blok ekle > **Judge.me Preview Badge**.
+4. Ana sayfanın en altındaki **Uygulamalar** bölümüne **Judge.me All Reviews** bloğunu ekleyin (Google'dan gelen mağaza yorumları burada görünür). Aynı blok Kurumsal ve İletişim sayfalarında da hazır yuvada kullanılabilir.
+5. Judge.me panelinde widget renklerini markaya yaklaştırın: yıldız rengi altın (#c9a227 civarı), yazı tipi "tema yazı tipini kullan".
+
+**Önizlemede görünmez.** Uygulama blokları yalnız gerçek mağazada çalışır; `onizleme` adresinde ve yerelde boş kalır — bu bir hata değil.
+
+**Ürün yorumu ile mağaza yorumu farkı:** Google'dan aktarılan yorumlar **mağaza yorumu**dur, tek tek ürünlere bağlanmaz. Ürün sayfalarındaki liste, müşteriler sipariş sonrası yorum yazdıkça dolar (Judge.me sipariş sonrası otomatik e-posta gönderir; metinleri panelden Türkçeye çevirin).
+
+Temadaki **"Yorumlar"** bölümü (Google puanı + "Google'da yorum yazın" düğmesi) Judge.me'den bağımsız çalışmaya devam eder; ikisi birbirini tamamlar.
+
 ## Sosyal medya bağlantıları
 
 Sosyal medya hesapları üç yerde birden görünüyor (firma isteği, 2026-09-24): **alt alanda** marka sütununun altında (ad yazılı düğmeler), **iletişim sayfasında** iletişim bilgilerinin altında ve **telefon menüsünde** menü bağlantılarının altında.
