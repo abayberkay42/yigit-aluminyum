@@ -143,3 +143,9 @@ Sayfanın başındaki banner şimdilik mevcut üretim bannerını kullanıyor; p
 ## 18. YouTube adresi
 
 Mağaza tabelasında ve vitrinde YouTube hesabı görünüyor ama sitede kayıtlı değil. Adres verilirse Tema ayarları > Firma bilgileri > Sosyal medya adresleri'ne eklenir; alt alanda, iletişim sayfasında ve telefon menüsünde kendiliğinden görünür.
+
+## 19. Yasal metinlerin mağazaya girilmesi
+
+Dokuz yasal metin hazır (`dist/shopify-dosyalar/yasal/`) ve önizlemede çalışıyor; Shopify'da sayfalar açılıp içerikleri yapıştırılmalı, ayrıca dördü Ayarlar > Politikalar alanına da girilmeli (bkz. `AKTARIM.md` > "Yasal metinler"). Bu yapılmadan alt alandaki yasal bağlantılar canlıda boş sayfaya gider.
+
+Metinlerde firma bilgileri (ticaret sicil 343185-5, oda sicil 1333622, vergi dairesi, iki ayrı adres) belgeden alındı; doğruluğu firmanın kontrolündedir.

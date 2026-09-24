@@ -52,7 +52,8 @@
   <div class="card__body">
     {%- if product.type != blank -%}<p class="card__type">{{ product.type }}</p>{%- endif -%}
     <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    <p class="card__price">{% render 'price', product: product %}{% if k_kisa != '' %}<span class="card__birim"> / {{ k_kisa }}</span>{% endif %}</p>
+    {%- comment -%} Fiyat ürün sayfasındaki gibi altın neon: listede de ilk göze çarpan bilgi olsun {%- endcomment -%}
+    <p class="card__price"><span class="fiyat-neon">{% render 'price', product: product %}</span>{% if k_kisa != '' %}<span class="card__birim"> / {{ k_kisa }}</span>{% endif %}</p>
     {%- if color_values != blank or other_count > 0 -%}
       <div class="card__opts">
         {%- if color_values != blank -%}

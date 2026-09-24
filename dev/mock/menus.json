@@ -206,5 +206,76 @@
         "url": "/pages/iletisim"
       }
     ]
+  },
+  "yasal": {
+    "title": {
+      "tr": "Yasal",
+      "en": "Legal"
+    },
+    "links": [
+      {
+        "title": {
+          "tr": "Yasal Bildirim ve Firma Bilgileri",
+          "en": "Legal notice"
+        },
+        "url": "/pages/yasal-bildirim"
+      },
+      {
+        "title": {
+          "tr": "Gizlilik Politikası",
+          "en": "Privacy policy"
+        },
+        "url": "/pages/gizlilik-politikasi"
+      },
+      {
+        "title": {
+          "tr": "KVKK Aydınlatma Metni",
+          "en": "Personal data notice"
+        },
+        "url": "/pages/kvkk-aydinlatma-metni"
+      },
+      {
+        "title": {
+          "tr": "Çerez Politikası",
+          "en": "Cookie policy"
+        },
+        "url": "/pages/cerez-politikasi"
+      },
+      {
+        "title": {
+          "tr": "Kullanım ve Hizmet Şartları",
+          "en": "Terms of service"
+        },
+        "url": "/pages/kullanim-sartlari"
+      },
+      {
+        "title": {
+          "tr": "Kargo ve Teslimat Politikası",
+          "en": "Shipping policy"
+        },
+        "url": "/pages/kargo-ve-teslimat"
+      },
+      {
+        "title": {
+          "tr": "İptal, İade ve Cayma Politikası",
+          "en": "Cancellation and refund policy"
+        },
+        "url": "/pages/iptal-iade-ve-cayma"
+      },
+      {
+        "title": {
+          "tr": "Ön Bilgilendirme Formu",
+          "en": "Pre-information form"
+        },
+        "url": "/pages/on-bilgilendirme-formu"
+      },
+      {
+        "title": {
+          "tr": "Mesafeli Satış Sözleşmesi",
+          "en": "Distance sales agreement"
+        },
+        "url": "/pages/mesafeli-satis-sozlesmesi"
+      }
+    ]
   }
 }

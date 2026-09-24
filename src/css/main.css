@@ -381,6 +381,11 @@
     .rail__navsearch { display: list-item; }
   }
 
+  /* Alt alanın en altındaki yasal bağlantılar */
+  .site-footer__yasal ul { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; }
+  .site-footer__yasal a { font-size: 0.8125rem; color: var(--c-ink-soft); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .site-footer__yasal a:hover { color: var(--c-ink); text-decoration: underline; } }
+
   /* Sosyal medya bağlantıları (snippets/sosyal.liquid): alt alan, iletişim sayfası ve telefon menüsü */
   .sosyal { display: grid; gap: 0.6rem; }
   .sosyal__h { font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
@@ -1915,8 +1920,8 @@
   .card__title a::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: var(--radius); }
   .card__title a:focus-visible { outline: none; }
   .card__title a:focus-visible::after { outline: 2px solid var(--c-focus); outline-offset: 4px; }
-  .card__price { font-size: 0.9375rem; }
-  .card__birim { color: var(--c-ink-soft); font-size: 0.875em; }
+  .card__price { font-size: 1.1875rem; font-weight: 640; font-stretch: 104%; font-variant-numeric: tabular-nums; }
+  .card__birim { color: var(--c-ink-soft); font-size: 0.75em; font-weight: 500; }
   .card__quick-miktar { padding: 0.1rem 0.45rem; border-radius: 999px; font-size: 0.75rem; font-weight: 640; background: rgb(255 255 255 / 0.45); box-shadow: inset 0 0 0 1px rgb(110 82 25 / 0.18); }
   /* Telefondaki iki sütunlu ızgarada kart dar: miktar etiketi düğmeye sığmıyor ve sayfayı yana taşırıyordu */
   @media (max-width: 47.99em) { .card__quick-miktar { display: none; } }
@@ -1993,7 +1998,7 @@
     .card { gap: 0.6rem; }
     .card__title { font-size: 0.9375rem; }
     .card__type { font-size: 0.6875rem; }
-    .card__price { font-size: 0.875rem; }
+    .card__price { font-size: 1.0625rem; }
   }
 
   /* ================= Koleksiyon ================= */

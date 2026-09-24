@@ -156,6 +156,42 @@ Metinler firmanın "Yiğit Alüminyum Üretim Parkurumuz" belgesinden alındı. 
 3. Online Mağaza > Gezinme > Ana menü: "Üretim" bağlantısının altına iki alt bağlantı ekleyin (Nasıl üretiyoruz? → `/pages/uretim`, Üretim Parkurumuz → `/pages/uretim-parkurumuz`).
 4. **Durak fotoğrafları:** her durağın "Fotoğraf" alanı boş. Fabrikada çekilen fotoğraflar Dosyalar'a yüklenip tema düzenleyiciden ilgili durağa seçilir; fotoğraf seçilmeyen durak yalnız yazıyla görünür (sayfa bozulmaz).
 
+## Yasal metinler (dokuz sayfa)
+
+Firmanın "Web Sitesi Yasal Metinleri" belgesi (sürüm 1.2, yürürlük 24.09.2026) dokuz ayrı sayfaya bölündü. Sayfaların HTML hâli `dist/shopify-dosyalar/yasal/` klasöründedir; her dosya doğrudan Shopify sayfa düzenleyicisine yapıştırılır.
+
+| Sayfa adresi | Başlık |
+|---|---|
+| `yasal-bildirim` | Yasal Bildirim ve Firma Bilgileri |
+| `gizlilik-politikasi` | Gizlilik Politikası |
+| `kvkk-aydinlatma-metni` | KVKK Aydınlatma Metni |
+| `cerez-politikasi` | Çerez Politikası |
+| `kullanim-sartlari` | Kullanım ve Hizmet Şartları |
+| `kargo-ve-teslimat` | Kargo ve Teslimat Politikası |
+| `iptal-iade-ve-cayma` | İptal, İade ve Cayma Politikası |
+| `on-bilgilendirme-formu` | Ön Bilgilendirme Formu |
+| `mesafeli-satis-sozlesmesi` | Mesafeli Satış Sözleşmesi |
+
+**Shopify'da yapılacaklar:**
+
+1. Online Mağaza > Sayfalar > Sayfa ekle. Başlığı yukarıdaki gibi yazın, adresin (handle) tablodaki adresle aynı olduğunu kontrol edin.
+2. İçerik kutusunun sağ üstündeki **`<>` (HTML göster)** düğmesine basın ve ilgili `.html` dosyasının içeriğini yapıştırın. Biçim bozulmasın diye metni Word'den doğrudan kopyalamayın.
+3. Dokuz sayfa için tekrarlayın.
+4. Online Mağaza > Gezinme > **Yasal** adında yeni bir menü oluşturun ve dokuz sayfayı sırayla ekleyin. Tema bu menüyü alt alanın en altında, telif satırının yanında küçük bağlantılar olarak gösterir (Tema düzenleyici > Alt alan > "Yasal metinler menüsü").
+
+**Ödeme sayfasındaki politikalar ayrı:** Shopify'ın kendi politika alanları (Ayarlar > Politikalar) ödeme adımında ve sipariş e-postalarında görünür. Dört metnin oraya da yapıştırılması gerekir:
+
+| Shopify politika alanı | Hangi metin |
+|---|---|
+| Gizlilik politikası | Gizlilik Politikası |
+| Hizmet şartları | Kullanım ve Hizmet Şartları |
+| İade politikası | İptal, İade ve Cayma Politikası |
+| Kargo politikası | Kargo ve Teslimat Politikası |
+
+Aynı metni iki yere koymak tekrar gibi görünse de gereklidir: sayfalar site içinde, politikalar ödeme akışında çalışır.
+
+**Not:** Metinler firmanın hukuk taslağıdır; içeriğe dokunulmadı, yalnız başlık numaraları ("3 Ürün bilgileri" gibi) sayfa başlıklarından temizlendi. Yürürlük tarihi ve sürüm bilgisi metinlerin içinde duruyor.
+
 ## Judge.me yorumları yeni temaya nasıl bağlanır
 
 Judge.me mağazaya kuruldu ve Google İşletme Profili'ne bağlandı (2026-09-24). Judge.me, Shopify'ın **uygulama bloğu** düzeneğiyle çalışır: kendi kodunu temaya karıştırmaz, temadaki uygulama yuvalarına yerleşir. Bu temada yuvalar hazır:
