@@ -410,6 +410,12 @@
   }
   .site-footer__sosyal { margin-block-start: clamp(1.5rem, 4svh, 2.25rem); }
   .contact__sosyal { margin-block-start: clamp(1.5rem, 4svh, 2rem); }
+  /* Sözleşmeler ve politikalar: iletişim bilgilerinin altında iki sütunlu liste */
+  .contact__yasal { margin-block-start: clamp(1.5rem, 4svh, 2rem); padding-block-start: clamp(1.25rem, 3svh, 1.75rem); border-block-start: 1px solid var(--c-rule); }
+  .contact__yasal-h { font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .contact__yasal ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.1rem 1.25rem; margin-block-start: 0.6rem; }
+  .contact__yasal a { display: inline-flex; align-items: center; min-block-size: 2.25rem; font-size: 0.9375rem; color: var(--c-ink-soft); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .contact__yasal a:hover { color: var(--c-ink); text-decoration: underline; } }
   /* Telefon menüsünün altında: etiketsiz, yalnız simgeler */
   .rail__sosyal { display: none; }
   @media (max-width: 63.99em) {
