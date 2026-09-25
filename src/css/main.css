@@ -383,12 +383,12 @@
   }
 
   /* Alt alanın en altındaki yasal bağlantılar: tek satırda, aralarında nokta ayraç */
-  .site-footer__yasal ul { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.9rem; }
-  .site-footer__yasal li { display: flex; align-items: center; gap: 0.9rem; }
-  .site-footer__yasal li + li::before { content: ''; inline-size: 3px; block-size: 3px; border-radius: 50%; background: var(--c-rule-strong); }
+  .site-footer ul.site-footer__yasal-liste { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.9rem; }
+  .site-footer__yasal-liste li { display: flex; align-items: center; gap: 0.9rem; }
+  .site-footer__yasal-liste li + li::before { content: ''; inline-size: 3px; block-size: 3px; border-radius: 50%; background: var(--c-rule-strong); }
   .site-footer__yasal a { font-size: 0.8125rem; color: var(--c-ink-soft); text-decoration: none; }
   @media (hover: hover) and (pointer: fine) { .site-footer__yasal a:hover { color: var(--c-ink); text-decoration: underline; } }
-  @media (max-width: 47.99em) { .site-footer__yasal li + li::before { display: none; } .site-footer__yasal ul { gap: 0.55rem 1rem; } }
+  @media (max-width: 47.99em) { .site-footer__yasal-liste li + li::before { display: none; } .site-footer ul.site-footer__yasal-liste { gap: 0.55rem 1rem; } }
 
   /* Sosyal medya bağlantıları (snippets/sosyal.liquid): alt alan, iletişim sayfası ve telefon menüsü */
   .sosyal { display: grid; gap: 0.6rem; }
@@ -937,8 +937,13 @@
   @media (hover: hover) and (pointer: fine) { .site-footer a:hover { text-decoration: underline; text-underline-offset: 0.25em; } }
   .site-footer__contact { display: grid; gap: 0.15rem; font-style: normal; font-size: 0.9375rem; color: var(--c-ink-soft); }
   .site-footer__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; padding-block-start: 1.1rem; border-block-start: 1px solid var(--c-rule); font-size: 0.8125rem; color: var(--c-ink-soft); }
+  /* Yasal bildirim ve firma bilgileri: menülerin altında, tek bir bant */
+  .site-footer__firma { margin-block-start: clamp(1.75rem, 4svh, 2.5rem); padding-block-start: clamp(1.25rem, 3svh, 1.75rem); border-block-start: 1px solid var(--c-rule); }
+  .firma__liste { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.8rem clamp(1.25rem, 3vw, 2.5rem); margin-block-start: 0.2rem; }
+  .firma__liste dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink-soft); }
+  .firma__liste dd { margin: 0.15rem 0 0; font-size: 0.875rem; line-height: 1.45; color: var(--c-ink); }
   /* Yasal bağlantılar kendi satırında, aralarında ince ayraçla akar; dar sütuna sıkışıp alt alta dizilmez */
-  .site-footer__yasal { flex: 1 0 100%; order: -1; padding-block-end: 0.9rem; }
+  .site-footer__yasal { margin-block-start: clamp(1rem, 2.5svh, 1.5rem); }
   .site-footer ul.site-footer__social { display: flex; gap: 0.25rem; }
   .site-footer__social a { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: var(--radius); transition: background-color var(--dur-ui) ease; }
   @media (hover: hover) and (pointer: fine) { .site-footer__social a:hover { background: var(--c-panel); } }

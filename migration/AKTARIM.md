@@ -177,7 +177,8 @@ Firmanın "Web Sitesi Yasal Metinleri" belgesi (sürüm 1.2, yürürlük 24.09.2
 1. Online Mağaza > Sayfalar > Sayfa ekle. Başlığı yukarıdaki gibi yazın, adresin (handle) tablodaki adresle aynı olduğunu kontrol edin.
 2. İçerik kutusunun sağ üstündeki **`<>` (HTML göster)** düğmesine basın ve ilgili `.html` dosyasının içeriğini yapıştırın. Biçim bozulmasın diye metni Word'den doğrudan kopyalamayın.
 3. Dokuz sayfa için tekrarlayın.
-4. Online Mağaza > Gezinme > **Yasal** adında yeni bir menü oluşturun ve dokuz sayfayı sırayla ekleyin. Tema bu menüyü alt alanın en altında, telif satırının yanında küçük bağlantılar olarak gösterir (Tema düzenleyici > Alt alan > "Yasal metinler menüsü").
+4. Online Mağaza > Gezinme > **Yasal** adında yeni bir menü oluşturun ve dokuz sayfayı sırayla ekleyin. Tema bu menüyü alt alandaki "Yasal bildirim ve firma bilgileri" bandında tek satır hâlinde gösterir (Tema düzenleyici > Alt alan > "Yasal metinler menüsü"). Aynı menü iletişim sayfasında da listelenir.
+5. Alt alandaki firma bilgileri (ticaret unvanı, işletme sahibi, kayıtlı iş adresi, vergi dairesi, ticaret sicil ve oda sicil numaraları, müşteri hizmetleri saatleri) Tema düzenleyici > Alt alan > "Yasal bildirim ve firma bilgileri" başlığı altındaki alanlardan düzenlenir; bilgiler Yasal Bildirim metnindeki değerlerle doldurulmuştur. Boş bırakılan satır görünmez.
 
 **Ödeme sayfasındaki politikalar ayrı:** Shopify'ın kendi politika alanları (Ayarlar > Politikalar) ödeme adımında ve sipariş e-postalarında görünür. Dört metnin oraya da yapıştırılması gerekir:
 

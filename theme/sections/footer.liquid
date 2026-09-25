@@ -56,6 +56,43 @@
     {%- endif -%}
   </div>
 
+  {%- comment -%}
+    Yasal bildirim ve firma bilgileri: ayrı bir sayfada durmasın diye alt alanda, menülerin altında.
+    Boş bırakılan satır görünmez; bağlantılar aynı "Yasal" menüsünden gelir.
+  {%- endcomment -%}
+  {%- liquid
+    assign f = section.settings
+    assign firma_var = false
+    if f.unvan != blank or f.sahip != blank or f.ito_adres != blank or f.vergi_dairesi != blank or f.sicil != blank or f.oda != blank or f.oda_sicil != blank or f.saatler != blank
+      assign firma_var = true
+    endif
+  -%}
+  {%- if firma_var or f.menu_yasal != blank -%}
+    <div class="site-footer__firma">
+      <h2 class="site-footer__h">{{ f.firma_baslik }}</h2>
+      {%- if firma_var -%}
+        <dl class="firma__liste">
+          {%- if f.unvan != blank -%}<div><dt>Ticaret unvanı</dt><dd>{{ f.unvan }}</dd></div>{%- endif -%}
+          {%- if f.sahip != blank -%}<div><dt>İşletme sahibi</dt><dd>{{ f.sahip }}</dd></div>{%- endif -%}
+          {%- if f.ito_adres != blank -%}<div><dt>Kayıtlı iş adresi</dt><dd>{{ f.ito_adres }}</dd></div>{%- endif -%}
+          {%- if f.vergi_dairesi != blank -%}<div><dt>Vergi dairesi</dt><dd>{{ f.vergi_dairesi }}</dd></div>{%- endif -%}
+          {%- if f.sicil != blank -%}<div><dt>Ticaret sicil numarası</dt><dd>{{ f.sicil }}</dd></div>{%- endif -%}
+          {%- if f.oda != blank -%}<div><dt>Kayıtlı olduğu oda</dt><dd>{{ f.oda }}{% if f.oda_sicil != blank %}, sicil no {{ f.oda_sicil }}{% endif %}</dd></div>{%- endif -%}
+          {%- if f.saatler != blank -%}<div><dt>Müşteri hizmetleri</dt><dd>{{ f.saatler }}</dd></div>{%- endif -%}
+        </dl>
+      {%- endif -%}
+      {%- if f.menu_yasal != blank -%}
+        <nav class="site-footer__yasal" aria-label="{{ f.yasal_baslik | default: 'Yasal metinler' }}">
+          <ul class="site-footer__yasal-liste" role="list">
+            {%- for link in f.menu_yasal.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
   {%- comment -%} Mağaza haritası her sayfanın altında; ekrana girince yüklenir {%- endcomment -%}
   {%- if section.settings.harita_goster -%}
     <div class="site-footer__harita">{%- render 'harita', kompakt: true -%}</div>
@@ -63,16 +100,6 @@
 
   <div class="site-footer__base">
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
-    {%- comment -%} Yasal metinler: telif satırının yanında küçük bağlantılar {%- endcomment -%}
-    {%- if section.settings.menu_yasal != blank -%}
-      <nav class="site-footer__yasal" aria-label="{{ section.settings.yasal_baslik | default: 'Yasal' }}">
-        <ul role="list">
-          {%- for link in section.settings.menu_yasal.links -%}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-    {%- endif -%}
   </div>
 </footer>
 
@@ -96,7 +123,17 @@
     { "type": "text", "id": "email", "label": "E-posta" },
     { "type": "url", "id": "whatsapp", "label": "WhatsApp bağlantısı", "info": "Örnek: https://wa.me/90..." },
     { "type": "text", "id": "sosyal_baslik", "label": "Sosyal medya başlığı", "default": "Bizi takip edin" },
-    { "type": "link_list", "id": "menu_yasal", "label": "Yasal metinler menüsü", "info": "Telif satırının yanında küçük bağlantılar olarak görünür." },
+    { "type": "header", "content": "Yasal bildirim ve firma bilgileri (boş bırakılan görünmez)" },
+    { "type": "text", "id": "firma_baslik", "label": "Başlık", "default": "Yasal bildirim ve firma bilgileri" },
+    { "type": "link_list", "id": "menu_yasal", "label": "Yasal metinler menüsü", "info": "Firma bilgilerinin altında bağlantı satırı olarak görünür." },
+    { "type": "text", "id": "unvan", "label": "Ticaret unvanı", "default": "MUSTAFA YİĞİT YİĞİT ALÜMİNYUM PROFİL (şahıs işletmesi)" },
+    { "type": "text", "id": "sahip", "label": "İşletme sahibi", "default": "MUSTAFA YİĞİT" },
+    { "type": "textarea", "id": "ito_adres", "label": "Kayıtlı iş adresi", "default": "Beylikdüzü OSB Mah. Birlik Sanayi Sitesi 2. Cad. No: 1/1/17 Beylikdüzü / İstanbul" },
+    { "type": "text", "id": "vergi_dairesi", "label": "Vergi dairesi", "default": "Beylikdüzü Vergi Dairesi" },
+    { "type": "text", "id": "sicil", "label": "Ticaret sicil numarası", "default": "343185-5" },
+    { "type": "text", "id": "oda", "label": "Kayıtlı olduğu oda", "default": "İstanbul Ticaret Odası" },
+    { "type": "text", "id": "oda_sicil", "label": "Oda sicil numarası", "default": "1333622" },
+    { "type": "text", "id": "saatler", "label": "Müşteri hizmetleri saatleri", "default": "Pazartesi-Cuma 09.00-18.00, Cumartesi 09.00-12.00" },
     { "type": "checkbox", "id": "harita_goster", "label": "Alt alanda harita göster", "default": true, "info": "Adres ve bağlantı Tema ayarları > Harita'dan gelir." }
   ]
 }
